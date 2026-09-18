@@ -61,8 +61,8 @@ export const PLANS = [
 
 export const PRINCIPLES = [
   { title: "Useful before impressive", body: "The point is to find something you can actually read, enter, apply for, submit to, or remember. Utility gets the first seat at the table." },
-  { title: "Check before sharing", body: "Opportunity details are checked against primary or authoritative sources. If something important cannot be verified, it should not be presented as certain." },
-  { title: "Curiosity without the noise", body: "There is enough shouting online already. Among The Letters is meant to feel more like someone spent time looking around and brought back the things worth showing you." },
+  { title: "Check before sharing", body: "Opportunity details are checked against primary or authoritative sources." },
+  { title: "Curiosity without the noise", body: "There is enough shouting online already. Among The Letters is meant to feel more like a curated list anyone can find something of interest in." },
   { title: "Leave room to wander", body: "Not every good discovery fits neatly into a trend, a release week, or an algorithm. Sometimes an older essay, an emerging writer, or an unexpected book is exactly the thing worth finding." },
 ] as const;
 

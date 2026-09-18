@@ -28,7 +28,7 @@ export function SampleIssue() {
             A useful place to begin.
           </h2>
           <p className="mt-4 text-lead text-muted">
-            Opportunity editions bring the practical details forward, then point you to the original source. Discovery editions are looser by nature, with room for a recommendation, an emerging voice, or something unexpected. These examples show the shape of the publication, not live listings.
+            Opportunity editions bring the practical details forward, then point you to the original source. Discovery editions are looser by nature, with room for a recommendation, an emerging voice, or something unexpected.
           </p>
           <figure className="mt-8">
             <img
