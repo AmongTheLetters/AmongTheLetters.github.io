@@ -6,8 +6,8 @@ export function Subscribe() {
       id="subscribe"
       className="scroll-mt-28 border-t border-rule bg-ink py-20 text-parchment md:py-28"
     >
-      <div className="section-shell grid items-center gap-12 lg:grid-cols-2">
-        <div>
+      <div className="section-shell grid min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-2">
+        <div className="min-w-0">
           <p className="kicker kicker-inverse">Come along</p>
 
           <h2 className="mt-3 font-display text-masthead font-medium">
@@ -28,7 +28,7 @@ export function Subscribe() {
           </div>
         </div>
 
-        <figure className="min-w-0 w-full">
+        <figure className="min-w-0 w-full max-w-full">
           <img
             src="./images/books.jpg"
             alt="Stacked clothbound books on a walnut table, with a cream envelope tucked between the spines."
