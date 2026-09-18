@@ -16,7 +16,7 @@ export function Hero() {
         </div>
         <figure className="mt-12 md:mt-16">
           <img src="./images/hero.jpg" alt="A writer's desk with an open book, fountain pen, letters, and coffee in window light." className="img-frame aspect-video w-full rounded-2xl object-cover md:aspect-hero" width={1792} height={1008} />
-          <figcaption className="mt-3 flex items-center justify-between gap-4 text-sm text-faint"><span>There may be something waiting for you</span><span className="hidden font-medium uppercase tracking-kicker text-oxblood sm:inline">Among the Letters</span></figcaption>
+          <figcaption className="mt-3 flex items-center justify-between gap-4 text-sm text-faint"><span>There may be something waiting for you</span><span className="hidden font-medium tracking-kicker text-oxblood sm:inline">Among the Letters</span></figcaption>
         </figure>
       </div>
     </section>
