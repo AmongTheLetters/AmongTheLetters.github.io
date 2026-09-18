@@ -44,7 +44,8 @@ export function Hero() {
               href="mailto:amongtheletters@gmail.com?subject=Lifetime%20Subscription%20Inquiry"
               className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
             >
-              Lifetime Subscriptions Available for $100, with the full newsletter plus select future releases and extras as Among The Letters grows. Email
+              Lifetime Subscriptions Available for $100, with the full newsletter plus select future releases and extras as Among The Letters grows.<br />
+              Email
               {" "}amongtheletters@gmail.com for more info.
             </a>
           </p>
