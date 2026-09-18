@@ -45,7 +45,7 @@ export function Hero() {
               className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
             >
               Lifetime Subscriptions Available for $100.<br />
-              Includes the entire newsletter plus select extras along the way.<br />
+              Includes the entire newsletter plus select extras.<br />
               Email
               {" "}amongtheletters@gmail.com for more info.
             </a>
