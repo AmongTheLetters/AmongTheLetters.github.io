@@ -46,9 +46,16 @@ export function SampleIssue() {
             <p className="font-display text-2xl tracking-tight text-ink">
               Morning Opportunities
             </p>
-            <p className="text-sm text-muted">Free edition</p>
+            <a
+               href="https://amongtheletters.substack.com/"
+              target="_blank"
+               rel="noreferrer"
+               className="text-sm text-muted transition-colors hover:text-oxblood hover:underline"
+               >
+              Read on Substack
+            </a>
           </div>
-          <p className="mt-1 text-sm text-faint">Illustrative sample</p>
+          <p className="mt-1 text-sm text-faint">A way to begin.</p>
 
           <h3 className="mt-8 kicker">Writing / work</h3>
           <ul className="mt-3">
