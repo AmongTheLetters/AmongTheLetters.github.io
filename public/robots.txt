@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amongtheletters.github.io/sitemap.xml
