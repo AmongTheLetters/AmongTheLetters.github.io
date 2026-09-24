@@ -19,7 +19,7 @@ export function Monogram({ className }: { className?: string }) {
 export function Wordmark({ className }: { className?: string }) {
   return (
     <a
-      href="#top"
+      href="/"
       className={cn(
         "inline-flex items-center gap-2.5 text-ink transition-opacity duration-[var(--motion-quick)] hover:opacity-80",
         className,

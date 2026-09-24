@@ -8,11 +8,7 @@ export function Hero() {
         <div className="stagger-in mx-auto max-w-4xl text-center">
           <div className="flex items-center gap-4">
             <span className="rule flex-1" />
-
-            <p className="kicker shrink-0 text-ink/70">
-              {SITE.kicker}
-            </p>
-
+            <p className="kicker shrink-0 text-ink/70">{SITE.kicker}</p>
             <span className="rule flex-1" />
           </div>
 
@@ -20,9 +16,7 @@ export function Hero() {
             <span className="italic">Among</span> the Letters
           </h1>
 
-          <div className="mx-auto mt-5 max-w-2xl">
-            <div className="rule-double" />
-          </div>
+          <div className="mx-auto mt-5 max-w-2xl"><div className="rule-double" /></div>
 
           <p className="mx-auto mt-8 max-w-2xl font-display text-deck font-normal leading-snug tracking-tight text-ink">
             Find useful opportunities.
@@ -30,31 +24,32 @@ export function Hero() {
           </p>
 
           <p className="mx-auto mt-5 max-w-xl text-lead text-muted">
-            A gathering place for writers, readers, and curious people. Come
-            for the opportunities, stay for the books, essays, authors,
-            stories, and strange little things worth finding along the way.
+            A gathering place for writers, readers, and curious people. Come for the opportunities, stay for the books, essays, authors, stories, and strange little things worth finding along the way.
           </p>
 
           <div className="mx-auto mt-8 flex justify-center">
             <SubstackLink label="Wander over to Substack" />
           </div>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm">
-            <a
-              href="mailto:amongtheletters@gmail.com?subject=Lifetime%20Subscription%20Inquiry"
-              className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
-            >
-              Lifetime Memberships Available for $100.<br />
-              Includes the entire newsletter plus select extras.<br />
-              Email
-              {" "}amongtheletters@gmail.com for more info.
-            </a>
-          </p>
-
-          <p className="mt-5 text-sm text-muted">
-            Morning Opportunities on Mondays and Thursdays
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-muted">
+            Morning Opportunities on Mondays
             <span className="mx-2 text-rule-strong">·</span>
             Afternoon Discoveries every day
+            <span className="mx-2 text-rule-strong">·</span>
+            Sunday evening roundup for paid subscribers
+          </p>
+
+          <p className="mx-auto mt-4 max-w-xl text-sm">
+            <a
+              href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry"
+              className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
+            >
+              Founding lifetime memberships are available for $100.
+              <br />
+              Lifetime paid newsletter access, plus select future Among The Letters releases outside Substack.
+              <br />
+              Email amongtheletters@gmail.com for details.
+            </a>
           </p>
         </div>
 
@@ -66,13 +61,9 @@ export function Hero() {
             width={1792}
             height={1008}
           />
-
           <figcaption className="mt-3 flex items-center justify-between gap-4 text-sm text-faint">
             <span>There may be something waiting for you</span>
-
-            <span className="hidden font-medium tracking-kicker text-oxblood sm:inline">
-              Among the Letters
-            </span>
+            <span className="hidden font-medium tracking-kicker text-oxblood sm:inline">Among the Letters</span>
           </figcaption>
         </figure>
       </div>

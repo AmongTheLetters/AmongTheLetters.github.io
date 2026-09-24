@@ -15,9 +15,9 @@ export function Subscribe() {
           </h2>
 
           <p className="mt-4 max-w-xl text-lead text-parchment/75">
-            The newsletter lives entirely on Substack. Read for free,
-            subscribe if you would like it delivered, or choose the full
-            edition if you want more of what we find.
+            New editions are published on Substack. Read for free, subscribe if
+            you would like them delivered, or choose the full edition for
+            expanded daily discoveries and the Sunday evening Weekly Discoveries Roundup.
           </p>
 
           <div className="mt-8">

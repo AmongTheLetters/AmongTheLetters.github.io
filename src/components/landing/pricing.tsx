@@ -18,9 +18,9 @@ export function Pricing() {
           </h2>
 
           <p className="mt-4 text-lead text-muted">
-            Everything happens on Substack. The free edition stands on its
-            own. The paid edition is simply for readers who would like more
-            opportunities, more discoveries, and a little more room to wander.
+            The free edition stands on its own. The standard paid newsletter is
+            $5 a month through Substack, with expanded daily discoveries and the
+            complete Sunday evening Weekly Discoveries Roundup.
           </p>
         </div>
 
@@ -88,6 +88,23 @@ export function Pricing() {
             </article>
           ))}
         </div>
+
+        <aside className="mx-auto mt-8 max-w-4xl rounded-xl border border-oxblood/20 bg-paper p-6 shadow-[var(--shadow-border)] md:flex md:items-center md:justify-between md:gap-10 md:p-8">
+          <div className="max-w-2xl">
+            <p className="kicker">Early supporter offer</p>
+            <h3 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">
+              A $100 founding lifetime membership.
+            </h3>
+            <p className="mt-3 text-muted">
+              This is separate from the standard monthly Substack plan. It includes lifetime access to the paid Among The Letters newsletter, plus select future Among The Letters products released outside Substack. Those future extras are not being promised by name before they exist.
+            </p>
+          </div>
+          <Button asChild variant="outline" size="lg" className="mt-6 shrink-0 md:mt-0">
+            <a href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry">
+              Ask about lifetime membership
+            </a>
+          </Button>
+        </aside>
       </div>
     </section>
   );
