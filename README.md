@@ -39,7 +39,7 @@ That can include:
 - Interviews, criticism, craft, and literary journalism
 - Older or overlooked work worth returning to as Special Recommendations
 
-Afternoon Discoveries follows a seven-day genre rhythm while leaving room for an exceptional cross-genre find. The existing Sunday theme is **Emerging Writers + Worth Revisiting**.
+Afternoon Discoveries follows a seven-day genre rhythm while leaving room for an exceptional cross-genre find. The existing Sunday theme is **Emerging Writers & Worth Revisiting**.
 
 Regular Afternoon Discoveries posts contain a useful free section followed by an expanded paid section.
 
@@ -61,7 +61,7 @@ Among The Letters can be read for free. The free portions of regular Morning and
 
 The standard paid subscription is **$5 per month** and expands the regular editions with more opportunities, discoveries, Special Recommendations, and context. Paid subscribers also receive the complete Sunday evening Weekly Discoveries Roundup.
 
-Standard newsletter subscriptions, publishing, and billing are handled through Substack. Among The Letters also offers a separate **$100 founding lifetime membership** during this early stage. That offer includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack. Specific future extras are intentionally not promised before those products exist; inquiries are handled directly at **amongtheletters@gmail.com**.
+Standard newsletter subscriptions, publishing, and billing are handled through Substack. Among The Letters also offers a separate **$299 CAD founding lifetime membership** during this early stage. That offer includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack. Inquiries are handled directly at **amongtheletters@gmail.com**.
 
 ## Newsletter Archive
 

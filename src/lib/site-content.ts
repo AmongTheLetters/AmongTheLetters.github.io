@@ -58,14 +58,38 @@ export const FEATURES = [
 ] as const;
 
 export const GENRES = [
-  { day: "Monday", genre: "Literary Fiction + Poetry" },
-  { day: "Tuesday", genre: "Science Fiction + Fantasy" },
-  { day: "Wednesday", genre: "Mystery / Thriller / Crime + Horror / Dark Fiction" },
-  { day: "Thursday", genre: "Romance / Women's Fiction + Historical Fiction" },
-  { day: "Friday", genre: "Creative Nonfiction / Memoir + Essays & Narrative Journalism" },
-  { day: "Saturday", genre: "Speculative / Hybrid / Experimental + Short Fiction & Flash" },
-  { day: "Sunday", genre: "Emerging Writers + Worth Revisiting" },
+  { day: "Monday", genre: "Literary Fiction & Poetry" },
+  { day: "Tuesday", genre: "Science Fiction & Fantasy" },
+  { day: "Wednesday", genre: "Mystery, Thriller, Crime, Horror, & Dark Fiction" },
+  { day: "Thursday", genre: "Romance, Women's Fiction, & Historical Fiction" },
+  { day: "Friday", genre: "Creative Nonfiction, Memoir, Essays, & Narrative Journalism" },
+  { day: "Saturday", genre: "Speculative, Hybrid, Experimental, Short Fiction, & Flash" },
+  { day: "Sunday", genre: "Emerging Writers & Worth Revisiting" },
 ] as const;
+
+const WEEKDAY_TO_GENRE = Object.fromEntries(
+  GENRES.map((entry) => [entry.day, entry.genre]),
+) as Record<(typeof GENRES)[number]["day"], (typeof GENRES)[number]["genre"]>;
+
+const WEEKDAY_NAMES = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+] as const;
+
+/** Map a YYYY-MM-DD archive date to that weekday's Afternoon Discoveries genre theme. */
+export function genreForDate(date: string): string {
+  const weekday = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    timeZone: "UTC",
+  }).format(new Date(`${date}T12:00:00Z`)) as (typeof WEEKDAY_NAMES)[number];
+
+  return WEEKDAY_TO_GENRE[weekday] ?? WEEKDAY_TO_GENRE.Sunday;
+}
 
 export const MORNING_SAMPLE = [
   {
@@ -212,11 +236,11 @@ export const FAQ = [
     a: "No. The free portion of regular Morning and Afternoon editions is meant to be worth reading on its own. A paid subscription expands those editions and includes the complete Sunday Weekly Discoveries Roundup.",
   },
   {
-    q: "What is the $100 lifetime membership?",
-    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. It includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack. Those future extras are intentionally not promised by name before they exist.",
+    q: "What is the $299 CAD lifetime membership?",
+    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. It includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack.",
   },
   {
     q: "Where do I subscribe or manage billing?",
-    a: "The standard newsletter subscription is handled by Substack. You can subscribe for free, choose the $5 monthly paid option, or manage an existing Substack subscription from your account. A separate $100 founding lifetime offer is available directly through Among The Letters.",
+    a: "The standard newsletter subscription is handled by Substack. You can subscribe for free, choose the $5 monthly paid option, or manage an existing Substack subscription from your account. A separate $299 CAD founding lifetime offer is available directly through Among The Letters.",
   },
 ] as const;

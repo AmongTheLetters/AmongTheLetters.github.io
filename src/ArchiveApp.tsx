@@ -5,6 +5,8 @@ import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SubstackLink } from "@/components/landing/substack-link";
 import { ARCHIVE_ISSUES, EDITION_DESCRIPTIONS, type ArchiveIssue } from "@/lib/archive-content";
+import { genreForDate } from "@/lib/site-content";
+import { FlierPopup } from "@/components/landing/flier-popup";
 
 type EditionFilter = "All editions" | ArchiveIssue["edition"];
 
@@ -47,7 +49,9 @@ function IssueCard({ issue }: { issue: ArchiveIssue }) {
           {readableDate(issue.date)}
         </p>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          {EDITION_DESCRIPTIONS[issue.edition]}
+          {issue.edition === "Afternoon Discoveries"
+            ? genreForDate(issue.date)
+            : EDITION_DESCRIPTIONS[issue.edition]}
         </p>
       </div>
 
@@ -85,7 +89,7 @@ export function ArchiveApp() {
   const latest = ARCHIVE_ISSUES[0];
 
   return (
-    <div id="top" className="relative min-h-dvh bg-paper text-ink">
+    <div id="top" className="relative isolate min-h-dvh bg-paper text-ink">
       <a href="#issues" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">
         Skip to published issues
       </a>
@@ -202,7 +206,9 @@ export function ArchiveApp() {
       </main>
 
       <SiteFooter />
+      <div className="page-fleur" aria-hidden="true" />
       <div className="page-grain" aria-hidden="true" />
+      <FlierPopup />
     </div>
   );
 }

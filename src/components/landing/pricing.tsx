@@ -93,10 +93,10 @@ export function Pricing() {
           <div className="max-w-2xl">
             <p className="kicker">Early supporter offer</p>
             <h3 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">
-              A $100 founding lifetime membership.
+              A $299 CAD founding lifetime membership.
             </h3>
             <p className="mt-3 text-muted">
-              This is separate from the standard monthly Substack plan. It includes lifetime access to the paid Among The Letters newsletter, plus select future Among The Letters products released outside Substack. Those future extras are not being promised by name before they exist.
+              This is separate from the standard monthly Substack plan. It includes lifetime access to the paid Among The Letters newsletter, plus select future Among The Letters products released outside Substack.
             </p>
           </div>
           <Button asChild variant="outline" size="lg" className="mt-6 shrink-0 md:mt-0">

@@ -2,6 +2,7 @@ import { ArchiveTeaser } from "@/components/landing/archive-teaser";
 import { Briefing } from "@/components/landing/briefing";
 import { Faq } from "@/components/landing/faq";
 import { Features } from "@/components/landing/features";
+import { FlierPopup } from "@/components/landing/flier-popup";
 import { Genres } from "@/components/landing/genres";
 import { Hero } from "@/components/landing/hero";
 import { Pricing } from "@/components/landing/pricing";
@@ -14,14 +15,16 @@ import { Testimonials } from "@/components/landing/testimonials";
 
 export function App() {
   return (
-    <div id="top" className="relative min-h-dvh bg-paper text-ink">
+    <div id="top" className="relative isolate min-h-dvh bg-paper text-ink">
       <a href="#briefing" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">Skip to content</a>
       <SiteHeader />
       <main>
         <Hero /><ProofBar /><Briefing /><Features /><SampleIssue /><ArchiveTeaser /><Genres /><Pricing /><Testimonials /><Faq /><Subscribe />
       </main>
       <SiteFooter />
+      <div className="page-fleur" aria-hidden="true" />
       <div className="page-grain" aria-hidden="true" />
+      <FlierPopup />
     </div>
   );
 }

@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { SubstackLink } from "@/components/landing/substack-link";
-import { SITE } from "@/lib/site-content";
+import { ARCHIVE_URL, SITE } from "@/lib/site-content";
 
 export function Hero() {
   return (
@@ -23,6 +24,12 @@ export function Hero() {
             <br className="hidden sm:block" /> Discover worthwhile writing.
           </p>
 
+          <div className="mx-auto mt-6 flex justify-center">
+            <Button asChild variant="outline" size="lg">
+              <a href={ARCHIVE_URL}>Browse the archive</a>
+            </Button>
+          </div>
+
           <p className="mx-auto mt-5 max-w-xl text-lead text-muted">
             A gathering place for writers, readers, and curious people. Come for the opportunities, stay for the books, essays, authors, stories, and strange little things worth finding along the way.
           </p>
@@ -44,7 +51,7 @@ export function Hero() {
               href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry"
               className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
             >
-              Founding lifetime memberships are available for $100.
+              Founding lifetime memberships are available for $299 CAD.
               <br />
               Lifetime paid newsletter access, plus select future Among The Letters releases outside Substack.
               <br />
