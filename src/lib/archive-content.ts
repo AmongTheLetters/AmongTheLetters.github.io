@@ -1,14 +1,84 @@
-export type ArchiveIssue = {
+﻿export type ArchiveIssue = {
   slug: string;
   edition: "Morning Opportunities" | "Afternoon Discoveries" | "Weekly Discoveries Roundup";
   date: string;
   pdf: string;
 };
 
-// The archive is intentionally explicit instead of auto-publishing every PDF
-// placed in the repository. Add an issue here only when you want its PDF to be
-// publicly accessible from the website.
+// Explicit public archive. Afternoon Discoveries only — never list Morning Opportunities or Sunday Roundup.
 export const ARCHIVE_ISSUES: ArchiveIssue[] = [
+  {
+    slug: "afternoon-discoveries-2026-10-06",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-06",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-06.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-10-05",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-05",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-05.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-10-04",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-04",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-04.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-10-03",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-03",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-03.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-10-02",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-02",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-02.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-10-01",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-01",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-01.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-09-30",
+    edition: "Afternoon Discoveries",
+    date: "2026-09-30",
+    pdf: "/newsletters/afternoon-discoveries-2026-09-30.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-09-29",
+    edition: "Afternoon Discoveries",
+    date: "2026-09-29",
+    pdf: "/newsletters/afternoon-discoveries-2026-09-29.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-09-28",
+    edition: "Afternoon Discoveries",
+    date: "2026-09-28",
+    pdf: "/newsletters/afternoon-discoveries-2026-09-28.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-09-27",
+    edition: "Afternoon Discoveries",
+    date: "2026-09-27",
+    pdf: "/newsletters/afternoon-discoveries-2026-09-27.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-09-26",
+    edition: "Afternoon Discoveries",
+    date: "2026-09-26",
+    pdf: "/newsletters/afternoon-discoveries-2026-09-26.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-09-25",
+    edition: "Afternoon Discoveries",
+    date: "2026-09-25",
+    pdf: "/newsletters/afternoon-discoveries-2026-09-25.pdf",
+  },
   {
     slug: "afternoon-discoveries-2026-09-24",
     edition: "Afternoon Discoveries",
@@ -50,7 +120,7 @@ export const ARCHIVE_ISSUES: ArchiveIssue[] = [
     edition: "Afternoon Discoveries",
     date: "2026-09-18",
     pdf: "/newsletters/afternoon-discoveries-2026-09-18.pdf",
-  },
+  }
 ];
 
 export const EDITION_DESCRIPTIONS: Record<ArchiveIssue["edition"], string> = {
