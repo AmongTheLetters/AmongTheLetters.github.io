@@ -12,8 +12,8 @@ const buttonVariants = cva(
           "bg-oxblood text-parchment shadow-[var(--shadow-border)] hover:bg-oxblood-dark",
         ink: "bg-ink text-parchment shadow-[var(--shadow-border)] hover:bg-ink/90",
         outline:
-          "bg-transparent text-ink shadow-[var(--shadow-border)] hover:bg-ink/5",
-        ghost: "bg-transparent text-ink hover:bg-ink/5",
+          "bg-cream text-ink shadow-[var(--shadow-border)] hover:bg-paper",
+        ghost: "bg-cream text-ink hover:bg-paper",
         link: "text-oxblood underline-offset-4 hover:underline",
       },
       size: {

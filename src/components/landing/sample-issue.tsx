@@ -40,7 +40,7 @@ const editions = [
 
 export function SampleIssue() {
   return (
-    <section className="border-t border-rule bg-cream py-20 md:py-28">
+    <section className="border-t border-rule band-sage py-20 md:py-28">
       <div className="section-shell">
         <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>

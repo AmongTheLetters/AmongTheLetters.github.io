@@ -18,7 +18,7 @@ export function ArchiveTeaser() {
             Browse published PDF editions by date and open the original issue when you want to return to something you found here.
           </p>
         </div>
-        <Button asChild variant="outline" size="lg" className="shrink-0 border-parchment/30 text-parchment hover:bg-parchment hover:text-ink">
+        <Button asChild variant="outline" size="lg" className="shrink-0 border border-parchment/30 bg-ink text-parchment hover:bg-parchment hover:text-ink">
           <a href={ARCHIVE_URL}>Browse the archive <ArrowRight className="size-4" /></a>
         </Button>
       </div>

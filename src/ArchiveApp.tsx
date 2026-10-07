@@ -89,7 +89,7 @@ export function ArchiveApp() {
   const latest = ARCHIVE_ISSUES[0];
 
   return (
-    <div id="top" className="relative isolate min-h-dvh bg-paper text-ink">
+    <div id="top" className="relative isolate min-h-dvh bg-news text-ink">
       <a href="#issues" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">
         Skip to published issues
       </a>
@@ -112,7 +112,7 @@ export function ArchiveApp() {
                 </p>
               </div>
 
-              <div className="rounded-xl bg-cream p-6 shadow-[var(--shadow-border)] md:p-7">
+              <div className="rounded-xl border border-bark/25 bg-cream p-6 shadow-[var(--shadow-border)] md:p-7">
                 <div className="flex items-center gap-2 text-muted">
                   <CalendarDays className="size-4" strokeWidth={1.75} />
                   <p className="text-sm font-medium">Newest in the archive</p>
@@ -206,6 +206,7 @@ export function ArchiveApp() {
       </main>
 
       <SiteFooter />
+      <div className="page-newsprint" aria-hidden="true" />
       <div className="page-fleur" aria-hidden="true" />
       <div className="page-grain" aria-hidden="true" />
       <FlierPopup />

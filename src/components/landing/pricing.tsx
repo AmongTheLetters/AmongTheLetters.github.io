@@ -66,7 +66,7 @@ export function Pricing() {
                     <Check
                       className={cn(
                         "mt-0.5 size-4 shrink-0",
-                        plan.featured ? "text-parchment" : "text-oxblood",
+                        plan.featured ? "text-parchment" : "text-sage",
                       )}
                       strokeWidth={2.25}
                     />
@@ -89,7 +89,7 @@ export function Pricing() {
           ))}
         </div>
 
-        <aside className="mx-auto mt-8 max-w-4xl rounded-xl border border-oxblood/20 bg-paper p-6 shadow-[var(--shadow-border)] md:flex md:items-center md:justify-between md:gap-10 md:p-8">
+        <aside className="mx-auto mt-8 max-w-4xl rounded-xl border border-bark/30 bg-cream p-6 shadow-[var(--shadow-border)] md:flex md:items-center md:justify-between md:gap-10 md:p-8">
           <div className="max-w-2xl">
             <p className="kicker">Early supporter offer</p>
             <h3 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">

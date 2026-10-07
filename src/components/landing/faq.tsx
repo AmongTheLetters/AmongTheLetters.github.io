@@ -20,7 +20,7 @@ export function Faq() {
             use Substack's own tools.
           </p>
         </div>
-        <Accordion type="single" collapsible className="border-t border-rule">
+        <Accordion type="single" collapsible className="rounded-xl border border-rule bg-cream px-5 shadow-[var(--shadow-border)] md:px-6">
           {FAQ.map((item, index) => (
             <AccordionItem key={item.q} value={`item-${index}`}>
               <AccordionTrigger>{item.q}</AccordionTrigger>

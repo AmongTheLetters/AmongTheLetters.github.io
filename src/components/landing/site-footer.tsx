@@ -3,7 +3,7 @@ import { NAV, SITE, SUBSTACK_URL } from "@/lib/site-content";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-rule bg-paper py-12">
+    <footer className="border-t border-rule bg-cream py-12">
       <div className="section-shell flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div>
           <Wordmark />

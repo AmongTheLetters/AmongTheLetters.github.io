@@ -24,12 +24,12 @@ export function Features() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-px overflow-hidden rounded-xl bg-rule shadow-[var(--shadow-border)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-xl bg-rule shadow-[var(--shadow-border)] ring-1 ring-sage/20 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((feature, index) => {
             const Icon = ICONS[index] ?? ShieldCheck;
             return (
               <article key={feature.title} className="bg-paper p-6 md:p-7">
-                <Icon className="size-5 text-oxblood" strokeWidth={1.75} />
+                <Icon className={`size-5 ${index % 2 === 0 ? "text-oxblood" : "text-sage"}`} strokeWidth={1.75} />
                 <h3 className="mt-4 font-display text-xl font-medium tracking-tight text-ink">
                   {feature.title}
                 </h3>

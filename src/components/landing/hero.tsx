@@ -7,11 +7,10 @@ export function Hero() {
     <section className="relative overflow-hidden pb-16 pt-8 md:pb-24 md:pt-12">
       <div className="section-shell">
         <div className="stagger-in mx-auto max-w-4xl text-center">
-          <div className="flex items-center gap-4">
-            <span className="rule flex-1" />
-            <p className="kicker shrink-0 text-ink/70">{SITE.kicker}</p>
-            <span className="rule flex-1" />
+          <div className="rule-floral" aria-hidden="true">
+            <span className="rule-floral-mark"><span /></span>
           </div>
+          <p className="mt-4 kicker shrink-0 text-bark">{SITE.kicker}</p>
 
           <h1 className="mt-6 font-display text-display font-medium tracking-tight text-ink">
             <span className="italic">Among</span> the Letters

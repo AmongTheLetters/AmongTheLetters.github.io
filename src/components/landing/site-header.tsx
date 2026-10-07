@@ -26,10 +26,10 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 border-b backdrop-blur-md transition-[background-color,box-shadow,border-color] duration-[var(--motion-fast)] ease-[var(--ease-out)]",
+        "sticky top-0 z-30 border-b transition-[background-color,box-shadow,border-color] duration-[var(--motion-fast)] ease-[var(--ease-out)]",
         scrolled
-          ? "border-rule bg-paper/88 shadow-[var(--shadow-border)]"
-          : "border-transparent bg-paper/70",
+          ? "border-rule bg-cream shadow-[var(--shadow-border)]"
+          : "border-transparent bg-cream",
       )}
     >
       <div className="section-shell flex h-16 items-center justify-between gap-4">
@@ -69,7 +69,7 @@ export function SiteHeader() {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-rule bg-paper md:hidden"
+          className="border-t border-rule bg-cream md:hidden"
         >
           <nav className="section-shell flex flex-col py-4" aria-label="Mobile">
             {NAV.map((item) => (

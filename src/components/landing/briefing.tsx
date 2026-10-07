@@ -32,7 +32,7 @@ export function Briefing() {
     <section id="briefing" className="scroll-mt-28 py-20 md:py-28">
       <div className="section-shell">
         <div className="max-w-2xl">
-          <p className="kicker">What you'll find</p>
+          <p className="kicker kicker-sage">What you'll find</p>
           <h2 className="mt-3 font-display text-masthead font-medium text-ink">
             One publication, three ways to find something worth your time.
           </h2>
