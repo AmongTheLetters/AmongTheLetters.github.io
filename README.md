@@ -67,7 +67,7 @@ Standard newsletter subscriptions, publishing, and billing are handled through S
 
 The website includes a dedicated archive at:
 
-**https://amongtheletters.github.io/archive/**
+**https://amongtheletters.com/archive/**
 
 The archive displays published editions that have been intentionally approved for public PDF access. Each archive card opens the corresponding PDF in a new browser tab.
 
@@ -81,11 +81,15 @@ The archive displays published editions that have been intentionally approved fo
 
 ## Read Among The Letters
 
-**Website:** https://amongtheletters.github.io/
+**Website:** https://amongtheletters.com/
+
+**Legacy GitHub Pages URL:** https://amongtheletters.github.io/ (redirects to amongtheletters.com once custom-domain DNS is live)
 
 **Newsletter:** https://amongtheletters.substack.com/
 
 ## About This Website
+
+The canonical public site is **https://amongtheletters.com**. The GitHub Pages host at amongtheletters.github.io redirects to that custom domain once DNS is configured.
 
 This website serves as the permanent public home and introduction to Among The Letters. It explains the publication rhythm, subscription structure, editorial approach, genre calendar, and provides access to the public PDF archive.
 

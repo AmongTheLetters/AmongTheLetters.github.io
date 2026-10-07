@@ -1,0 +1,86 @@
+# Among The Letters - Full Description for LLMs
+
+Canonical website: https://amongtheletters.com
+Legacy GitHub Pages URL: https://amongtheletters.github.io/ (redirects to amongtheletters.com once custom-domain DNS is live)
+Newsletter (Substack): https://amongtheletters.substack.com/
+Contact: amongtheletters@gmail.com
+Established: 2026
+
+## What it is
+
+Among The Letters is an independent literary newsletter for writers, readers, and curious people. It gathers useful opportunities for writers and worthwhile literary discoveries in one place. The tone is considered and practical rather than noisy.
+
+Tagline: Useful opportunities. Worthwhile writing. Curious things worth finding.
+
+## Editions
+
+### Morning Opportunities (Mondays)
+
+Published on Mondays only. Gathers legitimate opportunities for writers, including:
+
+- Paid writing and editorial work
+- Literary contests and prizes
+- Grants and fellowships
+- Residencies
+- Calls for submissions
+- Other worthwhile opportunities for writers
+
+Listings emphasize useful details, clear requirements, and primary or authoritative sources. Deadlines, eligibility, fees, pay, prizes, and application details are included when they can be confirmed. Secondary roundups may help uncover a lead, but they are not treated as the final source.
+
+Regular Morning Opportunities posts contain a useful free section followed by an expanded paid section.
+
+### Afternoon Discoveries (daily)
+
+Published every day, Sunday through Saturday. Explores books, authors, essays, stories, poems, literary magazines, writing projects, emerging voices, forthcoming work, interviews, criticism, craft, literary journalism, and carefully chosen older or overlooked material as Special Recommendations.
+
+Regular Afternoon Discoveries posts contain a useful free section followed by an expanded paid section.
+
+Afternoon Discoveries follows a seven-day genre rhythm:
+
+- Monday: Literary Fiction & Poetry
+- Tuesday: Science Fiction & Fantasy
+- Wednesday: Mystery, Thriller, Crime, Horror, & Dark Fiction
+- Thursday: Romance, Women's Fiction, & Historical Fiction
+- Friday: Creative Nonfiction, Memoir, Essays, & Narrative Journalism
+- Saturday: Speculative, Hybrid, Experimental, Short Fiction, & Flash
+- Sunday: Emerging Writers & Worth Revisiting
+
+### Weekly Discoveries Roundup (Sunday evening, paid)
+
+Published on Sunday evenings for paid subscribers, in addition to the regular Sunday Afternoon Discoveries edition. It is a compact catch-up that gathers:
+
+- Every Featured Discovery from the week
+- Concise day-by-day summaries with read-more links
+- A small set of Monday opportunities that remain timely, when useful
+
+The Sunday roundup is a complete paid-subscriber post rather than a free section followed by an internal paywall.
+
+## Free vs paid
+
+- Free: The free portion of Monday Morning Opportunities and of daily Afternoon Discoveries. Free sections are designed to be genuinely useful on their own, not teasers with the useful part missing.
+- Full ($5 per month on Substack): Everything in the free edition, plus expanded Monday opportunity roundups, expanded Afternoon Discoveries every day, Special Recommendations and deeper context, and the paid-subscriber-only Weekly Discoveries Roundup every Sunday.
+- Founding lifetime membership ($299 CAD): An early founding offer separate from the standard monthly Substack plan. Includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack. Inquiries: amongtheletters@gmail.com.
+
+Standard newsletter subscriptions, publishing, and billing are handled through Substack.
+
+## Public archive policy
+
+The website archive at https://amongtheletters.com/archive/ displays published Afternoon Discoveries editions that have been intentionally approved for public PDF access. Each archive card opens the corresponding PDF.
+
+Morning Opportunities and the Sunday Weekly Discoveries Roundup are not listed on the public archive. Files in /newsletters/ are publicly accessible PDFs of Afternoon Discoveries only.
+
+## Editorial principles
+
+- Useful before impressive: find something you can actually read, enter, apply for, submit to, or remember.
+- Check before sharing: opportunity details are checked against primary or authoritative sources; links return to the source.
+- Curiosity without the noise: a considered gathering rather than shouting.
+- Leave room to wander: older essays, emerging writers, and unexpected books can matter as much as trends.
+
+## Site map for machines
+
+- Home: https://amongtheletters.com/
+- Archive: https://amongtheletters.com/archive/
+- llms.txt: https://amongtheletters.com/llms.txt
+- This file: https://amongtheletters.com/llms-full.txt
+- Sitemap: https://amongtheletters.com/sitemap.xml
+- Substack: https://amongtheletters.substack.com/
