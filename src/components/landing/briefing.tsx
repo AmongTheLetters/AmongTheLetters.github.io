@@ -33,10 +33,10 @@ export function Briefing() {
       <div className="section-shell">
         <div className="max-w-2xl">
           <p className="kicker kicker-sage">What you'll find</p>
-          <h2 className="mt-3 font-display text-masthead font-medium text-ink">
+          <h2 className="text-on-open mt-3 font-display text-masthead font-medium text-ink">
             One publication, three ways to find something worth your time.
           </h2>
-          <p className="mt-4 max-w-xl text-lead text-muted">
+          <p className="text-on-open mt-4 max-w-xl text-lead text-muted">
             Monday begins with somewhere your work might go. Every afternoon turns toward reading. On Sunday evening, paid subscribers get the week gathered back together too.
           </p>
         </div>

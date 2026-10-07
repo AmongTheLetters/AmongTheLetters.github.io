@@ -12,10 +12,10 @@ export function Faq() {
       <div className="section-shell grid gap-12 lg:grid-cols-2">
         <div>
           <p className="kicker">Questions</p>
-          <h2 className="mt-3 font-display text-masthead font-medium text-ink">
+          <h2 className="text-on-open mt-3 font-display text-masthead font-medium text-ink">
             Straight answers.
           </h2>
-          <p className="mt-4 max-w-sm text-muted">
+          <p className="text-on-open mt-4 max-w-sm text-muted">
             The briefing is published on Substack. Subscriptions and billing
             use Substack's own tools.
           </p>

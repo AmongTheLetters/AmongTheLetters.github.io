@@ -7,11 +7,11 @@ export function Genres() {
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-xl">
             <p className="kicker kicker-sage">The week in genre</p>
-            <h2 className="mt-3 font-display text-masthead font-medium text-ink">
+            <h2 className="text-on-open mt-3 font-display text-masthead font-medium text-ink">
               Seven afternoons, a different corner of the bookshelf each day.
             </h2>
           </div>
-          <p className="max-w-md text-muted">
+          <p className="text-on-open max-w-md text-muted">
             Afternoon Discoveries follows a seven-day genre rhythm. The themes guide the search without becoming a cage, and Sunday keeps its own discovery edition before the paid weekly roundup arrives that evening.
           </p>
         </div>

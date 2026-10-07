@@ -16,10 +16,10 @@ export function Features() {
       <div className="section-shell">
         <div className="max-w-2xl">
           <p className="kicker">How it works</p>
-          <h2 className="mt-3 font-display text-masthead font-medium text-ink">
+          <h2 className="text-on-open mt-3 font-display text-masthead font-medium text-ink">
             Less searching. More finding.
           </h2>
-          <p className="mt-4 max-w-xl text-lead text-muted">
+          <p className="text-on-open mt-4 max-w-xl text-lead text-muted">
             Good opportunities and good writing are scattered all over the place. We go looking, check what needs checking, and gather the pieces that seem worth your time.
           </p>
         </div>

@@ -136,17 +136,25 @@
     opacity: 0.55;
   }
 
-  /* Chris's fleur tile on top of newsprint; layer opacity ~0.45 so pattern reads clearly */
+  /* Chris's fleur tile on top of newsprint; ~20% opacity chosen for readability over open background text */
   .page-fleur {
     pointer-events: none;
     position: fixed;
     inset: 0;
     z-index: -1;
-    opacity: 0.48;
+    opacity: 0.20;
     background-image: url("/images/fleur-de-lis-tile.png");
     background-size: 160px 160px;
     background-repeat: repeat;
     background-position: center top;
+  }
+
+  /* Soft cream halo for ink that sits on the open fleur (not inside opaque cards) */
+  .text-on-open {
+    text-shadow:
+      0 0 0.55rem color-mix(in oklab, var(--color-cream) 96%, transparent),
+      0 0 1.35rem color-mix(in oklab, var(--color-cream) 85%, transparent),
+      0 0 2.4rem color-mix(in oklab, var(--color-paper) 60%, transparent);
   }
 
   .section-shell {

@@ -104,10 +104,10 @@ export function ArchiveApp() {
                   <LibraryBig className="size-5" strokeWidth={1.75} />
                   <p className="kicker">The archive</p>
                 </div>
-                <h1 className="mt-4 font-display text-masthead font-medium text-ink md:max-w-2xl">
+                <h1 className="text-on-open mt-4 font-display text-masthead font-medium text-ink md:max-w-2xl">
                   Past letters, kept within reach.
                 </h1>
-                <p className="mt-5 max-w-2xl text-lead text-muted">
+                <p className="text-on-open mt-5 max-w-2xl text-lead text-muted">
                   A growing shelf of published Among The Letters editions. Choose an issue below to open the original PDF and read it as it appeared.
                 </p>
               </div>
@@ -138,10 +138,10 @@ export function ArchiveApp() {
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div className="max-w-2xl">
                 <p className="kicker">Published issues</p>
-                <h2 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+                <h2 className="text-on-open mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
                   Open whichever letter you were looking for.
                 </h2>
-                <p className="mt-4 max-w-xl text-muted">
+                <p className="text-on-open mt-4 max-w-xl text-muted">
                   PDFs open in a new tab, so you can keep your place here while you read. Only editions intentionally added to the public archive appear on this page.
                 </p>
               </div>

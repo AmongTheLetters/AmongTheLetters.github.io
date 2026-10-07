@@ -13,11 +13,11 @@ export function Pricing() {
         <div className="mx-auto max-w-2xl text-center">
           <p className="kicker">Pricing</p>
 
-          <h2 className="mt-3 font-display text-masthead font-medium text-ink">
+          <h2 className="text-on-open mt-3 font-display text-masthead font-medium text-ink">
             Read for free, or wander farther for five dollars a month.
           </h2>
 
-          <p className="mt-4 text-lead text-muted">
+          <p className="text-on-open mt-4 text-lead text-muted">
             The free edition stands on its own. The standard paid newsletter is
             $5 a month through Substack, with expanded daily discoveries and the
             complete Sunday evening Weekly Discoveries Roundup.

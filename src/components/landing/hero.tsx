@@ -10,15 +10,15 @@ export function Hero() {
           <div className="rule-floral" aria-hidden="true">
             <span className="rule-floral-mark"><span /></span>
           </div>
-          <p className="mt-4 kicker shrink-0 text-bark">{SITE.kicker}</p>
+          <p className="text-on-open mt-4 kicker shrink-0 text-bark">{SITE.kicker}</p>
 
-          <h1 className="mt-6 font-display text-display font-medium tracking-tight text-ink">
+          <h1 className="text-on-open mt-6 font-display text-display font-medium tracking-tight text-ink">
             <span className="italic">Among</span> the Letters
           </h1>
 
           <div className="mx-auto mt-5 max-w-2xl"><div className="rule-double" /></div>
 
-          <p className="mx-auto mt-8 max-w-2xl font-display text-deck font-normal leading-snug tracking-tight text-ink">
+          <p className="text-on-open mx-auto mt-8 max-w-2xl font-display text-deck font-normal leading-snug tracking-tight text-ink">
             Find useful opportunities.
             <br className="hidden sm:block" /> Discover worthwhile writing.
           </p>
@@ -29,7 +29,7 @@ export function Hero() {
             </Button>
           </div>
 
-          <p className="mx-auto mt-5 max-w-xl text-lead text-muted">
+          <p className="text-on-open mx-auto mt-5 max-w-xl text-lead text-muted">
             A gathering place for writers, readers, and curious people. Come for the opportunities, stay for the books, essays, authors, stories, and strange little things worth finding along the way.
           </p>
 
@@ -37,7 +37,7 @@ export function Hero() {
             <SubstackLink label="Wander over to Substack" />
           </div>
 
-          <p className="mx-auto mt-5 max-w-2xl text-sm text-muted">
+          <p className="text-on-open mx-auto mt-5 max-w-2xl text-sm text-muted">
             Morning Opportunities on Mondays
             <span className="mx-2 text-rule-strong">·</span>
             Afternoon Discoveries every day
@@ -45,7 +45,7 @@ export function Hero() {
             Sunday evening roundup for paid subscribers
           </p>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm">
+          <p className="text-on-open mx-auto mt-4 max-w-xl text-sm">
             <a
               href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry"
               className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
