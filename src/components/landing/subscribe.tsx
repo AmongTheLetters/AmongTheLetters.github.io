@@ -20,10 +20,11 @@ export function Subscribe() {
             expanded daily discoveries and the Sunday evening Weekly Discoveries Roundup.
           </p>
 
-          <div className="mt-8">
+          <div className="mt-8 flex justify-center md:justify-start">
             <SubstackLink
               label="Visit Among The Letters on Substack"
               invert
+              className="h-auto min-h-11 w-full max-w-full whitespace-normal px-4 py-3 text-center text-sm sm:w-auto"
             />
           </div>
         </div>

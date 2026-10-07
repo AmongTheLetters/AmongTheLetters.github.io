@@ -200,7 +200,13 @@ export function ArchiveApp() {
                 Visit the newsletter for current editions, subscriptions, and whatever has just arrived.
               </p>
             </div>
-            <SubstackLink label="Visit Among The Letters on Substack" invert />
+            <div className="flex w-full min-w-0 justify-center md:w-auto md:shrink-0 md:justify-end">
+              <SubstackLink
+                label="Visit Among The Letters on Substack"
+                invert
+                className="h-auto min-h-11 w-full max-w-full whitespace-normal px-4 py-3 text-center text-sm sm:w-auto"
+              />
+            </div>
           </div>
         </section>
       </main>
