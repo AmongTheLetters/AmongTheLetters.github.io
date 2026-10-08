@@ -8,6 +8,7 @@ Among The Letters is an independent Substack publication (est. 2026). The free p
 
 - [Home](https://amongtheletters.com/): Overview of the publication, editions, genre week, subscriptions, and editorial approach
 - [Archive](https://amongtheletters.com/archive/): Public PDF archive of Afternoon Discoveries editions
+- [Shop](https://amongtheletters.com/shop/): Paid Among The Letters Writer's Guides (PDF), sold through Payhip in Canadian dollars
 - [Full site description for LLMs](https://amongtheletters.com/llms-full.txt): Thorough plain-language summary of Among The Letters for AI systems
 - [Substack](https://amongtheletters.substack.com/): Subscribe free or paid; manage billing through Substack
 - [Contact](mailto:amongtheletters@gmail.com): Email amongtheletters@gmail.com for founding lifetime membership and other inquiries

@@ -34,18 +34,18 @@ export function SiteHeader() {
     >
       <div className="section-shell flex h-16 items-center justify-between gap-4">
         <Wordmark />
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-muted transition-colors duration-[var(--motion-quick)] hover:text-ink"
+              className="whitespace-nowrap text-sm font-medium text-muted transition-colors duration-[var(--motion-quick)] hover:text-ink"
             >
               {item.label}
             </a>
           ))}
         </nav>
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Button asChild size="sm">
             <a href={SUBSTACK_URL} target="_blank" rel="noreferrer">
               Substack
@@ -56,7 +56,7 @@ export function SiteHeader() {
           type="button"
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -69,7 +69,7 @@ export function SiteHeader() {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-rule bg-cream md:hidden"
+          className="border-t border-rule bg-cream lg:hidden"
         >
           <nav className="section-shell flex flex-col py-4" aria-label="Mobile">
             {NAV.map((item) => (
