@@ -39,7 +39,7 @@ That can include:
 - Interviews, criticism, craft, and literary journalism
 - Older or overlooked work worth returning to as Special Recommendations
 
-Afternoon Discoveries follows a seven-day genre rhythm while leaving room for an exceptional cross-genre find. The existing Sunday theme is **Emerging Writers & Worth Revisiting**.
+Afternoon Discoveries follows a seven-day genre rhythm while leaving room for an exceptional cross-genre find. The existing Sunday theme is **Emerging Writers, Debuts, & Reading Worth Revisiting**.
 
 Regular Afternoon Discoveries posts contain a useful free section followed by an expanded paid section.
 

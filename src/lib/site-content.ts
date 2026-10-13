@@ -64,9 +64,9 @@ export const GENRES = [
   { day: "Tuesday", genre: "Science Fiction & Fantasy" },
   { day: "Wednesday", genre: "Mystery, Thriller, Crime, Horror, & Dark Fiction" },
   { day: "Thursday", genre: "Romance, Women's Fiction, & Historical Fiction" },
-  { day: "Friday", genre: "Creative Nonfiction, Memoir, Essays, & Narrative Journalism" },
-  { day: "Saturday", genre: "Speculative, Hybrid, Experimental, Short Fiction, & Flash" },
-  { day: "Sunday", genre: "Emerging Writers & Worth Revisiting" },
+  { day: "Friday", genre: "Nonfiction, Memoir, Essays, & Narrative Journalism" },
+  { day: "Saturday", genre: "Speculative, Hybrid, Experimental, Short, & Flash Fiction" },
+  { day: "Sunday", genre: "Emerging Writers, Debuts, & Reading Worth Revisiting" },
 ] as const;
 
 const WEEKDAY_TO_GENRE = Object.fromEntries(
