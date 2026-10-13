@@ -56,31 +56,21 @@ function ResourceCard({ resource }: { resource: Resource }) {
           {resource.title}
         </h3>
         <p className="mt-2 flex-1 leading-relaxed text-muted">{resource.description}</p>
-        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <Button asChild>
             <a href={primary.href} download aria-label={`Download ${resource.title} as a ${primary.label}`}>
               <Download className="size-4" aria-hidden="true" />
               <span>Download {primary.label}</span>
             </a>
           </Button>
-          {extras.length > 0 ? (
-            <p className="text-sm text-muted">
-              Also as{" "}
-              {extras.map((file, index) => (
-                <span key={file.href}>
-                  {index > 0 ? " or " : ""}
-                  <a
-                    href={file.href}
-                    download
-                    className="font-medium text-oxblood underline-offset-4 hover:underline"
-                    aria-label={`Download ${resource.title} as ${file.label}`}
-                  >
-                    {file.label}
-                  </a>
-                </span>
-              ))}
-            </p>
-          ) : null}
+          {extras.map((file) => (
+            <Button key={file.href} asChild variant="outline">
+              <a href={file.href} download aria-label={`Download ${resource.title} as an editable ${file.label} file`}>
+                <Download className="size-4" aria-hidden="true" />
+                <span>{file.label}</span>
+              </a>
+            </Button>
+          ))}
         </div>
       </div>
     </article>
@@ -182,7 +172,7 @@ export function ResourcesApp() {
                 Want the whole system?
               </h2>
               <p className="text-on-open mt-4 max-w-xl text-muted">
-                These tools come from the same desk as The Submission Desk, our guide to preparing, sending, and tracking your writing, with twelve templates and a full tracker spreadsheet.
+                These tools come from the same desk as The Submission Desk, our guide to preparing, sending, and tracking your writing, with twelve templates and a full tracker spreadsheet that counts your waiting days for you.
               </p>
               <p className="text-on-open mt-4 text-sm italic text-faint">More free resources, including a plain-language glossary, are on the way.</p>
             </div>

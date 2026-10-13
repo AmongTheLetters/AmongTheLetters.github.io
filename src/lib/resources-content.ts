@@ -33,21 +33,17 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
     kicker: "Printable Tools",
     title: "Small tools for sending your work out.",
     intro:
-      "Print them, fill them in by hand, or keep them open beside your submission form. Each one is a single, tidy PDF in US Letter size.",
+      "Print them, fill them in by hand, or keep them open beside your submission form. Each one is a tidy US Letter page, and the cover letter also comes as an editable Word file.",
     items: [
       {
         id: "submission-tracker",
         slug: "atl-submission-tracker",
         title: "Submission Tracker",
-        description: "A one-page log for every piece you send, where it went, and what came back.",
+        description: "A one-page, print-and-fill log of what you sent, where it went, and what came back.",
         pages: "1 page, landscape",
         orientation: "landscape",
         alt: "The Submission Tracker: a landscape table with columns for title, venue, genre, dates, fee, status, and notes",
-        files: [
-          { label: "PDF", href: "/resources/atl-submission-tracker.pdf", size: "PDF" },
-          { label: "Excel", href: "/resources/atl-submission-tracker.xlsx", size: "XLSX" },
-          { label: "CSV", href: "/resources/atl-submission-tracker.csv", size: "CSV" },
-        ],
+        files: [{ label: "PDF", href: "/resources/atl-submission-tracker.pdf", size: "PDF" }],
       },
       {
         id: "cover-letter-template",
@@ -57,7 +53,10 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
         pages: "2 pages, portrait",
         orientation: "portrait",
         alt: "The Cover Letter Template: a fill-in letter with bracketed prompts beside a guidance sidebar",
-        files: [{ label: "PDF", href: "/resources/atl-cover-letter-template.pdf", size: "PDF" }],
+        files: [
+          { label: "PDF", href: "/resources/atl-cover-letter-template.pdf", size: "PDF" },
+          { label: "Word", href: "/resources/atl-cover-letter-template.docx", size: "DOCX" },
+        ],
       },
       {
         id: "before-you-hit-submit",
