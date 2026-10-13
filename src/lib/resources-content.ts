@@ -43,7 +43,7 @@ export const GLOSSARY_CATEGORY: ResourceCategory = {
     href: "/resources/glossary/",
     title: "A Plain-Language Glossary for Writers",
     description: "From simultaneous submissions to FNASR, reading fees to revise and resubmit. Searchable, arranged by topic or A to Z, with a link for every term.",
-    facts: ["59 terms", "5 topics", "Free to read online"],
+    facts: ["70 terms", "5 topics", "Free to read online"],
     sample: ["Simultaneous submission", "Reading period", "FNASR", "Revise and resubmit", "Blind judging", "Chapbook"],
     cta: "Open the glossary",
   },

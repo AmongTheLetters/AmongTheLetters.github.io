@@ -41,7 +41,8 @@
   "forYou": "Treat the call as the guidelines for that issue; a theme usually matters more than a general style guide.",
   "related": [
    "submission-guidelines",
-   "anthology"
+   "anthology",
+   "themed-issue"
   ]
  },
  {
@@ -99,7 +100,8 @@
   "definition": "A one-page letter pitching a project before sending it: a book to a literary agent, or an article idea to a magazine editor.",
   "forYou": "Queries are for agents and nonfiction pitches; literary magazines asking for finished poems or stories want a cover letter instead.",
   "related": [
-   "cover-letter"
+   "cover-letter",
+   "pitch"
   ]
  },
  {
@@ -135,7 +137,8 @@
   "forYou": "Your account shows the status of each submission, but the label can be vague, so rely on the venue's own response time rather than reading meaning into it.",
   "related": [
    "response-time",
-   "reading-fee"
+   "reading-fee",
+   "submission-manager"
   ]
  },
  {
@@ -145,7 +148,8 @@
   "definition": "The collection of unsolicited submissions waiting to be read, as opposed to work an editor has asked for.",
   "forYou": "Nearly every published writer started in the slush. A clean, on-guideline submission already stands out from much of it.",
   "related": [
-   "first-reader"
+   "first-reader",
+   "unsolicited"
   ]
  },
  {
@@ -221,7 +225,8 @@
   "definition": "A standard decline sent to most writers, with no comments about the specific piece.",
   "forYou": "It is the most common response and says almost nothing about quality; log it and send the piece to the next venue.",
   "related": [
-   "personal-rejection"
+   "personal-rejection",
+   "tiered-rejection"
   ]
  },
  {
@@ -232,7 +237,8 @@
   "forYou": "Treat it as encouragement; editors rarely write personally unless the work came close. Note the editor's name for next time.",
   "related": [
    "form-rejection",
-   "revise-and-resubmit"
+   "revise-and-resubmit",
+   "tiered-rejection"
   ]
  },
  {
@@ -276,7 +282,8 @@
   "definition": "The legal right to control copying and publication of your work. In Canada and most other countries, it belongs to you automatically from the moment the work is fixed in writing.",
   "forYou": "When you publish in a magazine you normally license certain rights for a time, not your copyright; be cautious of anything that asks you to assign it.",
   "related": [
-   "all-rights"
+   "all-rights",
+   "licence"
   ]
  },
  {
@@ -309,7 +316,8 @@
   "definition": "The right to publish a work in digital form, such as on a website, in an e-book, or in a digital edition of a magazine.",
   "forYou": "Check whether a website keeps your piece online indefinitely, and whether you may ask for it to be removed after the exclusive period.",
   "related": [
-   "first-serial-rights"
+   "first-serial-rights",
+   "archive-rights"
   ]
  },
  {
@@ -320,7 +328,8 @@
   "forYou": "Note when exclusivity ends in your tracker; that is when reprint or collection use becomes possible.",
   "related": [
    "copyright",
-   "reprint-rights"
+   "reprint-rights",
+   "licence"
   ]
  },
  {
@@ -343,7 +352,8 @@
   "forYou": "Be very cautious; for creative work, ask whether a limited licence would suit them, and expect higher pay if they truly need all rights.",
   "related": [
    "copyright",
-   "contract"
+   "contract",
+   "licence"
   ]
  },
  {
@@ -366,7 +376,8 @@
   "definition": "The publisher pays you when they accept the piece or sign the contract, rather than waiting until it appears.",
   "forYou": "This is the most writer-friendly timing; if payment is on publication, note the expected date and follow up if it passes.",
   "related": [
-   "payment-on-publication"
+   "payment-on-publication",
+   "kill-fee"
   ]
  },
  {
@@ -457,7 +468,8 @@
   "related": [
    "entry-fee",
    "blind-judging",
-   "longlist"
+   "longlist",
+   "eligibility"
   ]
  },
  {
@@ -556,7 +568,8 @@
   "definition": "A story of exactly 100 words, a form especially popular in speculative fiction communities.",
   "forYou": "Exact means exact; count carefully, and check whether the title is included.",
   "related": [
-   "microfiction"
+   "microfiction",
+   "speculative-fiction"
   ]
  },
  {
@@ -600,7 +613,8 @@
   "definition": "True writing that uses literary techniques such as scene, voice, and structure, including personal essay, memoir, and literary journalism.",
   "forYou": "Facts must be accurate; if you compress time or change names, many editors expect you to say so.",
   "related": [
-   "lyric-essay"
+   "lyric-essay",
+   "personal-essay"
   ]
  },
  {
@@ -657,6 +671,136 @@
   "related": [
    "call-for-submissions",
    "reprint-rights"
+  ]
+ },
+ {
+  "slug": "themed-issue",
+  "term": "Themed issue",
+  "section": "Submitting",
+  "definition": "An issue built around a topic, image, or idea chosen by the editors, usually announced in a call for submissions.",
+  "forYou": "Send only work that connects clearly to the theme; a strong piece that ignores it is usually declined.",
+  "related": [
+   "call-for-submissions",
+   "submission-guidelines"
+  ]
+ },
+ {
+  "slug": "submission-manager",
+  "term": "Submission manager",
+  "section": "Submitting",
+  "definition": "Any online system a publication uses to receive and track submissions, whether a shared platform such as Submittable or a form the publication built itself.",
+  "forYou": "Use the exact system the guidelines name; work sent another way, such as straight to an editor's email, is often not read.",
+  "related": [
+   "submittable",
+   "submission-guidelines",
+   "withdrawal"
+  ]
+ },
+ {
+  "slug": "unsolicited",
+  "term": "Unsolicited",
+  "section": "Submitting",
+  "definition": "Work sent without an invitation from an editor, agent, or publisher. Some venues read unsolicited work, while others take only invited or agented work.",
+  "forYou": "If the guidelines say \"no unsolicited manuscripts\", sending anyway will not help; watch for an open reading period instead.",
+  "related": [
+   "slush-pile",
+   "query-letter",
+   "reading-period"
+  ]
+ },
+ {
+  "slug": "pitch",
+  "term": "Pitch",
+  "section": "Submitting",
+  "definition": "A short proposal for a piece you have not yet written in full, most common in journalism and nonfiction.",
+  "forYou": "Lead with the idea, why it matters now, and why you are the one to write it; a pitch sells the angle, not your whole history.",
+  "related": [
+   "query-letter",
+   "kill-fee",
+   "personal-essay"
+  ]
+ },
+ {
+  "slug": "tiered-rejection",
+  "term": "Tiered rejection",
+  "section": "Responses",
+  "definition": "A set of standard declines that differ by how close the piece came, such as a version that invites you to send more work.",
+  "forYou": "An invitation to submit again is a real signal; send new work in a later reading period.",
+  "related": [
+   "form-rejection",
+   "personal-rejection"
+  ]
+ },
+ {
+  "slug": "archive-rights",
+  "term": "Archive rights",
+  "section": "Rights & money",
+  "definition": "The right for a publisher to keep your piece available after its first appearance, usually on its website or in a digital back catalogue.",
+  "forYou": "Indefinite archive rights can make later reprint offers harder; look for a clause that lets you ask for removal after a set period.",
+  "related": [
+   "electronic-rights",
+   "reprint-rights",
+   "exclusivity"
+  ]
+ },
+ {
+  "slug": "kill-fee",
+  "term": "Kill fee",
+  "section": "Rights & money",
+  "definition": "A partial payment for commissioned work that the publisher decides not to run after all.",
+  "forYou": "Most common in journalism and assigned nonfiction; if you are writing on assignment, ask whether there is a kill fee before you start.",
+  "related": [
+   "pitch",
+   "contract",
+   "payment-on-acceptance"
+  ]
+ },
+ {
+  "slug": "licence",
+  "term": "Licence",
+  "section": "Rights & money",
+  "definition": "Permission you give a publisher to use your work in specific ways, for a set time, place, or format, while you keep the copyright.",
+  "forYou": "Most magazine agreements are licences. Check what uses are covered, where, and for how long.",
+  "related": [
+   "copyright",
+   "exclusivity",
+   "rights-reversion"
+  ]
+ },
+ {
+  "slug": "eligibility",
+  "term": "Eligibility",
+  "section": "Contests & fees",
+  "definition": "The rules on who may enter and what work qualifies, such as where you live, your age or career stage, and whether the work must be unpublished.",
+  "forYou": "Check eligibility before paying any fee; an ineligible entry is usually disqualified without a refund.",
+  "related": [
+   "contest",
+   "previously-published",
+   "entry-fee"
+  ]
+ },
+ {
+  "slug": "speculative-fiction",
+  "term": "Speculative fiction",
+  "section": "Formats & genres",
+  "definition": "An umbrella term for fiction with imagined or impossible elements, including science fiction, fantasy, horror, and related forms.",
+  "forYou": "Genre magazines often have their own customs on rights, pay, and format; learn them alongside literary ones.",
+  "related": [
+   "short-story",
+   "novelette",
+   "drabble"
+  ]
+ },
+ {
+  "slug": "personal-essay",
+  "term": "Personal essay",
+  "section": "Formats & genres",
+  "definition": "A short nonfiction piece built on the writer's own experience, reflection, or argument.",
+  "forYou": "Editors usually look for a clear insight, not only an account of what happened.",
+  "related": [
+   "creative-nonfiction",
+   "lyric-essay",
+   "pitch"
   ]
  }
 ]
