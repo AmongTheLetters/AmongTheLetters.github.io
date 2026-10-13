@@ -17,6 +17,7 @@ export default defineConfig({
         home: fileURLToPath(new URL("./index.html", import.meta.url)),
         archive: fileURLToPath(new URL("./archive/index.html", import.meta.url)),
         shop: fileURLToPath(new URL("./shop/index.html", import.meta.url)),
+        resources: fileURLToPath(new URL("./resources/index.html", import.meta.url)),
       },
     },
   },
