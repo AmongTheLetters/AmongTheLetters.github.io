@@ -20,6 +20,33 @@ export type ResourceCategory = {
   title: string;
   intro: string;
   items: readonly Resource[];
+  /** A category can also be a single reference page (e.g. the glossary) instead of downloads. */
+  feature?: ResourceFeature;
+};
+
+export type ResourceFeature = {
+  href: string;
+  title: string;
+  description: string;
+  facts: readonly string[];
+  sample: readonly string[];
+  cta: string;
+};
+
+export const GLOSSARY_CATEGORY: ResourceCategory = {
+  id: "glossary",
+  kicker: "Glossary",
+  title: "The words around the writing, explained.",
+  intro: "Plain definitions of the terms you meet in guidelines, rejections, contracts, and contest rules, each with what it means for you in practice.",
+  items: [],
+  feature: {
+    href: "/resources/glossary/",
+    title: "A Plain-Language Glossary for Writers",
+    description: "From simultaneous submissions to FNASR, reading fees to revise and resubmit. Searchable, arranged by topic or A to Z, with a link for every term.",
+    facts: ["59 terms", "5 topics", "Free to read online"],
+    sample: ["Simultaneous submission", "Reading period", "FNASR", "Revise and resubmit", "Blind judging", "Chapbook"],
+    cta: "Open the glossary",
+  },
 };
 
 /*
@@ -70,6 +97,7 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
       },
     ],
   },
+  GLOSSARY_CATEGORY,
 ];
 
 export const RESOURCE_PRINCIPLES = [

@@ -1,4 +1,4 @@
-import { ArrowUpRight, Download, Gift, Printer, Library, FileCheck2 } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download, Gift, Printer, Library, FileCheck2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
@@ -8,12 +8,43 @@ import {
   RESOURCE_IMAGE_BASE,
   RESOURCE_PRINCIPLES,
   type Resource,
+  type ResourceFeature,
 } from "@/lib/resources-content";
 import { SHOP_URL } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
 
 const PRINCIPLE_ICONS = [Gift, Printer, FileCheck2] as const;
-const CATEGORIES = RESOURCE_CATEGORIES.filter((category) => category.items.length > 0);
+const CATEGORIES = RESOURCE_CATEGORIES.filter((category) => category.items.length > 0 || category.feature);
+
+function FeatureCard({ feature }: { feature: ResourceFeature }) {
+  return (
+    <a
+      href={feature.href}
+      className="group relative mt-12 grid overflow-hidden rounded-xl bg-cream shadow-[var(--shadow-border)] transition-shadow hover:shadow-[var(--shadow-border-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-oxblood md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"
+    >
+      <span className="absolute inset-x-0 top-0 z-10 h-1 bg-oxblood" aria-hidden="true" />
+      <div className="p-6 md:p-10">
+        <p className="kicker">{feature.facts.join(" · ")}</p>
+        <h3 className="mt-3 font-display text-3xl font-medium tracking-tight text-ink md:text-4xl">{feature.title}</h3>
+        <p className="mt-3 max-w-xl leading-relaxed text-muted">{feature.description}</p>
+        <span className="mt-7 inline-flex h-11 items-center gap-2 rounded-md bg-oxblood px-5 text-sm font-medium text-parchment shadow-[var(--shadow-border)] group-hover:bg-oxblood-dark">
+          {feature.cta}
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </span>
+      </div>
+      <div className="border-t border-rule bg-paper p-6 md:border-l md:border-t-0 md:p-10" aria-hidden="true">
+        <ul className="space-y-3">
+          {feature.sample.map((term, i) => (
+            <li key={term} className="flex items-baseline gap-3 border-b border-rule pb-3 last:border-0">
+              <span className="font-display text-sm text-faint">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-display text-xl tracking-tight text-ink">{term}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </a>
+  );
+}
 
 function ResourceCard({ resource }: { resource: Resource }) {
   const primary = resource.files[0];
@@ -154,11 +185,14 @@ export function ResourcesApp() {
                   </h2>
                   <p className="text-on-open mt-4 max-w-xl text-muted">{category.intro}</p>
                 </div>
-                <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.items.map((resource) => (
-                    <ResourceCard key={resource.id} resource={resource} />
-                  ))}
-                </div>
+                {category.items.length ? (
+                  <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {category.items.map((resource) => (
+                      <ResourceCard key={resource.id} resource={resource} />
+                    ))}
+                  </div>
+                ) : null}
+                {category.feature ? <FeatureCard feature={category.feature} /> : null}
               </div>
             </section>
           ))}
@@ -174,7 +208,6 @@ export function ResourcesApp() {
               <p className="text-on-open mt-4 max-w-xl text-muted">
                 These tools come from the same desk as The Submission Desk, our guide to preparing, sending, and tracking your writing, with twelve templates and a full tracker spreadsheet that counts your waiting days for you.
               </p>
-              <p className="text-on-open mt-4 text-sm italic text-faint">More free resources, including a plain-language glossary, are on the way.</p>
             </div>
             <Button asChild variant="outline" size="lg">
               <a href={`${SHOP_URL}#submission-desk`}>
