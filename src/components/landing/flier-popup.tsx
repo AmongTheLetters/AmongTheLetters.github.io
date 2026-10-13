@@ -85,11 +85,13 @@ export function FlierPopup() {
         </button>
 
         <img
-          src="/images/atl-flier.png"
-          alt="Among The Letters flier"
+          src="/images/atl-flier.webp"
+          alt="Among The Letters flier: an Afternoon issue every day with new books, authors, short stories, essays, and poems, a Monday Morning issue of writing opportunities, and a QR code to subscribe free on Substack."
+          fetchPriority="high"
+          decoding="async"
           width={1025}
           height={1535}
-          className="max-h-[min(82dvh,calc(90dvh-2.5rem))] w-auto max-w-full rounded-lg object-contain"
+          className="aspect-[1025/1535] h-[min(78dvh,40rem)] w-auto max-w-full rounded-lg bg-cream object-contain"
         />
       </div>
     </div>

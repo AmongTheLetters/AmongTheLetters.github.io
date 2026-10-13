@@ -96,7 +96,7 @@ function BuyButton({
 }) {
   return (
     <Button asChild size="lg" className={cn("min-w-0 max-w-full whitespace-normal text-center", className)}>
-      <a href={url} target="_blank" rel="noopener" aria-label={`Buy ${title} on Payhip for ${price} (opens in a new tab)`}>
+      <a href={url} target="_blank" rel="noopener" aria-label={`Buy on Payhip, ${price}: ${title} (opens in a new tab)`}>
         <span>Buy on Payhip, {price}</span>
         <ArrowUpRight className="size-4 shrink-0" aria-hidden="true" />
       </a>
@@ -232,7 +232,7 @@ function PreviewStrip({
               onOpen(guide, index);
             }}
             className="group block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-oxblood"
-            aria-label={`View larger: ${preview.alt}`}
+            aria-label={`${preview.label}: view larger. ${preview.alt}`}
           >
             <span className="relative block overflow-hidden rounded-md bg-white shadow-[var(--shadow-border)] transition-[transform,box-shadow] duration-[var(--motion-fast)] ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-border-hover)]">
               <img

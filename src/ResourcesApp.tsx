@@ -89,14 +89,14 @@ function ResourceCard({ resource }: { resource: Resource }) {
         <p className="mt-2 flex-1 leading-relaxed text-muted">{resource.description}</p>
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <Button asChild>
-            <a href={primary.href} download aria-label={`Download ${resource.title} as a ${primary.label}`}>
+            <a href={primary.href} download aria-label={`Download ${primary.label}: ${resource.title}`}>
               <Download className="size-4" aria-hidden="true" />
               <span>Download {primary.label}</span>
             </a>
           </Button>
           {extras.map((file) => (
             <Button key={file.href} asChild variant="outline">
-              <a href={file.href} download aria-label={`Download ${resource.title} as an editable ${file.label} file`}>
+              <a href={file.href} download aria-label={`${file.label}: download ${resource.title} as an editable file`}>
                 <Download className="size-4" aria-hidden="true" />
                 <span>{file.label}</span>
               </a>

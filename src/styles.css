@@ -7,14 +7,14 @@
   --color-news: #f4f1ea;
   --color-ink: #1a1612;
   --color-muted: #5f584c;
-  --color-faint: #857a6c;
+  --color-faint: #6f6457;
   /* Brand + earthy accents */
   --color-oxblood: #6e342c;
   --color-oxblood-dark: #52261f;
   --color-parchment: #f7f5f0;
   --color-earth: #7a6248;
   --color-bark: #5c4033;
-  --color-sage: #6a7558;
+  --color-sage: #5e6b4e;
   --color-moss: #5e6b4e;
   --color-rose: #9a6b6b;
   --color-rule: color-mix(in oklab, var(--color-ink) 14%, transparent);
@@ -178,7 +178,7 @@
   }
 
   .kicker-sage {
-    color: var(--color-sage);
+    color: var(--color-moss);
   }
 
   .kicker-inverse {

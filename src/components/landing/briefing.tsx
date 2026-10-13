@@ -5,7 +5,7 @@ const editions = [
     icon: Sunrise,
     cadence: "Monday morning",
     title: "Morning Opportunities",
-    body: "A checked gathering of writing and editorial work, contests, grants, fellowships, residencies, calls for submissions, and other places your work might go next.",
+    body: "For readers who write: a checked gathering of writing and editorial work, contests, grants, fellowships, residencies, calls for submissions, and other places your work might go next.",
     note: "The free portion is useful on its own. Paid subscribers get a larger field of listings, featured opportunities, and added context.",
     inverse: false,
   },
@@ -13,7 +13,7 @@ const editions = [
     icon: Sunset,
     cadence: "Every afternoon",
     title: "Afternoon Discoveries",
-    body: "Books, authors, essays, stories, poems, magazines, projects, and worthwhile literary work, with a different corner of the bookshelf in view each day.",
+    body: "Stories, poems, and essays you can read for free online, plus books and authors worth knowing, with a different genre in view each day.",
     note: "Each regular edition begins with a complete free section, then expands for paid subscribers with more discoveries and Special Recommendations.",
     inverse: true,
   },
@@ -37,7 +37,7 @@ export function Briefing() {
             One publication, three ways to find something worth your time.
           </h2>
           <p className="text-on-open mt-4 max-w-xl text-lead text-muted">
-            Monday begins with somewhere your work might go. Every afternoon turns toward reading. On Sunday evening, paid subscribers get the week gathered back together too.
+            Every afternoon brings something good to read. On Sunday evening, paid subscribers get the week gathered back together. And for readers who also write, Monday begins with somewhere their work might go.
           </p>
         </div>
 

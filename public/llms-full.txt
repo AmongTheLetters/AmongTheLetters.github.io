@@ -1,20 +1,39 @@
 # Among The Letters - Full Description for LLMs
 
 Canonical website: https://amongtheletters.com
-Legacy GitHub Pages URL: https://amongtheletters.github.io/ (redirects to amongtheletters.com once custom-domain DNS is live)
+RSS: https://amongtheletters.substack.com/feed
+X: https://x.com/AmongtheLetters
 Newsletter (Substack): https://amongtheletters.substack.com/
 Contact: amongtheletters@gmail.com
 Established: 2026
 
 ## What it is
 
-Among The Letters is an independent literary newsletter for writers, readers, and curious people. It gathers useful opportunities for writers and worthwhile literary discoveries in one place. The tone is considered and practical rather than noisy.
+Among The Letters is a free daily reading newsletter for anyone who enjoys reading, in every genre. Each afternoon it shares a few stories, poems, and essays that are free to read online, along with books and authors worth knowing. Every piece is picked by hand, every link is checked, and each day of the week has its own genre. The tone is considered and practical rather than noisy.
 
-Tagline: Useful opportunities. Worthwhile writing. Curious things worth finding.
+One-line summary: Free stories, poems, and essays worth your afternoon, picked and checked daily, with a different genre each day.
+
+Readers who also write get useful extras: Monday Morning Opportunities (checked writing work, contests, grants, residencies, and calls for submissions), free printable tools and a plain-language glossary on the website, and two paid PDF guides. These are a secondary track, not the main purpose of the newsletter.
 
 ## Editions
 
-### Morning Opportunities (Mondays)
+### Afternoon Discoveries (daily)
+
+The main edition, published every day, Sunday through Saturday. Shares stories, poems, and essays that are free to read online, plus books, authors, literary magazines, writing projects, emerging voices, forthcoming work, interviews, criticism, craft, literary journalism, and carefully chosen older or overlooked material as Special Recommendations.
+
+Regular Afternoon Discoveries posts contain a useful free section followed by an expanded paid section.
+
+Afternoon Discoveries follows a seven-day genre rhythm:
+
+- Monday: Literary Fiction & Poetry
+- Tuesday: Science Fiction & Fantasy
+- Wednesday: Mystery, Thriller, Crime, Horror, & Dark Fiction
+- Thursday: Romance, Women's Fiction, & Historical Fiction
+- Friday: Nonfiction, Memoir, Essays, & Narrative Journalism
+- Saturday: Speculative, Hybrid, Experimental, Short, & Flash Fiction
+- Sunday: Emerging Writers, Debuts, & Reading Worth Revisiting
+
+### Morning Opportunities (Mondays, for readers who write)
 
 Published on Mondays only. Gathers legitimate opportunities for writers, including:
 
@@ -29,22 +48,6 @@ Listings emphasize useful details, clear requirements, and primary or authoritat
 
 Regular Morning Opportunities posts contain a useful free section followed by an expanded paid section.
 
-### Afternoon Discoveries (daily)
-
-Published every day, Sunday through Saturday. Explores books, authors, essays, stories, poems, literary magazines, writing projects, emerging voices, forthcoming work, interviews, criticism, craft, literary journalism, and carefully chosen older or overlooked material as Special Recommendations.
-
-Regular Afternoon Discoveries posts contain a useful free section followed by an expanded paid section.
-
-Afternoon Discoveries follows a seven-day genre rhythm:
-
-- Monday: Literary Fiction & Poetry
-- Tuesday: Science Fiction & Fantasy
-- Wednesday: Mystery, Thriller, Crime, Horror, & Dark Fiction
-- Thursday: Romance, Women's Fiction, & Historical Fiction
-- Friday: Nonfiction, Memoir, Essays, & Narrative Journalism
-- Saturday: Speculative, Hybrid, Experimental, Short, & Flash Fiction
-- Sunday: Emerging Writers, Debuts, & Reading Worth Revisiting
-
 ### Weekly Discoveries Roundup (Sunday evening, paid)
 
 Published on Sunday evenings for paid subscribers, in addition to the regular Sunday Afternoon Discoveries edition. It is a compact catch-up that gathers:
@@ -57,7 +60,7 @@ The Sunday roundup is a complete paid-subscriber post rather than a free section
 
 ## Free vs paid
 
-- Free: The free portion of Monday Morning Opportunities and of daily Afternoon Discoveries. Free sections are designed to be genuinely useful on their own, not teasers with the useful part missing.
+- Free: The free portion of daily Afternoon Discoveries and of Monday Morning Opportunities. Free sections are designed to be genuinely useful on their own, not teasers with the useful part missing.
 - Full ($5 per month on Substack): Everything in the free edition, plus expanded Monday opportunity roundups, expanded Afternoon Discoveries every day, Special Recommendations and deeper context, and the paid-subscriber-only Weekly Discoveries Roundup every Sunday.
 - Founding lifetime membership ($299 CAD): An early founding offer separate from the standard monthly Substack plan. Includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack. Inquiries: amongtheletters@gmail.com.
 
@@ -71,8 +74,8 @@ Morning Opportunities and the Sunday Weekly Discoveries Roundup are not listed o
 
 ## Editorial principles
 
-- Useful before impressive: find something you can actually read, enter, apply for, submit to, or remember.
-- Check before sharing: opportunity details are checked against primary or authoritative sources; links return to the source.
+- Useful before impressive: find something you can actually read tonight, and, for readers who write, something to enter, apply for, or submit to.
+- Check before sharing: every link is checked, and opportunity details are checked against primary or authoritative sources; links return to the source.
 - Curiosity without the noise: a considered gathering rather than shouting.
 - Leave room to wander: older essays, emerging writers, and unexpected books can matter as much as trends.
 
@@ -80,6 +83,10 @@ Morning Opportunities and the Sunday Weekly Discoveries Roundup are not listed o
 
 - Home: https://amongtheletters.com/
 - Archive: https://amongtheletters.com/archive/
+- Free Resources: https://amongtheletters.com/resources/
+- Glossary for Writers (70 terms): https://amongtheletters.com/resources/glossary/
+- Shop (PDF guides for readers who write): https://amongtheletters.com/shop/
+- RSS: https://amongtheletters.substack.com/feed
 - llms.txt: https://amongtheletters.com/llms.txt
 - This file: https://amongtheletters.com/llms-full.txt
 - Sitemap: https://amongtheletters.com/sitemap.xml

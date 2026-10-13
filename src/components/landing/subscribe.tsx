@@ -31,11 +31,13 @@ export function Subscribe() {
 
         <figure className="min-w-0 w-full max-w-full">
           <img
-            src="./images/books.jpg"
+            src="/images/books.webp"
+            loading="lazy"
+            decoding="async"
             alt="Stacked clothbound books on a walnut table, with a cream envelope tucked between the spines."
             className="img-frame block aspect-video h-auto w-full max-w-full rounded-xl object-cover"
-            width={1600}
-            height={1200}
+            width={716}
+            height={679}
           />
         </figure>
       </div>

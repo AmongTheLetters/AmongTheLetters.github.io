@@ -13,6 +13,13 @@ function Listing({ type, title, meta }: { type: string; title: string; meta: str
 
 const editions = [
   {
+    cadence: "Every afternoon",
+    title: "Afternoon Discoveries",
+    deck: "A different kind of looking.",
+    intro: "The afternoon belongs to literary discovery every day. The weekly genre rhythm keeps the shelf moving while leaving room for an exceptional find that deserves to cross the aisle.",
+    items: AFTERNOON_SAMPLE,
+    footer: "The paid portion adds more discoveries, deeper context, and Special Recommendations.",
+  },  {
     cadence: "Monday morning",
     title: "Morning Opportunities",
     deck: "A practical start to the week.",
@@ -20,14 +27,7 @@ const editions = [
     items: MORNING_SAMPLE,
     footer: "Regular editions use a useful free section followed by an expanded paid section.",
   },
-  {
-    cadence: "Every afternoon",
-    title: "Afternoon Discoveries",
-    deck: "A different kind of looking.",
-    intro: "The afternoon belongs to literary discovery every day. The weekly genre rhythm keeps the shelf moving while leaving room for an exceptional find that deserves to cross the aisle.",
-    items: AFTERNOON_SAMPLE,
-    footer: "The paid portion adds more discoveries, deeper context, and Special Recommendations.",
-  },
+
   {
     cadence: "Sunday evening · Paid subscribers",
     title: "Weekly Discoveries Roundup",
@@ -50,7 +50,7 @@ export function SampleIssue() {
             </h2>
           </div>
           <p className="max-w-2xl text-lead text-muted lg:justify-self-end">
-            Opportunities, discoveries, and the weekly catch-up each have their own place. The point is to know what you are opening before you open it, while keeping the whole week recognizably Among The Letters.
+            The daily reading, the weekly catch-up, and the Monday opportunities each have their own place. The point is to know what you are opening before you open it, while keeping the whole week recognizably Among The Letters.
           </p>
         </div>
 

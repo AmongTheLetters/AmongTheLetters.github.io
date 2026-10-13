@@ -1,21 +1,23 @@
 # Among The Letters
 
-> A literary newsletter for writers and readers. Among The Letters gathers verified Monday writing opportunities, daily literary discoveries, and a Sunday evening Weekly Discoveries Roundup for paid subscribers.
+> A free daily reading newsletter for anyone who loves to read. Free stories, poems, and essays worth your afternoon, picked and checked daily, with a different genre each day.
 
-Among The Letters is an independent Substack publication (est. 2026). The free portions of regular Morning and Afternoon editions are meant to be useful on their own. Paid subscriptions expand those editions and include the Sunday roundup. The public website archive shares Afternoon Discoveries PDFs only.
+Among The Letters is an independent Substack publication (est. 2026). Its main edition, Afternoon Discoveries, arrives every day with stories, poems, essays, books, and authors worth finding, most of them free to read online, and every link is checked. Each day of the week has its own genre, from literary fiction and poetry to science fiction, mystery, romance, nonfiction, and experimental writing. Paid subscribers also receive a Sunday evening Weekly Discoveries Roundup. For readers who also write, Monday Morning Opportunities, free writer resources, and two paid PDF guides are secondary extras.
 
 ## Pages
 
-- [Home](https://amongtheletters.com/): Overview of the publication, editions, genre week, subscriptions, and editorial approach
-- [Archive](https://amongtheletters.com/archive/): Public PDF archive of Afternoon Discoveries editions
-- [Shop](https://amongtheletters.com/shop/): Paid Among The Letters Writer's Guides (PDF), sold through Payhip in Canadian dollars
-- [Free Resources](https://amongtheletters.com/resources/): Free printable tools for writers (printable submission tracker, cover letter template in PDF and Word, Before You Hit Submit checklist), no sign-up
-- [Glossary for Writers](https://amongtheletters.com/resources/glossary/): A plain-language glossary of 70 submission, rights, contest, and form terms, each with a practical note
-- [Full site description for LLMs](https://amongtheletters.com/llms-full.txt): Thorough plain-language summary of Among The Letters for AI systems
-- [Substack](https://amongtheletters.substack.com/): Subscribe free or paid; manage billing through Substack
-- [Contact](mailto:amongtheletters@gmail.com): Email amongtheletters@gmail.com for founding lifetime membership and other inquiries
+- [Home](https://amongtheletters.com/): What Among The Letters is, the daily genre week, editions, and subscriptions
+- [Archive](https://amongtheletters.com/archive/): Past Afternoon Discoveries editions as PDFs, one per day, each labelled with its date and genre
+- [Substack](https://amongtheletters.substack.com/): Read and subscribe free or paid; billing is handled by Substack
+- [RSS feed](https://amongtheletters.substack.com/feed): New posts from the Substack publication
+- [Free Resources](https://amongtheletters.com/resources/): For readers who write: a printable submission tracker, a cover letter template (PDF and Word), and a Before You Hit Submit checklist, no sign-up
+- [Glossary for Writers](https://amongtheletters.com/resources/glossary/): A plain-language glossary of 70 submission, rights, contest, and form terms
+- [Shop](https://amongtheletters.com/shop/): Two practical PDF guides for readers who write, sold through Payhip in Canadian dollars
+- [Full description for LLMs](https://amongtheletters.com/llms-full.txt): A thorough plain-language summary of Among The Letters
+- [Contact](mailto:amongtheletters@gmail.com): amongtheletters@gmail.com
 
 ## Optional
 
-- [Sitemap](https://amongtheletters.com/sitemap.xml): Machine-readable list of public pages and Afternoon Discoveries PDFs
+- [Sitemap](https://amongtheletters.com/sitemap.xml): Public pages, free downloads, and Afternoon Discoveries PDFs, with last-modified dates
 - [robots.txt](https://amongtheletters.com/robots.txt): Crawl policy for search and AI retrieval bots
+- [X](https://x.com/AmongtheLetters): Among The Letters on X

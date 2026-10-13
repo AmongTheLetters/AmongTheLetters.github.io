@@ -5,10 +5,10 @@ export const RESOURCES_URL = "/resources/";
 
 export const SITE = {
   name: "Among The Letters",
-  kicker: "A literary gathering · Est. 2026",
-  tagline: "Useful opportunities. Worthwhile writing. Curious things worth finding.",
+  kicker: "A daily reading newsletter · Est. 2026",
+  tagline: "Free stories, poems, and essays worth your afternoon. A different genre every day.",
   description:
-    "Among The Letters gathers useful opportunities for writers and worthwhile things to read. Morning Opportunities appears on Mondays, Afternoon Discoveries arrives every day, and paid subscribers receive a Sunday evening Weekly Discoveries Roundup.",
+    "Among The Letters is a free reading newsletter for anyone who loves to read. Afternoon Discoveries arrives every day with stories, poems, and essays worth your afternoon, picked and checked by hand, with a different genre each day. Paid subscribers also receive a Sunday evening Weekly Discoveries Roundup, and readers who write can find Monday Morning Opportunities and free writer resources too.",
 } as const;
 
 export const NAV = [
@@ -22,27 +22,27 @@ export const NAV = [
 ] as const;
 
 export const PROOF = [
-  { value: "Monday morning", label: "Writing work, contests, grants, residencies, and calls" },
-  { value: "Every afternoon", label: "Books, authors, essays, stories, and literary discoveries" },
+  { value: "Every afternoon", label: "Free stories, poems, and essays, with a different genre each day" },
   { value: "Sunday evening", label: "A paid-subscriber Weekly Discoveries Roundup after the day's regular discovery edition" },
-  { value: "Source checked", label: "Opportunities are checked against primary or authoritative sources" },
+  { value: "Monday morning", label: "For readers who write: work, contests, grants, and calls" },
+  { value: "Source checked", label: "Every link is checked, and opportunities are confirmed at the source" },
 ] as const;
 
 export const FEATURES = [
   {
     num: "01",
     title: "The searching is done for you",
-    body: "Good opportunities and good writing are scattered everywhere. Among The Letters gathers them, checks the important details, and puts the useful parts in one place.",
+    body: "Good writing is scattered everywhere. Among The Letters goes looking for stories, poems, and essays you can read for free, checks every link, and puts the best of them in one place.",
   },
   {
     num: "02",
-    title: "Monday begins with opportunities",
-    body: "Morning Opportunities gathers writing and editorial work, contests, grants, fellowships, residencies, and calls for submissions into one practical Monday briefing.",
+    title: "Something to read every afternoon",
+    body: "Every day, Afternoon Discoveries brings stories, poems, essays, books, and authors worth finding, with a different genre each day of the week.",
   },
   {
     num: "03",
-    title: "A discovery edition every afternoon",
-    body: "Every day, Afternoon Discoveries turns toward books, authors, essays, stories, poems, magazines, and literary projects worth finding.",
+    title: "Mondays bring extras for writers",
+    body: "For readers who also write, Morning Opportunities gathers writing work, contests, grants, residencies, and calls for submissions into one practical Monday briefing.",
   },
   {
     num: "04",
@@ -169,10 +169,10 @@ export const PLANS = [
     cta: "Read free on Substack",
     featured: false,
     perks: [
+      "The free portion of daily Afternoon Discoveries",
+      "Featured stories, poems, and essays with direct links",
       "The free portion of Monday Morning Opportunities",
       "A useful selection of current writing work and opportunities",
-      "The free portion of daily Afternoon Discoveries",
-      "Featured discoveries and direct source links",
       "Delivered through Substack",
     ],
   },
@@ -186,8 +186,8 @@ export const PLANS = [
     featured: true,
     perks: [
       "Everything in the free edition",
-      "Expanded Monday opportunity roundups and featured opportunities",
       "Expanded Afternoon Discoveries every day",
+      "Expanded Monday opportunity roundups and featured opportunities",
       "Special Recommendations and deeper context",
       "The paid-subscriber-only Weekly Discoveries Roundup every Sunday",
       "Managed through Substack",
@@ -198,7 +198,7 @@ export const PLANS = [
 export const PRINCIPLES = [
   {
     title: "Useful before impressive",
-    body: "The point is to find something you can actually read, enter, apply for, submit to, or remember. Utility gets the first seat at the table.",
+    body: "The point is to find something you can actually read tonight, and, for readers who write, something you can enter, apply for, or submit to. Utility gets the first seat at the table.",
   },
   {
     title: "Check before sharing",
@@ -217,11 +217,11 @@ export const PRINCIPLES = [
 export const FAQ = [
   {
     q: "What is Among The Letters?",
-    a: "A Substack publication for writers, readers, and curious people. It gathers legitimate writing opportunities and paid work, then returns through the week with books, authors, essays, stories, publications, and other literary things worth finding.",
+    a: "A free reading newsletter on Substack for anyone who enjoys reading, in every genre. Each afternoon brings stories, poems, and essays you can read online, picked by hand with every link checked, and each day of the week has its own genre. For readers who also write, Mondays add checked writing opportunities, and the website has free writer resources.",
   },
   {
     q: "When is it published?",
-    a: "Morning Opportunities is published on Mondays. Afternoon Discoveries is published every day, Sunday through Saturday. On Sunday evening, paid subscribers also receive the Weekly Discoveries Roundup.",
+    a: "Afternoon Discoveries is published every day, Sunday through Saturday. On Sunday evening, paid subscribers also receive the Weekly Discoveries Roundup. Morning Opportunities, for readers who write, is published on Mondays.",
   },
   {
     q: "What is the Sunday Weekly Discoveries Roundup?",

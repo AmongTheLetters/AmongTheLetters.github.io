@@ -35,7 +35,6 @@ function IssueCard({ issue }: { issue: ArchiveIssue }) {
       target="_blank"
       rel="noreferrer"
       className="group flex min-h-72 flex-col rounded-xl bg-cream p-6 shadow-[var(--shadow-border)] transition-[transform,box-shadow] duration-[var(--motion-fast)] ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[var(--shadow-border-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-oxblood md:p-7"
-      aria-label={`Open ${issue.edition} from ${readableDate(issue.date)} as a PDF`}
     >
       <div className="flex items-start justify-between gap-4">
         <p className="kicker">{issue.edition}</p>
@@ -108,7 +107,7 @@ export function ArchiveApp() {
                   Past letters, kept within reach.
                 </h1>
                 <p className="text-on-open mt-5 max-w-2xl text-lead text-muted">
-                  A growing shelf of published Among The Letters editions. Choose an issue below to open the original PDF and read it as it appeared.
+                  A growing shelf of past Afternoon Discoveries editions, one for every day and every genre, each full of stories, poems, and essays worth your afternoon. Choose an issue below to open the original PDF and read it as it appeared.
                 </p>
               </div>
 

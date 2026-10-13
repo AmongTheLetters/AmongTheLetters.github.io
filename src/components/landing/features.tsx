@@ -20,7 +20,7 @@ export function Features() {
             Less searching. More finding.
           </h2>
           <p className="text-on-open mt-4 max-w-xl text-lead text-muted">
-            Good opportunities and good writing are scattered all over the place. We go looking, check what needs checking, and gather the pieces that seem worth your time.
+            Good writing is scattered all over the place. We go looking, check what needs checking, and gather the stories, poems, and essays that seem worth your afternoon.
           </p>
         </div>
 

@@ -19,8 +19,8 @@ export function Hero() {
           <div className="mx-auto mt-5 max-w-2xl"><div className="rule-double" /></div>
 
           <p className="text-on-open mx-auto mt-8 max-w-2xl font-display text-deck font-normal leading-snug tracking-tight text-ink">
-            Find useful opportunities.
-            <br className="hidden sm:block" /> Discover worthwhile writing.
+            Stories, poems, and essays worth your afternoon.
+            <br className="hidden sm:block" /> A different genre every day.
           </p>
 
           <div className="mx-auto mt-6 flex justify-center">
@@ -30,7 +30,7 @@ export function Hero() {
           </div>
 
           <p className="text-on-open mx-auto mt-5 max-w-xl text-lead text-muted">
-            A gathering place for writers, readers, and curious people. Come for the opportunities, stay for the books, essays, authors, stories, and strange little things worth finding along the way.
+            Free reading, picked by hand and checked daily, for anyone who loves a good story. Come for the stories, poems, and essays, and stay for the books, authors, and strange little things worth finding along the way. Readers who write will find opportunities and free tools here too.
           </p>
 
           <div className="mx-auto mt-8 flex justify-center">
@@ -38,11 +38,11 @@ export function Hero() {
           </div>
 
           <p className="text-on-open mx-auto mt-5 max-w-2xl text-sm text-muted">
-            Morning Opportunities on Mondays
-            <span className="mx-2 text-rule-strong">·</span>
             Afternoon Discoveries every day
             <span className="mx-2 text-rule-strong">·</span>
             Sunday evening roundup for paid subscribers
+            <span className="mx-2 text-rule-strong">·</span>
+            Writing opportunities on Mondays
           </p>
 
           <p className="text-on-open mx-auto mt-4 max-w-xl text-sm">
@@ -61,11 +61,13 @@ export function Hero() {
 
         <figure className="mt-12 md:mt-16">
           <img
-            src="./images/hero.jpg"
-            alt="A writer's desk with an open book, fountain pen, letters, and coffee in window light."
+            src="/images/hero.webp"
+            fetchPriority="high"
+            decoding="async"
+            alt="An open book, a fountain pen, letters, and a cup of coffee on a desk in window light."
             className="img-frame aspect-video w-full rounded-2xl object-cover md:aspect-hero"
-            width={1792}
-            height={1008}
+            width={1083}
+            height={419}
           />
           <figcaption className="mt-3 flex items-center justify-between gap-4 text-sm text-faint">
             <span>There may be something waiting for you</span>

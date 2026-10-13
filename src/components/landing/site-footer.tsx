@@ -22,14 +22,17 @@ export function SiteFooter() {
           <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-ink">
             Substack
           </a>
-          <a href="#faq" className="text-sm text-muted hover:text-ink">
+          <a href="/resources/glossary/" className="text-sm text-muted hover:text-ink">
+            Glossary
+          </a>
+          <a href="/#faq" className="text-sm text-muted hover:text-ink">
             Questions
           </a>
         </nav>
       </div>
       <div className="section-shell mt-10 flex flex-col gap-2 border-t border-rule pt-6 text-sm text-faint md:flex-row md:justify-between">
         <p>© {new Date().getFullYear()} Among The Letters.</p>
-        <p>A small literary briefing for writers, readers, and curious people.</p>
+        <p>A daily reading newsletter for anyone who loves to read.</p>
       </div>
     </footer>
   );
