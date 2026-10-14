@@ -28,6 +28,9 @@ export function SiteFooter() {
           <a href="https://www.pinterest.com/amongtheletters/" target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-ink">
             Pinterest
           </a>
+          <a href="https://x.com/AmongtheLetters" target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-ink">
+            X
+          </a>
           <a href="/resources/glossary/" className="text-sm text-muted hover:text-ink">
             Glossary
           </a>

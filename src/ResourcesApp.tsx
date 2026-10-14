@@ -9,6 +9,7 @@ import {
   RESOURCE_PRINCIPLES,
   type Resource,
   type ResourceFeature,
+  SOCIAL_LINKS,
 } from "@/lib/resources-content";
 import { SHOP_URL } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
@@ -103,6 +104,17 @@ function ResourceCard({ resource }: { resource: Resource }) {
             </Button>
           ))}
         </div>
+        {resource.pin ? (
+          <a
+            href={resource.pin}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-flex items-center gap-1 self-start text-sm text-muted underline-offset-4 hover:text-ink hover:underline"
+          >
+            Save it on Pinterest
+            <ArrowUpRight className="size-3.5" aria-hidden="true" />
+          </a>
+        ) : null}
       </div>
     </article>
   );
@@ -131,6 +143,18 @@ export function ResourcesApp() {
                 </p>
                 <p className="text-on-open mt-5 max-w-2xl text-lead text-muted">
                   Practical, printable pieces to make the business side of writing a little lighter. Free to download, free to keep, and made with the same care as everything else here.
+                </p>
+                <p className="text-on-open mt-4 text-sm text-muted">
+                  Follow along on{" "}
+                  {SOCIAL_LINKS.map((link, i) => (
+                    <span key={link.href}>
+                      {i > 0 ? (i === SOCIAL_LINKS.length - 1 ? ", and " : ", ") : null}
+                      <a href={link.href} target="_blank" rel="noreferrer" className="text-ink underline decoration-rule underline-offset-4 hover:decoration-oxblood">
+                        {link.label}
+                      </a>
+                    </span>
+                  ))}
+                  .
                 </p>
               </div>
 

@@ -12,7 +12,15 @@ export type Resource = {
   orientation: "portrait" | "landscape";
   alt: string;
   files: readonly ResourceFile[];
+  /** Optional Pinterest pin so readers can save the resource. */
+  pin?: string;
 };
+
+export const SOCIAL_LINKS = [
+  { label: "Bluesky", href: "https://bsky.app/profile/amongtheletters.bsky.social" },
+  { label: "Pinterest", href: "https://www.pinterest.com/amongtheletters/" },
+  { label: "X", href: "https://x.com/AmongtheLetters" },
+] as const;
 
 export type ResourceCategory = {
   id: string;
@@ -71,6 +79,7 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
         orientation: "landscape",
         alt: "The Submission Tracker: a landscape table with columns for title, venue, genre, dates, fee, status, and notes",
         files: [{ label: "PDF", href: "/resources/atl-submission-tracker.pdf", size: "PDF" }],
+        pin: "https://www.pinterest.com/pin/1112178070515100014/",
       },
       {
         id: "cover-letter-template",
