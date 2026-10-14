@@ -26,7 +26,7 @@ export function Wordmark({ className }: { className?: string }) {
       )}
     >
       <span className="font-display text-lg leading-none tracking-tight">
-        <span className="italic">Among the Letters</span>
+        <span className="italic">Among The Letters</span>
       </span>
     </a>
   );
