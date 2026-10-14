@@ -13,7 +13,7 @@ export function Hero() {
           <p className="text-on-open mt-4 kicker shrink-0 text-bark">{SITE.kicker}</p>
 
           <h1 className="text-on-open mt-6 font-display text-display font-medium tracking-tight text-ink">
-            <span className="italic">Among the Letters</span>
+            <span className="italic">Among The Letters</span>
           </h1>
 
           <div className="mx-auto mt-5 max-w-2xl"><div className="rule-double" /></div>
@@ -71,7 +71,7 @@ export function Hero() {
           />
           <figcaption className="mt-3 flex items-center justify-between gap-4 text-sm text-faint">
             <span>There may be something waiting for you</span>
-            <span className="hidden font-medium tracking-kicker text-oxblood sm:inline">Among the Letters</span>
+            <span className="hidden font-medium tracking-kicker text-oxblood sm:inline">Among The Letters</span>
           </figcaption>
         </figure>
       </div>
