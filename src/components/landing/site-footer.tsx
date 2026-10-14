@@ -22,6 +22,12 @@ export function SiteFooter() {
           <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-ink">
             Substack
           </a>
+          <a href="https://bsky.app/profile/amongtheletters.bsky.social" target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-ink">
+            Bluesky
+          </a>
+          <a href="https://www.pinterest.com/amongtheletters/" target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-ink">
+            Pinterest
+          </a>
           <a href="/resources/glossary/" className="text-sm text-muted hover:text-ink">
             Glossary
           </a>

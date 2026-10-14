@@ -19,8 +19,9 @@ GENRES = {"Monday": "Literary Fiction & Poetry", "Tuesday": "Science Fiction & F
           "Wednesday": "Mystery, Thriller, Crime, Horror, & Dark Fiction", "Thursday": "Romance, Women's Fiction, & Historical Fiction",
           "Friday": "Nonfiction, Memoir, Essays, & Narrative Journalism", "Saturday": "Speculative, Hybrid, Experimental, Short, & Flash Fiction",
           "Sunday": "Emerging Writers, Debuts, & Reading Worth Revisiting"}
-# Add Bluesky / Pinterest profile URLs here once those accounts exist.
-SAME_AS = [SUBSTACK, "https://substack.com/@amongtheletters", "https://x.com/AmongtheLetters"]
+SAME_AS = [SUBSTACK, "https://substack.com/@amongtheletters", "https://x.com/AmongtheLetters",
+           "https://bsky.app/profile/amongtheletters.bsky.social", "https://www.pinterest.com/amongtheletters/"]
+PINTEREST_VERIFY = "53d57ce857c26a09cc812d755c34a92a"
 
 ORG = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Among The Letters", "url": f"{SITE}/",
        "logo": {"@type": "ImageObject", "url": f"{SITE}/favicon.svg"}, "image": f"{SITE}/images/og/share-v3.png",
@@ -103,6 +104,7 @@ def process(path, page):
         for a, k in (("property", "og:title"), ("name", "twitter:title")): s = set_meta(s, a, k, page["ogtitle"])
     if page.get("og"):
         for a, k in (("property", "og:description"), ("name", "twitter:description")): s = set_meta(s, a, k, page["og"])
+    s = add_link(s, f'<meta name="p:domain_verify" content="{PINTEREST_VERIFY}"/>', 'p:domain_verify')
     if page.get("url"):
         s = add_link(s, f'<link rel="canonical" href="{SITE}{page["url"]}" />', 'rel="canonical"')
     s = add_link(s, f'<link rel="alternate" type="application/rss+xml" title="Among The Letters on Substack" href="{SUBSTACK}feed" />', 'application/rss+xml')
