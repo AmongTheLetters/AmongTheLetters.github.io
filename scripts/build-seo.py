@@ -23,7 +23,7 @@ GENRES = {"Monday": "Literary Fiction & Poetry", "Tuesday": "Science Fiction & F
 SAME_AS = [SUBSTACK, "https://substack.com/@amongtheletters", "https://x.com/AmongtheLetters"]
 
 ORG = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Among The Letters", "url": f"{SITE}/",
-       "logo": {"@type": "ImageObject", "url": f"{SITE}/favicon.svg"}, "image": f"{SITE}/images/og/share-v2.png",
+       "logo": {"@type": "ImageObject", "url": f"{SITE}/favicon.svg"}, "image": f"{SITE}/images/og/share-v3.png",
        "email": "amongtheletters@gmail.com", "description": "A free daily reading newsletter of stories, poems, and essays, with a different genre each day.",
        "areaServed": "Worldwide", "sameAs": SAME_AS}
 WEBSITE = {"@type": "WebSite", "@id": f"{SITE}/#website", "url": f"{SITE}/", "name": "Among The Letters",

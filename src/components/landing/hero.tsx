@@ -13,7 +13,7 @@ export function Hero() {
           <p className="text-on-open mt-4 kicker shrink-0 text-bark">{SITE.kicker}</p>
 
           <h1 className="text-on-open mt-6 font-display text-display font-medium tracking-tight text-ink">
-            <span className="italic">Among</span> the Letters
+            <span className="italic">Among the Letters</span>
           </h1>
 
           <div className="mx-auto mt-5 max-w-2xl"><div className="rule-double" /></div>
