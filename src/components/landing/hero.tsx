@@ -4,7 +4,7 @@ import { ARCHIVE_URL, SITE } from "@/lib/site-content";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pb-16 pt-8 md:pb-24 md:pt-12">
+    <section className="relative overflow-hidden pb-12 pt-8 md:pb-16 md:pt-12">
       <div className="section-shell">
         <div className="stagger-in mx-auto max-w-4xl text-center">
           <div className="rule-floral" aria-hidden="true">
@@ -59,21 +59,13 @@ export function Hero() {
           </p>
         </div>
 
-        <figure className="mt-12 md:mt-16">
-          <img
-            src="/images/hero.webp"
-            fetchPriority="high"
-            decoding="async"
-            alt="An open book, a fountain pen, letters, and a cup of coffee on a desk in window light."
-            className="img-frame aspect-video w-full rounded-2xl object-cover md:aspect-hero"
-            width={1083}
-            height={419}
-          />
-          <figcaption className="mt-3 flex items-center justify-between gap-4 text-sm text-faint">
+        <div className="mx-auto mt-10 max-w-2xl md:mt-12">
+          <div className="rule-double" aria-hidden="true" />
+          <p className="mt-4 flex flex-col items-center gap-1 text-center text-sm text-faint sm:flex-row sm:justify-between sm:gap-4">
             <span>There may be something waiting for you</span>
-            <span className="hidden font-medium tracking-kicker text-oxblood sm:inline">Among The Letters</span>
-          </figcaption>
-        </figure>
+            <span className="font-medium tracking-kicker text-oxblood">Among The Letters</span>
+          </p>
+        </div>
       </div>
     </section>
   );
