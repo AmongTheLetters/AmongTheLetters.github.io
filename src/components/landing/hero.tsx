@@ -4,7 +4,7 @@ import { ARCHIVE_URL, SITE } from "@/lib/site-content";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pb-4 pt-8 md:pb-6 md:pt-12">
+    <section className="relative overflow-hidden pb-0 pt-8 md:pt-12">
       <div className="section-shell">
         <div className="stagger-in mx-auto max-w-4xl text-center">
           <div className="rule-floral" aria-hidden="true">
@@ -36,15 +36,6 @@ export function Hero() {
           <div className="mx-auto mt-8 flex justify-center">
             <SubstackLink label="Wander over to Substack" />
           </div>
-
-          <p className="text-on-open mx-auto mt-5 max-w-2xl text-sm text-muted">
-            Afternoon Discoveries every day
-            <span className="mx-2 text-rule-strong">·</span>
-            Sunday evening roundup for paid subscribers
-            <span className="mx-2 text-rule-strong">·</span>
-            Writing opportunities on Mondays
-          </p>
-
         </div>
 
       </div>
