@@ -5,6 +5,8 @@ import { Faq } from "@/components/landing/faq";
 import { Features } from "@/components/landing/features";
 import { FlierPopup } from "@/components/landing/flier-popup";
 import { Genres } from "@/components/landing/genres";
+import { HeroSignoff } from "@/components/landing/hero-signoff";
+import { MembershipNote } from "@/components/landing/membership-note";
 import { Hero } from "@/components/landing/hero";
 import { Pricing } from "@/components/landing/pricing";
 import { ProofBar } from "@/components/landing/proof-bar";
@@ -21,7 +23,7 @@ export function App() {
       <a href="#briefing" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">Skip to content</a>
       <SiteHeader />
       <main>
-        <Hero /><ProofBar /><Featured /><Briefing /><Features /><SampleIssue /><ArchiveTeaser /><Genres /><Pricing /><Testimonials /><Faq /><Subscribe /><AsSeenOn />
+        <Hero /><Featured /><HeroSignoff /><ProofBar /><MembershipNote /><Briefing /><Features /><SampleIssue /><ArchiveTeaser /><Genres /><Pricing /><Testimonials /><Faq /><Subscribe /><AsSeenOn />
       </main>
       <SiteFooter />
       <div className="page-newsprint" aria-hidden="true" />

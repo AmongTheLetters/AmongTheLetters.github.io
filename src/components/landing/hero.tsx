@@ -4,7 +4,7 @@ import { ARCHIVE_URL, SITE } from "@/lib/site-content";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pb-12 pt-8 md:pb-16 md:pt-12">
+    <section className="relative overflow-hidden pb-4 pt-8 md:pb-6 md:pt-12">
       <div className="section-shell">
         <div className="stagger-in mx-auto max-w-4xl text-center">
           <div className="rule-floral" aria-hidden="true">
@@ -45,27 +45,8 @@ export function Hero() {
             Writing opportunities on Mondays
           </p>
 
-          <p className="text-on-open mx-auto mt-4 max-w-xl text-sm">
-            <a
-              href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry"
-              className="font-medium text-oxblood transition-colors hover:text-oxblood-dark hover:underline hover:underline-offset-4"
-            >
-              Founding lifetime memberships are available for $299 CAD.
-              <br />
-              Lifetime paid newsletter access, plus select future Among The Letters releases outside Substack.
-              <br />
-              Email amongtheletters@gmail.com for details.
-            </a>
-          </p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-2xl md:mt-12">
-          <div className="rule-double" aria-hidden="true" />
-          <p className="mt-4 flex flex-col items-center gap-1 text-center text-sm text-faint sm:flex-row sm:justify-between sm:gap-4">
-            <span>There may be something waiting for you</span>
-            <span className="font-medium tracking-kicker text-oxblood">Among The Letters</span>
-          </p>
-        </div>
       </div>
     </section>
   );

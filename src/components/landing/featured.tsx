@@ -32,7 +32,7 @@ export const PAST_FEATURED: FeaturedPiece[] = [];
 export function Featured() {
   const f = FEATURED;
   return (
-    <section id="featured" aria-labelledby="featured-heading" className="border-b border-rule py-16 md:py-20">
+    <section id="featured" aria-labelledby="featured-heading" className="py-10 md:py-14">
       <div className="section-shell grid items-center gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-14">
         <a href={f.pdf} target="_blank" rel="noopener" className="mx-auto block w-full max-w-xs md:max-w-sm">
           <img
