@@ -21,6 +21,10 @@ export const AS_SEEN_ON: AsSeenOnEntry[] = [
       height: 54,
     },
   },
+  {
+    name: "BlogHub",
+    href: "https://bloghub.app/publications/among-the-letters-7dde36fa",
+  },
 ];
 
 export function AsSeenOn() {
