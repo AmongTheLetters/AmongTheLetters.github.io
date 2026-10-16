@@ -62,6 +62,7 @@ page = f'''<!doctype html>
     <meta property="og:description" content="{e(desc)}" />
     <meta property="og:url" content="{URL}" />
     <meta property="og:image" content="https://amongtheletters.com/images/resources/glossary-og.jpg" />
+    <meta name="twitter:image:alt" content="A Plain-Language Glossary for Writers, from the Among The Letters Free Resources library" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="A Plain-Language Glossary for Writers, from the Among The Letters Free Resources library" />

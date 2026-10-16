@@ -104,6 +104,8 @@ def process(path, page):
         for a, k in (("property", "og:title"), ("name", "twitter:title")): s = set_meta(s, a, k, page["ogtitle"])
     if page.get("og"):
         for a, k in (("property", "og:description"), ("name", "twitter:description")): s = set_meta(s, a, k, page["og"])
+    # Minimal CSP that cannot block site assets: upgrade stray http, no plugins, no <base> hijack.
+    s = add_link(s, '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; object-src \'none\'; base-uri \'self\'" />', 'Content-Security-Policy')
     s = add_link(s, f'<meta name="p:domain_verify" content="{PINTEREST_VERIFY}"/>', 'p:domain_verify')
     if page.get("url"):
         s = add_link(s, f'<link rel="canonical" href="{SITE}{page["url"]}" />', 'rel="canonical"')
@@ -150,6 +152,8 @@ def sitemap():
         urls.append((f"{SITE}/resources/{f.name}", lm(f"public/resources/{f.name}"), "0.4"))
     for d, pdf in archive_issues():
         urls.append((SITE + pdf, lm("public" + pdf), "0.5"))
+    for f in sorted((ROOT / "public/featured").glob("*.pdf")):
+        urls.append((f"{SITE}/featured/{f.name}", lm(f"public/featured/{f.name}"), "0.6"))
     body = "\n".join(f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{d}</lastmod>\n    <priority>{p}</priority>\n  </url>" for u, d, p in urls)
     (ROOT / "public/sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n')
     return len(urls)
