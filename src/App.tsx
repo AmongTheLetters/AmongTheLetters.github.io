@@ -7,6 +7,7 @@ import { Genres } from "@/components/landing/genres";
 import { Hero } from "@/components/landing/hero";
 import { Pricing } from "@/components/landing/pricing";
 import { ProofBar } from "@/components/landing/proof-bar";
+import { AsSeenOn } from "@/components/landing/as-seen-on";
 import { SampleIssue } from "@/components/landing/sample-issue";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
@@ -19,7 +20,7 @@ export function App() {
       <a href="#briefing" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">Skip to content</a>
       <SiteHeader />
       <main>
-        <Hero /><ProofBar /><Briefing /><Features /><SampleIssue /><ArchiveTeaser /><Genres /><Pricing /><Testimonials /><Faq /><Subscribe />
+        <Hero /><ProofBar /><Briefing /><Features /><SampleIssue /><ArchiveTeaser /><Genres /><Pricing /><Testimonials /><Faq /><Subscribe /><AsSeenOn />
       </main>
       <SiteFooter />
       <div className="page-newsprint" aria-hidden="true" />
