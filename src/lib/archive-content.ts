@@ -8,6 +8,18 @@
 // Explicit public archive. Afternoon Discoveries only — never list Morning Opportunities or Sunday Roundup.
 export const ARCHIVE_ISSUES: ArchiveIssue[] = [
   {
+    slug: "afternoon-discoveries-2026-10-21",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-21",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-21.pdf",
+  },
+  {
+    slug: "afternoon-discoveries-2026-10-20",
+    edition: "Afternoon Discoveries",
+    date: "2026-10-20",
+    pdf: "/newsletters/afternoon-discoveries-2026-10-20.pdf",
+  },
+  {
     slug: "afternoon-discoveries-2026-10-19",
     edition: "Afternoon Discoveries",
     date: "2026-10-19",
