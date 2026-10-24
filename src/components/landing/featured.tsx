@@ -17,17 +17,27 @@ export type FeaturedPiece = {
 };
 
 export const FEATURED: FeaturedPiece = {
-  title: "When the Evenings Lengthen",
-  deck: "Why stories feel different as the autumn dark comes early",
-  pdf: "/featured/when-the-evenings-lengthen.pdf",
-  cover: "/featured/when-the-evenings-lengthen-cover.webp",
+  title: "Lantern Light and Low Voices",
+  deck: "On the old pleasure of a story told to frighten, and why we still gather for it every October",
+  pdf: "/featured/lantern-light-and-low-voices.pdf",
+  cover: "/featured/lantern-light-and-low-voices-cover.webp",
   coverWidth: 680,
   coverHeight: 880,
-  date: "October 2026",
+  date: "Halloween 2026",
 };
 
 /* Earlier featured pieces, newest first. */
-export const PAST_FEATURED: FeaturedPiece[] = [];
+export const PAST_FEATURED: FeaturedPiece[] = [
+  {
+    title: "When the Evenings Lengthen",
+    deck: "Why stories feel different as the autumn dark comes early",
+    pdf: "/featured/when-the-evenings-lengthen.pdf",
+    cover: "/featured/when-the-evenings-lengthen-cover.webp",
+    coverWidth: 680,
+    coverHeight: 880,
+    date: "October 2026",
+  },
+];
 
 export function Featured() {
   const f = FEATURED;

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://amongtheletters.com/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -214,6 +214,11 @@
     <loc>https://amongtheletters.com/newsletters/afternoon-discoveries-2026-09-18.pdf</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://amongtheletters.com/featured/lantern-light-and-low-voices.pdf</loc>
+    <lastmod>2026-10-24</lastmod>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://amongtheletters.com/featured/when-the-evenings-lengthen.pdf</loc>
