@@ -26,6 +26,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://amongtheletters.com/upcoming/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://amongtheletters.com/resources/atl-before-you-hit-submit-checklist.pdf</loc>
     <lastmod>2026-10-13</lastmod>
     <priority>0.4</priority>

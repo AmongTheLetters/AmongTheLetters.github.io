@@ -2,6 +2,7 @@ export const SUBSTACK_URL = "https://amongtheletters.substack.com/";
 export const ARCHIVE_URL = "/archive/";
 export const SHOP_URL = "/shop/";
 export const RESOURCES_URL = "/resources/";
+export const UPCOMING_URL = "/upcoming/";
 
 export const SITE = {
   name: "Among The Letters",
@@ -15,6 +16,7 @@ export const NAV = [
   { href: ARCHIVE_URL, label: "Archive" },
   { href: SHOP_URL, label: "Shop" },
   { href: RESOURCES_URL, label: "Free Resources" },
+  { href: UPCOMING_URL, label: "Upcoming Featured" },
 ] as const;
 
 export const PROOF = [

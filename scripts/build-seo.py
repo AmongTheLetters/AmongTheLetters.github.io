@@ -52,6 +52,10 @@ PAGES = {
      desc="Free extras for readers who also write: a printable submission tracker, a cover letter template in PDF and Word, a Before You Hit Submit checklist, and a plain-language glossary. No sign-up.",
      og="Free printable tools and a plain-language glossary for readers who also write. No sign-up.",
      ogtitle="Free Resources for Writers | Among The Letters"),
+  "upcoming/index.html": dict(url="/upcoming/", title="Upcoming Featured Pieces | Among The Letters",
+     desc="See what is coming to the Among The Letters featured shelf: free featured pieces for Canadian holidays and the seasons, with go-live dates for the months ahead.",
+     og="The next free featured pieces from Among The Letters, with go-live dates and the occasions they mark.",
+     ogtitle="Upcoming Featured | Among The Letters"),
   "resources/glossary/index.html": dict(url="/resources/glossary/", title="A Plain-Language Glossary for Writers | Among The Letters",
      desc=None, og=None, ogtitle=None),
   "404.html": dict(url=None, title="Page Not Found | Among The Letters", desc="This page could not be found. Read today's free stories, poems, and essays from Among The Letters, or browse the archive.", og=None, ogtitle=None),
@@ -146,7 +150,8 @@ def sitemap():
              ("/archive/", ["archive/index.html", "src/ArchiveApp.tsx", "src/lib/archive-content.ts"], "0.9"),
              ("/resources/", ["resources/index.html", "src/ResourcesApp.tsx", "src/lib/resources-content.ts"], "0.7"),
              ("/resources/glossary/", ["resources/glossary/index.html", "src/lib/glossary.json"], "0.7"),
-             ("/shop/", ["shop/index.html", "src/ShopApp.tsx", "src/lib/shop-content.ts"], "0.6")]
+             ("/shop/", ["shop/index.html", "src/ShopApp.tsx", "src/lib/shop-content.ts"], "0.6"),
+             ("/upcoming/", ["upcoming/index.html", "src/UpcomingApp.tsx", "src/lib/featured-schedule.ts"], "0.6")]
     urls = [(SITE + u, lm(*r), pr) for u, r, pr in pages]
     for f in sorted((ROOT / "public/resources").glob("*")):
         urls.append((f"{SITE}/resources/{f.name}", lm(f"public/resources/{f.name}"), "0.4"))

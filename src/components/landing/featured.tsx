@@ -1,5 +1,6 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { UPCOMING_URL } from "@/lib/site-content";
 
 /*
  * Featured piece, swapped about every two weeks.
@@ -39,6 +40,11 @@ export const PAST_FEATURED: FeaturedPiece[] = [
   },
 ];
 
+/* File name readers get when they download, e.g. among-the-letters-lantern-light-and-low-voices.pdf */
+export function downloadName(f: FeaturedPiece) {
+  return `among-the-letters-${f.pdf.split("/").pop()}`;
+}
+
 export function Featured() {
   const f = FEATURED;
   return (
@@ -60,13 +66,49 @@ export function Featured() {
             {f.title}
           </h2>
           <p className="mt-4 text-lg text-muted">{f.deck}</p>
-          <Button asChild size="lg" className="mt-8">
-            <a href={f.pdf} target="_blank" rel="noopener">
-              Read the featured piece <ArrowUpRight className="size-4" />
-            </a>
-          </Button>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <a href={f.pdf} target="_blank" rel="noopener">
+                Read the featured piece <ArrowUpRight className="size-4" />
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <a href={f.pdf} download={downloadName(f)}>
+                Download PDF <Download className="size-4" />
+              </a>
+            </Button>
+          </div>
+          <a href={UPCOMING_URL} className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-oxblood underline-offset-4 hover:underline">
+            See what is coming next <ArrowRight className="size-4" />
+          </a>
         </div>
       </div>
+      {PAST_FEATURED.length > 0 ? (
+        <div className="section-shell mt-12">
+          <div className="flex items-center gap-4">
+            <p className="kicker">Past featured pieces</p>
+            <span className="rule flex-1" aria-hidden="true" />
+          </div>
+          <ul className="mt-4 divide-y divide-rule">
+            {PAST_FEATURED.map((p) => (
+              <li key={p.pdf} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="font-display text-xl font-medium tracking-tight">{p.title}</p>
+                  <p className="text-sm text-muted">{p.date}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button asChild size="sm" variant="ghost">
+                    <a href={p.pdf} target="_blank" rel="noopener">Read <ArrowUpRight className="size-4" /></a>
+                  </Button>
+                  <Button asChild size="sm" variant="outline">
+                    <a href={p.pdf} download={downloadName(p)}>Download PDF <Download className="size-4" /></a>
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </section>
   );
 }
