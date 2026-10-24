@@ -24,7 +24,7 @@ export function UpcomingApp() {
             <div className="max-w-3xl">
               <div className="flex items-center gap-3 text-oxblood">
                 <CalendarDays className="size-5" strokeWidth={1.75} />
-                <p className="kicker">Upcoming featured</p>
+                <p className="kicker">Featured calendar</p>
               </div>
               <h1 className="text-on-open mt-4 font-display text-masthead font-medium text-ink md:max-w-2xl">
                 What is coming to the featured shelf.
