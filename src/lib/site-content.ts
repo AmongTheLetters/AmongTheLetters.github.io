@@ -12,13 +12,9 @@ export const SITE = {
 } as const;
 
 export const NAV = [
-  { href: "/#briefing", label: "What You'll Find" },
-  { href: "/#inside", label: "How It Works" },
-  { href: "/#pricing", label: "Subscriptions" },
   { href: ARCHIVE_URL, label: "Archive" },
   { href: SHOP_URL, label: "Shop" },
   { href: RESOURCES_URL, label: "Free Resources" },
-  { href: "/#principles", label: "Our Approach" },
 ] as const;
 
 export const PROOF = [
