@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
-import { ArrowUpRight, CalendarDays, FileText, LibraryBig } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Download, FileText, LibraryBig } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PAST_FEATURED, downloadName } from "@/components/landing/featured";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SubstackLink } from "@/components/landing/substack-link";
@@ -187,6 +188,53 @@ export function ArchiveApp() {
             </div>
           </div>
         </section>
+
+        {PAST_FEATURED.length > 0 ? (
+          <section id="past-featured" aria-labelledby="past-featured-heading" className="scroll-mt-28 border-t border-rule py-20 md:py-28">
+            <div className="section-shell">
+              <div className="max-w-2xl">
+                <p className="kicker">Past featured pieces</p>
+                <h2 id="past-featured-heading" className="text-on-open mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+                  Featured pieces, still on the shelf.
+                </h2>
+                <p className="text-on-open mt-4 max-w-xl text-muted">
+                  Every featured piece that has had its turn on the homepage, free to read online or download as a PDF.
+                </p>
+              </div>
+              <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {PAST_FEATURED.map((piece) => (
+                  <article key={piece.pdf} className="flex flex-col rounded-xl bg-cream p-6 shadow-[var(--shadow-border)] md:p-7">
+                    <div className="flex gap-5">
+                      <a href={piece.pdf} target="_blank" rel="noopener" className="block w-24 shrink-0">
+                        <img
+                          src={piece.cover}
+                          alt={`Cover of ${piece.title}`}
+                          width={piece.coverWidth}
+                          height={piece.coverHeight}
+                          loading="lazy"
+                          className="h-auto w-full rounded-sm border border-rule shadow-md"
+                        />
+                      </a>
+                      <div className="min-w-0">
+                        <p className="kicker">{piece.date}</p>
+                        <h3 className="mt-3 font-display text-2xl font-medium leading-tight tracking-tight text-ink">{piece.title}</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-muted">{piece.deck}</p>
+                      </div>
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-3 border-t border-rule pt-5">
+                      <Button asChild size="sm">
+                        <a href={piece.pdf} target="_blank" rel="noopener">Read <ArrowUpRight className="size-4" /></a>
+                      </Button>
+                      <Button asChild size="sm" variant="outline">
+                        <a href={piece.pdf} download={downloadName(piece)}>Download PDF <Download className="size-4" /></a>
+                      </Button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="border-t border-rule bg-ink py-16 text-parchment md:py-20">
           <div className="section-shell flex flex-col gap-8 md:flex-row md:items-center md:justify-between">

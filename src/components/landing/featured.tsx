@@ -83,32 +83,6 @@ export function Featured() {
           </a>
         </div>
       </div>
-      {PAST_FEATURED.length > 0 ? (
-        <div className="section-shell mt-12">
-          <div className="flex items-center gap-4">
-            <p className="kicker">Past featured pieces</p>
-            <span className="rule flex-1" aria-hidden="true" />
-          </div>
-          <ul className="mt-4 divide-y divide-rule">
-            {PAST_FEATURED.map((p) => (
-              <li key={p.pdf} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="font-display text-xl font-medium tracking-tight">{p.title}</p>
-                  <p className="text-sm text-muted">{p.date}</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Button asChild size="sm" variant="ghost">
-                    <a href={p.pdf} target="_blank" rel="noopener">Read <ArrowUpRight className="size-4" /></a>
-                  </Button>
-                  <Button asChild size="sm" variant="outline">
-                    <a href={p.pdf} download={downloadName(p)}>Download PDF <Download className="size-4" /></a>
-                  </Button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
     </section>
   );
 }
