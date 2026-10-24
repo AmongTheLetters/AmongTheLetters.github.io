@@ -16,7 +16,7 @@ export const NAV = [
   { href: ARCHIVE_URL, label: "Archive" },
   { href: SHOP_URL, label: "Shop" },
   { href: RESOURCES_URL, label: "Free Resources" },
-  { href: UPCOMING_URL, label: "Upcoming Featured" },
+  { href: UPCOMING_URL, label: "Calendar" },
 ] as const;
 
 export const PROOF = [
