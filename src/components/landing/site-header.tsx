@@ -17,10 +17,10 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   return (
@@ -67,28 +67,36 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div
-          id="mobile-nav"
-          className="border-t border-rule bg-cream lg:hidden"
-        >
-          <nav className="section-shell flex flex-col py-4" aria-label="Mobile">
-            {NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="flex min-h-11 items-center font-display text-2xl tracking-tight text-ink"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
-            <Button asChild className="mt-4">
-              <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
-                Substack
-              </a>
-            </Button>
-          </nav>
-        </div>
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-0 top-16 z-30 cursor-default bg-ink/10 lg:hidden"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            id="mobile-nav"
+            className="absolute right-4 top-[calc(100%+0.5rem)] z-40 w-60 max-w-[calc(100vw-2rem)] rounded-xl border border-rule bg-cream p-2 shadow-lg lg:hidden"
+          >
+            <nav className="flex flex-col" aria-label="Mobile">
+              {NAV.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="flex min-h-11 items-center rounded-lg px-3 text-base font-medium text-ink transition-colors hover:bg-ink/5"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <Button asChild size="sm" className="mx-1 mt-2 mb-1">
+                <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+                  Substack
+                </a>
+              </Button>
+            </nav>
+          </div>
+        </>
       ) : null}
     </header>
   );
