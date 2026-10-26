@@ -53,8 +53,8 @@ PAGES = {
      og="Free printable tools and a plain-language glossary for readers who also write. No sign-up.",
      ogtitle="Free Resources for Writers | Among The Letters"),
   "calendar/index.html": dict(url="/calendar/", title="Calendar | Among The Letters",
-     desc="See what is coming to the Among The Letters featured shelf: free featured pieces for Canadian holidays and the seasons, with go-live dates for the months ahead.",
-     og="The next free featured pieces from Among The Letters, with go-live dates and the occasions they mark.",
+     desc="The Among The Letters calendar of new free featured pieces, plus book fairs, literary festivals and writing conferences across North America and Europe, with dates and official links.",
+     og="Featured pieces, book fairs and literary events for readers and writers, all on one interactive calendar.",
      ogtitle="Calendar | Among The Letters"),
   "resources/glossary/index.html": dict(url="/resources/glossary/", title="A Plain-Language Glossary for Writers | Among The Letters",
      desc=None, og=None, ogtitle=None),
@@ -151,7 +151,7 @@ def sitemap():
              ("/resources/", ["resources/index.html", "src/ResourcesApp.tsx", "src/lib/resources-content.ts"], "0.7"),
              ("/resources/glossary/", ["resources/glossary/index.html", "src/lib/glossary.json"], "0.7"),
              ("/shop/", ["shop/index.html", "src/ShopApp.tsx", "src/lib/shop-content.ts"], "0.6"),
-             ("/calendar/", ["calendar/index.html", "src/UpcomingApp.tsx", "src/lib/featured-schedule.ts"], "0.6")]
+             ("/calendar/", ["calendar/index.html", "src/CalendarApp.tsx", "src/lib/featured-schedule.ts", "src/lib/events.ts"], "0.6")]
     urls = [(SITE + u, lm(*r), pr) for u, r, pr in pages]
     for f in sorted((ROOT / "public/resources").glob("*")):
         urls.append((f"{SITE}/resources/{f.name}", lm(f"public/resources/{f.name}"), "0.4"))
