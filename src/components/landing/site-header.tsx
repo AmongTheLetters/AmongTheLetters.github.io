@@ -5,7 +5,7 @@ import { Wordmark } from "@/components/landing/wordmark";
 import { NAV, SUBSTACK_URL } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
+export function SiteHeader({ account }: { account?: { label: string; href: string } } = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -45,7 +45,12 @@ export function SiteHeader() {
             </a>
           ))}
         </nav>
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-2 lg:flex">
+          {account ? (
+            <Button asChild size="sm" variant="outline">
+              <a href={account.href}>{account.label}</a>
+            </Button>
+          ) : null}
           <Button asChild size="sm">
             <a href={SUBSTACK_URL} target="_blank" rel="noreferrer">
               Substack
@@ -89,6 +94,11 @@ export function SiteHeader() {
                   {item.label}
                 </a>
               ))}
+              {account ? (
+                <a href={account.href} className="flex min-h-11 items-center rounded-lg px-3 text-base font-medium text-oxblood transition-colors hover:bg-ink/5" onClick={() => setOpen(false)}>
+                  {account.label}
+                </a>
+              ) : null}
               <Button asChild size="sm" className="mx-1 mt-2 mb-1">
                 <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
                   Substack
