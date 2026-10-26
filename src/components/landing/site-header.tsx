@@ -3,9 +3,14 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/landing/wordmark";
 import { NAV, SUBSTACK_URL } from "@/lib/site-content";
+import { ACCOUNTS_ON } from "@/lib/config";
+import { useAccount } from "@/lib/use-account";
+import { NotificationBell } from "@/components/landing/notification-bell";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader({ account }: { account?: { label: string; href: string } } = {}) {
+export function SiteHeader() {
+  const { ready, session, member } = useAccount();
+  const account = ACCOUNTS_ON && ready ? (session ? { label: "My account", href: "/account/" } : { label: "Sign in", href: "/account/" }) : undefined;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -46,6 +51,7 @@ export function SiteHeader({ account }: { account?: { label: string; href: strin
           ))}
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
+          {member ? <NotificationBell /> : null}
           {account ? (
             <Button asChild size="sm" variant="outline">
               <a href={account.href}>{account.label}</a>
@@ -57,6 +63,8 @@ export function SiteHeader({ account }: { account?: { label: string; href: strin
             </a>
           </Button>
         </div>
+        <div className="flex items-center gap-1 lg:hidden">
+        {member ? <NotificationBell compact /> : null}
         <Button
           type="button"
           variant="ghost"
@@ -69,6 +77,7 @@ export function SiteHeader({ account }: { account?: { label: string; href: strin
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </Button>
+        </div>
       </div>
 
       {open ? (

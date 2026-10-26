@@ -1,97 +1,86 @@
-# Opportunities database and memberships, plan (draft for Chris)
+# Opportunities database and memberships, the plan
 
-Branch `opportunities-db`. Nothing here is live, no accounts were created and no payments were set up.
+Branch `opportunities-db`. Built and ready to switch on, nothing deployed, no accounts created and no payments set up.
+Step-by-step setup lives in [`LAUNCH_CHECKLIST.md`](../LAUNCH_CHECKLIST.md).
 
-## 1. How it fits together
+## Decisions
+- Price CA$7 a month or CA$70 a year. Membership includes a comped paid Substack subscription.
+- Account and alert emails go through a free Brevo account. Brevo's free plan is free with no end date, up to 300 emails a day across everything it sends.
+- People who already pay on Substack get the database at no extra cost, through an allowlist from the Substack subscriber export, matched by email.
+- Substack comps are done by hand in the Substack dashboard from a to-do list on the account page and a daily email.
+- The database is in the site menu from launch. Until the accounts exist, the page shows the free list with "Memberships open soon".
+- On-site notifications are the main alert channel. Email and browser push are opt-in.
 
-| Piece | Tool | Cost | Why |
-| --- | --- | --- | --- |
-| Website | GitHub Pages, as now | Free | Stays static. |
-| Accounts | Supabase Auth (email and password, email sign-in link, optional Google) | Free up to 50,000 monthly active users | Real accounts with no server to run. |
-| Members-only data | Supabase Postgres with row-level security | Free, 500 MB | The database itself refuses members-only rows to anyone without an active membership. |
-| Payment | Stripe Payment Links on the existing Minocy Stripe account, plus the Stripe customer portal | No monthly fee. Stripe takes about 2.9% plus 30 cents a charge | Signed webhooks, renewal dates, self-serve cancel, receipts. |
-| Glue | One Supabase Edge Function (`supabase/functions/stripe-webhook`) | Free, 500,000 calls a month | Turns Stripe events into membership rows and Substack tasks. |
-| Account emails | Custom SMTP, either Gmail SMTP from amongtheletters@gmail.com (free, needs an app password) or Brevo free (300 a day, new account) | Free | Supabase's built-in mailer only sends to team members, 2 an hour. |
-| Alerts | Substack (Monday email), scheduled Edge Function for saved-search emails, private calendar feed, public RSS | Free | See section 4. |
+## How it fits together
+| Piece | Tool | Cost |
+| --- | --- | --- |
+| Website | GitHub Pages, as now | Free |
+| Accounts | Supabase Auth, email and password plus email sign-in link. Google sign-in is built but off | Free up to 50,000 monthly active users |
+| Members-only data, saved searches, notifications | Supabase Postgres with row-level security | Free, 500 MB |
+| Payment | Two Stripe Payment Links on the existing Minocy account, plus the Stripe customer portal | No monthly fee, about 2.9% plus 30 cents a charge |
+| Glue | Supabase Edge Functions `stripe-webhook`, `alerts`, `calendar-feed` | Free, 500,000 calls a month |
+| Emails | Brevo SMTP for account emails, Brevo API for opt-in alerts and the Substack to-do digest | Free, 300 a day |
+| Browser push (optional) | Web Push with VAPID keys, no third party | Free |
 
-Cloudflare Workers would also work for the webhook, but Supabase Edge Functions avoid a second account.
+### Site modes, chosen at build time
+- `off` when no Supabase settings are present. Free listings and RSS only, sign-in hidden. Safe to merge any time.
+- `live` when `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are set as repository Variables.
+- `preview` with `VITE_PREVIEW=1`, review builds only. Pretend accounts in the browser and a switcher bar. Add `?as=member` (or visitor, free, canceling, substack) to a page address to open it in that state.
 
-### Sign-up and payment flow
-1. Reader creates an account on `/account/`.
-2. "Continue to secure checkout" opens the Stripe Payment Link with `client_reference_id=<user id>` and `locked_prefilled_email=<account email>`.
-3. Stripe sends `checkout.session.completed`. The webhook writes `members` (active, plan, period end) and adds a `comp` row to `substack_queue`.
-4. The database page now returns every row for that user. The account page shows the membership and the Substack step.
+### Sign-up and payment
+1. A reader creates an account on `/account/` and confirms the email (required).
+2. If the email is on the Substack allowlist, everything opens straight away.
+3. Otherwise the plan picker opens the Stripe Payment Link with `client_reference_id` (the account id) and the account email locked.
+4. Stripe sends `checkout.session.completed`. The webhook marks the membership active and queues a Substack comp, unless the person already pays on Substack.
+5. Row-level security now returns every listing to that account.
 
-### What is truly secure
-- Secure. Members-only listings live only in Supabase and are released by row-level security after Stripe confirms payment. The public anon key cannot read them. Webhooks are verified with Stripe's signing secret.
-- Not secure on any site. A paying member can copy listings and share them. That is the same for every paid newsletter.
-- The preview on this branch is not the security model. It uses pretend accounts in the browser and an encrypted file opened with a published demo key. The encrypted file approach (a monthly code, AES-GCM) is a workable fallback if Chris wants a code instead of accounts, but sharing a code is honour-system.
+### What is secure
+- Members-only listings live only in Supabase and are released by row-level security. The public anon key cannot read them. The allowlist and admin checks use the confirmed email from the auth table, not anything the browser sends.
+- Stripe webhooks are verified with the signing secret. The alerts function checks a shared cron secret.
+- Secrets live only in Supabase. The repo holds public values only. The plaintext listings file stays on the box, the public repo gets the free list and RSS.
+- No site can stop a paying member copying listings. That is true of every paid newsletter.
 
-## 2. The Substack step
-Substack has no public API for adding paid subscribers, so this is a short manual task, helped by the queue.
-- On payment, the webhook queues `comp` for the member's email.
-- Daily (or each weekday morning), a routine reads the queue and either does the comps in the Substack dashboard (Subscribers, select the email, three-dot menu, Comp) with Chris's existing Substack login on the box, or sends Chris a one-line list to do in about a minute.
-- Comp lengths Substack offers are 7 days, 30 days, 90 days, 6 months, 1 year or forever.
-  - Monthly members get "forever" and are removed when they cancel. This avoids monthly busywork.
-  - Yearly members get 1 year, extended at each renewal. A missed removal lapses by itself.
-- Cancellation. The member cancels in the Stripe portal. Stripe keeps them active to the period end (shown as "Ends soon" on the account page). At the end, Stripe sends `customer.subscription.deleted`, the webhook sets the membership to expired and queues `remove`. The routine removes the comp.
-- Failed payments. Stripe retries for about two weeks (status `past_due`, access kept). If retries fail, it ends the subscription and the removal follows.
-- Monthly reconciliation. Export the Substack subscriber CSV and compare comps with active members, so nothing drifts.
-- Edge case. If a member already pays on Substack, do not comp them. Offer a refund of one side or a credit instead.
+## Notifications
+| Kind | When | Where |
+| --- | --- | --- |
+| New match | A new listing matches a saved search (checked hourly) | Bell on the site. Email if the member turned email on for that search, as it happens, daily digest or weekly digest |
+| Closing soon | A followed listing closes within the member's lead time (3, 7, 10 or 14 days) | Bell. Email if email alerts are on |
+| Closes today | A followed listing closes today | Bell. Email if email alerts are on |
 
-## 3. Pricing in CAD
-Membership includes a paid Substack subscription (currently US$5 a month or US$50 a year, about CA$7 or CA$70). The website price should not undercut Substack.
+- Every notification links straight to its listing (`/opportunities/?o=<id>`), plus the saved search when there is one (`&s=<search id>`). The page opens the listing, scrolls to it and highlights it with "From your notification".
+- The bell in the header shows an unread count, the latest notifications, mark all read, and a link to alert settings.
+- Alert settings on the account page. On-site is always on. Email is a master switch, off by default. Per saved search, on-site on or off, email on or off, and frequency. Closing reminder lead time. Browser notifications on or off for this device. A private calendar link of followed listings.
+- Notifications are created only on the server, in the `notifications` table. Members can read their own and mark them read, nothing else.
+- Daily and weekly digests go out at 9 a.m. Toronto time, weekly on Mondays. Closing reminders by email go out the hour they are created.
+- Email budget. 300 a day covers account emails plus alerts for roughly 150 to 250 members on daily or instant email, and far more on weekly digests. The bell has no limit.
 
-| Option | Monthly | Yearly | Members needed for about CA$300 a month after Stripe fees |
-| --- | --- | --- | --- |
-| A. Recommended | CA$8 | CA$80 | about 41 monthly, or about 47 yearly |
-| B. Match Substack | CA$7 | CA$70 | about 47 monthly |
-| C. Premium | CA$10 | CA$100 | about 32 monthly |
+## The Substack step
+Substack has no public API for comps, so this stays a short manual task.
+- On payment the webhook queues `comp`. Monthly members are comped forever and removed when the membership ends. Yearly members get 1 year, extended at each renewal.
+- When a membership ends (after a cancel or failed payments), the webhook queues `remove`.
+- The account page shows the to-do list to admins, with a Done button. The `alerts` function also emails the list to `ADMIN_EMAIL` at 9 a.m. Toronto time when there is something to do.
+- In Substack, Subscribers, find the email, three-dot menu, Comp (or Remove comp).
+- People on the allowlist are never queued, they already pay on Substack.
 
-Free tier: a free account sees the listings from the free half of each Monday email, plus filters, bookmarks, one-off calendar reminders and RSS. Visitors see the same free listings and locked cards for the rest (type, region, genres and deadline month only).
+## The allowlist
+- Monthly, export subscribers from Substack and run `scripts/import-substack-allowlist.mjs`. Paid, founding and gift subscribers are kept. Comps are skipped, because comps are the website's own members.
+- Anyone who stops paying on Substack is switched off at the next import. Their account stays, as a free account.
 
-Existing paid Substack subscribers could get the database as a thank you. They sign up with the same email, and a monthly check against the Substack paid list marks them as members.
+## Pricing
+CA$7 a month or CA$70 a year (two months free). About 47 net members bring in about CA$300 a month after Stripe fees.
+Free accounts and visitors see the free half of the list, filters, follows saved in the browser, one-off calendar reminders and RSS. Locked cards show type, region, genres and deadline month only.
 
-## 4. Alerts
-- Monday email. Members get the full paid Morning Opportunities through their Substack comp. Free, no new tools.
-- Saved search emails. A scheduled Edge Function (Supabase cron) emails members when a new listing matches their saved search, through the same SMTP as account emails. Gmail allows about 500 a day.
-- Closing soon note. Same function, Thursdays, saved listings that close within ten days.
-- Private calendar feed. `webcal://` link per member (token in `alert_prefs`) served by an Edge Function. Works in Google, Apple and Outlook calendars and needs no email at all.
-- Public RSS of free listings at `/opportunities/feed.xml` (built on this branch).
-MailerLite free (250 subscribers, no RSS campaigns) and Buttondown free (100 subscribers, RSS is a paid add-on) are too small to be the main channel.
+## Data source and refresh
+- Source of truth is the private list at `/workspace/atl-project/opportunities/opportunities.json`, never committed.
+- After each Monday Morning Opportunities run, update the list, then run `scripts/sync-opportunities.mjs` (Supabase) and `scripts/build-opportunities.mjs` (free list and RSS for the repo).
+- Listings drop off the day after their deadline. Rolling listings are re-verified every 30 days.
 
-## 5. Data source and refresh
-- Source of truth is the private list at `/workspace/atl-project/opportunities/opportunities.json`, never committed to the public repo.
-- Each Monday Morning Opportunities run already verifies about 40 listings. After QA, its manifest feeds the list. Listings from the free half are `tier: free`, everything else is `members`.
-- Weekly link check (status code plus a deadline text check on each official page). Listings drop off the day after their deadline. Rolling listings are re-verified every 30 days.
-- A small sync script pushes the list into the Supabase table with the service key, kept only on the box.
+Fields `id, title, org, type, genres[], region, location, eligibility, opens, deadline, deadline_note, fee (Free | Fee | Check), award, summary, url, verified, added, tier`.
 
-### Fields
-`id, title, org, type, genres[], region, location, eligibility, opens, deadline, deadline_note, fee (Free | Fee | Check), award, summary, url, verified, added, tier`
-
-Types are Contest, Call for submissions, Grant, Residency, Fellowship, Mentorship, Paid market and Job.
-
-### Filters on the page
-Type chips with counts, search, deadline window (7, 30 or 90 days, or rolling), region, genre, free to enter, saved only, and sort by deadline, newest or name. It also shows a countdown badge, a "New" flag since the last visit, a per-listing calendar reminder (.ics, one-week alarm) and an export of every filtered deadline.
-
-## 6. Steps that need a new account, ID or money
-| Step | New account | Photo ID | Money |
-| --- | --- | --- | --- |
-| Supabase project | Yes, free (sign in with the ATL GitHub or Google account) | No | No |
-| Stripe products, Payment Links, customer portal, webhook | No, existing Minocy Stripe | No, already verified. A brand new ATL Stripe account would need ID, so it is not proposed | Stripe fees only, taken from each payment |
-| Statement descriptor and public business name | No | Changing the business name can prompt Stripe to re-check details | No |
-| Account email sending | Gmail app password (needs 2-Step Verification on the ATL Gmail) or a free Brevo account | No | No |
-| Substack comps | No | No | No |
-| Keep the free Supabase project awake (it pauses after a week without activity) | No, a weekly GitHub Actions ping | No | No |
-| Google sign-in (optional) | Google Cloud project, free | No | No |
-
-## 7. Free resource library
-Today `/resources/` has three printables (Submission Tracker PDF, Cover Letter Template PDF and Word, Before You Hit Submit checklist PDF) and the Plain-Language Glossary (70 terms, 5 topics, searchable).
-
-Proposed interactive additions, all client-side and free:
-1. Submission tracker app. Log submissions in the browser, see response times and acceptance rate, export to CSV.
-2. Word count and format checker. Paste a piece and see words, lines and reading time against common limits (100, 500, 750, 1,000, 3,000 words, poem line limits).
-3. Cover letter builder. Fill in a short form and copy or download a tidy letter, built on the existing template.
-4. Contest fee calculator. Compare entry fee, prize, included subscription and odds, so writers can judge value.
-5. Interactive Before You Hit Submit. The checklist with tick boxes that remembers progress per submission.
-6. Market match quiz. Genre, length and fee preferences point to matching free listings, with the rest teased for members.
+## Free resource library ideas
+1. Submission tracker app with response times and CSV export.
+2. Word count and format checker against common limits.
+3. Cover letter builder on the existing template.
+4. Contest fee calculator.
+5. Interactive Before You Hit Submit checklist.
+6. Market match quiz pointing to free listings.

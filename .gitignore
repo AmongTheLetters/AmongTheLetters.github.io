@@ -8,3 +8,4 @@ dist/
 Thumbs.db
 *.log
 *.tsbuildinfo
+public/opportunities/data/members.enc.json

@@ -3,6 +3,7 @@ export const ARCHIVE_URL = "/archive/";
 export const SHOP_URL = "/shop/";
 export const RESOURCES_URL = "/resources/";
 export const UPCOMING_URL = "/calendar/";
+export const OPPORTUNITIES_URL = "/opportunities/";
 
 export const SITE = {
   name: "Among The Letters",
@@ -15,6 +16,7 @@ export const SITE = {
 export const NAV = [
   { href: ARCHIVE_URL, label: "Archive" },
   { href: SHOP_URL, label: "Shop" },
+  { href: OPPORTUNITIES_URL, label: "Opportunities" },
   { href: RESOURCES_URL, label: "Free Resources" },
   { href: UPCOMING_URL, label: "Calendar" },
 ] as const;

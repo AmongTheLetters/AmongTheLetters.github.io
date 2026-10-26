@@ -1,0 +1,12 @@
+# Only the settings the CLI needs to deploy the functions. Fill project_id with the project ref at launch
+# (or pass --project-ref). Everything else is set in the Supabase dashboard, see LAUNCH_CHECKLIST.md.
+project_id = "among-the-letters"
+
+[functions.stripe-webhook]
+verify_jwt = false   # Stripe cannot send a Supabase token. The function checks Stripe's signature instead.
+
+[functions.alerts]
+verify_jwt = false   # Called by pg_cron. The function checks CRON_SECRET instead.
+
+[functions.calendar-feed]
+verify_jwt = false   # Calendar apps cannot sign in. The private token in the link is the key.
