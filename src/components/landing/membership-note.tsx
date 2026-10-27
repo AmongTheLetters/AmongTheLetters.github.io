@@ -14,7 +14,7 @@ export function MembershipNote() {
         >
           Founding lifetime memberships are available for $299 CAD.
           <br />
-          Founding members get every paid feature for life, including the paid newsletter, the full opportunities database, all current guide PDFs and future products as they are added.
+          Founding members get every paid feature for as long as the service runs, including the paid newsletter, the full opportunities database, all current guide PDFs and future products as they are added.
           <br />
           {live ? "See the membership page to join. It's a one-time payment and isn't refundable." : "Email amongtheletters@gmail.com for details."}
         </a>

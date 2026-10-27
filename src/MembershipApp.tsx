@@ -20,8 +20,8 @@ const PLANS: { id: Plan; name: string; blurb: string; perks: string[]; tag?: str
   { id: "monthly", name: "Monthly", blurb: "Try it a month at a time.", perks: [...SHARED, "Cancel anytime"] },
   { id: "annual", name: "Yearly", blurb: "Two months free, billed once a year.", tag: "Two months free", perks: [...SHARED, "Cancel anytime"] },
   {
-    id: "lifetime", name: "Founding member", blurb: "Pay once and keep every paid feature for life.", tag: "Founding offer", dark: true,
-    perks: ["Everything in monthly and yearly, for life", "Every guide PDF we sell, free to download", "Future products as they are added", "One payment that never renews"],
+    id: "lifetime", name: "Founding member", blurb: "Pay once and keep every paid feature for as long as the service runs.", tag: "Founding offer", dark: true,
+    perks: ["Everything in monthly and yearly, for as long as the service runs", "Every guide PDF we sell, free to download", "Future products as they are added", "One payment that never renews"],
   },
 ];
 
@@ -116,10 +116,11 @@ export function MembershipApp() {
         </section>
 
         <Section id="terms" kicker="The fine print, kept short" title="Membership terms">
-          <p>Payments are handled by Stripe. Your receipt and card statement show the business name on our Stripe account, which may not read <em>Among The Letters</em>.</p>
+          <p>Payments are processed by Minocy, a business run by the same owner as <em>Among The Letters</em>. Your receipt and card statement show Minocy.</p>
           <p>Monthly and yearly memberships renew automatically until you cancel. You can cancel anytime from your account page, and your plan runs to the end of the period you paid for.</p>
           <p>Memberships aren't refunded automatically. If you cancel early in a billing period, write to us and we'll take a look. The founding membership is a one-time payment of CA$299, never renews and isn't refundable.</p>
-          <p>Your paid Substack subscription is added by hand, usually within one business day, and it ends when a monthly or yearly membership ends. Founding members keep it for life.</p>
+          <p>The founding membership covers everything the site offers members for as long as the service runs. If memberships or the service ever stop being offered, nothing further is owed, which means no refund, credit or replacement. Monthly and yearly plans would simply stop renewing.</p>
+          <p>Your paid Substack subscription is added by hand, usually within one business day, and it ends when a monthly or yearly membership ends. Founding members keep it for as long as the service runs.</p>
           <p>Each membership is for one person. Please keep your sign-in and the guide files to yourself.</p>
           <p>Listings are checked against official pages, though details can change. Confirm deadlines, eligibility and fees on each official page before you apply.</p>
         </Section>

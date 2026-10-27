@@ -117,7 +117,7 @@ export function Pricing() {
               A $299 CAD founding lifetime membership.
             </h3>
             <p className="mt-3 text-muted">
-              Pay once and become a founding member, with every paid feature for life. That means the paid <em>Among The Letters</em> newsletter, the full opportunities database with its notifications, all current guide PDFs and future products as they are added. It never renews. It's a one-time payment and isn't refundable.
+              Pay once and become a founding member, with every paid feature for as long as the service runs. That means the paid <em>Among The Letters</em> newsletter, the full opportunities database with its notifications, all current guide PDFs and future products as they are added. It never renews. It's a one-time payment and isn't refundable.
             </p>
           </div>
           <Button asChild variant="outline" size="lg" className="mt-6 shrink-0 md:mt-0">

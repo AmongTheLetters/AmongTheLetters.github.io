@@ -246,7 +246,7 @@ export const FAQ = [
   },
   {
     q: "What is the $299 CAD lifetime membership?",
-    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. One payment of $299 CAD makes you a founding member, with every paid feature for life. That includes the paid newsletter, the full opportunities database with its notifications, free downloads of every current guide PDF and its tracker files, and future products as they are added. It never renews. It is a one-time payment and is not refundable.",
+    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. One payment of $299 CAD makes you a founding member, with every paid feature for as long as the service runs. That includes the paid newsletter, the full opportunities database with its notifications, free downloads of every current guide PDF and its tracker files, and future products as they are added. It never renews. It is a one-time payment and is not refundable. If memberships or the service ever stop being offered, nothing further is owed.",
   },
   {
     q: "What does a website membership include?",
@@ -254,6 +254,6 @@ export const FAQ = [
   },
   {
     q: "Where do I subscribe or manage billing?",
-    a: "The standard newsletter subscription is handled by Substack. You can subscribe for free, choose the $5 monthly paid option, or manage an existing Substack subscription from your account. Website memberships, which include the opportunities database and the paid newsletter, are $7 CAD a month, $70 CAD a year, or $299 CAD once for life, and are managed from your account page on this site. Memberships aren't refunded automatically, and you can cancel anytime. Monthly and yearly plans run to the end of the paid period. If you cancel early in a billing period, write to amongtheletters@gmail.com and we'll take a look. The lifetime founding membership is a one-time payment and isn't refundable.",
+    a: "The standard newsletter subscription is handled by Substack. You can subscribe for free, choose the $5 monthly paid option, or manage an existing Substack subscription from your account. Website memberships, which include the opportunities database and the paid newsletter, are $7 CAD a month, $70 CAD a year, or $299 CAD once as a founding member, and are managed from your account page on this site. Memberships aren't refunded automatically, and you can cancel anytime. Monthly and yearly plans run to the end of the paid period. If you cancel early in a billing period, write to amongtheletters@gmail.com and we'll take a look. The lifetime founding membership is a one-time payment and isn't refundable.",
   },
 ] as const;

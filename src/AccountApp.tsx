@@ -103,7 +103,7 @@ function AuthPanel() {
               <span><span className="block font-medium">{t}</span><span className="mt-0.5 block text-sm text-parchment/70">{b}</span></span></li>
           ))}
         </ul>
-        <p className="mt-8 font-display text-2xl">{PRICES.monthly.label} <span className="text-base text-parchment/70">{PRICES.monthly.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.annual.label} <span className="text-base text-parchment/70">{PRICES.annual.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.lifetime.label} <span className="text-base text-parchment/70">{PRICES.lifetime.per} for life</span></p>
+        <p className="mt-8 font-display text-2xl">{PRICES.monthly.label} <span className="text-base text-parchment/70">{PRICES.monthly.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.annual.label} <span className="text-base text-parchment/70">{PRICES.annual.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.lifetime.label} <span className="text-base text-parchment/70">{PRICES.lifetime.per} as a founding member</span></p>
         <p className="mt-2 text-sm text-parchment/70">Founding members pay once for every paid feature, all current guide PDFs and future products as they are added.</p>
         <p className="mt-1 text-sm text-parchment/60">Canadian dollars. Cancel any time. Paid Substack subscribers get it all at no extra cost.</p>
         <RefundNote inverse className="mt-3" />
@@ -401,7 +401,7 @@ function Dashboard({ session }: { session: Session }) {
             <div><p className="kicker">Membership</p>
               <h2 className="mt-2 font-display text-3xl tracking-tight text-ink">{viaSubstack ? "Member through Substack" : lifetime ? "Founding member" : member ? (m.status === "canceling" ? `Member until ${longDate(m.periodEnd)}` : "Member") : "Free account"}</h2></div>
             <span className={cn("rounded-full px-3 py-1 text-xs font-semibold", member ? (m.status === "canceling" ? "bg-gold/20 text-[#6b5326]" : "bg-sage/15 text-moss") : "bg-paper text-muted ring-1 ring-rule")}>
-              {lifetime ? "For life" : m.status === "active" ? "Active" : m.status === "canceling" ? "Ends soon" : m.status === "past_due" ? "Payment due" : "Free"}</span>
+              {lifetime ? "Founding" : m.status === "active" ? "Active" : m.status === "canceling" ? "Ends soon" : m.status === "past_due" ? "Payment due" : "Free"}</span>
           </div>
           {viaSubstack ? (
             <>
@@ -427,7 +427,7 @@ function Dashboard({ session }: { session: Session }) {
                 <div className="mt-5 flex flex-col gap-4 rounded-lg bg-paper p-4 ring-1 ring-rule sm:flex-row sm:items-center sm:justify-between">
                   <div className="min-w-0">
                     <p className="flex flex-wrap items-center gap-2 font-display text-xl tracking-tight text-ink">Become a founding member <span className="rounded-full bg-oxblood/10 px-2 py-0.5 font-sans text-[11px] font-semibold text-oxblood">Founding offer</span></p>
-                    <p className="mt-1 text-sm text-muted">One payment of CA{PRICES.lifetime.label} covers every paid feature for life, including every guide PDF and future products as they are added. Your current plan stops automatically, so you are never charged twice.</p>
+                    <p className="mt-1 text-sm text-muted">One payment of CA{PRICES.lifetime.label} covers every paid feature for as long as the service runs, including every guide PDF and future products as they are added. Your current plan stops automatically, so you are never charged twice.</p>
                     <p className="mt-1 text-xs text-faint">It's a one-time payment and isn't refundable.</p>
                   </div>
                   <Button size="sm" className="shrink-0" onClick={upgrade}>Upgrade to founding member <ArrowRight className="size-4" /></Button>
@@ -474,7 +474,7 @@ function Dashboard({ session }: { session: Session }) {
                 </li>
               ))}
             </ol>
-            <p className="mt-5 text-xs text-faint">Uses {session.email}. {lifetime ? "Your paid subscription is comped for life." : m.status === "canceling" ? "The paid subscription ends with your membership." : "If you also pay on Substack, write to us and we will sort it out so you are not paying twice."}</p>
+            <p className="mt-5 text-xs text-faint">Uses {session.email}. {lifetime ? "Your paid subscription is comped for as long as the service runs." : m.status === "canceling" ? "The paid subscription ends with your membership." : "If you also pay on Substack, write to us and we will sort it out so you are not paying twice."}</p>
           </Card>
         ) : null}
 
