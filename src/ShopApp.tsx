@@ -22,6 +22,7 @@ import { FlierPopup } from "@/components/landing/flier-popup";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
 import { SubstackLink } from "@/components/landing/substack-link";
+import { ShopFoundingCallout } from "@/components/shop-founding-callout";
 import {
   COMPLETE_SET,
   GUIDES,
@@ -398,7 +399,7 @@ export function ShopApp() {
                 </ul>
                 <p className="mt-6 border-t border-rule pt-5 text-sm text-muted">
                   Founding members download every guide free, tracker files included, from their account page.{" "}
-                  <a href="/membership/#founding" className="font-medium text-oxblood hover:underline">See membership</a>
+                  <a href="#founding" className="font-medium text-oxblood hover:underline">See the founding offer</a>
                 </p>
               </aside>
             </div>
@@ -486,6 +487,8 @@ export function ShopApp() {
                 <GuideCard key={guide.id} guide={guide} onOpenPreview={openPreview} />
               ))}
             </div>
+
+            <ShopFoundingCallout />
           </div>
         </section>
 
