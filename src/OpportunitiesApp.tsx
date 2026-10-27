@@ -9,7 +9,7 @@ import { PreviewBar } from "@/components/landing/preview-bar";
 import { api, type SavedSearch } from "@/lib/backend";
 import { ACCOUNTS_ON, MODE, PRICES } from "@/lib/config";
 import {
-  EMPTY, REGIONS, TODAY, TYPES, WINDOWS, daysUntil, describeFilters, downloadIcs, fullDate, isStub, matches, monthOnly, searchName,
+  EMPTY, REGIONS, TODAY, TYPES, WINDOWS, daysUntil, describeFilters, downloadIcs, expectedLabel, fullDate, isStub, matches, monthOnly, searchName,
   type Filters, type Item, type Opp, type SortKey, type Stub, type Win,
 } from "@/lib/opportunities";
 import { useAccount } from "@/lib/use-account";
@@ -23,9 +23,12 @@ function Chip({ children, tone = "plain" }: { children: React.ReactNode; tone?: 
   return <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-medium", tone === "sage" ? "bg-sage/12 text-moss" : tone === "gold" ? "bg-gold/15 text-[#6b5326]" : "border border-rule bg-paper text-muted")}>{children}</span>;
 }
 
-function Countdown({ o }: { o: { deadline: string | null; opens?: string | null } }) {
+function Countdown({ o }: { o: { deadline: string | null; opens?: string | null; expected?: string | null; recurrence?: string } }) {
+  if (o.expected) return <span className="rounded-md bg-paper px-2 py-1 text-xs font-semibold text-muted ring-1 ring-rule">Expected {monthOnly(o.expected)}</span>;
   if (o.opens && o.opens > TODAY) return <span className="rounded-md bg-sage/12 px-2 py-1 text-xs font-semibold text-moss">Opens {fullDate(o.opens)}</span>;
-  if (!o.deadline) return <span className="rounded-md bg-sage/12 px-2 py-1 text-xs font-semibold text-moss">Open now</span>;
+  if (!o.deadline) return o.recurrence === "rolling" || !o.recurrence
+    ? <span className="rounded-md bg-sage/12 px-2 py-1 text-xs font-semibold text-moss">Open now</span>
+    : <span className="rounded-md bg-paper px-2 py-1 text-xs font-semibold text-muted ring-1 ring-rule">See dates</span>;
   const n = daysUntil(o.deadline);
   const label = n <= 0 ? "Closes today" : n === 1 ? "1 day left" : `${n} days left`;
   return <span className={cn("rounded-md px-2 py-1 text-xs font-semibold", n <= 7 ? "bg-oxblood text-parchment" : n <= 30 ? "bg-gold/20 text-[#6b5326]" : "bg-paper text-muted ring-1 ring-rule")}>{label}</span>;
@@ -42,14 +45,16 @@ function OppCard({ o, followed, toggleFollow, isNew, lit, signedIn }: { o: Opp; 
       <h3 className="mt-3 font-display text-[1.4rem] leading-tight tracking-tight text-ink">{o.title}</h3>
       <p className="mt-1 text-sm font-medium text-ink">{o.org}</p>
       <dl className="mt-3 grid gap-1 text-sm text-muted">
-        <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Deadline</dt><dd className="min-w-0">{o.deadline ? fullDate(o.deadline) : o.deadlineNote}{o.deadline && o.deadlineNote ? <span className="text-faint">, {o.deadlineNote}</span> : null}</dd></div>
+        <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Deadline</dt><dd className="min-w-0">{o.expected ? expectedLabel(o.expected) : o.deadline ? fullDate(o.deadline) : o.deadlineNote}{o.deadline && o.deadlineNote ? <span className="text-faint">, {o.deadlineNote}</span> : null}</dd></div>
         <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Where</dt><dd className="min-w-0">{o.location}</dd></div>
         <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Award</dt><dd className="min-w-0">{o.award}</dd></div>
+        {o.paysWriter && o.payRate && o.payRate !== o.award ? <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Pay</dt><dd className="min-w-0">{o.payRate}</dd></div> : null}
       </dl>
       <p className="mt-3 text-sm leading-relaxed text-muted">{o.summary}</p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {o.genres.slice(0, 3).map((g) => <Chip key={g} tone="sage">{g}</Chip>)}
         <Chip tone={o.fee === "Free" ? "gold" : "plain"}>{o.fee === "Free" ? "Free to enter" : o.fee === "Fee" ? "Entry fee" : "Check fee"}</Chip>
+        {o.paysWriter ? <Chip tone="gold">Pays writers</Chip> : null}
       </div>
       <div className="mt-auto pt-4"><div className="flex flex-wrap items-center gap-2 border-t border-rule pt-4">
         <Button asChild size="sm"><a href={o.url} target="_blank" rel="noopener noreferrer">Official page <ArrowUpRight className="size-4" /></a></Button>
@@ -73,10 +78,10 @@ function LockedCard({ s, onUnlock, lit }: { s: Stub; onUnlock: () => void; lit: 
         <div className="h-3 w-full rounded bg-ink/8" /><div className="h-3 w-11/12 rounded bg-ink/8" /><div className="h-3 w-3/4 rounded bg-ink/8" />
       </div>
       <dl className="mt-4 grid gap-1 text-sm text-muted">
-        <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Deadline</dt><dd>{s.deadline ? monthOnly(s.deadline) : "Rolling"}</dd></div>
+        <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Deadline</dt><dd>{s.expected ? `Expected ${monthOnly(s.expected)}` : s.deadline ? monthOnly(s.deadline) : "Rolling"}</dd></div>
         <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Region</dt><dd>{s.region}</dd></div>
       </dl>
-      <div className="mt-3 flex flex-wrap gap-1.5">{s.genres.slice(0, 3).map((g) => <Chip key={g} tone="sage">{g}</Chip>)}{s.fee === "Free" ? <Chip tone="gold">Free to enter</Chip> : null}</div>
+      <div className="mt-3 flex flex-wrap gap-1.5">{s.genres.slice(0, 3).map((g) => <Chip key={g} tone="sage">{g}</Chip>)}{s.fee === "Free" ? <Chip tone="gold">Free to enter</Chip> : null}{s.paysWriter ? <Chip tone="gold">Pays writers</Chip> : null}</div>
       <div className="mt-auto pt-4"><div className="border-t border-rule pt-4">
         <Button size="sm" variant="ink" onClick={onUnlock}><Lock className="size-4" /> {ACCOUNTS_ON ? "Join to unlock" : "Members only"}</Button>
       </div></div>
@@ -139,7 +144,7 @@ export function OpportunitiesApp() {
   const typeCounts = useMemo(() => TYPES.map((t) => [t, items.filter((i) => i.type === t).length] as const).filter(([, n]) => n), [items]);
   const filtered = useMemo(() => {
     const list = items.filter((i) => matches(i, f, follows));
-    const dk = (i: Item) => i.deadline ? (i.deadline.length === 7 ? `${i.deadline}-28` : i.deadline) : "9999";
+    const dk = (i: Item) => i.deadline ? (i.deadline.length === 7 ? `${i.deadline}-28` : i.deadline) : i.expected ? `${i.expected}-29` : "9999";
     return list.sort((a, b) => f.sort === "added" ? b.added.localeCompare(a.added) || dk(a).localeCompare(dk(b))
       : f.sort === "name" ? (isStub(a) ? "~" : a.title).localeCompare(isStub(b) ? "~" : b.title)
       : dk(a).localeCompare(dk(b)) || (isStub(a) ? 1 : 0) - (isStub(b) ? 1 : 0));
@@ -149,7 +154,7 @@ export function OpportunitiesApp() {
   const lockedCount = filtered.length - open.length;
   const closingSoon = items.filter((i) => i.deadline && i.deadline.length === 10 && daysUntil(i.deadline) >= 0 && daysUntil(i.deadline) <= 14).length;
   const newCount = items.filter((i) => i.added > lastVisit).length;
-  const filtersOn = f.q || f.type !== "All" || f.region !== "All regions" || f.genre !== "All genres" || f.win !== "any" || f.freeOnly || f.savedOnly;
+  const filtersOn = f.q || f.type !== "All" || f.region !== "All regions" || f.genre !== "All genres" || f.win !== "any" || f.freeOnly || f.paysOnly || f.savedOnly;
   const current = searches.find((s) => s.id === activeSearch) ?? searches.find((s) => JSON.stringify({ ...EMPTY, ...s.filters, savedOnly: false, sort: f.sort }) === JSON.stringify({ ...f, savedOnly: false }));
 
   async function saveSearch() {
@@ -241,6 +246,7 @@ export function OpportunitiesApp() {
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <button type="button" aria-pressed={f.freeOnly} onClick={() => set("freeOnly", !f.freeOnly)} className={cn("rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.freeOnly ? "bg-ink text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>Free to enter</button>
+                <button type="button" aria-pressed={f.paysOnly} onClick={() => set("paysOnly", !f.paysOnly)} className={cn("rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.paysOnly ? "bg-ink text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>Pays writers</button>
                 <button type="button" aria-pressed={f.savedOnly} onClick={() => set("savedOnly", !f.savedOnly)} className={cn("inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.savedOnly ? "bg-ink text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}><Bookmark className="size-3.5" /> {session ? "Following" : "Saved"} {follows.length ? `(${follows.length})` : ""}</button>
                 <div className="ml-auto flex flex-wrap items-center gap-3">
                   {filtersOn ? <button type="button" onClick={() => { setActiveSearch(null); setF((p) => ({ ...EMPTY, sort: p.sort })); }} className="inline-flex items-center gap-1 text-sm font-medium text-oxblood hover:underline"><X className="size-4" /> Clear filters</button> : null}

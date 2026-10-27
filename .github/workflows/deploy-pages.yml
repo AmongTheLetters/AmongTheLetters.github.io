@@ -3,10 +3,14 @@ name: Deploy website to GitHub Pages
 on:
   push:
     branches: ["main"]
+  # Daily rebuild at 6:15 a.m. Toronto (10:15 UTC, 11:15 in winter) so the free list, the RSS feed and every
+  # date rule (expired one-time listings, annual listings rolling to their expected month) stay current untouched.
+  schedule:
+    - cron: "15 10 * * *"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # the scheduled run saves the refreshed free list back to main, see below
   pages: write
   id-token: write
 
@@ -27,6 +31,26 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Refresh listings from the database
+        if: ${{ vars.SUPABASE_URL != '' }}
+        run: node scripts/build-opportunities.mjs
+        env:
+          OPP_FROM_SUPABASE: "1"
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
+      # Saving the refreshed list back to main when it changes, and on the 1st of each month regardless, keeps the
+      # repository active. GitHub switches off scheduled workflows after 60 days without activity.
+      # Commits made with the built-in token do not start another run.
+      - name: Save the refreshed list
+        if: ${{ github.event_name == 'schedule' && vars.SUPABASE_URL != '' }}
+        run: |
+          git config user.name "Among The Letters"
+          git config user.email "amongtheletters@users.noreply.github.com"
+          changed=$(git diff --quiet -- public/opportunities/feed.xml && jq -e --slurpfile old <(git show HEAD:public/opportunities/data/free.json) \
+            'del(.built) == ($old[0] | del(.built))' public/opportunities/data/free.json >/dev/null && echo no || echo yes)
+          if [ "$changed" = yes ] || [ "$(date -u +%d)" = "01" ]; then
+            git add public/opportunities && git commit -m "Daily listings refresh $(date -u +%F)" --allow-empty && git push
+          fi
       - name: Build
         run: npm run build
         env:

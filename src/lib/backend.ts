@@ -6,7 +6,7 @@
  */
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { CONFIG, MODE, type Plan } from "@/lib/config";
-import { EMPTY, TODAY, type Filters, type Item, type Opp, type Stub } from "@/lib/opportunities";
+import { EMPTY, TODAY, normalizeAll, type Filters, type Item, type Opp, type Stub } from "@/lib/opportunities";
 
 export type Session = { userId: string; email: string; createdAt: string; confirmed?: boolean };
 export type MemberStatus = "none" | "active" | "past_due" | "canceling" | "expired";
@@ -32,7 +32,7 @@ const redirect = (path = "/account/") => `${origin()}${path}`;
 
 async function freeFile(): Promise<Listings> {
   const d = await (await fetch("/opportunities/data/free.json", { cache: "no-store" })).json();
-  return { items: d.items, total: d.total, free: d.free };
+  return counted(normalizeAll(d.items as Item[]));
 }
 
 /* ======================= live (Supabase) ======================= */
@@ -40,8 +40,12 @@ let sb: SupabaseClient | null = null;
 const db = () => (sb ??= createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, { auth: { persistSession: true, detectSessionInUrl: true, flowType: "pkce" } }));
 const fail = (e: { message: string } | null) => { if (e) throw new Error(e.message); };
 const toSession = (u: { id: string; email?: string; created_at: string; email_confirmed_at?: string | null } | null | undefined): Session | null => u ? { userId: u.id, email: u.email ?? "", createdAt: u.created_at.slice(0, 10), confirmed: !!u.email_confirmed_at } : null;
-type OppRow = { id: string; title: string; org: string; type: Opp["type"]; genres: string[]; region: string; location: string; eligibility: string; opens: string | null; deadline: string | null; deadline_note: string | null; fee: Opp["fee"]; award: string; summary: string; url: string; verified: string; added: string; tier: Opp["tier"] };
-const fromRow = (r: OppRow): Opp => ({ ...r, deadlineNote: r.deadline_note });
+type OppRow = { id: string; title: string; org: string; type: Opp["type"]; genres: string[]; region: string; location: string; eligibility: string; opens: string | null; deadline: string | null; deadline_note: string | null; fee: Opp["fee"]; award: string; summary: string; url: string; verified: string; added: string; tier: Opp["tier"];
+  recurrence: Opp["recurrence"]; typical_open_month: number | null; typical_close_month: number | null; pays_writer: boolean; pay_rate: string | null; fee_amount: number | null; fee_currency: string | null };
+const fromRow = (r: OppRow): Opp => ({ id: r.id, title: r.title, org: r.org, type: r.type, genres: r.genres, region: r.region, location: r.location, eligibility: r.eligibility, opens: r.opens,
+  deadline: r.deadline, deadlineNote: r.deadline_note, fee: r.fee, award: r.award, summary: r.summary, url: r.url, verified: r.verified, added: r.added, tier: r.tier,
+  recurrence: r.recurrence, typicalOpenMonth: r.typical_open_month, typicalCloseMonth: r.typical_close_month, paysWriter: r.pays_writer, payRate: r.pay_rate, feeAmount: r.fee_amount, feeCurrency: r.fee_currency });
+const counted = (items: Item[]): Listings => ({ items, total: items.length, free: items.filter((i) => !("locked" in i) && i.tier === "free").length });
 type NoticeRow = { id: number; kind: NotificationKind; title: string; body: string; link: string; created_at: string; read_at: string | null };
 type SearchRow = { id: string; name: string; filters: Filters; onsite: boolean; email: boolean; frequency: Frequency; created_at: string };
 const fromSearch = (r: SearchRow): SavedSearch => ({ id: r.id, name: r.name, filters: { ...EMPTY, ...r.filters }, onsite: r.onsite, email: r.email, frequency: r.frequency, createdAt: r.created_at });
@@ -59,15 +63,16 @@ const live = {
   async signOut() { await db().auth.signOut(); },
   async getMembership(): Promise<Membership> { const { data, error } = await db().rpc("my_membership"); fail(error); return { ...NO_MEMBERSHIP, ...(data ?? {}) }; },
   async loadListings(member: boolean): Promise<Listings> {
-    const { data, error } = await db().from("opportunities").select("*").or(`deadline.is.null,deadline.gte.${TODAY}`); fail(error);
+    const { data, error } = await db().from("opportunities").select("*"); fail(error);
     const open = (data as OppRow[]).map(fromRow);
     let stubs: Stub[] = [];
     if (!member) {
       const r = await db().from("opportunity_stubs").select("*"); fail(r.error);
-      stubs = (r.data as { id: string; type: Opp["type"]; region: string; genres: string[]; fee: Opp["fee"]; deadline_month: string | null; added: string }[])
-        .map((s) => ({ id: s.id, locked: true, type: s.type, region: s.region, genres: s.genres, fee: s.fee, deadline: s.deadline_month, added: s.added }));
+      stubs = (r.data as { id: string; type: Opp["type"]; region: string; genres: string[]; fee: Opp["fee"]; deadline_month: string | null; added: string; recurrence: Stub["recurrence"]; typical_close_month: number | null; pays_writer: boolean }[])
+        .map((s) => ({ id: s.id, locked: true, type: s.type, region: s.region, genres: s.genres, fee: s.fee, deadline: s.deadline_month, added: s.added,
+          recurrence: s.recurrence, typicalCloseMonth: s.typical_close_month, paysWriter: s.pays_writer }));
     }
-    return { items: [...open, ...stubs], total: open.length + stubs.length, free: open.filter((o) => o.tier === "free").length };
+    return counted(normalizeAll<Item>([...open, ...stubs]));
   },
   async listFollows() { const { data } = await db().from("follows").select("opportunity_id"); return (data ?? []).map((r: { opportunity_id: string }) => r.opportunity_id); },
   async follow(id: string, on: boolean) {
@@ -159,7 +164,7 @@ const preview: typeof live = {
     const f = await freeFile();
     if (!member) return f;
     const all = await previewMembersFile().catch(() => null);
-    return all ? { items: all.filter((o) => !o.deadline || o.deadline >= TODAY), total: f.total, free: f.free } : f;
+    return all ? counted(normalizeAll<Item>(all)) : f;
   },
   async listFollows() { return get<string[]>(K.follows, []); },
   async follow(id, on) { const f = get<string[]>(K.follows, []); put(K.follows, on ? [...new Set([...f, id])] : f.filter((x) => x !== id)); },

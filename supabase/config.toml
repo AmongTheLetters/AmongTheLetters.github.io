@@ -13,3 +13,6 @@ verify_jwt = false   # Calendar apps cannot sign in. The private token in the li
 
 [functions.founding-downloads]
 verify_jwt = true    # Signed-in callers only. The function then checks for an active lifetime membership.
+
+[functions.link-check]
+verify_jwt = false   # Called by pg_cron. The function checks CRON_SECRET instead.

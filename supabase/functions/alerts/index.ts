@@ -11,7 +11,7 @@
 //          optional VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT (mailto:amongtheletters@gmail.com)
 import { createClient } from "npm:@supabase/supabase-js@2";
 import webpush from "npm:web-push@3.6.7";
-import { EMPTY, matches, type Filters, type Opp } from "../_shared/opportunities.ts";
+import { EMPTY, matches, normalizeAll, type Filters, type Opp } from "../_shared/opportunities.ts";
 
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 const SITE = "https://amongtheletters.com";
@@ -44,8 +44,11 @@ Deno.serve(async (req) => {
   const now = torontoNow();
   const report: Record<string, number> = {};
 
-  const { data: oppRows } = await db.from("opportunities").select("*").or(`deadline.is.null,deadline.gte.${now.date}`);
-  const opps: Opp[] = (oppRows ?? []).map((r) => ({ ...r, deadlineNote: r.deadline_note }));
+  // normalize() applies the upkeep rules, so an annual listing past its deadline only carries an expected month
+  // and never a deadline, which keeps closing reminders to real dates only.
+  const { data: oppRows } = await db.from("opportunities").select("*").lt("link_fail_count", 2);
+  const opps: Opp[] = normalizeAll((oppRows ?? []).map((r) => ({ ...r, deadlineNote: r.deadline_note, recurrence: r.recurrence,
+    typicalCloseMonth: r.typical_close_month, paysWriter: r.pays_writer, payRate: r.pay_rate })) as Opp[], now.date);
   const byId = new Map(opps.map((o) => [o.id, o]));
   const { data: recips } = await db.rpc("alert_recipients");
   const members = new Map<string, string>((recips ?? []).map((r: { user_id: string; email: string }) => [r.user_id, r.email]));
@@ -69,7 +72,7 @@ Deno.serve(async (req) => {
   // 2. followed listings closing soon
   const { data: follows } = await db.from("follows").select("user_id,opportunity_id").in("user_id", ids);
   for (const fl of follows ?? []) {
-    const o = byId.get(fl.opportunity_id); if (!o?.deadline) continue;
+    const o = byId.get(fl.opportunity_id); if (!o?.deadline || o.expected) continue;
     const left = daysBetween(now.date, o.deadline), lead = prefs.get(fl.user_id)?.closing_soon_days ?? 7;
     if (left < 0 || left > lead) continue;
     fresh.push({ user_id: fl.user_id, kind: left === 0 ? "deadline_today" : "closing_soon", title: left === 0 ? "Closes today" : `Closing in ${left} ${left === 1 ? "day" : "days"}`,
