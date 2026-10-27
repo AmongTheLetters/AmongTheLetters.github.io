@@ -158,14 +158,14 @@ The live site has no account pages until the merge, so the test runs on a local 
 
 Before starting, upgrade the atl-supabase restricted key to Subscriptions Write, or step 5 tests the fallback to-do instead of the automatic cancel.
 
-1. Sign up at /account/ with a fresh address you can read (a plus address works). The page says to check email and shows the unconfirmed banner. Use "Send it again" once to test the resend.
+1. Sign up at /account/ with a fresh address you can read (a plus address works). The page says to check email and shows the unconfirmed banner. Use "Send the link again" once to test the resend.
 2. Open the Brevo email from no-reply@amongtheletters.com and click the link. It lands on localhost /account/ signed in, banner gone, plan shows Free.
 3. Sign out, sign in with the password, then try "Email me a sign-in link" and "Forgot password" once each.
 4. From /membership/ press the monthly button. Stripe opens with the email filled in. Pay CA$7 with a real card. After the thank-you page, go back to the localhost tab and reload /account/?welcome=1.
 5. Check the account shows Member with a renewal date, the welcome box, and Manage billing opening the portal. Open /opportunities/ and check the full database opens. On the admin card (or the 9 a.m. email) check a Substack comp row for the address.
 6. Save a search and follow a listing that closes within a week. Alerts run hourly, or ask Link to trigger the run, then check the bell and the highlighted listing.
 7. Upgrade to lifetime from the account page (CA$299, real charge). Within a minute the account shows Lifetime member with no renewal date, the founding library downloads work, and the portal shows the monthly plan cancelled with no further charge.
-8. Optional, cancel flow. With a second test account on monthly, cancel in the portal and check "Ends on ..." shows on the account.
+8. Optional, cancel flow. With a second test account on monthly, cancel in the portal and check the end date shows on the account.
 9. Optional, Substack path. Sign up with an allowlisted Substack email and check it opens without paying.
 
 Refunds after the test are by hand. Stripe keeps its processing fee on refunded charges (roughly CA$9 on the CA$299 and about 50 cents on the CA$7), so a cheaper path for step 7 is Stripe test mode, which needs test Payment Links and a test webhook destination with its own secret.
