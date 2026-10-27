@@ -1,6 +1,6 @@
 # Launch checklist, opportunities database and memberships
 
-Everything in the repo is built. This list is the outside setup, in order. Nothing here has been done yet.
+Everything in the repo is built. This list is the outside setup, in order. Sections marked **Done** are finished.
 
 Markers
 - **[browser]** done in a web dashboard while signed in
@@ -20,7 +20,7 @@ Values you collect along the way (write the public ones down, keep the secret on
 | Brevo API key | **Secret** | Supabase function secret `BREVO_API_KEY` |
 | Stripe secret key (restricted key recommended) | **Secret** | Supabase function secret `STRIPE_SECRET_KEY` |
 | Stripe webhook signing secret `whsec_...` | **Secret** | Supabase function secret `STRIPE_WEBHOOK_SECRET` |
-| Stripe Payment Link URLs, monthly and yearly | Public | Repo Variables `STRIPE_LINK_MONTHLY`, `STRIPE_LINK_ANNUAL` |
+| Stripe Payment Link URLs, monthly, yearly and lifetime | Public | Repo Variables `STRIPE_LINK_MONTHLY`, `STRIPE_LINK_ANNUAL`, `STRIPE_LINK_LIFETIME` |
 | Stripe customer portal login link | Public | Repo Variable `STRIPE_PORTAL` |
 | `CRON_SECRET`, a long random string | **Secret** | Function secret `CRON_SECRET` and Vault `cron_secret`, the same value |
 | VAPID public key (optional) | Public | Repo Variable `VAPID_PUBLIC_KEY`, function secret `VAPID_PUBLIC_KEY` |
@@ -94,22 +94,28 @@ The free plan has no end date. It allows 300 emails a day across account emails 
     ```
     It should report 25 listings, 12 free (or the current numbers).
 
-## C. Stripe on the Minocy account (about 20 minutes)
-1. **[Chris]** Decide what buyers see. Checkout, receipts and card statements show the Stripe account's public business name and statement descriptor, which today say Minocy. Options are to keep Minocy, change the public details on that account (Stripe may re-check them), or add a second account under the same login for *Among The Letters* (free, but it asks for business details and possibly ID). Steps below assume the Minocy account.
-2. **[browser]** Product catalogue, Add product. Name `Among The Letters membership`, description "The full opportunities database, notifications and a paid Substack subscription." Two recurring prices in **CAD**, CA$7.00 monthly and CA$70.00 yearly. No trial.
-3. **[browser]** Payment Links, New, for the monthly price.
-   - Do not allow quantity changes. Collect name off, address off unless tax is needed.
-   - After payment, "Don't show confirmation page", redirect to `https://amongtheletters.com/account/?welcome=1`.
-   - Save and copy the link (`https://buy.stripe.com/...`).
-   Repeat for the yearly price. The site adds `client_reference_id` and the locked email itself, nothing to set for that.
-4. **[browser]** Settings, Billing, Customer portal. Activate the login link and copy it. Allow cancel subscriptions (at end of billing period), update payment methods and view invoices. Allow switching between the two prices if you like.
-5. **[browser] [secret]** Developers (Workbench), Webhooks, Add destination. Endpoint URL `https://<ref>.supabase.co/functions/v1/stripe-webhook`. Events
-   - `checkout.session.completed`
-   - `customer.subscription.updated`
-   - `customer.subscription.deleted`
-   Save, reveal the signing secret `whsec_...` and put it in Supabase as `STRIPE_WEBHOOK_SECRET`.
-6. **[browser] [secret]** Developers, API keys, Create restricted key `atl-supabase` with read access to Checkout Sessions, Subscriptions, Customers and Prices (everything else none). Put it in Supabase as `STRIPE_SECRET_KEY`.
-7. Tax note. Registering for GST/HST is required only above CA$30,000 a year in sales. Stripe Tax stays off.
+## C. Stripe on the Minocy account, **Done** (Oct 27, 2026)
+Live mode, account `acct_1Skr9CRrwe7mDXay` (Minocy). Checkout currently shows the account's public business name, which Chris can change in Stripe's public business details. The same IDs are in `.stripe-ids.local` (gitignored).
+
+| Item | Value |
+| --- | --- |
+| Product, monthly and yearly | `prod_VWDyQ99rRmLCEJ` *Among The Letters membership* |
+| Price, monthly CA$7.00 | `price_1UVBWLRrwe7mDXayn7Sgk9cm` |
+| Price, yearly CA$70.00 | `price_1UVBWLRrwe7mDXayXZwQBde2` |
+| Payment Link, monthly | `plink_1UVBYSRrwe7mDXayjinKpdaZ` https://buy.stripe.com/3cI5kFdwdb4N3bIe534ow00 |
+| Payment Link, yearly | `plink_1UVBZbRrwe7mDXaytwpYEDCr` https://buy.stripe.com/14AeVfak1egZh2y8KJ4ow01 |
+| Product, lifetime | `prod_VWEQMwnRTu0ae2` |
+| Price, lifetime CA$299.00 one time | `price_1UVBxORrwe7mDXayCE8FqiTY` |
+| Payment Link, lifetime | `plink_1UVBxURrwe7mDXay8xCJYKbF` https://buy.stripe.com/6oUbJ39fX2yh27E1ih4ow02 (payment mode, always creates a customer, metadata `atl_plan=lifetime`) |
+| Customer portal | `bpc_1UVBaZRrwe7mDXayI6jlgr4Y` https://billing.stripe.com/p/login/3cI5kFdwdb4N3bIe534ow00 |
+| Webhook destination | `we_1UVBeJRrwe7mDXayJStpNnCu` to `https://bwcqeyttbqkivrozbqxm.supabase.co/functions/v1/stripe-webhook`, events `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted` |
+| Restricted key | `atl-supabase`, read access to Checkout Sessions, Subscriptions, Customers and Prices |
+
+1. All three Payment Links redirect to `https://amongtheletters.com/account/?welcome=1`. The site adds `client_reference_id` and the locked email itself.
+2. The portal allows cancelling at the end of the billing period, updating the card, viewing invoices and switching between monthly and yearly.
+3. **[secret]** The webhook signing secret goes in Supabase as `STRIPE_WEBHOOK_SECRET`, the `atl-supabase` key as `STRIPE_SECRET_KEY`. Neither is ever written to the repo.
+4. Lifetime. The webhook treats a paid `payment` mode checkout from the lifetime link (or `atl_plan=lifetime`) with a real account's user ID as lifetime. The member row gets plan `lifetime`, no subscription and no end date, and a forever Substack comp is queued. If the buyer still had a monthly or yearly subscription, it is **not** cancelled automatically. A "Cancel old plan" item appears in the admin to-do list, so a person cancels that subscription in Stripe. Subscription events never downgrade a lifetime member. Refunds of a lifetime payment are handled by hand (set the member row to `expired` and queue a Substack removal).
+5. Tax note. Registering for GST/HST is required only above CA$30,000 a year in sales. Stripe Tax stays off.
 
 ## D. Browser push, optional (5 minutes)
 1. **[box] [secret]** `npx web-push generate-vapid-keys`. Public key to the repo Variable `VAPID_PUBLIC_KEY` and the function secret of the same name, private key to the function secret `VAPID_PRIVATE_KEY`.
@@ -124,6 +130,7 @@ The free plan has no end date. It allows 300 emails a day across account emails 
 | `SUPABASE_ANON_KEY` | anon key |
 | `STRIPE_LINK_MONTHLY` | monthly Payment Link |
 | `STRIPE_LINK_ANNUAL` | yearly Payment Link |
+| `STRIPE_LINK_LIFETIME` | lifetime Payment Link (the build reads it as `VITE_STRIPE_LINK_LIFETIME`) |
 | `STRIPE_PORTAL` | customer portal login link |
 | `GOOGLE_SIGNIN` | leave unset (off) |
 | `VAPID_PUBLIC_KEY` | optional |
@@ -144,7 +151,7 @@ The Pages workflow passes these into the build. The keepalive workflow (`supabas
 Run a local live build against the real project with `.env.local` (public values only, gitignored), `npm run dev`.
 1. Create an account with a test address, confirm it through the Brevo email, sign out, sign in again, use the sign-in link, reset the password.
 2. Stripe test mode first if wanted (test Payment Links and a test webhook destination with its own secret), then live with a real CA$7 charge refunded afterwards.
-3. After paying, the account page shows Member, the database opens, and the Substack to-do card plus the 9 a.m. email list the comp.
+3. After paying, the account page shows Member (or Lifetime member with no renewal date for the CA$299 link), the database opens, and the Substack to-do card plus the 9 a.m. email list the comp.
 4. Save a search, follow a listing closing within a week, wait for the hourly run (or call the function with the cron secret), and check the bell, the deep link highlight, and email when switched on.
 5. Cancel in the portal, check "Ends on ..." shows, and that `customer.subscription.deleted` queues the removal at the end.
 6. Sign up with an allowlisted Substack email and check it opens without payment.

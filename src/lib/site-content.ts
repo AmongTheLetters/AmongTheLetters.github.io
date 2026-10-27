@@ -159,6 +159,9 @@ export const ROUNDUP_SAMPLE = [
   },
 ] as const;
 
+// Sign in or make an account first, then the lifetime option is picked on the account page.
+export const LIFETIME_URL = "/account/?mode=signup&next=join&plan=lifetime#join";
+
 export const PLANS = [
   {
     id: "free" as const,
@@ -241,10 +244,10 @@ export const FAQ = [
   },
   {
     q: "What is the $299 CAD lifetime membership?",
-    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. It includes lifetime access to the paid newsletter plus select future Among The Letters products released outside Substack.",
+    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. One payment of $299 CAD includes lifetime access to the paid newsletter and the full opportunities database with its notifications, plus select future Among The Letters products released outside Substack. It never renews.",
   },
   {
     q: "Where do I subscribe or manage billing?",
-    a: "The standard newsletter subscription is handled by Substack. You can subscribe for free, choose the $5 monthly paid option, or manage an existing Substack subscription from your account. A separate $299 CAD founding lifetime offer is available directly through Among The Letters.",
+    a: "The standard newsletter subscription is handled by Substack. You can subscribe for free, choose the $5 monthly paid option, or manage an existing Substack subscription from your account. Website memberships, which include the opportunities database and the paid newsletter, are $7 CAD a month, $70 CAD a year, or $299 CAD once for life, and are managed from your account page on this site.",
   },
 ] as const;

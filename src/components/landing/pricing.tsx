@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PLANS, SUBSTACK_URL } from "@/lib/site-content";
+import { ACCOUNTS_ON, CONFIG } from "@/lib/config";
+import { LIFETIME_URL, PLANS, SUBSTACK_URL } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
 
 export function Pricing() {
@@ -96,13 +97,17 @@ export function Pricing() {
               A $299 CAD founding lifetime membership.
             </h3>
             <p className="mt-3 text-muted">
-              This is separate from the standard monthly Substack plan. It includes lifetime access to the paid Among The Letters newsletter, plus select future Among The Letters products released outside Substack.
+              One payment, never renewed. It includes lifetime access to the paid Among The Letters newsletter and the full opportunities database with its notifications, plus select future Among The Letters products released outside Substack.
             </p>
           </div>
           <Button asChild variant="outline" size="lg" className="mt-6 shrink-0 md:mt-0">
-            <a href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry">
-              Ask about lifetime membership
-            </a>
+            {ACCOUNTS_ON && CONFIG.stripeLifetime ? (
+              <a href={LIFETIME_URL}>Become a lifetime member</a>
+            ) : (
+              <a href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry">
+                Ask about lifetime membership
+              </a>
+            )}
           </Button>
         </aside>
       </div>

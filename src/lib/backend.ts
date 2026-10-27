@@ -20,7 +20,7 @@ export type SavedSearch = { id: string; name: string; filters: Filters; onsite: 
 export type NotificationKind = "new_match" | "closing_soon" | "deadline_today" | "system";
 export type Notice = { id: string; kind: NotificationKind; title: string; body: string; link: string; createdAt: string; readAt: string | null };
 export type Prefs = { emailEnabled: boolean; closingSoonDays: number; pushEnabled: boolean; calendarToken?: string | null };
-export type TodoItem = { id: number; email: string; action: "comp" | "extend" | "remove"; compUntil: string | null; createdAt: string };
+export type TodoItem = { id: number; email: string; action: "comp" | "extend" | "remove" | "cancel_subscription"; compUntil: string | null; note?: string | null; createdAt: string };
 export type Listings = { items: Item[]; total: number; free: number };
 
 export const isMember = (m: Membership) => m.status === "active" || m.status === "canceling" || m.status === "past_due";
@@ -103,7 +103,7 @@ const live = {
   },
   async listTodo(): Promise<TodoItem[]> {
     const { data, error } = await db().rpc("admin_substack_todo"); fail(error);
-    return (data ?? []).map((r: { id: number; email: string; action: TodoItem["action"]; comp_until: string | null; created_at: string }) => ({ id: r.id, email: r.email, action: r.action, compUntil: r.comp_until, createdAt: r.created_at }));
+    return (data ?? []).map((r: { id: number; email: string; action: TodoItem["action"]; comp_until: string | null; note: string | null; created_at: string }) => ({ id: r.id, email: r.email, action: r.action, compUntil: r.comp_until, note: r.note, createdAt: r.created_at }));
   },
   async markTodoDone(id: number) { const { error } = await db().rpc("admin_mark_substack_done", { item_id: id }); fail(error); },
   calendarUrl(token?: string | null) { return token ? `${CONFIG.supabaseUrl.replace(/^https?:/, "webcal:")}/functions/v1/calendar-feed?token=${token}` : ""; },
@@ -168,7 +168,7 @@ const preview: typeof live = {
 };
 
 /* Preview-only helpers, used by the review switcher. */
-export function previewCheckout(plan: Plan) { put(K.member, { status: "active", plan, startedAt: TODAY, periodEnd: later(plan === "annual" ? 12 : 1), source: "stripe", substack: "pending", isAdmin: false } satisfies Membership); }
+export function previewCheckout(plan: Plan) { put(K.member, { status: "active", plan, startedAt: TODAY, periodEnd: plan === "lifetime" ? null : later(plan === "annual" ? 12 : 1), source: "stripe", substack: "pending", isAdmin: false } satisfies Membership); }
 export function previewCancel(on: boolean) { const m = get<Membership>(K.member, NO_MEMBERSHIP); put(K.member, { ...m, status: on ? "canceling" : "active" }); }
 export function previewSetState(state: "visitor" | "free" | "member" | "canceling" | "substack") {
   Object.values(K).forEach((k) => localStorage.removeItem(k));
@@ -203,7 +203,7 @@ const off: typeof live = {
 export const api = MODE === "live" ? live : MODE === "preview" ? preview : off;
 
 export function checkoutUrl(plan: Plan, s: Session) {
-  const base = plan === "annual" ? CONFIG.stripeAnnual : CONFIG.stripeMonthly;
+  const base = plan === "lifetime" ? CONFIG.stripeLifetime : plan === "annual" ? CONFIG.stripeAnnual : CONFIG.stripeMonthly;
   if (!base) return "";
   return `${base}?client_reference_id=${encodeURIComponent(s.userId)}&locked_prefilled_email=${encodeURIComponent(s.email)}`;
 }

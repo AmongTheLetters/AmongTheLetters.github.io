@@ -308,6 +308,7 @@ export function OpportunitiesApp() {
                     <p className="kicker kicker-inverse">Member</p>
                     <p className="mt-3 font-display text-4xl tracking-tight">{PRICES.monthly.label}<span className="text-lg text-parchment/70"> {PRICES.monthly.per}</span></p>
                     <p className="text-sm text-parchment/70">or {PRICES.annual.label} {PRICES.annual.per}, two months free</p>
+                    <p className="text-sm text-parchment/70">or {PRICES.lifetime.label} {PRICES.lifetime.per} for a lifetime membership</p>
                     <ul className="mt-4 grid gap-2 text-sm text-parchment/85 sm:grid-cols-2">{["Every listing in the database", "Notifications for saved searches", "Closing reminders for listings you follow", "A paid Substack subscription to every issue", "Full Monday Morning Opportunities", "Cancel any time from your account"].map((x) => <li key={x} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-gold-soft" />{x}</li>)}</ul>
                     <p className="mt-4 text-xs text-parchment/60">Already a paid Substack subscriber? Make an account with the same email and everything opens at no extra cost.</p>
                     <div className="mt-auto pt-6"><Button className="w-full bg-gold text-ink hover:bg-gold-soft" onClick={join} disabled={!ACCOUNTS_ON}>{ACCOUNTS_ON ? "Become a member" : "Memberships open soon"}</Button></div>

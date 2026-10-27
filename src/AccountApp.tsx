@@ -13,6 +13,7 @@ import { describeFilters, longDate, timeAgo } from "@/lib/opportunities";
 import { cn } from "@/lib/utils";
 
 const inputCls = "mt-1 h-11 w-full rounded-md border border-rule bg-paper px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
+const PLAN_NAME: Record<Plan, string> = { monthly: "Monthly", annual: "Yearly", lifetime: "Lifetime" };
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong. Please try again.");
 
 function Card({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) {
@@ -42,7 +43,8 @@ function AuthPanel() {
   const [pw, setPw] = useState("");
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  const next = params.get("next") === "join" ? "/account/#join" : "/account/";
+  const wanted = params.get("plan");
+  const next = params.get("next") === "join" ? `/account/${wanted && wanted in PRICES ? `?plan=${wanted}` : ""}#join` : "/account/";
   const run = async (fn: () => Promise<void>) => { setBusy(true); setMsg(null); try { await fn(); } catch (e) { setMsg({ ok: false, text: errText(e) }); } finally { setBusy(false); } };
 
   const submit = (e: FormEvent) => { e.preventDefault(); run(async () => {
@@ -97,7 +99,7 @@ function AuthPanel() {
               <span><span className="block font-medium">{t}</span><span className="mt-0.5 block text-sm text-parchment/70">{b}</span></span></li>
           ))}
         </ul>
-        <p className="mt-8 font-display text-2xl">{PRICES.monthly.label} <span className="text-base text-parchment/70">{PRICES.monthly.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.annual.label} <span className="text-base text-parchment/70">{PRICES.annual.per}</span></p>
+        <p className="mt-8 font-display text-2xl">{PRICES.monthly.label} <span className="text-base text-parchment/70">{PRICES.monthly.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.annual.label} <span className="text-base text-parchment/70">{PRICES.annual.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.lifetime.label} <span className="text-base text-parchment/70">{PRICES.lifetime.per} for life</span></p>
         <p className="mt-1 text-sm text-parchment/60">Canadian dollars. Cancel any time. Paid Substack subscribers get it all at no extra cost.</p>
       </div>
     </div>
@@ -129,8 +131,8 @@ function PreviewCheckout({ plan, email, onClose }: { plan: Plan; email: string; 
         <div className="bg-[#f6f9fc] px-6 py-4 text-xs text-[#697386]">Stand-in for the Stripe checkout page in review builds. No card is charged.</div>
         <div className="p-6">
           <p className="text-sm text-[#697386]">Among The Letters</p>
-          <h2 id="co-title" className="mt-1 font-sans text-2xl font-semibold text-[#1a1f36]">Membership, {plan === "annual" ? "yearly" : "monthly"}</h2>
-          <p className="mt-1 text-3xl font-semibold text-[#1a1f36]">CA{PRICES[plan].label}<span className="text-base font-normal text-[#697386]"> {plan === "annual" ? "per year" : "per month"}</span></p>
+          <h2 id="co-title" className="mt-1 font-sans text-2xl font-semibold text-[#1a1f36]">Membership, {PLAN_NAME[plan].toLowerCase()}</h2>
+          <p className="mt-1 text-3xl font-semibold text-[#1a1f36]">CA{PRICES[plan].label}<span className="text-base font-normal text-[#697386]"> {plan === "lifetime" ? "one time" : plan === "annual" ? "per year" : "per month"}</span></p>
           <div className="mt-5 space-y-3 text-sm"><div className="rounded-md border border-[#e3e8ee] px-3 py-2.5 text-[#1a1f36]">{email}</div><div className="rounded-md border border-[#e3e8ee] px-3 py-2.5 text-[#a3acb9]">Card number</div></div>
           <button type="button" disabled={busy} onClick={() => { setBusy(true); setTimeout(() => { previewCheckout(plan); window.location.href = "/account/?welcome=1"; }, 600); }}
             className="mt-5 h-11 w-full rounded-md bg-[#635bff] text-sm font-semibold text-white hover:bg-[#5146e0] disabled:opacity-60">{busy ? "Processing…" : "Subscribe"}</button>
@@ -235,14 +237,15 @@ function SubstackTodo() {
   return (
     <Card>
       <CardHead icon={ClipboardList} kicker="Admin" title="Substack to-do" />
-      <p className="mt-3 text-sm text-muted">Substack dashboard, Subscribers, select the email, three-dot menu, then Comp or Remove.</p>
+      <p className="mt-3 text-sm text-muted">Substack dashboard, Subscribers, select the email, three-dot menu, then Comp or Remove. Cancel items are done in the Stripe dashboard.</p>
       {items === null ? <p className="mt-4 text-sm text-faint">Loading…</p> : items.length ? (
         <ul className="mt-4 divide-y divide-rule">
           {items.map((t) => (
             <li key={t.id} className="flex flex-wrap items-center gap-3 py-3">
-              <span className={cn("rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide", t.action === "remove" ? "bg-oxblood/10 text-oxblood" : "bg-sage/15 text-moss")}>{t.action === "comp" ? "Comp" : t.action === "extend" ? "Extend" : "Remove"}</span>
+              <span className={cn("rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide", t.action === "remove" ? "bg-oxblood/10 text-oxblood" : t.action === "cancel_subscription" ? "bg-gold/20 text-[#6b5326]" : "bg-sage/15 text-moss")}>{t.action === "comp" ? "Comp" : t.action === "extend" ? "Extend" : t.action === "cancel_subscription" ? "Cancel old plan" : "Remove"}</span>
               <span className="min-w-0 flex-1 truncate text-sm text-ink">{t.email}</span>
-              <span className="text-xs text-faint">{t.action === "remove" ? "" : t.compUntil ? `1 year, to ${longDate(t.compUntil)}` : "Forever"} · {timeAgo(t.createdAt)}</span>
+              {t.note ? <span className="basis-full text-xs text-muted">{t.note}</span> : null}
+              <span className="text-xs text-faint">{t.action === "remove" || t.action === "cancel_subscription" ? "" : t.compUntil ? `1 year, to ${longDate(t.compUntil)}` : "Forever"} · {timeAgo(t.createdAt)}</span>
               <Button size="sm" variant="outline" onClick={() => done(t.id)}><Check className="size-4" /> Done</Button>
             </li>
           ))}
@@ -255,7 +258,7 @@ function SubstackTodo() {
 /* ---------------- signed in ---------------- */
 function Dashboard({ session }: { session: Session }) {
   const [m, setM] = useState<Membership | null>(null);
-  const [plan, setPlan] = useState<Plan>("annual");
+  const [plan, setPlan] = useState<Plan>(() => { const p = new URLSearchParams(window.location.search).get("plan"); return p && p in PRICES ? (p as Plan) : "annual"; });
   const [checkout, setCheckout] = useState(false);
   const [pwOpen, setPwOpen] = useState(false);
   const welcome = new URLSearchParams(window.location.search).get("welcome");
@@ -264,6 +267,7 @@ function Dashboard({ session }: { session: Session }) {
   if (!m) return <p className="text-sm text-faint">Loading your account…</p>;
   const member = isMember(m);
   const viaSubstack = m.source === "substack";
+  const lifetime = member && !viaSubstack && m.plan === "lifetime";
   const goCheckout = () => { if (MODE === "preview") { setCheckout(true); return; } const u = checkoutUrl(plan, session); if (u) window.location.href = u; };
   const billing = () => { if (MODE === "preview") { alert("Opens the secure Stripe billing page to change card, switch plan, see receipts or cancel."); return; } const u = portalUrl(session.email); if (u) window.location.href = u; };
   const steps = [
@@ -293,9 +297,9 @@ function Dashboard({ session }: { session: Session }) {
         <Card id="join">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div><p className="kicker">Membership</p>
-              <h2 className="mt-2 font-display text-3xl tracking-tight text-ink">{viaSubstack ? "Member through Substack" : member ? (m.status === "canceling" ? `Member until ${longDate(m.periodEnd)}` : "Member") : "Free account"}</h2></div>
+              <h2 className="mt-2 font-display text-3xl tracking-tight text-ink">{viaSubstack ? "Member through Substack" : lifetime ? "Lifetime member" : member ? (m.status === "canceling" ? `Member until ${longDate(m.periodEnd)}` : "Member") : "Free account"}</h2></div>
             <span className={cn("rounded-full px-3 py-1 text-xs font-semibold", member ? (m.status === "canceling" ? "bg-gold/20 text-[#6b5326]" : "bg-sage/15 text-moss") : "bg-paper text-muted ring-1 ring-rule")}>
-              {m.status === "active" ? "Active" : m.status === "canceling" ? "Ends soon" : m.status === "past_due" ? "Payment due" : "Free"}</span>
+              {lifetime ? "For life" : m.status === "active" ? "Active" : m.status === "canceling" ? "Ends soon" : m.status === "past_due" ? "Payment due" : "Free"}</span>
           </div>
           {viaSubstack ? (
             <>
@@ -305,25 +309,28 @@ function Dashboard({ session }: { session: Session }) {
           ) : member ? (
             <>
               <dl className="mt-5 grid gap-4 sm:grid-cols-3">
-                <div><dt className="text-xs text-faint">Plan</dt><dd className="mt-1 text-sm font-medium text-ink">{m.plan === "annual" ? "Yearly" : "Monthly"}, CA{PRICES[m.plan ?? "monthly"].label}</dd></div>
-                <div><dt className="text-xs text-faint">{m.status === "canceling" ? "Access ends" : "Renews"}</dt><dd className="mt-1 text-sm font-medium text-ink">{longDate(m.periodEnd)}</dd></div>
+                <div><dt className="text-xs text-faint">Plan</dt><dd className="mt-1 text-sm font-medium text-ink">{PLAN_NAME[m.plan ?? "monthly"]}, CA{PRICES[m.plan ?? "monthly"].label}{lifetime ? " once" : ""}</dd></div>
+                {lifetime
+                  ? <div><dt className="text-xs text-faint">Renews</dt><dd className="mt-1 text-sm font-medium text-ink">Never, paid once</dd></div>
+                  : <div><dt className="text-xs text-faint">{m.status === "canceling" ? "Access ends" : "Renews"}</dt><dd className="mt-1 text-sm font-medium text-ink">{longDate(m.periodEnd)}</dd></div>}
                 <div><dt className="text-xs text-faint">Member since</dt><dd className="mt-1 text-sm font-medium text-ink">{longDate(m.startedAt)}</dd></div>
               </dl>
               <div className="mt-6 flex flex-wrap gap-2 border-t border-rule pt-5">
                 <Button asChild size="sm"><a href="/opportunities/">Open the database <ArrowRight className="size-4" /></a></Button>
                 <Button size="sm" variant="outline" onClick={billing}><CreditCard className="size-4" /> Billing and receipts</Button>
-                {m.status === "active" ? <button type="button" onClick={() => { if (MODE === "preview") { previewCancel(true); api.getMembership().then(setM); } else billing(); }} className="ml-auto text-sm text-faint underline hover:text-oxblood">Cancel membership</button> : null}
+                {m.status === "active" && !lifetime ? <button type="button" onClick={() => { if (MODE === "preview") { previewCancel(true); api.getMembership().then(setM); } else billing(); }} className="ml-auto text-sm text-faint underline hover:text-oxblood">Cancel membership</button> : null}
               </div>
             </>
           ) : (
             <>
               <p className="mt-2 text-sm text-muted">Open every listing, get notifications for your searches and the paid newsletter on Substack.</p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="Choose a plan">
-                {(["monthly", "annual"] as const).map((p) => (
+              <div className="mt-5 grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Choose a plan">
+                {(["monthly", "annual", "lifetime"] as const).map((p) => (
                   <button key={p} type="button" role="radio" aria-checked={plan === p} onClick={() => setPlan(p)}
                     className={cn("relative rounded-lg p-4 text-left transition-shadow", plan === p ? "bg-paper ring-2 ring-oxblood" : "bg-paper ring-1 ring-rule hover:ring-rule-strong")}>
                     {p === "annual" ? <span className="absolute right-3 top-3 rounded-full bg-gold/20 px-2 py-0.5 text-[11px] font-semibold text-[#6b5326]">Two months free</span> : null}
-                    <span className="block text-sm font-medium text-muted">{p === "monthly" ? "Monthly" : "Yearly"}</span>
+                    {p === "lifetime" ? <span className="absolute right-3 top-3 rounded-full bg-oxblood/10 px-2 py-0.5 text-[11px] font-semibold text-oxblood">Founding offer</span> : null}
+                    <span className="block text-sm font-medium text-muted">{PLAN_NAME[p]}</span>
                     <span className="mt-1 block font-display text-3xl tracking-tight text-ink">{PRICES[p].label}<span className="text-base text-muted"> {PRICES[p].per}</span></span>
                     <span className="mt-1 block text-xs text-faint">{PRICES[p].note}</span>
                   </button>
@@ -350,7 +357,7 @@ function Dashboard({ session }: { session: Session }) {
                 </li>
               ))}
             </ol>
-            <p className="mt-5 text-xs text-faint">Uses {session.email}. {m.status === "canceling" ? "The paid subscription ends with your membership." : "If you also pay on Substack, write to us and we will sort it out so you are not paying twice."}</p>
+            <p className="mt-5 text-xs text-faint">Uses {session.email}. {lifetime ? "Your paid subscription is comped for life." : m.status === "canceling" ? "The paid subscription ends with your membership." : "If you also pay on Substack, write to us and we will sort it out so you are not paying twice."}</p>
           </Card>
         ) : null}
 

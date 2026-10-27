@@ -10,3 +10,4 @@ Thumbs.db
 *.tsbuildinfo
 public/opportunities/data/members.enc.json
 .stripe-ids.local
+supabase/.temp/
