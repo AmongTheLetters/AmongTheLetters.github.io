@@ -27,6 +27,6 @@ export const ACCOUNTS_ON = MODE !== "off";
 export const PRICES = {
   monthly: { amount: 7, label: "$7", per: "a month", note: "Billed monthly in Canadian dollars. Cancel any time." },
   annual: { amount: 70, label: "$70", per: "a year", note: "Two months free. Billed yearly in Canadian dollars." },
-  lifetime: { amount: 299, label: "$299", per: "once", note: "One payment in Canadian dollars. Never renews." },
+  lifetime: { amount: 299, label: "$299", per: "once", note: "One payment in Canadian dollars. Every guide and future product included." },
 } as const;
 export type Plan = keyof typeof PRICES;

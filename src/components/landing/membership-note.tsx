@@ -14,7 +14,7 @@ export function MembershipNote() {
         >
           Founding lifetime memberships are available for $299 CAD.
           <br />
-          Lifetime paid newsletter access and the full opportunities database, plus select future Among The Letters releases outside Substack.
+          Founding members get every paid feature for life, including the paid newsletter, the full opportunities database, all current guide PDFs and future products as they are added.
           <br />
           {live ? "Pay once from your account page." : "Email amongtheletters@gmail.com for details."}
         </a>

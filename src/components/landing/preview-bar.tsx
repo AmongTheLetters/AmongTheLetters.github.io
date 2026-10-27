@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { api, isMember, previewSetState } from "@/lib/backend";
 import { cn } from "@/lib/utils";
 
-type St = "visitor" | "free" | "member" | "canceling" | "substack";
-const LABEL: Record<St, string> = { visitor: "Signed out", free: "Free account", member: "Member", canceling: "Cancelling", substack: "Substack subscriber" };
+type St = "visitor" | "free" | "member" | "canceling" | "substack" | "founding";
+const LABEL: Record<St, string> = { visitor: "Signed out", free: "Free account", member: "Member", canceling: "Cancelling", substack: "Substack subscriber", founding: "Founding member" };
 
 /** Review builds only (VITE_PREVIEW=1). Switches between pretend account states. */
 export function PreviewBar({ states }: { states: St[] }) {
@@ -12,7 +12,7 @@ export function PreviewBar({ states }: { states: St[] }) {
     (async () => {
       const s = await api.getSession(); if (!s) return setCur("visitor");
       const m = await api.getMembership();
-      setCur(!isMember(m) ? "free" : m.source === "substack" ? "substack" : m.status === "canceling" ? "canceling" : "member");
+      setCur(!isMember(m) ? "free" : m.source === "substack" ? "substack" : m.plan === "lifetime" ? "founding" : m.status === "canceling" ? "canceling" : "member");
     })();
   }, []);
   return (

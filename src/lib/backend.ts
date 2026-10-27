@@ -106,6 +106,12 @@ const live = {
     return (data ?? []).map((r: { id: number; email: string; action: TodoItem["action"]; comp_until: string | null; note: string | null; created_at: string }) => ({ id: r.id, email: r.email, action: r.action, compUntil: r.comp_until, note: r.note, createdAt: r.created_at }));
   },
   async markTodoDone(id: number) { const { error } = await db().rpc("admin_mark_substack_done", { item_id: id }); fail(error); },
+  /** Founding (lifetime) members only. Fresh signed links, valid for ten minutes, keyed by file id. */
+  async foundingDownloads(): Promise<Record<string, string>> {
+    const { data, error } = await db().functions.invoke("founding-downloads", { method: "POST" });
+    if (error) throw new Error("The downloads could not be opened. Please try again, or write to us.");
+    return Object.fromEntries(((data?.files ?? []) as { id: string; url: string }[]).map((f) => [f.id, f.url]));
+  },
   calendarUrl(token?: string | null) { return token ? `${CONFIG.supabaseUrl.replace(/^https?:/, "webcal:")}/functions/v1/calendar-feed?token=${token}` : ""; },
 };
 
@@ -164,19 +170,22 @@ const preview: typeof live = {
   async savePush() { await wait(100); },
   async listTodo() { return [{ id: 1, email: "reader@example.com", action: "comp", compUntil: null, createdAt: ago(3) }, { id: 2, email: "former@example.com", action: "remove", compUntil: null, createdAt: ago(20) }]; },
   async markTodoDone() { await wait(); },
+  async foundingDownloads() { await wait(150); return {}; },
   calendarUrl(token) { return token ? "webcal://amongtheletters.com/cal/••••••••••••.ics" : ""; },
 };
 
 /* Preview-only helpers, used by the review switcher. */
 export function previewCheckout(plan: Plan) { put(K.member, { status: "active", plan, startedAt: TODAY, periodEnd: plan === "lifetime" ? null : later(plan === "annual" ? 12 : 1), source: "stripe", substack: "pending", isAdmin: false } satisfies Membership); }
 export function previewCancel(on: boolean) { const m = get<Membership>(K.member, NO_MEMBERSHIP); put(K.member, { ...m, status: on ? "canceling" : "active" }); }
-export function previewSetState(state: "visitor" | "free" | "member" | "canceling" | "substack") {
+export function previewSetState(state: "visitor" | "free" | "member" | "canceling" | "substack" | "founding") {
   Object.values(K).forEach((k) => localStorage.removeItem(k));
   if (state === "visitor") return;
   put(K.session, { userId: "preview-user", email: "reader@example.com", createdAt: "2026-10-26" } satisfies Session);
   if (state === "free") return;
   put(K.member, state === "substack"
     ? { status: "active", source: "substack", substack: "added", isAdmin: false }
+    : state === "founding"
+    ? { status: "active", plan: "lifetime", startedAt: "2026-10-27", periodEnd: null, source: "stripe", substack: "added", substackDate: "2026-10-27", isAdmin: false }
     : { status: state === "member" ? "active" : "canceling", plan: "monthly", startedAt: "2026-10-26", periodEnd: "2026-11-26", source: "stripe", substack: "added", substackDate: "2026-10-26", isAdmin: true } satisfies Membership);
   put(K.notices, PREVIEW_NOTICES);
   put(K.searches, PREVIEW_SEARCHES);
@@ -186,7 +195,7 @@ export function previewSetState(state: "visitor" | "free" | "member" | "cancelin
 // Review builds only: /opportunities/?as=member opens the page already in that pretend state.
 if (MODE === "preview" && typeof window !== "undefined") {
   const u = new URL(window.location.href), as = u.searchParams.get("as");
-  if (as && ["visitor", "free", "member", "canceling", "substack"].includes(as)) {
+  if (as && ["visitor", "free", "member", "canceling", "substack", "founding"].includes(as)) {
     previewSetState(as as Parameters<typeof previewSetState>[0]);
     u.searchParams.delete("as"); window.history.replaceState(null, "", u.pathname + u.search + u.hash);
   }

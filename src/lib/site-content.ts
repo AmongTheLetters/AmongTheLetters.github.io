@@ -244,7 +244,7 @@ export const FAQ = [
   },
   {
     q: "What is the $299 CAD lifetime membership?",
-    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. One payment of $299 CAD includes lifetime access to the paid newsletter and the full opportunities database with its notifications, plus select future Among The Letters products released outside Substack. It never renews.",
+    a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. One payment of $299 CAD makes you a founding member, with every paid feature for life. That includes the paid newsletter, the full opportunities database with its notifications, free downloads of every current guide PDF and its tracker files, and future products as they are added. It never renews.",
   },
   {
     q: "Where do I subscribe or manage billing?",

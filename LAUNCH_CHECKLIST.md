@@ -81,13 +81,13 @@ The free plan has no end date. It allows 300 emails a day across account emails 
     - `ADMIN_EMAIL` = the address for the daily Substack to-do email
     - optional `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` = `mailto:amongtheletters@gmail.com` (section D)
     `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are provided to functions automatically.
-12. **[box] [secret]** Deploy the three functions. Create an access token at supabase.com, Account, Access Tokens, then from the repo
+12. **[box] [secret]** Deploy the four functions. Create an access token at supabase.com, Account, Access Tokens, then from the repo
     ```bash
     export SUPABASE_ACCESS_TOKEN=...   # in the shell only
-    npx supabase functions deploy stripe-webhook alerts calendar-feed --project-ref <ref>
+    npx supabase functions deploy stripe-webhook alerts calendar-feed founding-downloads --project-ref <ref>
     unset SUPABASE_ACCESS_TOKEN
     ```
-    `supabase/config.toml` turns off the Supabase token check for these three, because each checks its own secret. Revoke the access token afterwards if you like.
+    `supabase/config.toml` turns off the Supabase token check for the first three, because each checks its own secret. `founding-downloads` keeps it on. Revoke the access token afterwards if you like.
 13. **[box] [secret]** Load the listings
     ```bash
     SUPABASE_URL=https://<ref>.supabase.co SUPABASE_SERVICE_ROLE_KEY=... node scripts/sync-opportunities.mjs
@@ -115,7 +115,12 @@ Live mode, account `acct_1Skr9CRrwe7mDXay` (Minocy). Checkout currently shows th
 2. The portal allows cancelling at the end of the billing period, updating the card, viewing invoices and switching between monthly and yearly.
 3. **[secret]** The webhook signing secret goes in Supabase as `STRIPE_WEBHOOK_SECRET`, the `atl-supabase` key as `STRIPE_SECRET_KEY`. Neither is ever written to the repo.
 4. Lifetime. The webhook treats a paid `payment` mode checkout from the lifetime link (or `atl_plan=lifetime`) with a real account's user ID as lifetime. The member row gets plan `lifetime`, no subscription and no end date, and a forever Substack comp is queued. If the buyer still had a monthly or yearly subscription, it is **not** cancelled automatically. A "Cancel old plan" item appears in the admin to-do list, so a person cancels that subscription in Stripe. Subscription events never downgrade a lifetime member. Refunds of a lifetime payment are handled by hand (set the member row to `expired` and queue a Substack removal).
-5. Tax note. Registering for GST/HST is required only above CA$30,000 a year in sales. Stripe Tax stays off.
+5. **Done** Founding member library. Lifetime buyers are called founding members and download every guide free from their account page. The private bucket `founding-downloads` (migration `20261027000200_founding_downloads.sql`, no public access and no storage policies) holds the final Payhip files from `atl-project/guidebooks/payhip/`, saved as `opportunity-map.pdf`, `submission-desk.pdf`, `submission-tracker.xlsx` and `submission-tracker.csv`. The `founding-downloads` Edge Function (JWT verified) checks for an active lifetime membership and returns signed links that expire after ten minutes. To add or replace a file, upload it with
+   ```bash
+   npx supabase storage cp --experimental --project-ref bwcqeyttbqkivrozbqxm --content-type application/pdf new-guide.pdf ss:///founding-downloads/new-guide.pdf
+   ```
+   then add it to `FILES` in `supabase/functions/founding-downloads/index.ts` and to `FOUNDING_LIBRARY` in `src/lib/shop-content.ts`, and redeploy the function.
+6. Tax note. Registering for GST/HST is required only above CA$30,000 a year in sales. Stripe Tax stays off.
 
 ## D. Browser push, optional (5 minutes)
 1. **[box] [secret]** `npx web-push generate-vapid-keys`. Public key to the repo Variable `VAPID_PUBLIC_KEY` and the function secret of the same name, private key to the function secret `VAPID_PRIVATE_KEY`.

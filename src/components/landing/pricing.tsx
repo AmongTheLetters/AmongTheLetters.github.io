@@ -97,7 +97,7 @@ export function Pricing() {
               A $299 CAD founding lifetime membership.
             </h3>
             <p className="mt-3 text-muted">
-              One payment, never renewed. It includes lifetime access to the paid Among The Letters newsletter and the full opportunities database with its notifications, plus select future Among The Letters products released outside Substack.
+              Pay once and become a founding member, with every paid feature for life. That means the paid <em>Among The Letters</em> newsletter, the full opportunities database with its notifications, all current guide PDFs and future products as they are added. It never renews.
             </p>
           </div>
           <Button asChild variant="outline" size="lg" className="mt-6 shrink-0 md:mt-0">

@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { ArrowRight, ArrowUpRight, Bell, BellRing, CalendarPlus, Check, CircleCheck, ClipboardList, Clock, CreditCard, LogOut, Mail, MonitorSmartphone, ShieldCheck, Trash2, UserRound } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bell, BellRing, CalendarPlus, Check, CircleCheck, ClipboardList, Clock, CreditCard, Download, FileSpreadsheet, Library, LogOut, Mail, MonitorSmartphone, ShieldCheck, Trash2, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
@@ -10,6 +10,7 @@ import {
 } from "@/lib/backend";
 import { ACCOUNTS_ON, CONFIG, MODE, PRICES, type Plan } from "@/lib/config";
 import { describeFilters, longDate, timeAgo } from "@/lib/opportunities";
+import { FOUNDING_LIBRARY, SHOP_IMAGE_BASE } from "@/lib/shop-content";
 import { cn } from "@/lib/utils";
 
 const inputCls = "mt-1 h-11 w-full rounded-md border border-rule bg-paper px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
@@ -100,6 +101,7 @@ function AuthPanel() {
           ))}
         </ul>
         <p className="mt-8 font-display text-2xl">{PRICES.monthly.label} <span className="text-base text-parchment/70">{PRICES.monthly.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.annual.label} <span className="text-base text-parchment/70">{PRICES.annual.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.lifetime.label} <span className="text-base text-parchment/70">{PRICES.lifetime.per} for life</span></p>
+        <p className="mt-2 text-sm text-parchment/70">Founding members pay once for every paid feature, all current guide PDFs and future products as they are added.</p>
         <p className="mt-1 text-sm text-parchment/60">Canadian dollars. Cancel any time. Paid Substack subscribers get it all at no extra cost.</p>
       </div>
     </div>
@@ -229,6 +231,57 @@ function AlertSettings({ member }: { member: boolean }) {
   );
 }
 
+/* ---------------- founding (lifetime) members, free guide downloads ---------------- */
+function FoundingLibrary() {
+  const [busy, setBusy] = useState<string | null>(null);
+  const [err, setErr] = useState("");
+  // Links are fetched fresh on each click because they expire after ten minutes.
+  const download = async (fileId: string) => {
+    setBusy(fileId); setErr("");
+    try {
+      if (MODE === "preview") { alert("Downloads the file through a private link that expires after ten minutes."); return; }
+      const url = (await api.foundingDownloads())[fileId];
+      if (!url) throw new Error("That file is not available right now. Please write to us.");
+      window.location.href = url;
+    } catch (e) { setErr(errText(e)); } finally { setBusy(null); }
+  };
+  return (
+    <Card id="library">
+      <CardHead icon={Library} kicker="Founding member" title="Your founding member library" />
+      <p className="mt-3 text-sm text-muted">Every guide we sell is yours to download free, along with its tracker files. New products are added here as they are released.</p>
+      <ul className="mt-5 grid gap-4 sm:grid-cols-3">
+        {FOUNDING_LIBRARY.map((g) => (
+          <li key={g.id} className="flex min-w-0 flex-col overflow-hidden rounded-lg bg-paper ring-1 ring-rule">
+            {g.cover ? (
+              <img src={`${SHOP_IMAGE_BASE}/${g.cover}-cover-480.webp`} alt={`Cover of ${g.title}`} loading="lazy" width={480} height={720}
+                className="aspect-[2/3] w-full bg-cream object-cover" />
+            ) : (
+              <div className="flex aspect-[2/3] w-full flex-col items-center justify-center gap-3 bg-ink text-parchment">
+                <FileSpreadsheet className="size-12 text-gold-soft" strokeWidth={1.25} />
+                <span className="font-display text-lg tracking-tight">Submission tracker</span>
+              </div>
+            )}
+            <div className="flex flex-1 flex-col p-4">
+              <h3 className="font-display text-xl tracking-tight text-ink">{g.title}</h3>
+              <p className="mt-1 text-sm text-muted">{g.blurb}</p>
+              <div className="mt-auto flex flex-col gap-2 pt-4">
+                {g.files.map((f) => (
+                  <Button key={f.id} size="sm" variant={g.files.length > 1 && f.label === "CSV" ? "outline" : "default"} disabled={busy !== null} onClick={() => download(f.id)} className="w-full justify-between">
+                    <span className="inline-flex items-center gap-1.5"><Download className="size-4" /> {busy === f.id ? "Preparing…" : `Download ${f.label}`}</span>
+                    <span className="text-xs opacity-70">{f.detail}</span>
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      {err ? <p role="alert" className="mt-3 rounded-md bg-oxblood/10 px-3 py-2 text-sm text-oxblood">{err}</p> : null}
+      <p className="mt-4 text-xs text-faint">For your own use. Download links are private to your account and expire after ten minutes.</p>
+    </Card>
+  );
+}
+
 /* ---------------- admin, the Substack to-do list ---------------- */
 function SubstackTodo() {
   const [items, setItems] = useState<TodoItem[] | null>(null);
@@ -297,7 +350,7 @@ function Dashboard({ session }: { session: Session }) {
         <Card id="join">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div><p className="kicker">Membership</p>
-              <h2 className="mt-2 font-display text-3xl tracking-tight text-ink">{viaSubstack ? "Member through Substack" : lifetime ? "Lifetime member" : member ? (m.status === "canceling" ? `Member until ${longDate(m.periodEnd)}` : "Member") : "Free account"}</h2></div>
+              <h2 className="mt-2 font-display text-3xl tracking-tight text-ink">{viaSubstack ? "Member through Substack" : lifetime ? "Founding member" : member ? (m.status === "canceling" ? `Member until ${longDate(m.periodEnd)}` : "Member") : "Free account"}</h2></div>
             <span className={cn("rounded-full px-3 py-1 text-xs font-semibold", member ? (m.status === "canceling" ? "bg-gold/20 text-[#6b5326]" : "bg-sage/15 text-moss") : "bg-paper text-muted ring-1 ring-rule")}>
               {lifetime ? "For life" : m.status === "active" ? "Active" : m.status === "canceling" ? "Ends soon" : m.status === "past_due" ? "Payment due" : "Free"}</span>
           </div>
@@ -318,6 +371,7 @@ function Dashboard({ session }: { session: Session }) {
               <div className="mt-6 flex flex-wrap gap-2 border-t border-rule pt-5">
                 <Button asChild size="sm"><a href="/opportunities/">Open the database <ArrowRight className="size-4" /></a></Button>
                 <Button size="sm" variant="outline" onClick={billing}><CreditCard className="size-4" /> Billing and receipts</Button>
+                {!lifetime ? <p className="basis-full text-xs text-faint order-last">Founding members also get every guide PDF free. Write to us if you would like to switch to a founding membership.</p> : null}
                 {m.status === "active" && !lifetime ? <button type="button" onClick={() => { if (MODE === "preview") { previewCancel(true); api.getMembership().then(setM); } else billing(); }} className="ml-auto text-sm text-faint underline hover:text-oxblood">Cancel membership</button> : null}
               </div>
             </>
@@ -342,6 +396,8 @@ function Dashboard({ session }: { session: Session }) {
             </>
           )}
         </Card>
+
+        {lifetime ? <FoundingLibrary /> : null}
 
         <AlertSettings member={member} />
 
