@@ -145,32 +145,61 @@ export const GUIDES: readonly ShopGuide[] = [
 ] as const;
 
 /* The founding member library on the account page. Ids match the `founding-downloads` Edge Function. */
-export const FOUNDING_LIBRARY = [
+/* Founding member library on /account/. Each shelf is one sideways row on phones and a grid on wider screens.
+   To add a product, add one entry to the right shelf (or a new shelf). Each file id must also be listed in
+   supabase/functions/founding-downloads/index.ts and uploaded to the private founding-downloads bucket. */
+export type LibraryFile = { id: string; label: string; detail: string; primary?: boolean };
+export type LibraryItem = {
+  id: string;
+  title: string;
+  blurb: string;
+  /** Shop cover image name, shown as `${SHOP_IMAGE_BASE}/${cover}-cover-480.webp`. Leave null for an icon tile. */
+  cover: string | null;
+  /** Icon tile used when there is no cover. */
+  tile?: "spreadsheet" | "book" | "template";
+  files: LibraryFile[];
+};
+export type LibraryShelf = { id: string; title: string; items: LibraryItem[] };
+
+export const FOUNDING_LIBRARY: LibraryShelf[] = [
   {
-    id: "opportunity-map",
-    cover: "opportunity-map",
-    title: "The Opportunity Map",
-    blurb: "How to find, judge, and choose the right places for your writing.",
-    files: [{ id: "opportunity-map", label: "PDF", detail: "71 pages" }],
-  },
-  {
-    id: "submission-desk",
-    cover: "submission-desk",
-    title: "The Submission Desk",
-    blurb: "How to prepare, send, and track your writing with confidence.",
-    files: [{ id: "submission-desk", label: "PDF", detail: "68 pages" }],
-  },
-  {
-    id: "tracker",
-    cover: null,
-    title: "Submission tracker",
-    blurb: "The spreadsheet from The Complete Set, ready for every piece you send out.",
-    files: [
-      { id: "tracker-xlsx", label: "Excel", detail: "XLSX" },
-      { id: "tracker-csv", label: "CSV", detail: "Any spreadsheet app" },
+    id: "guides",
+    title: "Guides",
+    items: [
+      {
+        id: "opportunity-map",
+        cover: "opportunity-map",
+        title: "The Opportunity Map",
+        blurb: "How to find, judge, and choose the right places for your writing.",
+        files: [{ id: "opportunity-map", label: "PDF", detail: "71 pages", primary: true }],
+      },
+      {
+        id: "submission-desk",
+        cover: "submission-desk",
+        title: "The Submission Desk",
+        blurb: "How to prepare, send, and track your writing with confidence.",
+        files: [{ id: "submission-desk", label: "PDF", detail: "68 pages", primary: true }],
+      },
     ],
   },
-] as const;
+  {
+    id: "tools",
+    title: "Trackers and templates",
+    items: [
+      {
+        id: "tracker",
+        cover: null,
+        tile: "spreadsheet",
+        title: "Submission tracker",
+        blurb: "The spreadsheet from The Complete Set, ready for every piece you send out.",
+        files: [
+          { id: "tracker-xlsx", label: "Excel", detail: "XLSX", primary: true },
+          { id: "tracker-csv", label: "CSV", detail: "Any app" },
+        ],
+      },
+    ],
+  },
+];
 
 export const SHOP_FAQ = [
   {

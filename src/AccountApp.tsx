@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { ArrowRight, ArrowUpRight, Bell, BellRing, CalendarPlus, Check, CircleCheck, ClipboardList, Clock, CreditCard, Download, FileSpreadsheet, Library, LogOut, Mail, MonitorSmartphone, ShieldCheck, Trash2, UserRound } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bell, BellRing, CalendarPlus, Check, CircleCheck, ClipboardList, Clock, CreditCard, Library, LogOut, Mail, MonitorSmartphone, ShieldCheck, Trash2, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
@@ -10,7 +10,8 @@ import {
 } from "@/lib/backend";
 import { ACCOUNTS_ON, CONFIG, MODE, PRICES, type Plan } from "@/lib/config";
 import { describeFilters, longDate, timeAgo } from "@/lib/opportunities";
-import { FOUNDING_LIBRARY, SHOP_IMAGE_BASE } from "@/lib/shop-content";
+import { FOUNDING_LIBRARY } from "@/lib/shop-content";
+import { LibraryShelfRow } from "@/components/library-shelf";
 import { LIFETIME_FINAL, RefundNote } from "@/components/refund-note";
 import { cn } from "@/lib/utils";
 
@@ -252,36 +253,10 @@ function FoundingLibrary() {
     } catch (e) { setErr(errText(e)); } finally { setBusy(null); }
   };
   return (
-    <Card id="library">
+    <Card id="library" className="overflow-hidden">
       <CardHead icon={Library} kicker="Founding member" title="Your founding member library" />
-      <p className="mt-3 text-sm text-muted">Every guide we sell is yours to download free, along with its tracker files. New products are added here as they are released.</p>
-      <ul className="mt-5 grid gap-4 sm:grid-cols-3">
-        {FOUNDING_LIBRARY.map((g) => (
-          <li key={g.id} className="flex min-w-0 flex-col overflow-hidden rounded-lg bg-paper ring-1 ring-rule">
-            {g.cover ? (
-              <img src={`${SHOP_IMAGE_BASE}/${g.cover}-cover-480.webp`} alt={`Cover of ${g.title}`} loading="lazy" width={480} height={720}
-                className="aspect-[2/3] w-full bg-cream object-cover" />
-            ) : (
-              <div className="flex aspect-[2/3] w-full flex-col items-center justify-center gap-3 bg-ink text-parchment">
-                <FileSpreadsheet className="size-12 text-gold-soft" strokeWidth={1.25} />
-                <span className="font-display text-lg tracking-tight">Submission tracker</span>
-              </div>
-            )}
-            <div className="flex flex-1 flex-col p-4">
-              <h3 className="font-display text-xl tracking-tight text-ink">{g.title}</h3>
-              <p className="mt-1 text-sm text-muted">{g.blurb}</p>
-              <div className="mt-auto flex flex-col gap-2 pt-4">
-                {g.files.map((f) => (
-                  <Button key={f.id} size="sm" variant={g.files.length > 1 && f.label === "CSV" ? "outline" : "default"} disabled={busy !== null} onClick={() => download(f.id)} className="w-full justify-between">
-                    <span className="inline-flex items-center gap-1.5"><Download className="size-4" /> {busy === f.id ? "Preparing…" : `Download ${f.label}`}</span>
-                    <span className="text-xs opacity-70">{f.detail}</span>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <p className="mt-3 text-sm text-muted">Every guide we sell is yours to download free, along with its tracker files. New products are added here as they are released, so check back now and then.</p>
+      {FOUNDING_LIBRARY.map((shelf) => <LibraryShelfRow key={shelf.id} shelf={shelf} busy={busy} onDownload={download} />)}
       {err ? <p role="alert" className="mt-3 rounded-md bg-oxblood/10 px-3 py-2 text-sm text-oxblood">{err}</p> : null}
       <p className="mt-4 text-xs text-faint">For your own use. Download links are private to your account and expire after ten minutes.</p>
     </Card>
