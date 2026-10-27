@@ -8,11 +8,13 @@ import { useAccount } from "@/lib/use-account";
 import { NotificationBell } from "@/components/landing/notification-bell";
 import { AccountMenu } from "@/components/landing/account-menu";
 import { cn } from "@/lib/utils";
+import { useExclusiveMenu } from "@/lib/menus";
 
 export function SiteHeader() {
   const { member } = useAccount();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  useExclusiveMenu(open, () => setOpen(false));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

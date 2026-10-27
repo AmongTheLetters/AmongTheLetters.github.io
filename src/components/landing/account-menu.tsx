@@ -1,18 +1,20 @@
 /* The account menu in the top bar, on every page. Signed out it offers sign in, sign up and membership.
-   Signed in it links to the account, the database, notifications, the founding library and billing. */
+   Signed in it links to the account, notifications, the founding library and billing. */
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { Bell, BookOpen, CreditCard, Library, LogIn, LogOut, Sparkles, UserPlus, UserRound } from "lucide-react";
+import { Bell, CreditCard, Library, LogIn, LogOut, Sparkles, UserPlus, UserRound } from "lucide-react";
 import { api, portalUrl } from "@/lib/backend";
 import { MODE } from "@/lib/config";
 import { MEMBERSHIP_URL } from "@/lib/site-content";
 import { useAccount } from "@/lib/use-account";
 import { cn } from "@/lib/utils";
+import { useExclusiveMenu } from "@/lib/menus";
 
 type Item = { label: string; href?: string; onSelect?: () => void; icon: typeof Bell; badge?: number; tone?: "accent" };
 
 export function AccountMenu({ compact = false }: { compact?: boolean }) {
   const { ready, session, membership, member } = useAccount();
   const [open, setOpen] = useState(false);
+  useExclusiveMenu(open, () => setOpen(false));
   const [unread, setUnread] = useState(0);
   const wrap = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
@@ -45,7 +47,6 @@ export function AccountMenu({ compact = false }: { compact?: boolean }) {
   const items: Item[] = session
     ? [
         { label: "My account", href: "/account/", icon: UserRound },
-        { label: "Opportunities database", href: "/opportunities/", icon: BookOpen },
         ...(member ? [{ label: "Notifications", href: "/account/#alerts", icon: Bell, badge: unread }] : []),
         ...(lifetime ? [{ label: "Founding library", href: "/account/#library", icon: Library }] : []),
         ...(paysMonthlyOrYearly ? [{ label: "Manage billing", onSelect: billing, icon: CreditCard }] : []),

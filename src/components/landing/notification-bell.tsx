@@ -3,6 +3,7 @@ import { Bell, BellRing, CalendarClock, Check, Search, Settings } from "lucide-r
 import { api, type Notice } from "@/lib/backend";
 import { timeAgo } from "@/lib/opportunities";
 import { cn } from "@/lib/utils";
+import { useExclusiveMenu } from "@/lib/menus";
 
 /** Opens a deep link. On the database page it is handled in place, elsewhere it navigates. */
 export function openLink(link: string) {
@@ -15,6 +16,7 @@ export function openLink(link: string) {
 
 export function NotificationBell({ compact = false }: { compact?: boolean }) {
   const [open, setOpen] = useState(false);
+  useExclusiveMenu(open, () => setOpen(false));
   const [items, setItems] = useState<Notice[]>([]);
   const ref = useRef<HTMLDivElement>(null);
   const unread = items.filter((n) => !n.readAt).length;
