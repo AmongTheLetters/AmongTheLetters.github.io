@@ -31,7 +31,8 @@ Deno.serve(async (req) => {
     if (event.type === "checkout.session.completed") {
       const s = event.data.object as Stripe.Checkout.Session;
       const userId = s.client_reference_id; // added to the Payment Link URL by the account page
-      if (!userId || !s.subscription) return new Response("ignored");
+      // Other Minocy sales share this Stripe account, so skip anything that is not an ATL member checkout.
+      if (!userId || !s.subscription || !/^[0-9a-f-]{36}$/i.test(userId)) return new Response("ignored");
       const { data: u } = await db.auth.admin.getUserById(userId);
       if (!u?.user) return new Response("unknown user", { status: 200 });
       const email = (u.user.email ?? s.customer_details?.email ?? "").toLowerCase();
@@ -56,7 +57,8 @@ Deno.serve(async (req) => {
         : sub.status === "active" || sub.status === "trialing" ? (sub.cancel_at_period_end || sub.cancel_at ? "canceling" : "active")
         : "expired";
       const { data: before } = await db.from("members").select("user_id,email,plan,current_period_end").eq("stripe_subscription_id", sub.id).maybeSingle();
-      await db.from("members").update({ status, current_period_end: ts(end), updated_at: new Date().toISOString() }).eq("stripe_subscription_id", sub.id);
+      const plan = sub.items.data[0]?.price.recurring?.interval === "year" ? "annual" : "monthly"; // the portal allows switching
+      await db.from("members").update({ status, plan, current_period_end: ts(end), updated_at: new Date().toISOString() }).eq("stripe_subscription_id", sub.id);
       if (before) {
         const renewed = before.current_period_end && new Date(end * 1000) > new Date(before.current_period_end);
         if (before.plan === "annual" && status === "active" && renewed && !(await onAllowlist(before.email)))
