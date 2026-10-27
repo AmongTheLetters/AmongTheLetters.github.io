@@ -1,5 +1,5 @@
 /* Shared listing types, dates and filter logic. The alerts Edge Function uses a copy of matches(). */
-export type OppType = "Contest" | "Call for submissions" | "Grant" | "Residency" | "Fellowship" | "Mentorship" | "Paid market" | "Job";
+export type OppType = "Contest" | "Call for submissions" | "Grant" | "Residency" | "Fellowship" | "Mentorship" | "Paid market";
 export type Opp = {
   id: string; title: string; org: string; type: OppType; genres: string[]; region: string; location: string; eligibility: string;
   opens?: string | null; deadline: string | null; deadlineNote?: string | null; fee: "Free" | "Fee" | "Check"; award: string; summary: string;
@@ -9,7 +9,7 @@ export type Stub = { id: string; locked: true; type: OppType; region: string; ge
 export type Item = Opp | Stub;
 export const isStub = (i: Item): i is Stub => "locked" in i;
 
-export const TYPES: OppType[] = ["Contest", "Call for submissions", "Grant", "Residency", "Fellowship", "Mentorship", "Paid market", "Job"];
+export const TYPES: OppType[] = ["Contest", "Call for submissions", "Grant", "Residency", "Fellowship", "Mentorship", "Paid market"];
 export const REGIONS = ["Canada", "United States", "International"];
 export const WINDOWS = [["any", "Any deadline"], ["7", "Next 7 days"], ["30", "Next 30 days"], ["90", "Next 90 days"], ["rolling", "Rolling or open now"]] as const;
 export type Win = (typeof WINDOWS)[number][0];
