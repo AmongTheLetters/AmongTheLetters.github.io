@@ -26,7 +26,9 @@ export type Listings = { items: Item[]; total: number; free: number };
 export const isMember = (m: Membership) => m.status === "active" || m.status === "canceling" || m.status === "past_due";
 const NO_MEMBERSHIP: Membership = { status: "none", source: "none", substack: "not_started", isAdmin: false };
 const DEFAULT_PREFS: Prefs = { emailEnabled: false, closingSoonDays: 7, pushEnabled: false };
-const redirect = (path = "/account/") => `${CONFIG.siteUrl}${path}`;
+// Email links return to the local build during testing, and to the live site everywhere else.
+const origin = () => (typeof location !== "undefined" && location.hostname === "localhost" ? location.origin : CONFIG.siteUrl);
+const redirect = (path = "/account/") => `${origin()}${path}`;
 
 async function freeFile(): Promise<Listings> {
   const d = await (await fetch("/opportunities/data/free.json", { cache: "no-store" })).json();
