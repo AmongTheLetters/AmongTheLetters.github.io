@@ -14,8 +14,9 @@ import { FOUNDING_LIBRARY } from "@/lib/shop-content";
 import { LibraryShelfRow } from "@/components/library-shelf";
 import { LIFETIME_FINAL, RefundNote } from "@/components/refund-note";
 import { cn } from "@/lib/utils";
+import { PasswordInput } from "@/components/password-input";
 
-const inputCls = "mt-1 h-11 w-full rounded-md border border-rule bg-paper px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
+const inputCls = "mt-1 h-11 w-full rounded-md border border-rule bg-paper px-3 text-base text-ink sm:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
 const PLAN_NAME: Record<Plan, string> = { monthly: "Monthly", annual: "Yearly", lifetime: "Lifetime" };
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong. Please try again.");
 
@@ -44,6 +45,8 @@ function AuthPanel() {
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">(params.get("mode") === "signup" ? "signup" : "signin");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const [pw2, setPw2] = useState("");
+  const [mismatch, setMismatch] = useState(false);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [pending, setPending] = useState("");
@@ -51,7 +54,9 @@ function AuthPanel() {
   const next = params.get("next") === "join" ? `/account/${wanted && wanted in PRICES ? `?plan=${wanted}` : ""}#join` : "/account/";
   const run = async (fn: () => Promise<void>) => { setBusy(true); setMsg(null); try { await fn(); } catch (e) { setMsg({ ok: false, text: errText(e) }); } finally { setBusy(false); } };
 
-  const submit = (e: FormEvent) => { e.preventDefault(); run(async () => {
+  const submit = (e: FormEvent) => { e.preventDefault();
+    if (mode === "signup" && pw !== pw2) { setMismatch(true); document.getElementById("auth-password-confirm")?.focus(); return; }
+    run(async () => {
     if (mode === "forgot") { await api.resetPassword(email); setMsg({ ok: true, text: "If there is an account for that email, a reset link is on its way." }); return; }
     if (mode === "signup") { const r = await api.signUp(email, pw); if (r.needsConfirm) { setPending(email); setMsg({ ok: true, text: "Check your inbox and click the link to confirm your email. Then you are in." }); return; } }
     else await api.signIn(email, pw);
@@ -65,7 +70,7 @@ function AuthPanel() {
         {mode !== "forgot" ? (
           <div role="tablist" className="grid grid-cols-2 rounded-lg bg-paper p-1">
             {(["signin", "signup"] as const).map((m) => (
-              <button key={m} role="tab" type="button" aria-selected={mode === m} onClick={() => { setMode(m); setMsg(null); }}
+              <button key={m} role="tab" type="button" aria-selected={mode === m} onClick={() => { setMode(m); setMsg(null); setMismatch(false); setPw2(""); }}
                 className={cn("rounded-md py-2 text-sm font-medium transition-colors", mode === m ? "bg-cream text-ink shadow-[var(--shadow-border)]" : "text-muted hover:text-ink")}>
                 {m === "signin" ? "Sign in" : "Create account"}
               </button>
@@ -76,7 +81,17 @@ function AuthPanel() {
         <p className="mt-1 text-sm text-muted">{mode === "signin" ? "Sign in to open your listings, notifications and membership." : mode === "signup" ? "Follow listings and save searches now, and become a member whenever you like." : "We will email you a link to choose a new password."}</p>
         <form onSubmit={submit} className="mt-5">
           <label className="block text-xs font-medium text-muted">Email<input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} placeholder="you@example.com" /></label>
-          {mode !== "forgot" ? <label className="mt-3 block text-xs font-medium text-muted">Password<input type="password" required minLength={8} autoComplete={mode === "signup" ? "new-password" : "current-password"} value={pw} onChange={(e) => setPw(e.target.value)} className={inputCls} placeholder={mode === "signup" ? "At least 8 characters" : ""} /></label> : null}
+          {mode !== "forgot" ? <label className="mt-3 block text-xs font-medium text-muted">Password<PasswordInput key={`pw-${mode}`} id="auth-password" required minLength={8} autoComplete={mode === "signup" ? "new-password" : "current-password"} value={pw} onChange={(e) => { setPw(e.target.value); if (mismatch && e.target.value === pw2) setMismatch(false); }} className={inputCls} placeholder={mode === "signup" ? "At least 8 characters" : ""} /></label> : null}
+          {mode === "signup" ? (
+            <label className="mt-3 block text-xs font-medium text-muted">Confirm password
+              <PasswordInput id="auth-password-confirm" required minLength={8} autoComplete="new-password" value={pw2}
+                onChange={(e) => { setPw2(e.target.value); if (mismatch && e.target.value === pw) setMismatch(false); }}
+                onBlur={() => setMismatch(!!pw2 && pw2 !== pw)}
+                aria-invalid={mismatch} aria-describedby={mismatch ? "auth-password-mismatch" : undefined}
+                className={cn(inputCls, mismatch && "border-oxblood")} placeholder="Type it again" />
+              {mismatch ? <span id="auth-password-mismatch" role="alert" className="mt-1.5 block text-xs font-medium text-oxblood">Passwords don't match. Please type the same password in both boxes.</span> : null}
+            </label>
+          ) : null}
           {mode === "signin" ? <button type="button" onClick={() => { setMode("forgot"); setMsg(null); }} className="mt-2 text-xs text-oxblood hover:underline">Forgot your password?</button> : null}
           <Button type="submit" className="mt-4 w-full" disabled={busy}>{busy ? "One moment…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create my account" : "Send the reset link"}</Button>
         </form>
@@ -116,14 +131,15 @@ function AuthPanel() {
 }
 
 function NewPassword() {
-  const [pw, setPw] = useState(""); const [done, setDone] = useState(false); const [err, setErr] = useState("");
+  const [pw, setPw] = useState(""); const [pw2, setPw2] = useState(""); const [done, setDone] = useState(false); const [err, setErr] = useState("");
   return (
     <Card className="max-w-md">
       <h2 className="font-display text-2xl tracking-tight text-ink">Choose a new password</h2>
       {done ? <p className="mt-3 text-sm text-moss">Saved. You are signed in.</p> : (
-        <form onSubmit={async (e) => { e.preventDefault(); try { await api.updatePassword(pw); setDone(true); history.replaceState(null, "", "/account/"); } catch (x) { setErr(errText(x)); } }}>
-          <input type="password" minLength={8} required autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} className={inputCls} placeholder="At least 8 characters" />
-          {err ? <p className="mt-2 text-sm text-oxblood">{err}</p> : null}
+        <form onSubmit={async (e) => { e.preventDefault(); if (pw !== pw2) { setErr("Passwords don't match. Please type the same password in both boxes."); return; } try { await api.updatePassword(pw); setDone(true); history.replaceState(null, "", "/account/"); } catch (x) { setErr(errText(x)); } }}>
+          <label className="mt-4 block text-xs font-medium text-muted">New password<PasswordInput id="new-password" minLength={8} required autoComplete="new-password" value={pw} onChange={(e) => { setPw(e.target.value); setErr(""); }} className={inputCls} placeholder="At least 8 characters" /></label>
+          <label className="mt-3 block text-xs font-medium text-muted">Confirm new password<PasswordInput id="new-password-confirm" minLength={8} required autoComplete="new-password" value={pw2} onChange={(e) => { setPw2(e.target.value); setErr(""); }} onBlur={() => { if (pw2 && pw2 !== pw) setErr("Passwords don't match. Please type the same password in both boxes."); }} aria-invalid={!!err} className={inputCls} placeholder="Type it again" /></label>
+          {err ? <p role="alert" className="mt-2 text-sm text-oxblood">{err}</p> : null}
           <Button type="submit" className="mt-4">Save password</Button>
         </form>
       )}
