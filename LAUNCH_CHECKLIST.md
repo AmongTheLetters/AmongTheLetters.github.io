@@ -158,6 +158,8 @@ Monthly re-run, ideally the first Monday
 6. Spot check that no Substack comp queue row exists for an allowlisted address.
 
 ## G. Test pass in Stripe test mode (about 30 minutes, no real money)
+**Passed 2026-10-27.** Sign-up with email confirmation, monthly CA$7 with a 4242 card (Member, renewing Nov 27), saved search and follow, then the lifetime upgrade (Founding member, renewing Never, library download working). In Stripe test mode both checkouts completed, the monthly subscription was cancelled outright by the webhook, and every delivery to the test endpoint succeeded. Supabase showed plan lifetime with no subscription, one Substack comp row, and no cancel or refund-review to-do. The test user and its rows were removed afterwards. Test setup stays in place for future runs (test links in `.env.stripetest.local`, test webhook we_1UVDpmRrwe7mDXayRmXR1Dwm, test secrets in Supabase).
+
 Test purchases use Stripe test mode on the Minocy account and 4242 test cards. The same stripe-webhook function handles both modes. Live events verify with STRIPE_WEBHOOK_SECRET and use STRIPE_SECRET_KEY as before. Test events verify only with STRIPE_WEBHOOK_SECRET_TEST and use STRIPE_SECRET_KEY_TEST, so a test event can never touch a live subscription. Test purchases do write real rows to the members table, so use throwaway test accounts.
 
 ### Setup, once

@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
+import { api } from "@/lib/backend";
 
 const STORAGE_KEY = "atl-flier-dismissed";
 
@@ -26,7 +27,10 @@ export function FlierPopup() {
 
   useEffect(() => {
     if (alreadyDismissed()) return;
-    setOpen(true);
+    // Signed-in readers already have an account, so the newsletter promo stays out of their way.
+    let cancelled = false;
+    api.getSession().then((s) => { if (!cancelled && !s) setOpen(true); }, () => { if (!cancelled) setOpen(true); });
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
