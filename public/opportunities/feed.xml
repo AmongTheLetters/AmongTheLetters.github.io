@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel><title>Among The Letters Opportunities (free list)</title><link>https://amongtheletters.com/opportunities/</link>
   <description>Writing contests, residencies, fellowships, grants and paid markets, checked against official pages.</description>
-    <item><title>EVENT Magazine, Non-Fiction Contest</title><link>https://www.eventmagazine.ca/contest-nf/</link><guid isPermaLink="false">atl-opp-event-nonfiction</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Contest</category>
-      <description>A long-running Canadian creative non-fiction contest, entry includes a one-year subscription and students pay a lower fee. Deadline 2026-11-01.</description></item>
-    <item><title>PRISM international, General Poetry and Prose Submissions</title><link>https://prismmagazine.ca/submit/</link><guid isPermaLink="false">atl-opp-prism-general-submissions</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Call for submissions</category>
-      <description>PRISM international reads fiction, poetry, creative non-fiction and translation for each issue, with the small fee waived for incarcerated writers. Deadline 2026-11-15.</description></item>
-    <item><title>The Sun Magazine, Submissions</title><link>https://www.thesunmagazine.org/submit</link><guid isPermaLink="false">atl-opp-the-sun-magazine</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
-      <description>A magazine of personal essays, fiction and poetry that welcomes first-time authors and marginalized voices. Deadline not stated.</description></item>
-    <item><title>Ploughshares, Open Reading Period</title><link>https://pshares.org/product/manuscript-submission/</link><guid isPermaLink="false">atl-opp-ploughshares-reading</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
-      <description>A major literary journal reads fiction, poetry and non-fiction from June 1 to November 15, with a small online submission fee. Deadline 2026-11-15.</description></item>
-    <item><title>Manitoba Arts Council, Create Grants</title><link>https://artscouncil.mb.ca/grants/create/</link><guid isPermaLink="false">atl-opp-manitoba-arts-create</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
-      <description>Provincial funding for Manitoba writers to create new work, offered twice a year. Deadline 2027-03-20.</description></item>
-    <item><title>ArtsNB, Creation Grants</title><link>https://artsnb.ca/web/programs/creation/</link><guid isPermaLink="false">atl-opp-artsnb-creation</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
-      <description>New Brunswick's arts board funds writers to set time aside for original projects. Deadline 2027-04-01.</description></item>
-    <item><title>Boa Editions, A. Poulin, Jr. Poetry Prize</title><link>https://boaeditions.org/submissions/</link><guid isPermaLink="false">atl-opp-boa-poulin-prize</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
-      <description>A first-book poetry prize from Boa Editions, read each year from August through November. Deadline 2026-11-30.</description></item>
     <item><title>Fine Arts Work Center in Provincetown, Writing Fellowship</title><link>https://fawc.org/apply/</link><guid isPermaLink="false">atl-opp-fawc-writing-fellowship</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
       <description>A seven-month fellowship residency in Provincetown, with an access fund of $500 to $2,500 for selected fellows with financial need. Deadline 2026-12-15.</description></item>
+    <item><title>Brick, Brick Submissions</title><link>https://brickmag.com/submissions/</link><guid isPermaLink="false">atl-opp-brick-submissions</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
+      <description>Brick pays contributors on publication, with two copies of the issue and a one-year subscription. Deadline not stated.</description></item>
     <item><title>Banff Centre for Arts and Creativity, Spring Writers</title><link>https://www.banffcentre.ca/programs/literary-arts/spring-writers-2027</link><guid isPermaLink="false">atl-opp-banff-spring-writers</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
       <description>Two weeks in the mountains with weekly faculty consultations, readings and campus events, with financial help available toward the program fee. Deadline 2026-12-09.</description></item>
@@ -37,6 +19,9 @@
     <item><title>Virginia Center for the Creative Arts, Residencies and Fellowships</title><link>https://www.vcca.com/apply/</link><guid isPermaLink="false">atl-opp-vcca-residencies</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
       <description>One of the largest residency programs in the US, with fee waivers on request and fully funded fellowships each round. Deadline 2027-01-15.</description></item>
+    <item><title>EVENT Magazine, Non-Fiction Contest</title><link>https://www.eventmagazine.ca/contest-nf/</link><guid isPermaLink="false">atl-opp-event-nonfiction</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Contest</category>
+      <description>A long-running Canadian creative non-fiction contest, entry includes a one-year subscription and students pay a lower fee. Deadline 2026-11-01.</description></item>
     <item><title>Poetry magazine, Poetry Submissions</title><link>https://www.poetryfoundation.org/poetrymagazine/submit</link><guid isPermaLink="false">atl-opp-poetry-magazine</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
       <description>Poetry reads poems and prose year round through Submittable, alongside special open calls. Deadline not stated.</description></item>
@@ -55,6 +40,9 @@
     <item><title>Grain Magazine, Regular Submissions</title><link>https://grainmagazine.ca/submit</link><guid isPermaLink="false">atl-opp-grain-magazine</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
       <description>A literary magazine reading year round with a monthly cap, so check back if the month is full. Deadline not stated.</description></item>
+    <item><title>PRISM international, General Poetry and Prose Submissions</title><link>https://prismmagazine.ca/submit/</link><guid isPermaLink="false">atl-opp-prism-general-submissions</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Call for submissions</category>
+      <description>PRISM international reads fiction, poetry, creative non-fiction and translation for each issue, with the small fee waived for incarcerated writers. Deadline 2026-11-15.</description></item>
     <item><title>The Threepenny Review, Submissions</title><link>https://www.threepennyreview.com/submissions/</link><guid isPermaLink="false">atl-opp-threepenny-review</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
       <description>A literary quarterly with flat rates per story, article and poem, reading from January each year. Deadline Reads from January 1 each year until the spring.</description></item>
@@ -97,6 +85,12 @@
     <item><title>The Missouri Review, Jeffrey E. Smith Editors' Prize</title><link>https://missourireview.com/submissions/contests/jeffrey-e-smith-editors-prize/</link><guid isPermaLink="false">atl-opp-missouri-review-editors</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Contest</category>
       <description>A major literary magazine prize awarding $5,000 each in fiction, non-fiction and poetry. Next deadline expected around October 2027.</description></item>
+    <item><title>The Sun Magazine, Submissions</title><link>https://www.thesunmagazine.org/submit</link><guid isPermaLink="false">atl-opp-the-sun-magazine</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
+      <description>A magazine of personal essays, fiction and poetry that welcomes first-time authors and marginalized voices. Deadline not stated.</description></item>
+    <item><title>Ploughshares, Open Reading Period</title><link>https://pshares.org/product/manuscript-submission/</link><guid isPermaLink="false">atl-opp-ploughshares-reading</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
+      <description>A major literary journal reads fiction, poetry and non-fiction from June 1 to November 15, with a small online submission fee. Deadline 2026-11-15.</description></item>
     <item><title>AGNI, Submissions</title><link>https://agnionline.bu.edu/submit/</link><guid isPermaLink="false">atl-opp-agni-reading</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
       <description>A Boston University literary magazine with two reading periods each year and a small reading fee. Deadline 2026-12-15.</description></item>
@@ -109,6 +103,12 @@
     <item><title>Authors League Fund, Emergency Support for Writers</title><link>https://authorsleaguefund.org/</link><guid isPermaLink="false">atl-opp-authors-league-fund</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
       <description>Interest-free help with urgent bills for professional writers, with no repayment required. Deadline not stated.</description></item>
+    <item><title>Manitoba Arts Council, Create Grants</title><link>https://artscouncil.mb.ca/grants/create/</link><guid isPermaLink="false">atl-opp-manitoba-arts-create</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>Provincial funding for Manitoba writers to create new work, offered twice a year. Deadline 2027-03-20.</description></item>
+    <item><title>ArtsNB, Creation Grants</title><link>https://artsnb.ca/web/programs/creation/</link><guid isPermaLink="false">atl-opp-artsnb-creation</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>New Brunswick's arts board funds writers to set time aside for original projects. Deadline 2027-04-01.</description></item>
     <item><title>Bard College, Bard Fiction Prize</title><link>https://www.bard.edu/bfp/</link><guid isPermaLink="false">atl-opp-bard-fiction-prize</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
       <description>A prize for a promising emerging American fiction writer, with a $30,000 award and a writer in residence appointment at Bard. Deadline Presented each October, check the page for this year's application date.</description></item>
@@ -130,15 +130,18 @@
     <item><title>Academy of American Poets, Treehouse Climate Action Poem Prize</title><link>https://poets.org/academy-american-poets/prizes/treehouse-climate-action-poem-prize</link><guid isPermaLink="false">atl-opp-academy-of-american-poets-treehouse-climate-acti</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
       <description>A prize of $1,000 with publication from the Academy of American Poets, given annually for a poem that helps readers recognize the vulnerable state of our environment. Deadline 2026-11-15.</description></item>
+    <item><title>Boa Editions, A. Poulin, Jr. Poetry Prize</title><link>https://boaeditions.org/submissions/</link><guid isPermaLink="false">atl-opp-boa-poulin-prize</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
+      <description>A first-book poetry prize from Boa Editions, read each year from August through November. Deadline 2026-11-30.</description></item>
     <item><title>Colorado Review, Colorado Prize for Poetry</title><link>https://coloradoprize.colostate.edu</link><guid isPermaLink="false">atl-opp-colorado-review-colorado-prize-for-poetry</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
       <description>A prize of $2,500 with publication from Colorado Review, given annually for a poetry collection. Deadline 2027-01-14.</description></item>
+    <item><title>Academy of American Poets, Poem-a-Day</title><link>https://poets.org/poem-a-day</link><guid isPermaLink="false">atl-opp-poem-a-day</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Reading program</category>
+      <description>A daily poem published by the Academy of American Poets, with an archive of past poems on the site. Deadline not stated.</description></item>
     <item><title>Leon Levy Center for Biography, Leon Levy Biography Fellowships</title><link>https://leonlevycenterforbiography.com/fellowships</link><guid isPermaLink="false">atl-opp-leon-levy-center-for-biography-leon-levy-biograp</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
       <description>Yearlong fellowships of $72,000 each, given annually to non-fiction writers working on biographies, with writing space at the CUNY Graduate Center in New York City and research help. Deadline 2027-01-04.</description></item>
-    <item><title>Brick, Brick Submissions</title><link>https://brickmag.com/submissions/</link><guid isPermaLink="false">atl-opp-brick-submissions</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
-      <description>Brick pays contributors on publication, with two copies of the issue and a one-year subscription. Deadline not stated.</description></item>
     <item><title>League of Canadian Poets, League of Canadian Poets Book Awards</title><link>https://poets.ca/offerings/awards/</link><guid isPermaLink="false">atl-opp-lcp-book-awards-2027</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
       <description>The Gerald Lampert Memorial Award for a first book, the Pat Lowther Memorial Award and the Raymond Souster Award, each awarded annually in May. Deadline 2026-12-31.</description></item>
@@ -193,6 +196,9 @@
     <item><title>Ontario Arts Council, Recommender Grants for Writers</title><link>https://www.arts.on.ca/grants/recommender-grants-for-writers/</link><guid isPermaLink="false">atl-opp-oac-recommender-writers</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
       <description>Writers apply through recommending publishers, up to ten per program year. Recommenders set their own review schedules. Deadline 2027-01-15.</description></item>
+    <item><title>Rattle, Rattle General Submissions</title><link>https://rattle.submittable.com/submit/</link><guid isPermaLink="false">atl-opp-rattle-submissions</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
+      <description>General and themed submissions are always free. Every submission is also considered for the $2,000 Neil Postman Award for Metaphor. Deadline not stated.</description></item>
     <item><title>Winnipeg Arts Council, Individual Artist Grant Program</title><link>https://winnipegarts.ca/grants/individual-artist-grant-program-for-winnipeg-artists-working-in-all-disciplines</link><guid isPermaLink="false">atl-opp-winnipeg-individual-artist</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
       <description>Applications open through GoSmart in mid-December 2026, with 2027 guidelines published at the same time. Deadline 2027-03-02.</description></item>
@@ -202,9 +208,6 @@
     <item><title>Rattle, Rattle Poetry Prize</title><link>https://rattle.com/page/rppguidelines/</link><guid isPermaLink="false">atl-opp-rattle-poetry-prize</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Prize</category>
       <description>Send up to four poems of any length or style. The $30 fee is a one-year subscription to Rattle. Next deadline expected around July 2027.</description></item>
-    <item><title>Rattle, Rattle General Submissions</title><link>https://rattle.submittable.com/submit/</link><guid isPermaLink="false">atl-opp-rattle-submissions</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
-      <description>General and themed submissions are always free. Every submission is also considered for the $2,000 Neil Postman Award for Metaphor. Deadline not stated.</description></item>
     <item><title>Uncanny Magazine, Uncanny Magazine Submissions</title><link>https://www.uncannymagazine.com/submissions/</link><guid isPermaLink="false">atl-opp-uncanny-magazine</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
       <description>Original speculative fiction of 750 to 10,000 words, plus speculative poetry and essays. Uncanny opens in announced windows, so follow its newsletter for reopening news. Deadline not stated.</description></item>
@@ -226,15 +229,48 @@
     <item><title>Mass Cultural Council, Grants for Creative Individuals</title><link>https://massculturalcouncil.org/artists-art/grants-for-creative-individuals/application-process/</link><guid isPermaLink="false">atl-opp-mass-creative-individuals</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
       <description>About 400 to 500 grants a year, roughly 10 to 15 percent of expected applications. Deadline 2026-10-27.</description></item>
-    <item><title>Academy of American Poets, Poem-a-Day</title><link>https://poets.org/poem-a-day</link><guid isPermaLink="false">atl-opp-poem-a-day</guid>
-      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Reading program</category>
-      <description>A daily poem published by the Academy of American Poets, with an archive of past poems on the site. Deadline not stated.</description></item>
     <item><title>Academy of American Poets, National Poetry Month</title><link>https://poets.org/national-poetry-month-30th-anniversary</link><guid isPermaLink="false">atl-opp-national-poetry-month</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Reading program</category>
       <description>Held every April. The 2026 edition marked the 30th anniversary, with a free virtual benefit reading and the Dear Poet program. Deadline not stated.</description></item>
     <item><title>Academy of American Poets, Poem in Your Pocket Day</title><link>https://poets.org/national-poetry-month/poem-your-pocket-day</link><guid isPermaLink="false">atl-opp-poem-in-your-pocket-day</guid>
       <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Reading program</category>
       <description>A single day during National Poetry Month for carrying a poem and sharing it. The 2026 date was April 30. Deadline not stated.</description></item>
+    <item><title>Writers’ Trust of Canada, Woodcock Fund Grant</title><link>https://www.writerstrust.com/programs/woodcock-fund-grant/guidelines</link><guid isPermaLink="false">atl-opp-woodcock-fund</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>Emergency support for working writers hit by an unforeseen financial crisis. Applications are accepted on a rolling basis with no deadline. Deadline not stated.</description></item>
+    <item><title>PEN America, PEN/Heim Translation Fund Grants</title><link>https://pen.org/literary-grants/pen-heim-grants/</link><guid isPermaLink="false">atl-opp-pen-heim-translation</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>Annual grants since 2004, with ten projects funded in 2026. Early-career translators are given preference. Applications go through Submittable. Next deadline expected around June 2027.</description></item>
+    <item><title>PEN America, Emerging Voices Fellowship</title><link>https://pen.org/emerging-voices-fellowship/</link><guid isPermaLink="false">atl-opp-pen-emerging-voices</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
+      <description>Ten fellows take part in a virtual mentorship from July to November. Priority goes to writers from underrepresented communities. Next deadline expected around January 2027.</description></item>
+    <item><title>The Center for Fiction, NYC Emerging Writer Fellowship</title><link>https://centerforfiction.org/grants-awards/nyc-emerging-writers-fellowship/</link><guid isPermaLink="false">atl-opp-cff-emerging-writer</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
+      <description>Nine fellows are chosen each year. The application window runs through July. Next deadline expected around July 2027.</description></item>
+    <item><title>Millay Arts, Core Residency</title><link>https://www.millayarts.org/residencies/core-residency/</link><guid isPermaLink="false">atl-opp-millay-core-residency</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
+      <description>The late fee is $60, and invited residents pay a $100 deposit. A stipend may be offered. Deadline 2027-03-01.</description></item>
+    <item><title>ArtsNL, Professional Project Grants Program</title><link>https://artsnl.ca/grants/ppgp/</link><guid isPermaLink="false">atl-opp-artsnl-ppgp</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>Project grants from the provincial arts council, with two intakes each year. Deadline 2027-03-15.</description></item>
+    <item><title>City of Ottawa, Creation and Production Fund for Artists</title><link>https://ottawa.ca/en/arts-heritage-and-events/funding-calls-and-opportunities/cultural-funding/creation-and-production-fund-artists/program-information-and-deadline-dates</link><guid isPermaLink="false">atl-opp-ottawa-creation-production</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>An annual city fund for individual artists. Deadline 2026-12-02.</description></item>
+    <item><title>Government of Yukon, Advanced Artist Award</title><link>https://yukon.ca/en/advanced-artist-award</link><guid isPermaLink="false">atl-opp-yukon-advanced-artist</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
+      <description>Awards for advanced Yukon artists, with two intakes each year. Deadline 2027-04-01.</description></item>
+    <item><title>Guggenheim Foundation, Guggenheim Fellowships</title><link>https://www.gf.org/program/how-to-apply</link><guid isPermaLink="false">atl-opp-guggenheim-fellowships</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
+      <description>Annual fellowships for mid-career writers and artists in the U.S. and Canada. Deadline The 2027 application is closed, the next deadline is not stated yet.</description></item>
+    <item><title>Princeton University, Hodder Fellowship</title><link>https://arts.princeton.edu/programs/fellowships/hodder-fellowship</link><guid isPermaLink="false">atl-opp-hodder-fellowship</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
+      <description>An annual ten-month fellowship for writers and translators of exceptional promise. Next deadline expected around September 2027.</description></item>
+    <item><title>Poetry Foundation, Ruth Lilly and Dorothy Sargent Rosenberg Poetry Fellowships</title><link>https://www.poetryfoundation.org/awards/prizes-fellowship</link><guid isPermaLink="false">atl-opp-ruth-lilly-rosenberg</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
+      <description>Apply with 10 pages of poetry. Five young poets receive fellowships each year. Deadline 2027-03-01.</description></item>
+    <item><title>Freedom to Read, Freedom to Read Week</title><link>https://www.freedomtoread.ca/freedom-to-read-week/get-involved/</link><guid isPermaLink="false">atl-opp-freedom-to-read-week</guid>
+      <pubDate>Tue, 27 Oct 2026 14:00:00 GMT</pubDate><category>Reading program</category>
+      <description>An annual Canada-wide week in late February. Free materials and get-involved tips are on the official site. Next deadline expected around February 2027.</description></item>
     <item><title>Clarkesworld Magazine, Short fiction and non-fiction submissions</title><link>https://clarkesworldmagazine.com/submissions/</link><guid isPermaLink="false">atl-opp-clarkesworld-fiction</guid>
       <pubDate>Mon, 26 Oct 2026 14:00:00 GMT</pubDate><category>Paid market</category>
       <description>An award-winning monthly magazine open for stories of 1,000 to 22,000 words. Deadline Open now.</description></item>
@@ -244,6 +280,15 @@
     <item><title>Canada Council for the Arts, Explore and Create, Artistic Creation</title><link>https://canadacouncil.ca/funding/grants/explore-and-create</link><guid isPermaLink="false">atl-opp-cca-artistic-creation</guid>
       <pubDate>Mon, 26 Oct 2026 14:00:00 GMT</pubDate><category>Grant</category>
       <description>Funding for creating new work from first idea to public presentation. Deadline Apply any time before your project starts.</description></item>
+    <item><title>Stanford University, Wallace Stegner Fellowship, 2027 to 2029</title><link>https://creativewriting.stanford.edu/stegner-fellowship/how-apply</link><guid isPermaLink="false">atl-opp-stegner-2027</guid>
+      <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
+      <description>Two years of workshops for poets and fiction writers. A fee waiver request is built into the application. Deadline 2026-11-02.</description></item>
+    <item><title>Ucross, Fall 2027 Residencies</title><link>https://www.ucrossfoundation.org/residency-program.html</link><guid isPermaLink="false">atl-opp-ucross-fall-2027</guid>
+      <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
+      <description>Working ranch residencies from August to early December, with dedicated fellowships for Native American writers. Deadline 2027-01-15.</description></item>
+    <item><title>MacDowell, Fall 2027 to Winter 2028 Fellowships</title><link>https://www.macdowell.org/apply/apply-for-fellowship</link><guid isPermaLink="false">atl-opp-macdowell-fall-2027</guid>
+      <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
+      <description>One of the most established residencies in North America. The application opens in mid-January. Deadline 2027-02-10.</description></item>
     <item><title>American Academy in Rome, Rome Prize in Literature</title><link>https://www.aarome.org/apply/rome-prize/literature</link><guid isPermaLink="false">atl-opp-rome-prize-lit</guid>
       <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
       <description>Work alongside artists and scholars in Rome. Self-published books do not establish eligibility. Deadline 2026-11-15.</description></item>
@@ -256,13 +301,4 @@
     <item><title>MASS MoCA, The Studios at MASS MoCA, July to December 2027</title><link>https://massmoca.org/studios/</link><guid isPermaLink="false">atl-opp-mass-moca-2027</guid>
       <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
       <description>Residencies beside one of the largest contemporary art museums in North America. Free to apply. Deadline 2026-11-01.</description></item>
-    <item><title>Stanford University, Wallace Stegner Fellowship, 2027 to 2029</title><link>https://creativewriting.stanford.edu/stegner-fellowship/how-apply</link><guid isPermaLink="false">atl-opp-stegner-2027</guid>
-      <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Fellowship</category>
-      <description>Two years of workshops for poets and fiction writers. A fee waiver request is built into the application. Deadline 2026-11-02.</description></item>
-    <item><title>Ucross, Fall 2027 Residencies</title><link>https://www.ucrossfoundation.org/residency-program.html</link><guid isPermaLink="false">atl-opp-ucross-fall-2027</guid>
-      <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
-      <description>Working ranch residencies from August to early December, with dedicated fellowships for Native American writers. Deadline 2027-01-15.</description></item>
-    <item><title>MacDowell, Fall 2027 to Winter 2028 Fellowships</title><link>https://www.macdowell.org/apply/apply-for-fellowship</link><guid isPermaLink="false">atl-opp-macdowell-fall-2027</guid>
-      <pubDate>Thu, 22 Oct 2026 14:00:00 GMT</pubDate><category>Residency</category>
-      <description>One of the most established residencies in North America. The application opens in mid-January. Deadline 2027-02-10.</description></item>
 </channel></rss>
