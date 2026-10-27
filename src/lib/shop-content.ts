@@ -144,6 +144,34 @@ export const GUIDES: readonly ShopGuide[] = [
   },
 ] as const;
 
+/* The founding member library on the account page. Ids match the `founding-downloads` Edge Function. */
+export const FOUNDING_LIBRARY = [
+  {
+    id: "opportunity-map",
+    cover: "opportunity-map",
+    title: "The Opportunity Map",
+    blurb: "How to find, judge, and choose the right places for your writing.",
+    files: [{ id: "opportunity-map", label: "PDF", detail: "71 pages" }],
+  },
+  {
+    id: "submission-desk",
+    cover: "submission-desk",
+    title: "The Submission Desk",
+    blurb: "How to prepare, send, and track your writing with confidence.",
+    files: [{ id: "submission-desk", label: "PDF", detail: "68 pages" }],
+  },
+  {
+    id: "tracker",
+    cover: null,
+    title: "Submission tracker",
+    blurb: "The spreadsheet from The Complete Set, ready for every piece you send out.",
+    files: [
+      { id: "tracker-xlsx", label: "Excel", detail: "XLSX" },
+      { id: "tracker-csv", label: "CSV", detail: "Any spreadsheet app" },
+    ],
+  },
+] as const;
+
 export const SHOP_FAQ = [
   {
     q: "How do I get my guide after I buy it?",
@@ -168,6 +196,10 @@ export const SHOP_FAQ = [
   {
     q: "Is checkout secure?",
     a: "Yes. Payments are handled by Payhip, with card payments processed by Stripe. Among The Letters never sees or stores your card details.",
+  },
+  {
+    q: "Do founding members need to buy the guides?",
+    a: "No. Founding members, who hold the $299 CAD lifetime membership, download every guide and its tracker files free from the founding member library on their account page. Future guides are added there too.",
   },
   {
     q: "Can I get a refund?",

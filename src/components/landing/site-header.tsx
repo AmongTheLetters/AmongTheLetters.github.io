@@ -3,9 +3,14 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/landing/wordmark";
 import { NAV, SUBSTACK_URL } from "@/lib/site-content";
+import { ACCOUNTS_ON } from "@/lib/config";
+import { useAccount } from "@/lib/use-account";
+import { NotificationBell } from "@/components/landing/notification-bell";
+import { AccountMenu } from "@/components/landing/account-menu";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
+  const { member } = useAccount();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -34,7 +39,7 @@ export function SiteHeader() {
     >
       <div className="section-shell flex h-16 items-center justify-between gap-4">
         <Wordmark />
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Primary">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -45,13 +50,18 @@ export function SiteHeader() {
             </a>
           ))}
         </nav>
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-2 lg:flex">
+          {member ? <NotificationBell /> : null}
           <Button asChild size="sm">
             <a href={SUBSTACK_URL} target="_blank" rel="noreferrer">
               Substack
             </a>
           </Button>
+          {ACCOUNTS_ON ? <AccountMenu /> : null}
         </div>
+        <div className="flex items-center gap-1 lg:hidden">
+        {member ? <NotificationBell compact /> : null}
+        {ACCOUNTS_ON ? <AccountMenu compact /> : null}
         <Button
           type="button"
           variant="ghost"
@@ -64,6 +74,7 @@ export function SiteHeader() {
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </Button>
+        </div>
       </div>
 
       {open ? (

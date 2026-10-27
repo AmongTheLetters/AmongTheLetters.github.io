@@ -29,6 +29,17 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Build
         run: npm run build
+        env:
+          # Public values only, set under Settings, Secrets and variables, Actions, Variables.
+          # While SUPABASE_URL is empty the site builds with accounts switched off.
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
+          VITE_STRIPE_LINK_MONTHLY: ${{ vars.STRIPE_LINK_MONTHLY }}
+          VITE_STRIPE_LINK_ANNUAL: ${{ vars.STRIPE_LINK_ANNUAL }}
+          VITE_STRIPE_LINK_LIFETIME: ${{ vars.STRIPE_LINK_LIFETIME }}
+          VITE_STRIPE_PORTAL: ${{ vars.STRIPE_PORTAL }}
+          VITE_GOOGLE_SIGNIN: ${{ vars.GOOGLE_SIGNIN }}
+          VITE_VAPID_PUBLIC_KEY: ${{ vars.VAPID_PUBLIC_KEY }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site

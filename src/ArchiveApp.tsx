@@ -246,6 +246,10 @@ export function ArchiveApp() {
               <p className="mt-4 max-w-xl text-parchment/70">
                 Visit the newsletter for current editions, subscriptions, and whatever has just arrived.
               </p>
+              <p className="mt-3 max-w-xl text-sm text-parchment/60">
+                Paid issues also come with a website membership, along with the full opportunities database.{" "}
+                <a href="/membership/" className="font-medium text-gold-soft hover:underline">See membership</a>
+              </p>
             </div>
             <div className="flex w-full min-w-0 justify-center md:w-auto md:shrink-0 md:justify-end">
               <SubstackLink

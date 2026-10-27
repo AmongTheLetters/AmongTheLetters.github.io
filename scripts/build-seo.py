@@ -56,6 +56,18 @@ PAGES = {
      desc="The Among The Letters calendar of new free featured pieces, plus book fairs, literary festivals and writing conferences across North America and Europe, with dates and official links.",
      og="Featured pieces, book fairs and literary events for readers and writers, all on one interactive calendar.",
      ogtitle="Calendar | Among The Letters"),
+  "opportunities/index.html": dict(url="/opportunities/", title="Opportunities for Writers | Among The Letters",
+     desc="Writing contests, calls for submissions, grants, residencies, fellowships and paid markets across North America, checked against official pages and sorted by deadline. A free list for everyone, the full database and alerts for members.",
+     og="Contests, residencies, grants and paid markets for writers, checked against official pages and sorted by deadline.",
+     ogtitle="Opportunities for Writers | Among The Letters"),
+  "account/index.html": dict(url="/account/", title="Your Account | Among The Letters",
+     desc="Sign in to your Among The Letters account to manage your membership, saved searches, notifications and deadline calendar.",
+     og="Manage your Among The Letters membership, saved searches and notifications.",
+     ogtitle="Your Account | Among The Letters"),
+  "membership/index.html": dict(url="/membership/", title="Membership | Among The Letters",
+     desc="Among The Letters memberships. CA$7 a month, CA$70 a year or a CA$299 founding membership, with the full opportunities database, alerts and the paid newsletter.",
+     og="The full opportunities database, alerts and the paid newsletter, from CA$7 a month.",
+     ogtitle="Membership | Among The Letters"),
   "resources/glossary/index.html": dict(url="/resources/glossary/", title="A Plain-Language Glossary for Writers | Among The Letters",
      desc=None, og=None, ogtitle=None),
   "404.html": dict(url=None, title="Page Not Found | Among The Letters", desc="This page could not be found. Read today's free stories, poems, and essays from Among The Letters, or browse the archive.", og=None, ogtitle=None),
@@ -151,7 +163,9 @@ def sitemap():
              ("/resources/", ["resources/index.html", "src/ResourcesApp.tsx", "src/lib/resources-content.ts"], "0.7"),
              ("/resources/glossary/", ["resources/glossary/index.html", "src/lib/glossary.json"], "0.7"),
              ("/shop/", ["shop/index.html", "src/ShopApp.tsx", "src/lib/shop-content.ts"], "0.6"),
-             ("/calendar/", ["calendar/index.html", "src/CalendarApp.tsx", "src/lib/featured-schedule.ts", "src/lib/events.ts"], "0.6")]
+             ("/calendar/", ["calendar/index.html", "src/CalendarApp.tsx", "src/lib/featured-schedule.ts", "src/lib/events.ts"], "0.6"),
+             ("/opportunities/", ["opportunities/index.html", "src/OpportunitiesApp.tsx", "public/opportunities/data/free.json"], "0.7"),
+             ("/membership/", ["membership/index.html", "src/MembershipApp.tsx"], "0.6")]
     urls = [(SITE + u, lm(*r), pr) for u, r, pr in pages]
     for f in sorted((ROOT / "public/resources").glob("*")):
         urls.append((f"{SITE}/resources/{f.name}", lm(f"public/resources/{f.name}"), "0.4"))
