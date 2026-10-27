@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LIFETIME_FINAL, RefundNote } from "@/components/refund-note";
-import { ArrowUpRight, Bell, BellRing, Bookmark, BookmarkCheck, CalendarPlus, Check, Compass, Lock, LockOpen, Mail, Rss, Search, Sparkles, UserRound, X } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Bell, BellRing, Bookmark, BookmarkCheck, CalendarPlus, Check, ChevronDown, Compass, Lock, LockOpen, Mail, Rss, Search, SlidersHorizontal, Sparkles, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlierPopup } from "@/components/landing/flier-popup";
 import { SiteFooter } from "@/components/landing/site-footer";
@@ -34,16 +34,71 @@ function Countdown({ o }: { o: { deadline: string | null; opens?: string | null;
   return <span className={cn("rounded-md px-2 py-1 text-xs font-semibold", n <= 7 ? "bg-oxblood text-parchment" : n <= 30 ? "bg-gold/20 text-[#6b5326]" : "bg-paper text-muted ring-1 ring-rule")}>{label}</span>;
 }
 
-function OppCard({ o, followed, toggleFollow, isNew, lit, signedIn }: { o: Opp; followed: boolean; toggleFollow: () => void; isNew: boolean; lit: boolean; signedIn: boolean }) {
+const PAGE = 20;
+const SOON_DAYS = 30;
+/** Comparable date for sorting and grouping. Month-only deadlines count as late in the month. */
+const dueKey = (i: Item) => i.deadline ? (i.deadline.length === 7 ? `${i.deadline}-28` : i.deadline) : i.expected ? `${i.expected}-29` : "9999";
+/** Closing soon needs an exact date, so month-only deadlines (members teasers) stay in the main list. */
+const isSoon = (i: Item) => { if (!i.deadline || i.deadline.length !== 10) return false; const n = daysUntil(i.deadline); return n >= 0 && n <= SOON_DAYS; };
+
+function TierTag({ i }: { i: Item }) {
+  return isStub(i) || i.tier === "members"
+    ? <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-ink px-2 py-0.5 text-[11px] font-semibold text-parchment">{isStub(i) ? <Lock className="size-3" /> : <LockOpen className="size-3" />} Members</span>
+    : <span className="shrink-0 rounded-md bg-sage/15 px-2 py-0.5 text-[11px] font-semibold text-moss">Free</span>;
+}
+
+function dueText(i: Item) {
+  if (i.expected) return `Expected ${monthOnly(i.expected)}`;
+  if (!i.deadline) return isStub(i) ? "Rolling" : (i.deadlineNote || "Rolling");
+  return isStub(i) || i.deadline.length === 7 ? monthOnly(i.deadline) : fullDate(i.deadline);
+}
+
+type CardProps = { i: Item; expanded: boolean; onToggle: () => void; lit: boolean; isNew: boolean; followed: boolean; toggleFollow: () => void; signedIn: boolean; onUnlock: () => void };
+
+/* One listing. Collapsed it shows the type, name, deadline and the Free or Members tag. Tapping it opens the full
+   details, or for a locked members listing the same teaser and join button as before. */
+function ListingCard({ i, expanded, onToggle, lit, isNew, followed, toggleFollow, signedIn, onUnlock }: CardProps) {
+  const panel = `opp-${i.id}-details`;
+  const stub = isStub(i);
   return (
-    <li id={`opp-${o.id}`} className={cn("group flex scroll-mt-28 flex-col rounded-xl bg-cream p-5 shadow-[var(--shadow-border)] transition-[box-shadow] duration-500 hover:shadow-[var(--shadow-border-hover)]", lit && "ring-2 ring-gold ring-offset-2 ring-offset-news")}>
-      {lit ? <p className="-mt-1 mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-gold/20 px-2.5 py-0.5 text-xs font-semibold text-[#6b5326]"><BellRing className="size-3.5" /> From your notification</p> : null}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2"><p className="kicker">{o.type}</p>{isNew ? <span className="rounded bg-gold/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#6b5326]">New</span> : null}</div>
-        <Countdown o={o} />
-      </div>
-      <h3 className="mt-3 font-display text-[1.4rem] leading-tight tracking-tight text-ink">{o.title}</h3>
-      <p className="mt-1 text-sm font-medium text-ink">{o.org}</p>
+    <li id={`opp-${i.id}`} className={cn("scroll-mt-48 rounded-xl bg-cream shadow-[var(--shadow-border)] transition-[box-shadow] duration-500 hover:shadow-[var(--shadow-border-hover)]", lit && "ring-2 ring-gold ring-offset-2 ring-offset-news")}>
+      {lit ? <p className="mx-4 mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-gold/20 px-2.5 py-0.5 text-xs font-semibold text-[#6b5326]"><BellRing className="size-3.5" /> From your notification</p> : null}
+      <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls={panel}
+        className="flex w-full items-start gap-3 rounded-xl p-4 text-left focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-oxblood">
+        <span className="min-w-0 flex-1">
+          <span className="flex flex-wrap items-center gap-2">
+            <span className="kicker">{i.type}</span>
+            {isNew ? <span className="rounded bg-gold/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#6b5326]">New</span> : null}
+          </span>
+          {stub ? (
+            <span className="mt-1.5 flex items-center gap-2 font-display text-lg leading-snug tracking-tight text-muted"><Lock className="size-4 shrink-0 text-faint" /> Members only listing</span>
+          ) : (
+            <span className="mt-1.5 block font-display text-lg leading-snug tracking-tight text-ink">{i.title}</span>
+          )}
+          <span className="mt-2 flex flex-wrap items-center gap-2 text-sm text-muted">
+            {i.deadline && i.deadline.length === 7 ? null : <Countdown o={i} />}
+            <span>{dueText(i)}</span>
+          </span>
+        </span>
+        <span className="flex shrink-0 flex-col items-end gap-3">
+          <TierTag i={i} />
+          <ChevronDown className={cn("size-5 text-faint transition-transform duration-200", expanded && "rotate-180")} aria-hidden="true" />
+          <span className="sr-only">{expanded ? "Hide details" : "Show details"}</span>
+        </span>
+      </button>
+      {expanded ? (
+        <div id={panel} className="border-t border-rule px-4 pb-4 pt-3">
+          {stub ? <LockedDetails s={i} onUnlock={onUnlock} /> : <OppDetails o={i} followed={followed} toggleFollow={toggleFollow} signedIn={signedIn} />}
+        </div>
+      ) : null}
+    </li>
+  );
+}
+
+function OppDetails({ o, followed, toggleFollow, signedIn }: { o: Opp; followed: boolean; toggleFollow: () => void; signedIn: boolean }) {
+  return (
+    <>
+      <p className="text-sm font-medium text-ink">{o.org}</p>
       <dl className="mt-3 grid gap-1 text-sm text-muted">
         <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Deadline</dt><dd className="min-w-0">{o.expected ? expectedLabel(o.expected) : o.deadline ? fullDate(o.deadline) : o.deadlineNote}{o.deadline && o.deadlineNote ? <span className="text-faint">, {o.deadlineNote}</span> : null}</dd></div>
         <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Where</dt><dd className="min-w-0">{o.location}</dd></div>
@@ -56,7 +111,7 @@ function OppCard({ o, followed, toggleFollow, isNew, lit, signedIn }: { o: Opp; 
         <Chip tone={o.fee === "Free" ? "gold" : "plain"}>{o.fee === "Free" ? "Free to enter" : o.fee === "Fee" ? "Entry fee" : "Check fee"}</Chip>
         {o.paysWriter ? <Chip tone="gold">Pays writers</Chip> : null}
       </div>
-      <div className="mt-auto pt-4"><div className="flex flex-wrap items-center gap-2 border-t border-rule pt-4">
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-rule pt-4">
         <Button asChild size="sm"><a href={o.url} target="_blank" rel="noopener noreferrer">Official page <ArrowUpRight className="size-4" /></a></Button>
         {o.deadline ? <Button size="sm" variant="outline" onClick={() => downloadIcs([o], `${o.id}.ics`)}><CalendarPlus className="size-4" /> Remind me</Button> : null}
         <button type="button" onClick={toggleFollow} aria-pressed={followed} title={signedIn ? (followed ? "Following, we will tell you before it closes" : "Follow for closing reminders") : followed ? "Saved on this device" : "Save"}
@@ -64,16 +119,15 @@ function OppCard({ o, followed, toggleFollow, isNew, lit, signedIn }: { o: Opp; 
           {followed ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
         </button>
       </div>
-      <p className="mt-2 text-[11px] text-faint">Checked against the official page {fullDate(o.verified)}</p></div>
-    </li>
+      <p className="mt-2 text-[11px] text-faint">Checked against the official page {fullDate(o.verified)}</p>
+    </>
   );
 }
 
-function LockedCard({ s, onUnlock, lit }: { s: Stub; onUnlock: () => void; lit: boolean }) {
+function LockedDetails({ s, onUnlock }: { s: Stub; onUnlock: () => void }) {
   return (
-    <li id={`opp-${s.id}`} className={cn("relative flex scroll-mt-28 flex-col overflow-hidden rounded-xl bg-cream p-5 shadow-[var(--shadow-border)]", lit && "ring-2 ring-gold ring-offset-2 ring-offset-news")}>
-      <div className="flex items-center justify-between gap-3"><p className="kicker">{s.type}</p><span className="inline-flex items-center gap-1 rounded-md bg-ink px-2 py-1 text-xs font-semibold text-parchment"><Lock className="size-3" /> Members</span></div>
-      <div aria-hidden="true" className="mt-4 select-none space-y-2 blur-[3px]">
+    <>
+      <div aria-hidden="true" className="select-none space-y-2 blur-[3px]">
         <div className="h-5 w-4/5 rounded bg-ink/20" /><div className="h-5 w-3/5 rounded bg-ink/20" /><div className="mt-3 h-3.5 w-2/5 rounded bg-ink/12" />
         <div className="h-3 w-full rounded bg-ink/8" /><div className="h-3 w-11/12 rounded bg-ink/8" /><div className="h-3 w-3/4 rounded bg-ink/8" />
       </div>
@@ -82,10 +136,36 @@ function LockedCard({ s, onUnlock, lit }: { s: Stub; onUnlock: () => void; lit: 
         <div className="flex gap-2"><dt className="w-20 shrink-0 text-faint">Region</dt><dd>{s.region}</dd></div>
       </dl>
       <div className="mt-3 flex flex-wrap gap-1.5">{s.genres.slice(0, 3).map((g) => <Chip key={g} tone="sage">{g}</Chip>)}{s.fee === "Free" ? <Chip tone="gold">Free to enter</Chip> : null}{s.paysWriter ? <Chip tone="gold">Pays writers</Chip> : null}</div>
-      <div className="mt-auto pt-4"><div className="border-t border-rule pt-4">
+      <div className="mt-4 border-t border-rule pt-4">
         <Button size="sm" variant="ink" onClick={onUnlock}><Lock className="size-4" /> {ACCOUNTS_ON ? "Join to unlock" : "Members only"}</Button>
-      </div></div>
-    </li>
+      </div>
+    </>
+  );
+}
+
+function ChipButton({ on, onClick, children, count }: { on: boolean; onClick: () => void; children: React.ReactNode; count?: number }) {
+  return (
+    <button type="button" aria-pressed={on} onClick={onClick}
+      className={cn("inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full px-3.5 text-sm font-medium transition-colors", on ? "bg-oxblood text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>
+      {children}{count !== undefined ? <span className={cn("ml-1.5 text-xs", on ? "text-parchment/70" : "text-faint")}>{count}</span> : null}
+    </button>
+  );
+}
+
+function BackToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const on = () => setShow(window.scrollY > 900);
+    on(); window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  if (!show) return null;
+  const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return (
+    <button type="button" aria-label="Back to top" onClick={() => { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); document.getElementById("opp-search")?.focus({ preventScroll: true }); }}
+      className="fixed bottom-5 right-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-ink text-parchment shadow-xl transition-colors hover:bg-oxblood focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood sm:right-6">
+      <ArrowUp className="size-5" />
+    </button>
   );
 }
 
@@ -100,6 +180,10 @@ export function OpportunitiesApp() {
   const [lit, setLit] = useState<string | null>(null);
   const [toast, setToast] = useState("");
   const [lastVisit] = useState<string>(() => read(LS.seen, TODAY));
+  const [limit, setLimit] = useState(PAGE);
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
+  const [moreOpen, setMoreOpen] = useState(false);
+  const toggleOpen = (id: string) => setExpanded((p) => { const n = new Set(p); if (n.has(id)) n.delete(id); else n.add(id); return n; });
 
   useEffect(() => {
     if (!ready) return;
@@ -144,11 +228,28 @@ export function OpportunitiesApp() {
   const typeCounts = useMemo(() => TYPES.map((t) => [t, items.filter((i) => i.type === t).length] as const).filter(([, n]) => n), [items]);
   const filtered = useMemo(() => {
     const list = items.filter((i) => matches(i, f, follows));
-    const dk = (i: Item) => i.deadline ? (i.deadline.length === 7 ? `${i.deadline}-28` : i.deadline) : i.expected ? `${i.expected}-29` : "9999";
+    const dk = dueKey;
     return list.sort((a, b) => f.sort === "added" ? b.added.localeCompare(a.added) || dk(a).localeCompare(dk(b))
       : f.sort === "name" ? (isStub(a) ? "~" : a.title).localeCompare(isStub(b) ? "~" : b.title)
       : dk(a).localeCompare(dk(b)) || (isStub(a) ? 1 : 0) - (isStub(b) ? 1 : 0));
   }, [items, f, follows]);
+
+  /* Soonest deadline first, with a closing soon group on top. Only the first `limit` listings are drawn. */
+  const grouped = f.sort === "deadline";
+  const soon = grouped ? filtered.filter(isSoon) : [];
+  const ordered = grouped ? [...soon, ...filtered.filter((i) => !isSoon(i))] : filtered;
+  const visible = ordered.slice(0, limit);
+  const visibleSoon = visible.slice(0, Math.min(soon.length, visible.length));
+  const visibleRest = visible.slice(visibleSoon.length);
+  useEffect(() => { setLimit(PAGE); }, [f]);
+  useEffect(() => {
+    if (!lit) return;
+    setExpanded((p) => (p.has(lit) ? p : new Set(p).add(lit)));
+    const idx = ordered.findIndex((i) => i.id === lit);
+    if (idx >= limit) setLimit(Math.ceil((idx + 1) / PAGE) * PAGE);
+  }, [lit, ordered, limit]);
+  const moreCount = (f.win !== "any" ? 1 : 0) + (f.genre !== "All genres" ? 1 : 0) + (f.freeOnly ? 1 : 0) + (f.paysOnly ? 1 : 0) + (f.savedOnly ? 1 : 0) + (f.sort !== "deadline" ? 1 : 0);
+  const regionCounts = useMemo(() => REGIONS.map((r) => [r, items.filter((i) => i.region === r).length] as const).filter(([, n]) => n), [items]);
 
   const open = filtered.filter((i): i is Opp => !isStub(i));
   const lockedCount = filtered.length - open.length;
@@ -163,7 +264,11 @@ export function OpportunitiesApp() {
     catch { flash("That search could not be saved. Please try again."); }
   }
 
-  const selectCls = "mt-1 h-10 w-full rounded-md border border-rule bg-cream px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
+  const renderCard = (i: Item) => (
+    <ListingCard key={i.id} i={i} expanded={expanded.has(i.id)} onToggle={() => toggleOpen(i.id)} lit={lit === i.id} isNew={i.added > lastVisit}
+      followed={follows.includes(i.id)} toggleFollow={() => toggleFollow(i.id)} signedIn={!!session} onUnlock={join} />
+  );
+  const selectCls = "mt-1 h-11 w-full rounded-md border border-rule bg-cream px-3 text-base text-ink sm:h-10 sm:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
 
   return (
     <div id="top" className="relative isolate min-h-dvh bg-news text-ink">
@@ -224,53 +329,84 @@ export function OpportunitiesApp() {
               </div>
             ) : null}
 
-            <div className="mt-5 rounded-xl bg-cream p-4 shadow-[var(--shadow-border)] sm:p-5">
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Opportunity type">
+            <div>
+            <div className="sticky top-16 z-20 -mx-4 mt-5 border-b border-rule bg-cream/95 px-4 py-3 shadow-[var(--shadow-border)] backdrop-blur supports-[backdrop-filter]:bg-cream/90 sm:mx-0 sm:rounded-xl sm:border-b-0 sm:p-4">
+              <div className="flex gap-2">
+                <label className="relative block min-w-0 flex-1">
+                  <span className="sr-only">Search opportunities</span>
+                  <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-faint" />
+                  <input id="opp-search" type="search" value={f.q} onChange={(e) => set("q", e.target.value)} placeholder={member ? "Search name, place, genre" : "Search the free listings"} enterKeyHint="search"
+                    className="h-11 w-full rounded-md border border-rule bg-paper pl-9 pr-3 text-base text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood sm:text-sm" />
+                </label>
+                <button type="button" aria-expanded={moreOpen} aria-controls="opp-more-filters" onClick={() => setMoreOpen((v) => !v)}
+                  className={cn("inline-flex h-11 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-medium transition-colors", moreOpen || moreCount ? "bg-ink text-parchment" : "border border-rule bg-paper text-ink hover:bg-cream")}>
+                  <SlidersHorizontal className="size-4" /> <span>Filters</span>
+                  {moreCount ? <span className="rounded-full bg-gold px-1.5 text-[11px] font-semibold leading-5 text-ink" aria-label={`${moreCount} more filters on`}>{moreCount}</span> : null}
+                </button>
+              </div>
+              <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto overscroll-x-contain px-4 pb-0.5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden" role="group" aria-label="Opportunity type">
                 {([["All", items.length], ...typeCounts] as const).map(([t, n]) => (
-                  <button key={t} type="button" aria-pressed={f.type === t} onClick={() => set("type", t)}
-                    className={cn("rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.type === t ? "bg-oxblood text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>
-                    {t === "All" ? "Everything" : t} <span className={cn("ml-1 text-xs", f.type === t ? "text-parchment/70" : "text-faint")}>{n}</span>
-                  </button>
+                  <ChipButton key={t} on={f.type === t} onClick={() => set("type", t)} count={n}>{t === "All" ? "Everything" : t}</ChipButton>
                 ))}
               </div>
-              <label className="relative mt-4 block">
-                <span className="sr-only">Search opportunities</span>
-                <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-faint" />
-                <input value={f.q} onChange={(e) => set("q", e.target.value)} placeholder={member ? "Search by name, place, genre or eligibility" : "Search the free listings"} className="h-11 w-full rounded-md border border-rule bg-cream pl-9 pr-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood" />
-              </label>
-              <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
-                <label className="text-xs font-medium text-muted">Deadline<select value={f.win} onChange={(e) => set("win", e.target.value as Win)} className={selectCls}>{WINDOWS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></label>
-                <label className="text-xs font-medium text-muted">Region<select value={f.region} onChange={(e) => set("region", e.target.value)} className={selectCls}><option>All regions</option>{REGIONS.map((r) => <option key={r}>{r}</option>)}</select></label>
-                <label className="text-xs font-medium text-muted">Genre<select value={f.genre} onChange={(e) => set("genre", e.target.value)} className={selectCls}><option>All genres</option>{genres.map((g) => <option key={g}>{g}</option>)}</select></label>
-                <label className="text-xs font-medium text-muted">Sort<select value={f.sort} onChange={(e) => setF((p) => ({ ...p, sort: e.target.value as SortKey }))} className={selectCls}><option value="deadline">Deadline, soonest first</option><option value="added">Newest added</option><option value="name">Name, A to Z</option></select></label>
+              <div className="-mx-4 mt-2 flex gap-2 overflow-x-auto overscroll-x-contain px-4 pb-0.5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden" role="group" aria-label="Region">
+                {([["All regions", items.length], ...regionCounts] as const).map(([r, n]) => (
+                  <ChipButton key={r} on={f.region === r} onClick={() => set("region", r)} count={n}>{r === "All regions" ? "Anywhere" : r}</ChipButton>
+                ))}
               </div>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                <button type="button" aria-pressed={f.freeOnly} onClick={() => set("freeOnly", !f.freeOnly)} className={cn("rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.freeOnly ? "bg-ink text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>Free to enter</button>
-                <button type="button" aria-pressed={f.paysOnly} onClick={() => set("paysOnly", !f.paysOnly)} className={cn("rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.paysOnly ? "bg-ink text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>Pays writers</button>
-                <button type="button" aria-pressed={f.savedOnly} onClick={() => set("savedOnly", !f.savedOnly)} className={cn("inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", f.savedOnly ? "bg-ink text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}><Bookmark className="size-3.5" /> {session ? "Following" : "Saved"} {follows.length ? `(${follows.length})` : ""}</button>
-                <div className="ml-auto flex flex-wrap items-center gap-3">
-                  {filtersOn ? <button type="button" onClick={() => { setActiveSearch(null); setF((p) => ({ ...EMPTY, sort: p.sort })); }} className="inline-flex items-center gap-1 text-sm font-medium text-oxblood hover:underline"><X className="size-4" /> Clear filters</button> : null}
-                  {current ? <span className="inline-flex items-center gap-1.5 text-sm text-moss"><Check className="size-4" /> Saved search, alerts on</span>
-                    : ACCOUNTS_ON ? <button type="button" onClick={saveSearch} className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-oxblood"><Bell className="size-4" /> {member ? "Save this search and alert me" : "Save this search"}</button> : null}
+              {moreOpen ? (
+                <div id="opp-more-filters" className="mt-3 max-h-[55vh] overflow-y-auto border-t border-rule pt-3">
+                  <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
+                    <label className="text-xs font-medium text-muted">Deadline<select value={f.win} onChange={(e) => set("win", e.target.value as Win)} className={selectCls}>{WINDOWS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></label>
+                    <label className="text-xs font-medium text-muted">Genre<select value={f.genre} onChange={(e) => set("genre", e.target.value)} className={selectCls}><option>All genres</option>{genres.map((g) => <option key={g}>{g}</option>)}</select></label>
+                    <label className="text-xs font-medium text-muted">Sort<select value={f.sort} onChange={(e) => setF((p) => ({ ...p, sort: e.target.value as SortKey }))} className={selectCls}><option value="deadline">Deadline, soonest first</option><option value="added">Newest added</option><option value="name">Name, A to Z</option></select></label>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <ChipButton on={f.freeOnly} onClick={() => set("freeOnly", !f.freeOnly)}>Free to enter</ChipButton>
+                    <ChipButton on={f.paysOnly} onClick={() => set("paysOnly", !f.paysOnly)}>Pays writers</ChipButton>
+                    <ChipButton on={f.savedOnly} onClick={() => set("savedOnly", !f.savedOnly)}><Bookmark className="mr-1.5 size-3.5" /> {session ? "Following" : "Saved"} {follows.length ? `(${follows.length})` : ""}</ChipButton>
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </div>
 
             <div id="results" className="mt-5 flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-faint" aria-live="polite">{open.length} open {open.length === 1 ? "listing" : "listings"}{lockedCount ? ` and ${lockedCount} for members` : ""}{filtersOn ? ` match ${describeFilters(f).join(", ")}` : ""}</p>
-              {open.some((o) => o.deadline) ? <Button size="sm" variant="outline" onClick={() => downloadIcs(open, "atl-opportunities.ics")}><CalendarPlus className="size-4" /> Add these deadlines to my calendar</Button> : null}
+              <div className="flex flex-wrap items-center gap-3">
+                {filtersOn ? <button type="button" onClick={() => { setActiveSearch(null); setF((p) => ({ ...EMPTY, sort: p.sort })); }} className="inline-flex items-center gap-1 text-sm font-medium text-oxblood hover:underline"><X className="size-4" /> Clear filters</button> : null}
+                {current ? <span className="inline-flex items-center gap-1.5 text-sm text-moss"><Check className="size-4" /> Saved search, alerts on</span>
+                  : ACCOUNTS_ON ? <button type="button" onClick={saveSearch} className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-oxblood"><Bell className="size-4" /> {member ? "Save this search and alert me" : "Save this search"}</button> : null}
+                {open.some((o) => o.deadline) ? <Button size="sm" variant="outline" onClick={() => downloadIcs(open, "atl-opportunities.ics")}><CalendarPlus className="size-4" /> Add these deadlines to my calendar</Button> : null}
+              </div>
             </div>
             {filtered.length ? (
-              <ul className="mt-3 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((i) => isStub(i) ? <LockedCard key={i.id} s={i} onUnlock={join} lit={lit === i.id} />
-                  : <OppCard key={i.id} o={i} followed={follows.includes(i.id)} toggleFollow={() => toggleFollow(i.id)} isNew={i.added > lastVisit} lit={lit === i.id} signedIn={!!session} />)}
-              </ul>
+              <>
+                {visibleSoon.length ? (
+                  <section aria-labelledby="soon-h" className="mt-4">
+                    <h2 id="soon-h" className="flex items-baseline gap-2 font-display text-2xl tracking-tight text-ink">Closing soon <span className="font-sans text-sm font-normal text-faint">{soon.length} in the next {SOON_DAYS} days</span></h2>
+                    <ul className="mt-3 grid items-start gap-3 md:grid-cols-2 xl:grid-cols-3">{visibleSoon.map(renderCard)}</ul>
+                  </section>
+                ) : null}
+                {visibleRest.length ? (
+                  <section aria-labelledby="rest-h" className={visibleSoon.length ? "mt-10" : "mt-4"}>
+                    {grouped && soon.length ? <h2 id="rest-h" className="font-display text-2xl tracking-tight text-ink">Later and rolling</h2> : <h2 id="rest-h" className="sr-only">Listings</h2>}
+                    <ul className="mt-3 grid items-start gap-3 md:grid-cols-2 xl:grid-cols-3">{visibleRest.map(renderCard)}</ul>
+                  </section>
+                ) : null}
+                <div className="mt-6 flex flex-col items-center gap-2">
+                  <p className="text-sm text-faint">Showing {visible.length} of {ordered.length}</p>
+                  {ordered.length > visible.length ? (
+                    <Button variant="outline" onClick={() => setLimit((n) => n + PAGE)}>Show {Math.min(PAGE, ordered.length - visible.length)} more</Button>
+                  ) : null}
+                </div>
+              </>
             ) : (
               <div className="mt-3 rounded-xl border border-dashed border-rule p-10 text-center">
                 <p className="font-display text-xl text-ink">{f.q && !member ? "Search covers the free listings until you join." : "Nothing matches those filters yet."}</p>
                 <button type="button" onClick={() => setF(EMPTY)} className="mt-3 text-sm font-medium text-oxblood hover:underline">Clear filters</button>
               </div>
             )}
+            </div>
 
             <div className="mt-16">
               <p className="kicker">Alerts</p>
@@ -337,6 +473,7 @@ export function OpportunitiesApp() {
       <div className="page-newsprint" aria-hidden="true" />
       <div className="page-fleur" aria-hidden="true" />
       <div className="page-grain" aria-hidden="true" />
+      <BackToTop />
       <FlierPopup />
     </div>
   );
