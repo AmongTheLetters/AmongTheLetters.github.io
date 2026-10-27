@@ -2,10 +2,14 @@
 // Keeps public.members in sync with Stripe and adds Substack tasks to the to-do list.
 // Handles monthly and yearly subscriptions and the one-time lifetime payment. Lifetime is never downgraded.
 // Secrets (supabase secrets set ..., never committed): STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET.
+// Optional Stripe test mode, for test purchases with 4242 cards: STRIPE_SECRET_KEY_TEST, STRIPE_WEBHOOK_SECRET_TEST,
+// and ATL_LIFETIME_LINK_TEST. Live events always verify with the live secret and use the live key, as before.
 import Stripe from "npm:stripe@17";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!);
+const stripeLive = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!);
+const testKey = Deno.env.get("STRIPE_SECRET_KEY_TEST"), testSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET_TEST");
+const stripeTest = testKey ? new Stripe(testKey) : null;
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 const day = (t: number) => new Date(t * 1000).toISOString().slice(0, 10);
 const ts = (t: number) => new Date(t * 1000).toISOString();
@@ -16,13 +20,14 @@ const periodEnd = (sub: Stripe.Subscription): number =>
 
 // The CA$299 one-time lifetime Payment Link. Its sessions also carry metadata atl_plan=lifetime.
 const LIFETIME_LINK = Deno.env.get("ATL_LIFETIME_LINK") || "plink_1UVBxURrwe7mDXay8xCJYKbF";
+const LIFETIME_LINK_TEST = Deno.env.get("ATL_LIFETIME_LINK_TEST") || "";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const ACTIVE = ["active", "past_due", "canceling"];
 
 // Cancel a subscription right away (no proration). If the Stripe key cannot (a read-only restricted key),
 // fall back to a "Cancel old plan" item on the admin to-do list. Never throws.
 // review = also leave a to-do even when the cancel works, for a duplicate plan Chris may choose to refund by hand.
-async function cancelOld(subId: string, userId: string, email: string, why: string, review = false) {
+async function cancelOld(stripe: Stripe, subId: string, userId: string, email: string, why: string, review = false) {
   const reviewNote = review ? " Review whether to refund the duplicate plan, Chris decides." : "";
   try {
     await stripe.subscriptions.cancel(subId);
@@ -49,17 +54,29 @@ async function onAllowlist(email: string) {
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("method not allowed", { status: 405 });
   let event: Stripe.Event;
+  const body = await req.text(), sig = req.headers.get("stripe-signature") ?? "";
   try {
-    event = await stripe.webhooks.constructEventAsync(await req.text(), req.headers.get("stripe-signature") ?? "", Deno.env.get("STRIPE_WEBHOOK_SECRET")!);
+    event = await stripeLive.webhooks.constructEventAsync(body, sig, Deno.env.get("STRIPE_WEBHOOK_SECRET")!);
   } catch {
-    return new Response("bad signature", { status: 400 });
+    // Not signed with the live secret. Accept it only as a test mode event signed with the test secret.
+    try {
+      if (!testSecret || !stripeTest) throw new Error("no test mode");
+      event = await stripeTest.webhooks.constructEventAsync(body, sig, testSecret);
+      if (event.livemode) throw new Error("live event with the test secret");
+    } catch {
+      return new Response("bad signature", { status: 400 });
+    }
   }
+  // Each mode uses its own key, so a test event can never touch a live subscription.
+  const stripe = event.livemode ? stripeLive : stripeTest;
+  if (!stripe) return new Response("test mode not configured");
+  const lifetimeLink = event.livemode ? LIFETIME_LINK : LIFETIME_LINK_TEST;
 
   try {
     if (event.type === "checkout.session.completed") {
       const s = event.data.object as Stripe.Checkout.Session;
       const userId = s.client_reference_id; // added to the Payment Link URL by the account page
-      const lifetime = s.mode === "payment" && (s.payment_link === LIFETIME_LINK || s.metadata?.atl_plan === "lifetime");
+      const lifetime = s.mode === "payment" && ((!!lifetimeLink && s.payment_link === lifetimeLink) || s.metadata?.atl_plan === "lifetime");
       // Other Minocy sales share this Stripe account, so skip anything that is not an ATL member checkout.
       if (!userId || !UUID.test(userId) || (!lifetime && !s.subscription)) return new Response("ignored");
       const { data: u } = await db.auth.admin.getUserById(userId);
@@ -88,7 +105,7 @@ Deno.serve(async (req) => {
           }
           // Stop the old subscription now so nobody pays twice. The row no longer holds its id, so the
           // customer.subscription.deleted event that follows matches nothing and queues no Substack removal.
-          if (prevSub && prev) await cancelOld(String(prev.stripe_subscription_id), userId, email, `Bought lifetime (${s.id}). The old ${prev.plan} subscription`);
+          if (prevSub && prev) await cancelOld(stripe, String(prev.stripe_subscription_id), userId, email, `Bought lifetime (${s.id}). The old ${prev.plan} subscription`);
         } catch (e) { console.error("lifetime follow-up failed", s.id, e); }
         return new Response("ok");
       }
@@ -96,7 +113,7 @@ Deno.serve(async (req) => {
       const sub = await stripe.subscriptions.retrieve(String(s.subscription));
       if (prevLifetime) {
         // Already lifetime, so keep it and flag the new subscription for cancelling.
-        await cancelOld(sub.id, userId, email, `Already a lifetime member but started a subscription (${s.id}). The subscription`, true);
+        await cancelOld(stripe, sub.id, userId, email, `Already a lifetime member but started a subscription (${s.id}). The subscription`, true);
         return new Response("ok");
       }
       const plan = sub.items.data[0]?.price.recurring?.interval === "year" ? "annual" : "monthly";

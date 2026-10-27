@@ -157,27 +157,35 @@ Monthly re-run, ideally the first Monday
 5. **[box]** Unset the key and token, then `shred -u` the export.
 6. Spot check that no Substack comp queue row exists for an allowlisted address.
 
-## G. Test before merging (about 30 minutes)
-The live site has no account pages until the merge, so the test runs on a local live build in the box browser. `.env.local` already holds the public values (gitignored). Start it with `npm run dev` and open http://localhost:5173/membership/. Email links come back to localhost while testing, and to the live site everywhere else. Stripe still returns to the live site after paying, so switch back to the localhost tab by hand.
+## G. Test pass in Stripe test mode (about 30 minutes, no real money)
+Test purchases use Stripe test mode on the Minocy account and 4242 test cards. The same stripe-webhook function handles both modes. Live events verify with STRIPE_WEBHOOK_SECRET and use STRIPE_SECRET_KEY as before. Test events verify only with STRIPE_WEBHOOK_SECRET_TEST and use STRIPE_SECRET_KEY_TEST, so a test event can never touch a live subscription. Test purchases do write real rows to the members table, so use throwaway test accounts.
 
-Before starting, upgrade the atl-supabase restricted key to Subscriptions Write, or step 5 tests the fallback to-do instead of the automatic cancel.
+### Setup, once
+1. **[Chris, browser]** Add Minocy test mode to the Stripe connector session (the link from `manage_stripe_accounts`), with write access to products, prices, Payment Links and webhook endpoints.
+2. **[Link, Stripe connector, test mode]** Create in test mode
+   * product "*Among The Letters* membership" with prices CA$7 a month, CA$70 a year and CA$299 one time
+   * three Payment Links mirroring the live ones, metadata atl_plan monthly, yearly and lifetime, invoice creation on for lifetime, after payment redirect to http://localhost:5173/account/?welcome=1
+   * a webhook endpoint at https://bwcqeyttbqkivrozbqxm.supabase.co/functions/v1/stripe-webhook for checkout.session.completed, customer.subscription.updated and customer.subscription.deleted
+   * the customer portal in test mode with cancel at period end, then copy its login link
+3. **[Chris, Dashboard in test mode]** Developers, API keys, create a restricted key "atl-supabase-test" with Subscriptions Write, Checkout Sessions Read and Customers Read. Developers, Webhooks, the new endpoint, reveal the signing secret.
+4. **[Chris, secure form]** Hand both values over through the secure form, never in chat. Link writes them to a mode 600 temp file with ATL_LIFETIME_LINK_TEST, runs `supabase secrets set --env-file` on it, deploys stripe-webhook, then shreds the temp file.
+5. **[Link]** Put the three test links and the test portal link into `.env.stripetest.local` (gitignored).
 
-1. Sign up at /account/ with a fresh address you can read (a plus address works). The page says to check email and shows the unconfirmed banner. Use "Send the link again" once to test the resend.
-2. Open the Brevo email from no-reply@amongtheletters.com and click the link. It lands on localhost /account/ signed in, banner gone, plan shows Free.
-3. Sign out, sign in with the password, then try "Email me a sign-in link" and "Forgot password" once each.
-4. From /membership/ press the monthly button. Stripe opens with the email filled in. Pay CA$7 with a real card. After the thank-you page, go back to the localhost tab and reload /account/?welcome=1.
-5. Check the account shows Member with a renewal date, the welcome box, and Manage billing opening the portal. Open /opportunities/ and check the full database opens. On the admin card (or the 9 a.m. email) check a Substack comp row for the address.
-6. Save a search and follow a listing that closes within a week. Alerts run hourly, or ask Link to trigger the run, then check the bell and the highlighted listing.
-7. Upgrade to lifetime from the account page (CA$299, real charge). Within a minute the account shows Lifetime member with no renewal date, the founding library downloads work, and the portal shows the monthly plan cancelled with no further charge.
-8. Optional, cancel flow. With a second test account on monthly, cancel in the portal and check the end date shows on the account.
-9. Optional, Substack path. Sign up with an allowlisted Substack email and check it opens without paying.
+### The 4242 test run
+1. **[box]** `npm run dev -- --mode stripetest`, then open http://localhost:5173/account/ in the box browser.
+2. Create an account with a fresh plus address, confirm it from the Brevo email (the link returns to localhost), and check the unconfirmed banner disappears.
+3. Sign out, sign in with the password, then try the sign-in link and "Forgot your password?".
+4. From /membership/ choose monthly. Stripe checkout shows the test mode badge. Pay with 4242 4242 4242 4242, any future date, any CVC and postcode.
+5. Back on /account/?welcome=1 check Member with a renewal date, the welcome box, and Manage billing opening the test portal. Open /opportunities/ and check the full database opens. Check the Substack comp row on the admin card.
+6. Save a search and follow a listing closing within a week, then check the bell after the hourly run, or ask Link to trigger it.
+7. Upgrade to lifetime with 4242. Within a minute the account shows Lifetime member with no renewal date, the founding library downloads work, and the test portal shows the monthly plan cancelled.
+8. Optional. A second account on monthly, cancel in the test portal, and check the end date shows. Try 4000 0000 0000 0002 to see a declined card message on Stripe.
+9. **[Link]** Remove the test members rows and test users afterwards, and the Substack comp rows they created.
 
-Refunds after the test are by hand. Stripe keeps its processing fee on refunded charges (roughly CA$9 on the CA$299 and about 50 cents on the CA$7), so a cheaper path for step 7 is Stripe test mode, which needs test Payment Links and a test webhook destination with its own secret.
-
-What Link checks afterwards, read only
-* Supabase SQL. The auth user is confirmed. The members row moves from active monthly with a subscription id and period end, to plan lifetime with no subscription, comped false. substack_queue has the add row for the address, and a note if a duplicate plan was flagged. Notifications exist for the followed listing. Saved searches and follows are stored.
-* Stripe connector. Both checkout sessions are complete with client_reference_id set to the user id. The monthly subscription status is canceled right after the lifetime payment. The customer has the two charges, and no further invoice is pending.
-* Webhook delivery. Stripe shows 200 responses for each event, and the function logs show no errors.
+What Link checks afterwards
+* Supabase SQL. The user is confirmed. The members row goes from active monthly with a subscription id and period end to plan lifetime with no subscription and comped false. substack_queue has the add row. Notifications exist for the followed listing.
+* Stripe connector in test mode. Both checkout sessions are complete with client_reference_id set to the user id, and the monthly subscription is cancelled after the lifetime payment.
+* Webhook deliveries in test mode show 200 for every event, and the function logs show no errors.
 
 ## G2. Complimentary founding memberships
 Migration `20261027000300_founding_grants.sql` adds `public.founding_grants`, the `comped` flag on `members` and `public.grant_founding(email, note)`, which only the service role and the SQL editor can run.
