@@ -143,15 +143,19 @@ Live mode, account `acct_1Skr9CRrwe7mDXay` (Minocy). Checkout currently shows th
 
 The Pages workflow passes these into the build. The keepalive workflow (`supabase-keepalive.yml`) starts pinging the project twice a week once `SUPABASE_URL` is set, so the free project does not pause.
 
-## F. Substack allowlist (10 minutes, then monthly)
-1. **[browser] [Chris]** Substack dashboard, Subscribers, Export. Save the CSV to the box, outside the repo.
-2. **[box] [secret]**
+## F. Substack allowlist (Done 2026-10-27, then monthly)
+First import on 2026-10-27 found no paying Substack subscribers yet (3 comps, 38 free, 1 author account), so the allowlist is empty and nothing was queued.
+
+Monthly re-run, ideally the first Monday
+1. **[browser] [Chris]** Substack dashboard, Subscribers, Export, all columns. The file lands in /home/box/Downloads.
+2. **[box]** Move it to a private folder outside the repo, for example `/tmp/atl-import` with mode 700.
+3. **[box] [secret]** Load the service role key at runtime from the Management API (never printed or saved), then dry-run and check the counts.
    ```bash
-   SUPABASE_URL=https://<ref>.supabase.co SUPABASE_SERVICE_ROLE_KEY=... node scripts/import-substack-allowlist.mjs /path/to/export.csv
-   rm /path/to/export.csv
+   SUPABASE_URL=https://bwcqeyttbqkivrozbqxm.supabase.co SUPABASE_SERVICE_ROLE_KEY=... node scripts/import-substack-allowlist.mjs /tmp/atl-import/export.csv --dry-run
    ```
-   Paid, founding and gift subscribers are added, comps skipped, lapsed ones switched off.
-3. Repeat monthly, ideally as a routine on the first Monday.
+4. **[box]** Run the same command without `--dry-run`. Paid, founding and gift subscribers are added, comps, free readers and the author account are skipped, and anyone no longer paying is switched off.
+5. **[box]** Unset the key and token, then `shred -u` the export.
+6. Spot check that no Substack comp queue row exists for an allowlisted address.
 
 ## G. Test before merging (about 30 minutes)
 The live site has no account pages until the merge, so the test runs on a local live build in the box browser. `.env.local` already holds the public values (gitignored). Start it with `npm run dev` and open http://localhost:5173/membership/. Email links come back to localhost while testing, and to the live site everywhere else. Stripe still returns to the live site after paying, so switch back to the localhost tab by hand.
