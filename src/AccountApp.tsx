@@ -322,6 +322,7 @@ function Dashboard({ session }: { session: Session }) {
   const viaSubstack = m.source === "substack";
   const lifetime = member && !viaSubstack && m.plan === "lifetime";
   const goCheckout = () => { if (MODE === "preview") { setCheckout(true); return; } const u = checkoutUrl(plan, session); if (u) window.location.href = u; };
+  const upgrade = () => { if (MODE === "preview") { setPlan("lifetime"); setCheckout(true); return; } const u = checkoutUrl("lifetime", session); if (u) window.location.href = u; };
   const billing = () => { if (MODE === "preview") { alert("Opens the secure Stripe billing page to change card, switch plan, see receipts or cancel."); return; } const u = portalUrl(session.email); if (u) window.location.href = u; };
   const steps = [
     { label: "Payment received", done: member, date: m.startedAt },
@@ -362,7 +363,7 @@ function Dashboard({ session }: { session: Session }) {
           ) : member ? (
             <>
               <dl className="mt-5 grid gap-4 sm:grid-cols-3">
-                <div><dt className="text-xs text-faint">Plan</dt><dd className="mt-1 text-sm font-medium text-ink">{PLAN_NAME[m.plan ?? "monthly"]}, CA{PRICES[m.plan ?? "monthly"].label}{lifetime ? " once" : ""}</dd></div>
+                <div><dt className="text-xs text-faint">Plan</dt><dd className="mt-1 text-sm font-medium text-ink">{lifetime && m.comped ? "Founding, complimentary" : <>{PLAN_NAME[m.plan ?? "monthly"]}, CA{PRICES[m.plan ?? "monthly"].label}{lifetime ? " once" : ""}</>}</dd></div>
                 {lifetime
                   ? <div><dt className="text-xs text-faint">Renews</dt><dd className="mt-1 text-sm font-medium text-ink">Never, paid once</dd></div>
                   : <div><dt className="text-xs text-faint">{m.status === "canceling" ? "Access ends" : "Renews"}</dt><dd className="mt-1 text-sm font-medium text-ink">{longDate(m.periodEnd)}</dd></div>}
@@ -370,10 +371,18 @@ function Dashboard({ session }: { session: Session }) {
               </dl>
               <div className="mt-6 flex flex-wrap gap-2 border-t border-rule pt-5">
                 <Button asChild size="sm"><a href="/opportunities/">Open the database <ArrowRight className="size-4" /></a></Button>
-                <Button size="sm" variant="outline" onClick={billing}><CreditCard className="size-4" /> Billing and receipts</Button>
-                {!lifetime ? <p className="basis-full text-xs text-faint order-last">Founding members also get every guide PDF free. Write to us if you would like to switch to a founding membership.</p> : null}
+                {lifetime && m.comped ? null : <Button size="sm" variant="outline" onClick={billing}><CreditCard className="size-4" /> Billing and receipts</Button>}
                 {m.status === "active" && !lifetime ? <button type="button" onClick={() => { if (MODE === "preview") { previewCancel(true); api.getMembership().then(setM); } else billing(); }} className="ml-auto text-sm text-faint underline hover:text-oxblood">Cancel membership</button> : null}
               </div>
+              {!lifetime && (CONFIG.stripeLifetime || MODE === "preview") ? (
+                <div className="mt-5 flex flex-col gap-4 rounded-lg bg-paper p-4 ring-1 ring-rule sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0">
+                    <p className="flex flex-wrap items-center gap-2 font-display text-xl tracking-tight text-ink">Become a founding member <span className="rounded-full bg-oxblood/10 px-2 py-0.5 font-sans text-[11px] font-semibold text-oxblood">Founding offer</span></p>
+                    <p className="mt-1 text-sm text-muted">One payment of CA{PRICES.lifetime.label} covers every paid feature for life, including every guide PDF and future products as they are added. Your current plan stops automatically, so you are never charged twice.</p>
+                  </div>
+                  <Button size="sm" className="shrink-0" onClick={upgrade}>Upgrade to founding member <ArrowRight className="size-4" /></Button>
+                </div>
+              ) : null}
             </>
           ) : (
             <>

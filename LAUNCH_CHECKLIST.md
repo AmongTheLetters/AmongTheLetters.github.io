@@ -114,7 +114,7 @@ Live mode, account `acct_1Skr9CRrwe7mDXay` (Minocy). Checkout currently shows th
 1. All three Payment Links redirect to `https://amongtheletters.com/account/?welcome=1`. The site adds `client_reference_id` and the locked email itself.
 2. The portal allows cancelling at the end of the billing period, updating the card, viewing invoices and switching between monthly and yearly.
 3. **[secret]** The webhook signing secret goes in Supabase as `STRIPE_WEBHOOK_SECRET`, the `atl-supabase` key as `STRIPE_SECRET_KEY`. Neither is ever written to the repo.
-4. Lifetime. The webhook treats a paid `payment` mode checkout from the lifetime link (or `atl_plan=lifetime`) with a real account's user ID as lifetime. The member row gets plan `lifetime`, no subscription and no end date, and a forever Substack comp is queued. If the buyer still had a monthly or yearly subscription, it is **not** cancelled automatically. A "Cancel old plan" item appears in the admin to-do list, so a person cancels that subscription in Stripe. Subscription events never downgrade a lifetime member. Refunds of a lifetime payment are handled by hand (set the member row to `expired` and queue a Substack removal).
+4. Lifetime. The webhook treats a paid `payment` mode checkout from the lifetime link (or `atl_plan=lifetime`) with a real account's user ID as lifetime. The member row gets plan `lifetime`, no subscription and no end date, and a forever Substack comp is queued. Existing monthly and yearly members see an "Upgrade to founding member" button on the account page that opens the same link. If the buyer still had a monthly or yearly subscription, the webhook cancels it right away with `stripe.subscriptions.cancel` (no proration). **This needs Write access to Subscriptions on the `atl-supabase` key.** With read-only access the cancel fails quietly and a "Cancel old plan" item appears in the admin to-do list instead, so a person cancels that subscription in Stripe the same day. The webhook still returns 200 and the member stays lifetime. The row drops the old subscription id first, so the `customer.subscription.deleted` event that follows matches nothing and queues no Substack removal. Refunds of a lifetime payment are handled by hand (set the member row to `expired` and queue a Substack removal).
 5. **Done** Founding member library. Lifetime buyers are called founding members and download every guide free from their account page. The private bucket `founding-downloads` (migration `20261027000200_founding_downloads.sql`, no public access and no storage policies) holds the final Payhip files from `atl-project/guidebooks/payhip/`, saved as `opportunity-map.pdf`, `submission-desk.pdf`, `submission-tracker.xlsx` and `submission-tracker.csv`. The `founding-downloads` Edge Function (JWT verified) checks for an active lifetime membership and returns signed links that expire after ten minutes. To add or replace a file, upload it with
    ```bash
    npx supabase storage cp --experimental --project-ref bwcqeyttbqkivrozbqxm --content-type application/pdf new-guide.pdf ss:///founding-downloads/new-guide.pdf
@@ -160,6 +160,21 @@ Run a local live build against the real project with `.env.local` (public values
 4. Save a search, follow a listing closing within a week, wait for the hourly run (or call the function with the cron secret), and check the bell, the deep link highlight, and email when switched on.
 5. Cancel in the portal, check "Ends on ..." shows, and that `customer.subscription.deleted` queues the removal at the end.
 6. Sign up with an allowlisted Substack email and check it opens without payment.
+
+## G2. Complimentary founding memberships
+Migration `20261027000300_founding_grants.sql` adds `public.founding_grants`, the `comped` flag on `members` and `public.grant_founding(email, note)`, which only the service role and the SQL editor can run.
+- If a confirmed account with that email exists, it becomes a founding member at once (plan `lifetime`, `comped = true`, no Stripe ids) and a forever Substack comp is queued unless the email is on the Substack allowlist.
+- Otherwise the grant waits and applies automatically when that email signs up and confirms (a trigger on `auth.users`). Unconfirmed accounts never receive a grant.
+- If the person also pays for a monthly or yearly plan, a "Cancel old plan" to-do is queued. Nothing is cancelled automatically.
+- Comped founding members get the founding member library. Their account page says "Founding, complimentary" with no billing button.
+
+**[box] [secret]** From the repo, with the token only in the shell
+```bash
+export SUPABASE_ACCESS_TOKEN="$(cat /workspace/.secrets/supabase_access_token)"
+scripts/grant-founding.sh "complimentary founding membership" first@example.com second@example.com
+unset SUPABASE_ACCESS_TOKEN
+```
+Each line of output says `applied`, `saved, applies when this email signs up and confirms`, or `already a founding member`. In the SQL editor the same thing is `select public.grant_founding('first@example.com', 'note');`. To see grants, `select * from public.founding_grants order by granted_at desc;`.
 
 ## H. Launch
 1. **[Chris]** Approve the merge of `opportunities-db` into `main` and the push. The Pages workflow builds with the Variables and the site goes live with accounts.

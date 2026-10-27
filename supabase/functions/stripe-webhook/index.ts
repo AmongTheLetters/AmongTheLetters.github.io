@@ -19,6 +19,21 @@ const LIFETIME_LINK = Deno.env.get("ATL_LIFETIME_LINK") || "plink_1UVBxURrwe7mDX
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const ACTIVE = ["active", "past_due", "canceling"];
 
+// Cancel a subscription right away (no proration). If the Stripe key cannot (a read-only restricted key),
+// fall back to a "Cancel old plan" item on the admin to-do list. Never throws.
+async function cancelOld(subId: string, userId: string, email: string, why: string) {
+  try {
+    await stripe.subscriptions.cancel(subId);
+    console.log(`${why} ${subId} was cancelled automatically.`);
+  } catch (e) {
+    const reason = (e as { type?: string; message?: string })?.type ?? "error";
+    const note = `${why} ${subId} could not be cancelled automatically (${reason}). Cancel it in Stripe now so it stops billing.`;
+    console.warn(note);
+    const { error } = await db.from("substack_queue").insert({ user_id: userId, email, action: "cancel_subscription", note });
+    if (error) console.error("could not add the cancel to-do", error);
+  }
+}
+
 async function onAllowlist(email: string) {
   const { data } = await db.from("substack_allowlist").select("email").eq("email", email.toLowerCase()).eq("active", true).maybeSingle();
   return !!data;
@@ -54,29 +69,27 @@ Deno.serve(async (req) => {
         if (prevLifetime) { console.warn("already a lifetime member, check for a duplicate payment", userId, s.id); return new Response("already lifetime"); }
         const { error } = await db.from("members").upsert({
           user_id: userId, email, status: "active", plan: "lifetime", stripe_customer_id: s.customer ? String(s.customer) : null,
-          stripe_subscription_id: null, current_period_end: null, started_at: prevSub && prev?.started_at ? prev.started_at : now, updated_at: now,
+          stripe_subscription_id: null, current_period_end: null, comped: false, started_at: prevSub && prev?.started_at ? prev.started_at : now, updated_at: now,
         });
         if (error) throw error;
-        // Lifetime gets a "forever" comp. A monthly comp is already forever, a yearly one is extended to forever.
-        if (!(await onAllowlist(email))) {
-          if (!prevSub) await db.from("substack_queue").insert({ user_id: userId, email, action: "comp", comp_until: null });
-          else if (prev?.plan === "annual") await db.from("substack_queue").insert({ user_id: userId, email, action: "extend", comp_until: null });
-        }
-        // Never cancel the old subscription automatically. A person cancels it in Stripe so it stops billing.
-        if (prevSub && prev) {
-          const note = `Bought lifetime (${s.id}). Cancel the old ${prev.plan} subscription ${prev.stripe_subscription_id} in Stripe so it stops billing.`;
-          console.log(note);
-          await db.from("substack_queue").insert({ user_id: userId, email, action: "cancel_subscription", note });
-        }
+        // The row is lifetime from here on. Nothing below may fail the webhook, or a retry would skip these steps.
+        try {
+          // Lifetime gets a "forever" comp. A monthly comp is already forever, a yearly one is extended to forever.
+          if (!(await onAllowlist(email))) {
+            if (!prevSub) await db.from("substack_queue").insert({ user_id: userId, email, action: "comp", comp_until: null });
+            else if (prev?.plan === "annual") await db.from("substack_queue").insert({ user_id: userId, email, action: "extend", comp_until: null });
+          }
+          // Stop the old subscription now so nobody pays twice. The row no longer holds its id, so the
+          // customer.subscription.deleted event that follows matches nothing and queues no Substack removal.
+          if (prevSub && prev) await cancelOld(String(prev.stripe_subscription_id), userId, email, `Bought lifetime (${s.id}). The old ${prev.plan} subscription`);
+        } catch (e) { console.error("lifetime follow-up failed", s.id, e); }
         return new Response("ok");
       }
 
       const sub = await stripe.subscriptions.retrieve(String(s.subscription));
       if (prevLifetime) {
         // Already lifetime, so keep it and flag the new subscription for cancelling.
-        const note = `Already a lifetime member but started subscription ${sub.id} (${s.id}). Cancel it in Stripe and refund it.`;
-        console.warn(note);
-        await db.from("substack_queue").insert({ user_id: userId, email, action: "cancel_subscription", note });
+        await cancelOld(sub.id, userId, email, `Already a lifetime member but started a subscription (${s.id}). Refund its first payment. The subscription`);
         return new Response("ok");
       }
       const plan = sub.items.data[0]?.price.recurring?.interval === "year" ? "annual" : "monthly";

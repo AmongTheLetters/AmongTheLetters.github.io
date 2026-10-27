@@ -11,7 +11,7 @@ import { EMPTY, TODAY, type Filters, type Item, type Opp, type Stub } from "@/li
 export type Session = { userId: string; email: string; createdAt: string };
 export type MemberStatus = "none" | "active" | "past_due" | "canceling" | "expired";
 export type Membership = {
-  status: MemberStatus; plan?: Plan | null; periodEnd?: string | null; startedAt?: string | null;
+  status: MemberStatus; plan?: Plan | null; comped?: boolean; periodEnd?: string | null; startedAt?: string | null;
   source: "none" | "stripe" | "substack"; substack: "not_started" | "pending" | "added" | "removal_pending" | "removed";
   substackDate?: string | null; isAdmin: boolean;
 };
