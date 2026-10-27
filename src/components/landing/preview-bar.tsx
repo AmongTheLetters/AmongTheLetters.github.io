@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { api, isMember, previewSetState } from "@/lib/backend";
 import { cn } from "@/lib/utils";
 
-type St = "visitor" | "free" | "member" | "canceling" | "substack" | "founding";
-const LABEL: Record<St, string> = { visitor: "Signed out", free: "Free account", member: "Member", canceling: "Cancelling", substack: "Substack subscriber", founding: "Founding member" };
+type St = "visitor" | "free" | "member" | "canceling" | "substack" | "founding" | "unconfirmed";
+const LABEL: Record<St, string> = { visitor: "Signed out", free: "Free account", member: "Member", canceling: "Cancelling", substack: "Substack subscriber", founding: "Founding member", unconfirmed: "Unconfirmed email" };
 
 /** Review builds only (VITE_PREVIEW=1). Switches between pretend account states. */
 export function PreviewBar({ states }: { states: St[] }) {

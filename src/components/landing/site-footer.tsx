@@ -37,6 +37,12 @@ export function SiteFooter() {
           <a href="/#faq" className="text-sm text-muted hover:text-ink">
             Questions
           </a>
+          <a href="/membership/#terms" className="text-sm text-muted hover:text-ink">
+            Membership terms
+          </a>
+          <a href="/membership/#privacy" className="text-sm text-muted hover:text-ink">
+            Privacy
+          </a>
         </nav>
       </div>
       <div className="section-shell mt-10 flex flex-col gap-2 border-t border-rule pt-6 text-sm text-faint md:flex-row md:justify-between">

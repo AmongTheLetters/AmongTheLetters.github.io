@@ -8,7 +8,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { CONFIG, MODE, type Plan } from "@/lib/config";
 import { EMPTY, TODAY, type Filters, type Item, type Opp, type Stub } from "@/lib/opportunities";
 
-export type Session = { userId: string; email: string; createdAt: string };
+export type Session = { userId: string; email: string; createdAt: string; confirmed?: boolean };
 export type MemberStatus = "none" | "active" | "past_due" | "canceling" | "expired";
 export type Membership = {
   status: MemberStatus; plan?: Plan | null; comped?: boolean; periodEnd?: string | null; startedAt?: string | null;
@@ -37,7 +37,7 @@ async function freeFile(): Promise<Listings> {
 let sb: SupabaseClient | null = null;
 const db = () => (sb ??= createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, { auth: { persistSession: true, detectSessionInUrl: true, flowType: "pkce" } }));
 const fail = (e: { message: string } | null) => { if (e) throw new Error(e.message); };
-const toSession = (u: { id: string; email?: string; created_at: string } | null | undefined): Session | null => u ? { userId: u.id, email: u.email ?? "", createdAt: u.created_at.slice(0, 10) } : null;
+const toSession = (u: { id: string; email?: string; created_at: string; email_confirmed_at?: string | null } | null | undefined): Session | null => u ? { userId: u.id, email: u.email ?? "", createdAt: u.created_at.slice(0, 10), confirmed: !!u.email_confirmed_at } : null;
 type OppRow = { id: string; title: string; org: string; type: Opp["type"]; genres: string[]; region: string; location: string; eligibility: string; opens: string | null; deadline: string | null; deadline_note: string | null; fee: Opp["fee"]; award: string; summary: string; url: string; verified: string; added: string; tier: Opp["tier"] };
 const fromRow = (r: OppRow): Opp => ({ ...r, deadlineNote: r.deadline_note });
 type NoticeRow = { id: number; kind: NotificationKind; title: string; body: string; link: string; created_at: string; read_at: string | null };
@@ -48,6 +48,7 @@ const live = {
   async getSession() { const { data } = await db().auth.getSession(); return toSession(data.session?.user); },
   onAuthChange(cb: (event: string, s: Session | null) => void) { const { data } = db().auth.onAuthStateChange((e, s) => cb(e, toSession(s?.user))); return () => data.subscription.unsubscribe(); },
   async signUp(email: string, password: string) { const { data, error } = await db().auth.signUp({ email, password, options: { emailRedirectTo: redirect() } }); fail(error); return { needsConfirm: !data.session }; },
+  async resendConfirmation(email: string) { const { error } = await db().auth.resend({ type: "signup", email, options: { emailRedirectTo: redirect() } }); fail(error); },
   async signIn(email: string, password: string) { const { error } = await db().auth.signInWithPassword({ email, password }); fail(error); },
   async magicLink(email: string) { const { error } = await db().auth.signInWithOtp({ email, options: { emailRedirectTo: redirect() } }); fail(error); },
   async resetPassword(email: string) { const { error } = await db().auth.resetPasswordForEmail(email, { redirectTo: redirect("/account/?reset=1") }); fail(error); },
@@ -142,6 +143,7 @@ export const PREVIEW_SEARCHES: SavedSearch[] = [
 
 const preview: typeof live = {
   async getSession() { return get<Session | null>(K.session, null); },
+  async resendConfirmation() { await wait(); },
   onAuthChange() { return () => undefined; },
   async signUp(email) { await wait(); put(K.session, { userId: crypto.randomUUID(), email: email.trim().toLowerCase(), createdAt: TODAY }); return { needsConfirm: false }; },
   async signIn(email) { await wait(); put(K.session, { userId: "preview-user", email: email.trim().toLowerCase(), createdAt: TODAY }); },
@@ -177,11 +179,11 @@ const preview: typeof live = {
 /* Preview-only helpers, used by the review switcher. */
 export function previewCheckout(plan: Plan) { put(K.member, { status: "active", plan, startedAt: TODAY, periodEnd: plan === "lifetime" ? null : later(plan === "annual" ? 12 : 1), source: "stripe", substack: "pending", isAdmin: false } satisfies Membership); }
 export function previewCancel(on: boolean) { const m = get<Membership>(K.member, NO_MEMBERSHIP); put(K.member, { ...m, status: on ? "canceling" : "active" }); }
-export function previewSetState(state: "visitor" | "free" | "member" | "canceling" | "substack" | "founding") {
+export function previewSetState(state: "visitor" | "free" | "member" | "canceling" | "substack" | "founding" | "unconfirmed") {
   Object.values(K).forEach((k) => localStorage.removeItem(k));
   if (state === "visitor") return;
-  put(K.session, { userId: "preview-user", email: "reader@example.com", createdAt: "2026-10-26" } satisfies Session);
-  if (state === "free") return;
+  put(K.session, { userId: "preview-user", email: "reader@example.com", createdAt: "2026-10-26", confirmed: state !== "unconfirmed" } satisfies Session);
+  if (state === "free" || state === "unconfirmed") return;
   put(K.member, state === "substack"
     ? { status: "active", source: "substack", substack: "added", isAdmin: false }
     : state === "founding"
@@ -195,7 +197,7 @@ export function previewSetState(state: "visitor" | "free" | "member" | "cancelin
 // Review builds only: /opportunities/?as=member opens the page already in that pretend state.
 if (MODE === "preview" && typeof window !== "undefined") {
   const u = new URL(window.location.href), as = u.searchParams.get("as");
-  if (as && ["visitor", "free", "member", "canceling", "substack", "founding"].includes(as)) {
+  if (as && ["visitor", "free", "member", "canceling", "substack", "founding", "unconfirmed"].includes(as)) {
     previewSetState(as as Parameters<typeof previewSetState>[0]);
     u.searchParams.delete("as"); window.history.replaceState(null, "", u.pathname + u.search + u.hash);
   }

@@ -45,13 +45,14 @@ function AuthPanel() {
   const [pw, setPw] = useState("");
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const [pending, setPending] = useState("");
   const wanted = params.get("plan");
   const next = params.get("next") === "join" ? `/account/${wanted && wanted in PRICES ? `?plan=${wanted}` : ""}#join` : "/account/";
   const run = async (fn: () => Promise<void>) => { setBusy(true); setMsg(null); try { await fn(); } catch (e) { setMsg({ ok: false, text: errText(e) }); } finally { setBusy(false); } };
 
   const submit = (e: FormEvent) => { e.preventDefault(); run(async () => {
     if (mode === "forgot") { await api.resetPassword(email); setMsg({ ok: true, text: "If there is an account for that email, a reset link is on its way." }); return; }
-    if (mode === "signup") { const r = await api.signUp(email, pw); if (r.needsConfirm) { setMsg({ ok: true, text: "Check your inbox and click the link to confirm your email. Then you are in." }); return; } }
+    if (mode === "signup") { const r = await api.signUp(email, pw); if (r.needsConfirm) { setPending(email); setMsg({ ok: true, text: "Check your inbox and click the link to confirm your email. Then you are in." }); return; } }
     else await api.signIn(email, pw);
     window.location.href = next;
   }); };
@@ -79,6 +80,7 @@ function AuthPanel() {
           <Button type="submit" className="mt-4 w-full" disabled={busy}>{busy ? "One moment…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create my account" : "Send the reset link"}</Button>
         </form>
         {msg ? <p role="status" className={cn("mt-3 rounded-md px-3 py-2 text-sm", msg.ok ? "bg-sage/12 text-moss" : "bg-oxblood/10 text-oxblood")}>{msg.text}</p> : null}
+        {pending ? <button type="button" disabled={busy} onClick={() => run(async () => { await api.resendConfirmation(pending); setMsg({ ok: true, text: `A new confirmation link is on its way to ${pending}.` }); })} className="mt-2 text-xs text-oxblood hover:underline">Didn't get it? Send the link again</button> : null}
         {mode === "forgot" ? <button type="button" onClick={() => { setMode("signin"); setMsg(null); }} className="mt-4 text-sm text-muted hover:text-ink">Back to sign in</button> : (
           <>
             <div className="my-5 flex items-center gap-3 text-xs text-faint"><span className="h-px flex-1 bg-rule" />or<span className="h-px flex-1 bg-rule" /></div>
@@ -105,6 +107,7 @@ function AuthPanel() {
         <p className="mt-2 text-sm text-parchment/70">Founding members pay once for every paid feature, all current guide PDFs and future products as they are added.</p>
         <p className="mt-1 text-sm text-parchment/60">Canadian dollars. Cancel any time. Paid Substack subscribers get it all at no extra cost.</p>
         <RefundNote inverse className="mt-3" />
+        <a href="/membership/" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold-soft hover:underline">Compare plans and terms <ArrowRight className="size-4" /></a>
         <p className="mt-1 text-xs text-parchment/60">{LIFETIME_FINAL}</p>
       </div>
     </div>
@@ -291,7 +294,7 @@ function SubstackTodo() {
   useEffect(() => { api.listTodo().then(setItems).catch(() => setItems([])); }, []);
   const done = (id: number) => { setItems((l) => l?.filter((x) => x.id !== id) ?? null); api.markTodoDone(id).catch(() => undefined); };
   return (
-    <Card>
+    <Card id="alerts">
       <CardHead icon={ClipboardList} kicker="Admin" title="Substack to-do" />
       <p className="mt-3 text-sm text-muted">Substack dashboard, Subscribers, select the email, three-dot menu, then Comp or Remove. Cancel items are done in the Stripe dashboard.</p>
       {items === null ? <p className="mt-4 text-sm text-faint">Loading…</p> : items.length ? (
@@ -318,7 +321,15 @@ function Dashboard({ session }: { session: Session }) {
   const [checkout, setCheckout] = useState(false);
   const [pwOpen, setPwOpen] = useState(false);
   const welcome = new URLSearchParams(window.location.search).get("welcome");
+  const [tries, setTries] = useState(0);
+  const [resent, setResent] = useState<"" | "busy" | "sent" | "error">("");
   useEffect(() => { api.getMembership().then(setM).catch(() => setM(null)); }, []);
+  // Back from checkout before Stripe's webhook has landed. Check again every few seconds for about a minute.
+  useEffect(() => {
+    if (!welcome || !m || isMember(m) || tries >= 20) return;
+    const t = setTimeout(() => { api.getMembership().then(setM).catch(() => undefined); setTries((n) => n + 1); }, 3000);
+    return () => clearTimeout(t);
+  }, [welcome, m, tries]);
   useEffect(() => { if (m && window.location.hash) setTimeout(() => document.querySelector(window.location.hash)?.scrollIntoView(), 50); }, [m]);
   if (!m) return <p className="text-sm text-faint">Loading your account…</p>;
   const member = isMember(m);
@@ -336,11 +347,45 @@ function Dashboard({ session }: { session: Session }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
       <div className="flex min-w-0 flex-col gap-6">
+        {session.confirmed === false ? (
+          <div role="status" className="flex flex-col gap-3 rounded-xl bg-gold/12 p-5 ring-1 ring-gold/30 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3"><Mail className="mt-0.5 size-5 shrink-0 text-[#6b5326]" />
+              <div><p className="font-medium text-ink">Please confirm your email</p>
+                <p className="mt-0.5 text-sm text-muted">We sent a link to {session.email}. Confirming it keeps your account safe and lets us match a paid Substack subscription.</p></div></div>
+            <Button size="sm" variant="outline" className="shrink-0" disabled={resent === "busy" || resent === "sent"}
+              onClick={async () => { setResent("busy"); try { await api.resendConfirmation(session.email); setResent("sent"); } catch { setResent("error"); } }}>
+              {resent === "sent" ? "Sent, check your inbox" : resent === "busy" ? "Sending…" : resent === "error" ? "Try again" : "Resend the link"}
+            </Button>
+          </div>
+        ) : null}
         {welcome && member ? (
-          <div className="flex items-start gap-3 rounded-xl bg-sage/12 p-5 ring-1 ring-sage/25">
-            <CircleCheck className="mt-0.5 size-5 shrink-0 text-moss" />
-            <div><p className="font-display text-xl tracking-tight text-ink">Welcome in. Every listing is now open.</p>
-              <p className="mt-1 text-sm text-muted">Your paid Substack subscription is being added to {session.email}. It usually takes less than a day.</p></div>
+          <div className="rounded-xl bg-sage/12 p-5 ring-1 ring-sage/25 md:p-6">
+            <div className="flex items-start gap-3">
+              <CircleCheck className="mt-0.5 size-5 shrink-0 text-moss" />
+              <div className="min-w-0">
+                <p className="font-display text-2xl tracking-tight text-ink">{lifetime ? "Welcome, founding member." : "Welcome in. Every listing is now open."}</p>
+                <ul className="mt-3 space-y-1.5 text-sm text-ink">
+                  <li className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-moss" /> Every listing in the opportunities database</li>
+                  <li className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-moss" /> Alerts for saved searches and closing deadlines, set up below</li>
+                  <li className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-moss" /> The paid newsletter, being added to {session.email} on Substack, usually within a day</li>
+                  {lifetime ? <li className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-moss" /> Every guide PDF in your founding member library, with future products added there</li> : null}
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button asChild size="sm"><a href="/opportunities/">Open the database <ArrowRight className="size-4" /></a></Button>
+                  {lifetime ? <Button asChild size="sm" variant="outline"><a href="#library"><Library className="size-4" /> Your library</a></Button> : null}
+                  <Button asChild size="sm" variant="outline"><a href="#alerts"><BellRing className="size-4" /> Set up alerts</a></Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : welcome ? (
+          <div role="status" aria-live="polite" className="flex items-start gap-3 rounded-xl bg-cream p-5 shadow-[var(--shadow-border)] ring-1 ring-gold/30 md:p-6">
+            {tries < 20 ? <span className="mt-1 size-4 shrink-0 animate-spin rounded-full border-2 border-oxblood/25 border-t-oxblood" aria-hidden="true" /> : <Clock className="mt-0.5 size-5 shrink-0 text-[#6b5326]" />}
+            <div className="min-w-0">
+              <p className="font-display text-xl tracking-tight text-ink">{tries < 20 ? "Thank you. Finishing up your membership…" : "This is taking a little longer than usual."}</p>
+              <p className="mt-1 text-sm text-muted">{tries < 20 ? "Your payment went through. We are waiting for Stripe to confirm it, which usually takes a few seconds. This page checks again on its own." : "Your payment is safe. Refresh in a minute, and if nothing has changed, write to amongtheletters@gmail.com and we will sort it out."}</p>
+              {tries >= 20 ? <Button size="sm" variant="outline" className="mt-3" onClick={() => window.location.reload()}>Refresh</Button> : null}
+            </div>
           </div>
         ) : null}
         {m.status === "canceling" ? (
@@ -468,7 +513,7 @@ export function AccountApp() {
   const reset = recovery || new URLSearchParams(window.location.search).get("reset") === "1";
   return (
     <div id="top" className="relative isolate min-h-dvh bg-news text-ink">
-      {MODE === "preview" ? <PreviewBar states={["visitor", "free", "member", "canceling", "substack"]} /> : null}
+      {MODE === "preview" ? <PreviewBar states={["visitor", "free", "member", "canceling", "substack", "founding"]} /> : null}
       <SiteHeader />
       <main className="pb-20 pt-12 md:pb-28 md:pt-16">
         <div className="section-shell">

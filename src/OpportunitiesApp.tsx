@@ -163,7 +163,7 @@ export function OpportunitiesApp() {
   return (
     <div id="top" className="relative isolate min-h-dvh bg-news text-ink">
       <a href="#results" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">Skip to the opportunities</a>
-      {MODE === "preview" ? <PreviewBar states={["visitor", "free", "member"]} /> : null}
+      {MODE === "preview" ? <PreviewBar states={["visitor", "free", "member", "founding"]} /> : null}
       <SiteHeader />
 
       <main>
@@ -201,6 +201,7 @@ export function OpportunitiesApp() {
                     <div className="flex shrink-0 flex-wrap gap-2">
                       <Button size="sm" className="bg-gold text-ink hover:bg-gold-soft" onClick={join}>Become a member</Button>
                       {session ? null : <Button asChild size="sm" variant="outline"><a href="/account/">Sign in</a></Button>}
+                      <a href="/membership/" className="inline-flex h-9 items-center px-2 text-sm font-medium text-parchment/85 underline-offset-4 hover:text-parchment hover:underline">Compare plans</a>
                     </div>
                   ) : null}
                 </>
@@ -317,6 +318,7 @@ export function OpportunitiesApp() {
                 </div>
                 <RefundNote className="mt-4 text-sm" />
                 <p className="mt-1 text-sm text-faint">{LIFETIME_FINAL}</p>
+                <p className="mt-2 text-sm text-faint"><a href="/membership/" className="font-medium text-oxblood hover:underline">Compare plans and read the membership terms</a></p>
                 <p className="mt-2 text-sm text-faint">Prices in Canadian dollars. Details can change after a listing is added, so confirm deadlines, eligibility and fees on each official page before you apply.</p>
               </div>
             )}

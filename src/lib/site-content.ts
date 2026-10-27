@@ -4,6 +4,7 @@ export const SHOP_URL = "/shop/";
 export const RESOURCES_URL = "/resources/";
 export const UPCOMING_URL = "/calendar/";
 export const OPPORTUNITIES_URL = "/opportunities/";
+export const MEMBERSHIP_URL = "/membership/";
 
 export const SITE = {
   name: "Among The Letters",
@@ -19,6 +20,7 @@ export const NAV = [
   { href: OPPORTUNITIES_URL, label: "Opportunities" },
   { href: RESOURCES_URL, label: "Free Resources" },
   { href: UPCOMING_URL, label: "Calendar" },
+  { href: MEMBERSHIP_URL, label: "Membership" },
 ] as const;
 
 export const PROOF = [
@@ -245,6 +247,10 @@ export const FAQ = [
   {
     q: "What is the $299 CAD lifetime membership?",
     a: "It is an early founding offer from Among The Letters, separate from the standard monthly Substack plan. One payment of $299 CAD makes you a founding member, with every paid feature for life. That includes the paid newsletter, the full opportunities database with its notifications, free downloads of every current guide PDF and its tracker files, and future products as they are added. It never renews. It is a one-time payment and is not refundable.",
+  },
+  {
+    q: "What does a website membership include?",
+    a: "Every plan opens the full opportunities database, sends alerts for your saved searches and closing deadlines, and adds you as a paid subscriber to the newsletter on Substack. Founding members also download every guide PDF free, with future products added as they are released. Plans and terms are on the membership page at amongtheletters.com/membership.",
   },
   {
     q: "Where do I subscribe or manage billing?",

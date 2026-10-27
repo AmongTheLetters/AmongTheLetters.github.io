@@ -6,11 +6,11 @@ import { NAV, SUBSTACK_URL } from "@/lib/site-content";
 import { ACCOUNTS_ON } from "@/lib/config";
 import { useAccount } from "@/lib/use-account";
 import { NotificationBell } from "@/components/landing/notification-bell";
+import { AccountMenu } from "@/components/landing/account-menu";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
-  const { ready, session, member } = useAccount();
-  const account = ACCOUNTS_ON && ready ? (session ? { label: "My account", href: "/account/" } : { label: "Sign in", href: "/account/" }) : undefined;
+  const { member } = useAccount();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -39,7 +39,7 @@ export function SiteHeader() {
     >
       <div className="section-shell flex h-16 items-center justify-between gap-4">
         <Wordmark />
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Primary">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -52,19 +52,16 @@ export function SiteHeader() {
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
           {member ? <NotificationBell /> : null}
-          {account ? (
-            <Button asChild size="sm" variant="outline">
-              <a href={account.href}>{account.label}</a>
-            </Button>
-          ) : null}
           <Button asChild size="sm">
             <a href={SUBSTACK_URL} target="_blank" rel="noreferrer">
               Substack
             </a>
           </Button>
+          {ACCOUNTS_ON ? <AccountMenu /> : null}
         </div>
         <div className="flex items-center gap-1 lg:hidden">
         {member ? <NotificationBell compact /> : null}
+        {ACCOUNTS_ON ? <AccountMenu compact /> : null}
         <Button
           type="button"
           variant="ghost"
@@ -103,11 +100,6 @@ export function SiteHeader() {
                   {item.label}
                 </a>
               ))}
-              {account ? (
-                <a href={account.href} className="flex min-h-11 items-center rounded-lg px-3 text-base font-medium text-oxblood transition-colors hover:bg-ink/5" onClick={() => setOpen(false)}>
-                  {account.label}
-                </a>
-              ) : null}
               <Button asChild size="sm" className="mx-1 mt-2 mb-1">
                 <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
                   Substack

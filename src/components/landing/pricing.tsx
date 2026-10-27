@@ -1,7 +1,9 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ACCOUNTS_ON, CONFIG } from "@/lib/config";
-import { LIFETIME_URL, PLANS, SUBSTACK_URL } from "@/lib/site-content";
+import { ArrowRight } from "lucide-react";
+import { LIFETIME_URL, MEMBERSHIP_URL, PLANS, SUBSTACK_URL } from "@/lib/site-content";
+import { RefundNote } from "@/components/refund-note";
 import { cn } from "@/lib/utils";
 
 export function Pricing() {
@@ -90,9 +92,27 @@ export function Pricing() {
           ))}
         </div>
 
-        <aside className="mx-auto mt-8 max-w-4xl rounded-xl border border-bark/30 bg-cream p-6 shadow-[var(--shadow-border)] md:flex md:items-center md:justify-between md:gap-10 md:p-8">
+        <aside aria-labelledby="site-membership" className="mx-auto mt-8 max-w-4xl rounded-xl bg-ink p-6 text-parchment shadow-[var(--shadow-border)] md:p-8">
+          <div className="md:flex md:items-end md:justify-between md:gap-10">
+            <div className="max-w-2xl">
+              <p className="kicker kicker-inverse">Website membership</p>
+              <h3 id="site-membership" className="mt-2 font-display text-3xl font-medium tracking-tight">
+                The opportunities database, alerts and the paid newsletter.
+              </h3>
+              <p className="mt-3 text-parchment/75">
+                CA$7 a month, CA$70 a year, or CA$299 once as a founding member. Every plan opens every listing, sends alerts for your saved searches and adds you as a paid subscriber on Substack.
+              </p>
+            </div>
+            <Button asChild size="lg" className="mt-6 shrink-0 bg-gold text-ink hover:bg-gold-soft md:mt-0">
+              <a href={MEMBERSHIP_URL}>See membership <ArrowRight className="size-4" /></a>
+            </Button>
+          </div>
+          <RefundNote inverse className="mt-5" />
+        </aside>
+
+        <aside className="mx-auto mt-6 max-w-4xl rounded-xl border border-bark/30 bg-cream p-6 shadow-[var(--shadow-border)] md:flex md:items-center md:justify-between md:gap-10 md:p-8">
           <div className="max-w-2xl">
-            <p className="kicker">Early supporter offer</p>
+            <p className="kicker">Founding offer</p>
             <h3 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">
               A $299 CAD founding lifetime membership.
             </h3>
@@ -102,7 +122,7 @@ export function Pricing() {
           </div>
           <Button asChild variant="outline" size="lg" className="mt-6 shrink-0 md:mt-0">
             {ACCOUNTS_ON && CONFIG.stripeLifetime ? (
-              <a href={LIFETIME_URL}>Become a lifetime member</a>
+              <a href={LIFETIME_URL}>Become a founding member</a>
             ) : (
               <a href="mailto:amongtheletters@gmail.com?subject=Founding%20Lifetime%20Membership%20Inquiry">
                 Ask about lifetime membership

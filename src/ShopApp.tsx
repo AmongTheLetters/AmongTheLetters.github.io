@@ -396,6 +396,10 @@ export function ShopApp() {
                     );
                   })}
                 </ul>
+                <p className="mt-6 border-t border-rule pt-5 text-sm text-muted">
+                  Founding members download every guide free, tracker files included, from their account page.{" "}
+                  <a href="/membership/#founding" className="font-medium text-oxblood hover:underline">See membership</a>
+                </p>
               </aside>
             </div>
           </div>
