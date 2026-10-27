@@ -162,7 +162,7 @@ function BackToTop() {
   if (!show) return null;
   const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   return (
-    <button type="button" aria-label="Back to top" onClick={() => { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); document.getElementById("opp-search")?.focus({ preventScroll: true }); }}
+    <button type="button" aria-label="Back to top" onClick={() => { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }}
       className="fixed bottom-5 right-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-ink text-parchment shadow-xl transition-colors hover:bg-oxblood focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood sm:right-6">
       <ArrowUp className="size-5" />
     </button>
