@@ -18,7 +18,7 @@ Values you collect along the way (write the public ones down, keep the secret on
 | Supabase access token (for the CLI) | **Secret** | Only in the environment when deploying |
 | Brevo SMTP login and SMTP key | **Secret** (the key) | Supabase, Authentication, SMTP |
 | Brevo API key | **Secret** | Supabase function secret `BREVO_API_KEY` |
-| Stripe secret key (restricted key recommended) | **Secret** | Supabase function secret `STRIPE_SECRET_KEY` |
+| Stripe secret key (restricted key `atl-supabase`) | **Secret** | Supabase function secret `STRIPE_SECRET_KEY` |
 | Stripe webhook signing secret `whsec_...` | **Secret** | Supabase function secret `STRIPE_WEBHOOK_SECRET` |
 | Stripe Payment Link URLs, monthly, yearly and lifetime | Public | Repo Variables `STRIPE_LINK_MONTHLY`, `STRIPE_LINK_ANNUAL`, `STRIPE_LINK_LIFETIME` |
 | Stripe customer portal login link | Public | Repo Variable `STRIPE_PORTAL` |
@@ -109,18 +109,19 @@ Live mode, account `acct_1Skr9CRrwe7mDXay` (Minocy). Checkout currently shows th
 | Payment Link, lifetime | `plink_1UVBxURrwe7mDXay8xCJYKbF` https://buy.stripe.com/6oUbJ39fX2yh27E1ih4ow02 (payment mode, always creates a customer, metadata `atl_plan=lifetime`) |
 | Customer portal | `bpc_1UVBaZRrwe7mDXayI6jlgr4Y` https://billing.stripe.com/p/login/3cI5kFdwdb4N3bIe534ow00 |
 | Webhook destination | `we_1UVBeJRrwe7mDXayJStpNnCu` to `https://bwcqeyttbqkivrozbqxm.supabase.co/functions/v1/stripe-webhook`, events `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted` |
-| Restricted key | `atl-supabase`, read access to Checkout Sessions, Subscriptions, Customers and Prices |
+| Restricted key | `atl-supabase`. Needs **Subscriptions: Write** (cancels the old plan when someone upgrades to founding member). Customers, Prices and Checkout Sessions are set to Read but nothing uses them today. No Refunds, Charges or Invoices access, on purpose |
 
 1. All three Payment Links redirect to `https://amongtheletters.com/account/?welcome=1`. The site adds `client_reference_id` and the locked email itself.
 2. The portal allows cancelling at the end of the billing period, updating the card, viewing invoices and switching between monthly and yearly.
 3. **[secret]** The webhook signing secret goes in Supabase as `STRIPE_WEBHOOK_SECRET`, the `atl-supabase` key as `STRIPE_SECRET_KEY`. Neither is ever written to the repo.
-4. Lifetime. The webhook treats a paid `payment` mode checkout from the lifetime link (or `atl_plan=lifetime`) with a real account's user ID as lifetime. The member row gets plan `lifetime`, no subscription and no end date, and a forever Substack comp is queued. Existing monthly and yearly members see an "Upgrade to founding member" button on the account page that opens the same link. If the buyer still had a monthly or yearly subscription, the webhook cancels it right away with `stripe.subscriptions.cancel` (no proration). **This needs Write access to Subscriptions on the `atl-supabase` key.** With read-only access the cancel fails quietly and a "Cancel old plan" item appears in the admin to-do list instead, so a person cancels that subscription in Stripe the same day. The webhook still returns 200 and the member stays lifetime. The row drops the old subscription id first, so the `customer.subscription.deleted` event that follows matches nothing and queues no Substack removal. Refunds of a lifetime payment are handled by hand (set the member row to `expired` and queue a Substack removal).
+4. Lifetime. The webhook treats a paid `payment` mode checkout from the lifetime link (or `atl_plan=lifetime`) with a real account's user ID as lifetime. The member row gets plan `lifetime`, no subscription and no end date, and a forever Substack comp is queued. Existing monthly and yearly members see an "Upgrade to founding member" button on the account page that opens the same link. If the buyer still had a monthly or yearly subscription, the webhook cancels it right away with `stripe.subscriptions.cancel` (no proration). **This needs Write access to Subscriptions on the `atl-supabase` key.** With read-only access the cancel fails quietly and a "Cancel old plan" item appears in the admin to-do list instead, so a person cancels that subscription in Stripe the same day. The webhook still returns 200 and the member stays lifetime. The row drops the old subscription id first, so the `customer.subscription.deleted` event that follows matches nothing and queues no Substack removal. If someone who is already lifetime starts a monthly or yearly plan, that subscription is cancelled the same way and a to-do says "Review whether to refund the duplicate plan, Chris decides".
 5. **Done** Founding member library. Lifetime buyers are called founding members and download every guide free from their account page. The private bucket `founding-downloads` (migration `20261027000200_founding_downloads.sql`, no public access and no storage policies) holds the final Payhip files from `atl-project/guidebooks/payhip/`, saved as `opportunity-map.pdf`, `submission-desk.pdf`, `submission-tracker.xlsx` and `submission-tracker.csv`. The `founding-downloads` Edge Function (JWT verified) checks for an active lifetime membership and returns signed links that expire after ten minutes. To add or replace a file, upload it with
    ```bash
    npx supabase storage cp --experimental --project-ref bwcqeyttbqkivrozbqxm --content-type application/pdf new-guide.pdf ss:///founding-downloads/new-guide.pdf
    ```
    then add it to `FILES` in `supabase/functions/founding-downloads/index.ts` and to `FOUNDING_LIBRARY` in `src/lib/shop-content.ts`, and redeploy the function.
-6. Tax note. Registering for GST/HST is required only above CA$30,000 a year in sales. Stripe Tax stays off.
+6. Refund policy. Nothing is ever refunded automatically and the site's key has no Refunds access. Monthly and yearly members can cancel anytime from the portal, and their plan runs to the end of the paid period. Anyone who cancels early in a period can write to amongtheletters@gmail.com, and Chris decides by hand whether to refund. Link issues an approved refund through the Stripe connector, never from the site. The CA$299 founding (lifetime) membership is a one-time payment and is never refunded. The site shows this beside the join, upgrade and billing buttons and in the FAQ.
+7. Tax note. Registering for GST/HST is required only above CA$30,000 a year in sales. Stripe Tax stays off.
 
 ## D. Browser push, optional (5 minutes)
 1. **[box] [secret]** `npx web-push generate-vapid-keys`. Public key to the repo Variable `VAPID_PUBLIC_KEY` and the function secret of the same name, private key to the function secret `VAPID_PRIVATE_KEY`.
@@ -155,7 +156,7 @@ The Pages workflow passes these into the build. The keepalive workflow (`supabas
 ## G. Test before merging (30 minutes)
 Run a local live build against the real project with `.env.local` (public values only, gitignored), `npm run dev`.
 1. Create an account with a test address, confirm it through the Brevo email, sign out, sign in again, use the sign-in link, reset the password.
-2. Stripe test mode first if wanted (test Payment Links and a test webhook destination with its own secret), then live with a real CA$7 charge refunded afterwards.
+2. Stripe test mode first if wanted (test Payment Links and a test webhook destination with its own secret), then live with a real CA$7 charge, which Link refunds afterwards through the Stripe connector.
 3. After paying, the account page shows Member (or Lifetime member with no renewal date for the CA$299 link), the database opens, and the Substack to-do card plus the 9 a.m. email list the comp.
 4. Save a search, follow a listing closing within a week, wait for the hourly run (or call the function with the cron secret), and check the bell, the deep link highlight, and email when switched on.
 5. Cancel in the portal, check "Ends on ..." shows, and that `customer.subscription.deleted` queues the removal at the end.

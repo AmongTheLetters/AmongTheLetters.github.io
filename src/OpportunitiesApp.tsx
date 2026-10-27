@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { LIFETIME_FINAL, RefundNote } from "@/components/refund-note";
 import { ArrowUpRight, Bell, BellRing, Bookmark, BookmarkCheck, CalendarPlus, Check, Compass, Lock, LockOpen, Mail, Rss, Search, Sparkles, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlierPopup } from "@/components/landing/flier-popup";
@@ -314,7 +315,9 @@ export function OpportunitiesApp() {
                     <div className="mt-auto pt-6"><Button className="w-full bg-gold text-ink hover:bg-gold-soft" onClick={join} disabled={!ACCOUNTS_ON}>{ACCOUNTS_ON ? "Become a member" : "Memberships open soon"}</Button></div>
                   </div>
                 </div>
-                <p className="mt-4 text-sm text-faint">Prices in Canadian dollars. Details can change after a listing is added, so confirm deadlines, eligibility and fees on each official page before you apply.</p>
+                <RefundNote className="mt-4 text-sm" />
+                <p className="mt-1 text-sm text-faint">{LIFETIME_FINAL}</p>
+                <p className="mt-2 text-sm text-faint">Prices in Canadian dollars. Details can change after a listing is added, so confirm deadlines, eligibility and fees on each official page before you apply.</p>
               </div>
             )}
           </div>

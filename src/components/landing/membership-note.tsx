@@ -16,7 +16,7 @@ export function MembershipNote() {
           <br />
           Founding members get every paid feature for life, including the paid newsletter, the full opportunities database, all current guide PDFs and future products as they are added.
           <br />
-          {live ? "Pay once from your account page." : "Email amongtheletters@gmail.com for details."}
+          {live ? "Pay once from your account page. It's a one-time payment and isn't refundable." : "Email amongtheletters@gmail.com for details."}
         </a>
       </p>
       </div>

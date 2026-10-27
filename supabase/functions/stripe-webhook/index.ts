@@ -21,13 +21,20 @@ const ACTIVE = ["active", "past_due", "canceling"];
 
 // Cancel a subscription right away (no proration). If the Stripe key cannot (a read-only restricted key),
 // fall back to a "Cancel old plan" item on the admin to-do list. Never throws.
-async function cancelOld(subId: string, userId: string, email: string, why: string) {
+// review = also leave a to-do even when the cancel works, for a duplicate plan Chris may choose to refund by hand.
+async function cancelOld(subId: string, userId: string, email: string, why: string, review = false) {
+  const reviewNote = review ? " Review whether to refund the duplicate plan, Chris decides." : "";
   try {
     await stripe.subscriptions.cancel(subId);
     console.log(`${why} ${subId} was cancelled automatically.`);
+    if (review) {
+      const { error } = await db.from("substack_queue").insert({ user_id: userId, email, action: "cancel_subscription",
+        note: `${why} ${subId} was cancelled automatically, nothing to cancel.${reviewNote}` });
+      if (error) console.error("could not add the review to-do", error);
+    }
   } catch (e) {
     const reason = (e as { type?: string; message?: string })?.type ?? "error";
-    const note = `${why} ${subId} could not be cancelled automatically (${reason}). Cancel it in Stripe now so it stops billing.`;
+    const note = `${why} ${subId} could not be cancelled automatically (${reason}). Cancel it in Stripe now so it stops billing.${reviewNote}`;
     console.warn(note);
     const { error } = await db.from("substack_queue").insert({ user_id: userId, email, action: "cancel_subscription", note });
     if (error) console.error("could not add the cancel to-do", error);
@@ -89,7 +96,7 @@ Deno.serve(async (req) => {
       const sub = await stripe.subscriptions.retrieve(String(s.subscription));
       if (prevLifetime) {
         // Already lifetime, so keep it and flag the new subscription for cancelling.
-        await cancelOld(sub.id, userId, email, `Already a lifetime member but started a subscription (${s.id}). Refund its first payment. The subscription`);
+        await cancelOld(sub.id, userId, email, `Already a lifetime member but started a subscription (${s.id}). The subscription`, true);
         return new Response("ok");
       }
       const plan = sub.items.data[0]?.price.recurring?.interval === "year" ? "annual" : "monthly";

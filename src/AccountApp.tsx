@@ -11,6 +11,7 @@ import {
 import { ACCOUNTS_ON, CONFIG, MODE, PRICES, type Plan } from "@/lib/config";
 import { describeFilters, longDate, timeAgo } from "@/lib/opportunities";
 import { FOUNDING_LIBRARY, SHOP_IMAGE_BASE } from "@/lib/shop-content";
+import { LIFETIME_FINAL, RefundNote } from "@/components/refund-note";
 import { cn } from "@/lib/utils";
 
 const inputCls = "mt-1 h-11 w-full rounded-md border border-rule bg-paper px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood";
@@ -103,6 +104,8 @@ function AuthPanel() {
         <p className="mt-8 font-display text-2xl">{PRICES.monthly.label} <span className="text-base text-parchment/70">{PRICES.monthly.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.annual.label} <span className="text-base text-parchment/70">{PRICES.annual.per}</span> <span className="mx-2 text-parchment/40">·</span> {PRICES.lifetime.label} <span className="text-base text-parchment/70">{PRICES.lifetime.per} for life</span></p>
         <p className="mt-2 text-sm text-parchment/70">Founding members pay once for every paid feature, all current guide PDFs and future products as they are added.</p>
         <p className="mt-1 text-sm text-parchment/60">Canadian dollars. Cancel any time. Paid Substack subscribers get it all at no extra cost.</p>
+        <RefundNote inverse className="mt-3" />
+        <p className="mt-1 text-xs text-parchment/60">{LIFETIME_FINAL}</p>
       </div>
     </div>
   );
@@ -374,11 +377,13 @@ function Dashboard({ session }: { session: Session }) {
                 {lifetime && m.comped ? null : <Button size="sm" variant="outline" onClick={billing}><CreditCard className="size-4" /> Billing and receipts</Button>}
                 {m.status === "active" && !lifetime ? <button type="button" onClick={() => { if (MODE === "preview") { previewCancel(true); api.getMembership().then(setM); } else billing(); }} className="ml-auto text-sm text-faint underline hover:text-oxblood">Cancel membership</button> : null}
               </div>
+              {!lifetime ? <RefundNote className="mt-3" /> : null}
               {!lifetime && (CONFIG.stripeLifetime || MODE === "preview") ? (
                 <div className="mt-5 flex flex-col gap-4 rounded-lg bg-paper p-4 ring-1 ring-rule sm:flex-row sm:items-center sm:justify-between">
                   <div className="min-w-0">
                     <p className="flex flex-wrap items-center gap-2 font-display text-xl tracking-tight text-ink">Become a founding member <span className="rounded-full bg-oxblood/10 px-2 py-0.5 font-sans text-[11px] font-semibold text-oxblood">Founding offer</span></p>
                     <p className="mt-1 text-sm text-muted">One payment of CA{PRICES.lifetime.label} covers every paid feature for life, including every guide PDF and future products as they are added. Your current plan stops automatically, so you are never charged twice.</p>
+                    <p className="mt-1 text-xs text-faint">It's a one-time payment and isn't refundable.</p>
                   </div>
                   <Button size="sm" className="shrink-0" onClick={upgrade}>Upgrade to founding member <ArrowRight className="size-4" /></Button>
                 </div>
@@ -400,7 +405,9 @@ function Dashboard({ session }: { session: Session }) {
                 ))}
               </div>
               <Button className="mt-5 w-full sm:w-auto" onClick={goCheckout}>Continue to secure checkout <ArrowRight className="size-4" /></Button>
+              {plan === "lifetime" ? <p className="mt-3 text-xs font-medium text-ink">{LIFETIME_FINAL}</p> : null}
               <p className="mt-3 flex items-center gap-1.5 text-xs text-faint"><ShieldCheck className="size-3.5" /> Payments are handled by Stripe. We never see your card.</p>
+              <RefundNote className="mt-2" />
               <p className="mt-2 text-xs text-faint">Already a paid Substack subscriber with a different email? Write to us and we will link it.</p>
             </>
           )}
