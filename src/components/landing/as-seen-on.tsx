@@ -30,7 +30,7 @@ export const AS_SEEN_ON: AsSeenOnEntry[] = [
       src: "/images/as-seen-on/bloghub-badge.png",
       alt: "BlogHub",
       width: 210,
-      height: 54,
+      height: 56,
     },
   },
 ];
