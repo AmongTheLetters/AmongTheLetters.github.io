@@ -24,6 +24,14 @@ export const AS_SEEN_ON: AsSeenOnEntry[] = [
   {
     name: "BlogHub",
     href: "https://bloghub.app/publications/among-the-letters-7dde36fa",
+    // Self-hosted badge built from BlogHub's own BH mark (bloghub.app/assets/Bloghub-logo.png) and red wordmark,
+    // in the same size and shape as the InboxReads badge. BlogHub does not publish an official badge.
+    badge: {
+      src: "/images/as-seen-on/bloghub-badge.png",
+      alt: "BlogHub",
+      width: 210,
+      height: 54,
+    },
   },
 ];
 
