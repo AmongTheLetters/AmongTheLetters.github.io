@@ -82,21 +82,90 @@ def sess():
     return s
 
 
-def get(url, **kw):
-    """GET with one retry on network errors / 5xx."""
+RETRY_STATUS = {429, 500, 502, 503, 504}
+
+
+def retry_after(r, attempt, cap=60.0):
+    """Seconds to wait: honour Retry-After when given, else exponential backoff (2, 4, 8...)."""
+    ra = (r.headers.get("Retry-After", "") if r is not None else "").strip()
+    if ra.isdigit():
+        return min(float(ra), cap)
+    return min(2.0 * (2 ** attempt), cap)
+
+
+def get(url, tries=3, cap=30.0, **kw):
+    """GET that retries network errors and 429/5xx, honouring Retry-After."""
     kw.setdefault("timeout", TIMEOUT)
     last = None
-    for attempt in range(2):
+    for attempt in range(tries):
         try:
             r = sess().get(url, **kw)
-            if r.status_code >= 500 and attempt == 0:
-                time.sleep(2)
+            if r.status_code in RETRY_STATUS and attempt < tries - 1:
+                wait = retry_after(r, attempt, cap)
+                r.close()
+                time.sleep(wait)
                 continue
             return r
+        except (requests.exceptions.SSLError, requests.exceptions.InvalidURL,
+                requests.exceptions.TooManyRedirects):
+            raise   # not transient, no point retrying
         except requests.RequestException as e:
             last = e
-            time.sleep(2)
+            if attempt < tries - 1:
+                time.sleep(2.0 * (2 ** attempt))
     raise last if last else RuntimeError("request failed")
+
+
+# Wikimedia APIs (Wikipedia, Wikidata, SPARQL): one request at a time per host
+# across all threads, ~1s apart, with retries when throttled.
+API_DELAY = 1.0
+_api_lock = threading.Lock()
+_api_next = {}
+
+
+class ApiError(Exception):
+    pass
+
+
+def api_json(url, params, tries=5, timeout=TIMEOUT, headers=None):
+    """Polite JSON API call: ~1s spacing per host, checks status + content-type,
+    retries 429/5xx/non-JSON/network errors with backoff that honours Retry-After."""
+    host = urlparse(url).netloc
+    last = ""
+    for attempt in range(tries):
+        with _api_lock:
+            wait = _api_next.get(host, 0) - time.time()
+            if wait > 0:
+                time.sleep(wait)
+            _api_next[host] = time.time() + API_DELAY
+        r = None
+        try:
+            r = sess().get(url, params=params, timeout=timeout, headers=headers or {})
+            ctype = r.headers.get("Content-Type", "").lower()
+            if r.status_code == 200 and "json" in ctype:
+                try:
+                    data = r.json()
+                except ValueError:
+                    data = None
+                    last = "bad JSON"
+                if isinstance(data, dict) and data.get("error", {}).get("code") == "maxlag":
+                    last = "maxlag"
+                elif data is not None:
+                    return data
+            elif r.status_code == 200:
+                last = f"non-JSON reply ({ctype or 'no content-type'})"
+            else:
+                last = f"HTTP {r.status_code}"
+                if r.status_code not in RETRY_STATUS:
+                    raise ApiError(last)
+        except requests.RequestException as e:
+            last = type(e).__name__
+        if attempt < tries - 1:
+            pause = retry_after(r, attempt + 1, 120.0)   # 4, 8, 16, 32s unless told otherwise
+            with _api_lock:
+                _api_next[host] = max(_api_next.get(host, 0), time.time() + pause)
+            time.sleep(pause)
+    raise ApiError(f"{last} after {tries} tries")
 
 
 def norm_domain(url):
@@ -156,15 +225,13 @@ SPARQL = "https://query.wikidata.org/sparql"
 
 
 def wp_query_all(lang, params):
-    params = dict(params, format="json", formatversion="2", action="query")
+    params = dict(params, format="json", formatversion="2", action="query", maxlag="5")
     while True:
-        r = get(WP_API.format(lang=lang), params=params)
-        data = r.json()
+        data = api_json(WP_API.format(lang=lang), params)
         yield data
         if "continue" not in data:
             break
         params.update(data["continue"])
-        time.sleep(0.3)
 
 
 def qids_to_sites(qids, col, source, hint):
@@ -173,9 +240,9 @@ def qids_to_sites(qids, col, source, hint):
     added = 0
     for i in range(0, len(qids), 50):
         batch = qids[i:i + 50]
-        r = get(WD_API, params={"action": "wbgetentities", "ids": "|".join(batch), "format": "json",
-                                "props": "claims|labels|descriptions", "languages": "en"})
-        for ent in r.json().get("entities", {}).values():
+        data = api_json(WD_API, {"action": "wbgetentities", "ids": "|".join(batch), "format": "json",
+                                 "props": "claims|labels|descriptions", "languages": "en", "maxlag": "5"})
+        for ent in data.get("entities", {}).values():
             claims = ent.get("claims", {}).get("P856", [])
             label = ent.get("labels", {}).get("en", {}).get("value", "")
             desc = ent.get("descriptions", {}).get("en", {}).get("value", "")
@@ -183,7 +250,6 @@ def qids_to_sites(qids, col, source, hint):
                 v = c.get("mainsnak", {}).get("datavalue", {}).get("value")
                 if isinstance(v, str) and col.add(v, source, label, desc, hint):
                     added += 1
-        time.sleep(0.3)
     return added
 
 
@@ -243,10 +309,10 @@ def seed_sparql(spec, col, hint):
       FILTER NOT EXISTS {{ ?item wdt:P576 ?dissolved }}
       SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
     }} LIMIT 20000"""
-    r = get(SPARQL, params={"query": q, "format": "json"}, timeout=90,
-            headers={"Accept": "application/sparql-results+json"})
+    data = api_json(SPARQL, {"query": q, "format": "json"}, tries=4, timeout=90,
+                    headers={"Accept": "application/sparql-results+json"})
     added = 0
-    for b in r.json()["results"]["bindings"]:
+    for b in data["results"]["bindings"]:
         if col.add(b["site"]["value"], f"wikidata:{cls}", b.get("itemLabel", {}).get("value", ""),
                    b.get("itemDescription", {}).get("value", ""), hint):
             added += 1
@@ -330,7 +396,8 @@ def run_discovery(args):
         work(t)
         dfh.write(t[0] + "\n")
     dfh.flush()
-    # Wikimedia APIs ask for modest parallelism; 4 workers is plenty.
+    # Wikimedia calls are serialised by api_json(); extra workers only help page: seeds.
+    failed = []
     with ThreadPoolExecutor(max_workers=4) as ex:
         futs = {ex.submit(work, t): t for t in other}
         for i, fut in enumerate(as_completed(futs), 1):
@@ -342,8 +409,12 @@ def run_discovery(args):
                     dfh.flush()
                 print(f"  [{i}/{len(other)}] +{n:<5} {line[:90]}   (total {len(col.seen)})")
             except Exception as e:
+                failed.append(line)
                 print(f"  [{i}/{len(other)}] error {type(e).__name__}: {line[:80]} (will retry next run)")
-    print(f"Discovery finished: {len(col.seen)} candidate sites.\n")
+    print(f"Discovery finished: {len(col.seen)} candidate sites.")
+    if failed:
+        print(f"  {len(failed)} seeds could not be read this time. Run again later to retry just those.")
+    print()
 
 
 # ----------------------------------------------------------------- profiling
@@ -531,6 +602,9 @@ def profile(cand):
     return row
 
 
+TRANSIENT = {"http429", "http500", "http502", "http503", "http504", "error:ConnectionError",
+             "error:ConnectTimeout", "error:ReadTimeout", "error:Timeout", "error:ChunkedEncodingError"}
+
 FIELDS = ["name", "url", "domain", "description", "type", "access", "formats", "genres",
           "submissions_signal", "language", "wikidata_description", "seed_hint", "source", "status", "checked_at"]
 
@@ -543,15 +617,22 @@ def run_profiling(args):
                 cands.append(json.loads(line))
             except Exception:
                 pass
-    done = set()
+    last = {}
     if os.path.exists(PROF):
         with open(PROF, encoding="utf-8") as f:
             for line in f:
                 try:
-                    done.add(json.loads(line)["domain"])
+                    r = json.loads(line)
+                    last[r["domain"]] = r.get("status", "")
                 except Exception:
                     pass
+    # Sites that failed for a temporary reason (rate limit, server busy, timeout,
+    # dropped connection) are checked again; ok/robots/404/403 etc. stay done.
+    done = {d for d, st in last.items() if st not in TRANSIENT}
+    retry = sum(1 for st in last.values() if st in TRANSIENT)
     todo = [c for c in cands if c["domain"] not in done]
+    if retry:
+        print(f"Profiling: re-checking {retry} sites that hit a temporary error last time.")
     if args.limit:
         todo = todo[:args.limit]
     total = len(todo)

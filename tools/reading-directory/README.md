@@ -32,6 +32,8 @@ This folder is not part of the website build.
 
 You can close the window at any time. Running it again continues where it stopped.
 
+Running `run.bat` again also picks up anything skipped last time: seeds that errored ("will retry next run") and sites that hit a temporary error (rate limit, busy server, timeout), while finished sites are left alone.
+
 ## Options
 
 - `python crawl.py --limit 30` quick test on 30 sites

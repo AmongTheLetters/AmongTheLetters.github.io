@@ -11,3 +11,6 @@ Thumbs.db
 public/opportunities/data/members.enc.json
 .stripe-ids.local
 supabase/.temp/
+
+# Reading Directory crawler output (stays on the local machine)
+tools/reading-directory/output/
