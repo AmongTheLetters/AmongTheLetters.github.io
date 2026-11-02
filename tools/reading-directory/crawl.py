@@ -225,7 +225,7 @@ SPARQL = "https://query.wikidata.org/sparql"
 
 
 def wp_query_all(lang, params):
-    params = dict(params, format="json", formatversion="2", action="query", maxlag="5")
+    params = dict(params, format="json", formatversion="2", action="query")
     while True:
         data = api_json(WP_API.format(lang=lang), params)
         yield data
@@ -241,7 +241,7 @@ def qids_to_sites(qids, col, source, hint):
     for i in range(0, len(qids), 50):
         batch = qids[i:i + 50]
         data = api_json(WD_API, {"action": "wbgetentities", "ids": "|".join(batch), "format": "json",
-                                 "props": "claims|labels|descriptions", "languages": "en", "maxlag": "5"})
+                                 "props": "claims|labels|descriptions", "languages": "en"})
         for ent in data.get("entities", {}).values():
             claims = ent.get("claims", {}).get("P856", [])
             label = ent.get("labels", {}).get("en", {}).get("value", "")
@@ -410,7 +410,7 @@ def run_discovery(args):
                 print(f"  [{i}/{len(other)}] +{n:<5} {line[:90]}   (total {len(col.seen)})")
             except Exception as e:
                 failed.append(line)
-                print(f"  [{i}/{len(other)}] error {type(e).__name__}: {line[:80]} (will retry next run)")
+                print(f"  [{i}/{len(other)}] error {type(e).__name__} ({str(e)[:40]}): {line[:80]} (will retry next run)")
     print(f"Discovery finished: {len(col.seen)} candidate sites.")
     if failed:
         print(f"  {len(failed)} seeds could not be read this time. Run again later to retry just those.")
