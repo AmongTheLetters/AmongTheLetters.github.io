@@ -1,0 +1,527 @@
+# ATL Reading Directory seeds. One seed per line. Lines starting with # are comments.
+# '## hint: text' sets a type hint for the seeds below it (helps tagging).
+#   wp:Title                    Wikipedia list page -> official sites via Wikidata + external links
+#   wpcat:Category:Name | depth=1   Wikipedia category (and subcategories to depth)
+#   sparql:Q123 [sub] [countries=Q30,Q16]   Wikidata items of a class that have an official website
+#   page:https://...            a public directory page; its outbound links are collected (robots.txt obeyed)
+#   site:https://...            add one site directly
+# Add more lines any time; a rerun only processes new seeds.
+
+## hint: literary magazine
+wp:List of literary magazines
+## hint: science fiction magazine
+wp:List of science fiction magazines
+## hint: online magazine
+wp:List of online magazines
+## hint: digital library
+wp:List of digital library projects
+## hint: small press publisher
+wp:List of English-language small presses
+## hint: book publisher
+wp:List of English-language book publishing companies
+wp:List of largest book publishers of the United Kingdom
+## hint: university press publisher
+wp:List of university presses
+## hint: bookstore
+wp:List of bookstore chains
+wp:List of independent bookstores
+## hint: book publisher
+wp:List of self-publishing companies
+## hint: comics publisher
+wp:Lists of webcomics
+## hint: book publisher
+wp:List of comics publishing companies
+wp:List of manga publishers
+## hint: zine
+wp:List of Canadian magazines
+## hint: literary award
+wp:List of literary awards
+## hint: poetry magazine
+wp:List of poetry awards
+## hint: literary magazine
+wpcat:Category:Literary magazines published in the United States | depth=1
+wpcat:Category:Literary magazines published in Canada | depth=1
+wpcat:Category:Literary magazines published in the United Kingdom | depth=1
+wpcat:Category:Literary magazines published in Australia | depth=1
+wpcat:Category:Literary magazines published in Ireland | depth=1
+wpcat:Category:Literary magazines published in New Zealand | depth=1
+wpcat:Category:Literary magazines published in India | depth=1
+wpcat:Category:Literary magazines published in South Africa | depth=1
+## hint: poetry magazine
+wpcat:Category:Poetry magazines published in the United States | depth=1
+## hint: science fiction magazine
+wpcat:Category:Science fiction magazines | depth=1
+## hint: fantasy
+wpcat:Category:Fantasy fiction magazines | depth=1
+## hint: horror magazine
+wpcat:Category:Horror fiction magazines | depth=1
+## hint: literary magazine
+wpcat:Category:Online literary magazines | depth=1
+## hint: online magazine
+wpcat:Category:Online magazines published in the United States | depth=1
+## hint: small press publisher
+wpcat:Category:Small press publishing companies | depth=1
+## hint: book publisher
+wpcat:Category:Book publishing companies of Canada | depth=1
+wpcat:Category:Book publishing companies of the United States | depth=1
+wpcat:Category:Book publishing companies of the United Kingdom | depth=1
+wpcat:Category:Book publishing companies of Australia | depth=1
+## hint: bookstore
+wpcat:Category:Independent bookstores of the United States | depth=1
+wpcat:Category:Independent bookstores of Canada | depth=1
+wpcat:Category:Bookstores of the United States | depth=1
+wpcat:Category:Bookstores of Canada | depth=1
+## hint: digital library
+wpcat:Category:Digital libraries | depth=1
+## hint: online archive
+wpcat:Category:Online archives | depth=1
+## hint: audiobooks
+wpcat:Category:Audiobook companies and organizations | depth=1
+## hint: ebook store
+wpcat:Category:Ebook suppliers | depth=1
+## hint: book publisher
+wpcat:Category:Self-publishing companies | depth=1
+## hint: web fiction platform
+wpcat:Category:Web fiction | depth=1
+## hint: book reviews
+wpcat:Category:Book review websites | depth=1
+## hint: book website
+wpcat:Category:Book websites | depth=1
+## hint: reader community
+wpcat:Category:Social cataloging applications | depth=1
+## hint: book publisher
+wpcat:Category:Online publishing companies | depth=1
+## hint: zine
+wpcat:Category:Zines | depth=1
+## hint: university press publisher
+wpcat:Category:University presses of the United States | depth=1
+wpcat:Category:University presses of Canada | depth=1
+## hint: mystery magazine
+wpcat:Category:Mystery fiction magazines | depth=1
+## hint: science fiction magazine
+wpcat:Category:Science fiction publishers | depth=1
+## hint: fantasy
+wpcat:Category:Fantasy book publishers | depth=1
+## hint: literary society
+wpcat:Category:Literary societies | depth=1
+
+# --- Wikidata classes (official websites) ---
+## hint: literary magazine
+sparql:Q1368848 sub
+## hint: science fiction magazine
+sparql:Q3399338 sub
+## hint: fantasy magazine
+sparql:Q4433771 sub
+## hint: online magazine
+sparql:Q847906
+## hint: fanzine
+sparql:Q181298
+## hint: web fiction platform
+sparql:Q2552040
+## hint: digital library
+sparql:Q212805 sub
+## hint: small press publisher
+sparql:Q1661080
+## hint: book publisher
+sparql:Q2085381 countries=Q30,Q16,Q145,Q408,Q664,Q27
+## hint: audiobook publisher
+sparql:Q1644277 sub
+## hint: online bookstore
+sparql:Q1668022 sub
+## hint: independent bookstore
+sparql:Q6017407 countries=Q30,Q16,Q145,Q408,Q664,Q27
+## hint: bookstore
+sparql:Q200764 countries=Q30,Q16,Q145,Q408,Q664,Q27
+## hint: self-publishing platform
+sparql:Q16856825
+
+# --- Public directory pages (only fetched if robots.txt allows) ---
+## hint: literary magazine
+page:https://www.newpages.com/magazines/literary-magazines
+page:https://www.pw.org/literary_magazines
+page:https://www.everywritersresource.com/literarymagazines/
+page:https://www.everywritersresource.com/topliterarymagazines/
+page:https://www.cleanpagesliterary.com/literary-magazines
+## hint: poetry
+page:https://www.poetryfoundation.org/foundation/links
+page:https://www.poets.org/poetry-links
+## hint: science fiction magazine
+page:https://www.sfwa.org/sfwa-market-report/
+page:https://www.locusmag.com/links/
+## hint: web fiction platform
+page:https://www.webfictionguide.com/
+## hint: free library
+page:https://www.onlinebooks.library.upenn.edu/archives.html
+page:https://www.gutenberg.org/ebooks/offline_catalogs.html
+## hint: book publisher
+page:https://www.indiepressrevolution.com/xcart/Small-Press-Directory.html
+page:https://literarypresses.ca/members/
+page:https://www.clmp.org/members/
+## hint: bookstore
+page:https://www.indiebound.org/indie-store-finder
+
+# --- Curated core sites ---
+## hint: free library
+site:https://www.gutenberg.org
+site:https://en.wikisource.org
+site:https://standardebooks.org
+site:https://openlibrary.org
+site:https://archive.org
+site:https://www.fadedpage.com
+site:https://gutenberg.ca
+site:https://www.gutenberg.net.au
+site:https://manybooks.net
+site:https://www.feedbooks.com
+site:https://www.bartleby.com
+site:https://www.hathitrust.org
+site:https://www.digitalbookindex.org
+site:https://www.onlinebooks.library.upenn.edu
+site:https://www.globalgreyebooks.com
+site:https://www.planetebook.com
+site:https://www.wdl.org
+site:https://www.loyalbooks.com
+site:https://www.smashwords.com
+site:https://www.free-ebooks.net
+site:https://www.obooko.com
+site:https://www.bookboon.com
+site:https://www.dpla.org
+site:https://www.europeana.eu
+site:https://www.wattpad.com
+site:https://www.poetryfoundation.org
+site:https://poets.org
+site:https://www.poemhunter.com
+site:https://allpoetry.com
+site:https://www.poetrysoup.com
+site:https://www.poemist.com
+site:https://www.classicreader.com
+site:https://www.literaturepage.com
+site:https://americanliterature.com
+site:https://www.eastoftheweb.com
+site:https://www.readcentral.com
+site:https://www.fulltextarchive.com
+site:https://www.authorama.com
+site:https://www.libraryofshortstories.com
+site:https://www.storynory.com
+site:https://www.childrensbooksonline.org
+site:https://www.icdlbooks.org
+site:https://www.storyweaver.org.in
+site:https://www.freekidsbooks.org
+site:https://www.overdrive.com
+site:https://libbyapp.com
+site:https://www.hoopladigital.com
+site:https://www.bookshare.org
+## hint: audiobooks
+site:https://librivox.org
+site:https://www.lit2go.org
+site:https://www.openculture.com
+site:https://www.audible.com
+site:https://www.audible.ca
+site:https://libro.fm
+site:https://www.audiobooks.com
+site:https://www.kobo.com
+site:https://www.scribd.com
+site:https://www.everand.com
+site:https://www.storytel.com
+site:https://www.chirpbooks.com
+site:https://www.downpour.com
+site:https://www.spokenworld.com
+site:https://www.pseudopod.org
+site:https://escapepod.org
+site:https://podcastle.org
+site:https://cast-of-wonders.com
+site:https://www.drabblecast.org
+site:https://www.lightspeedmagazine.com
+site:https://www.thenosleeppodcast.com
+## hint: web fiction platform
+site:https://www.royalroad.com
+site:https://www.scribblehub.com
+site:https://archiveofourown.org
+site:https://www.fanfiction.net
+site:https://www.inkitt.com
+site:https://www.webnovel.com
+site:https://tapas.io
+site:https://www.webtoons.com
+site:https://www.tumblr.com
+site:https://www.commaful.com
+site:https://www.fictionpress.com
+site:https://www.quotev.com
+site:https://www.storiesonline.net
+site:https://www.reamstories.com
+site:https://www.radish.com
+site:https://www.novelupdates.com
+site:https://www.wuxiaworld.com
+site:https://www.goodnovel.com
+site:https://www.tapas.io
+site:https://www.medium.com
+site:https://vocal.media
+site:https://www.writing.com
+site:https://www.figment.com
+site:https://www.critiquecircle.com
+## hint: literary magazine
+site:https://www.theparisreview.org
+site:https://www.granta.com
+site:https://www.newyorker.com/fiction-and-poetry
+site:https://www.tinhouse.com
+site:https://www.ploughshares.org
+site:https://www.agnionline.bu.edu
+site:https://www.kenyonreview.org
+site:https://www.thesunmagazine.org
+site:https://electricliterature.com
+site:https://www.guernicamag.com
+site:https://www.lithub.com
+site:https://www.threepennyreview.com
+site:https://www.zyzzyva.org
+site:https://www.onestory.org
+site:https://www.narrativemagazine.com
+site:https://www.joylandmagazine.com
+site:https://www.hobartpulp.com
+site:https://smokelong.com
+site:https://www.flashfictiononline.com
+site:https://www.100wordstory.org
+site:https://www.wigleaf.com
+site:https://www.matterpress.com
+site:https://www.brevitymag.com
+site:https://www.thewalrus.ca
+site:https://www.malahatreview.ca
+site:https://www.theantigonishreview.com
+site:https://www.prairiefire.ca
+site:https://www.eventmagazine.ca
+site:https://www.grainmagazine.ca
+site:https://www.thenewquarterly.ca
+site:https://www.prismmagazine.ca
+site:https://www.room.org
+site:https://www.filling-station.ca
+site:https://www.arcpoetry.ca
+site:https://www.canlit.ca
+site:https://www.geist.com
+site:https://www.taddlecreekmag.com
+site:https://www.exilequarterly.com
+site:https://www.carouselmagazine.ca
+site:https://www.dalhousiereview.ca
+site:https://www.fiddlehead.ca
+site:https://www.queensquarterly.ca
+site:https://www.subterrain.ca
+site:https://www.thepuritan.com
+site:https://www.augurmag.com
+site:https://www.longreads.com
+site:https://www.thecommonline.org
+site:https://www.missouroreview.com
+site:https://www.gettysburgreview.org
+site:https://www.southernreview.org
+site:https://www.virginiaquarterlyreview.org
+site:https://www.thebaffler.com
+site:https://www.thepinchjournal.com
+site:https://www.rattle.com
+site:https://www.poetrymagazine.org
+site:https://www.poetryfoundation.org/poetrymagazine
+site:https://www.poetryireland.ie
+site:https://www.poetrylondon.co.uk
+site:https://www.thepoetryreview.co.uk
+site:https://www.versedaily.org
+site:https://www.poets.org/poem-a-day
+site:https://www.vallum.org
+site:https://www.cv2.ca
+site:https://www.thefiddlehead.ca
+site:https://www.barrelhousemag.com
+site:https://www.wordriot.org
+site:https://www.thejohnstonreview.com
+site:https://www.lunchticket.org
+site:https://www.thecincinnatireview.com
+site:https://www.indianareview.org
+site:https://www.terrain.org
+site:https://www.orionmagazine.org
+site:https://www.creativenonfiction.org
+site:https://www.fourthgenremagazine.com
+site:https://www.drunkenboat.com
+site:https://www.diagram.net
+site:https://www.thediagram.com
+site:https://www.mcsweeneys.net
+site:https://www.thecollagist.com
+site:https://www.peauxdunique.com
+site:https://www.cosmonautsavenue.com
+site:https://www.thewritelaunch.com
+site:https://www.storyquarterly.org
+## hint: science fiction magazine
+site:https://clarkesworldmagazine.com
+site:https://www.asimovs.com
+site:https://www.analogsf.com
+site:https://www.sfsite.com
+site:https://www.tor.com
+site:https://reactormag.com
+site:https://uncannymagazine.com
+site:https://www.beneath-ceaseless-skies.com
+site:https://strangehorizons.com
+site:https://www.apex-magazine.com
+site:https://www.fantasy-magazine.com
+site:https://www.nightmare-magazine.com
+site:https://www.diabolicalplots.com
+site:https://www.escapepod.org
+site:https://www.fireside-fiction.com
+site:https://www.dailysciencefiction.com
+site:https://www.sfandfantasy.co.uk
+site:https://www.interzone.press
+site:https://www.thedarkmagazine.com
+site:https://www.cemetarydance.com
+site:https://www.cemeterydance.com
+site:https://www.blackstaticmagazine.com
+site:https://www.f-sf.com
+site:https://www.sfgenre.com
+site:https://www.locusmag.com
+site:https://www.isfdb.org
+site:https://www.sfwa.org
+site:https://www.sffworld.com
+site:https://www.thegrinder.diabolicalplots.com
+site:https://www.sciphijournal.org
+site:https://www.translunartravelers.com
+site:https://www.radonjournal.com
+site:https://www.solarpunkmagazine.com
+site:https://www.metaphorosis.com
+site:https://www.giganotosaurus.org
+site:https://www.mysteryweekly.com
+site:https://www.elleryqueenmysterymagazine.com
+site:https://www.alfredhitchcockmysterymagazine.com
+site:https://www.thestrandmag.com
+site:https://www.blackcatweekly.com
+site:https://www.tough-crime.com
+## hint: book publisher
+site:https://www.coachhousebooks.com
+site:https://www.anansi.ca
+site:https://www.biblioasis.com
+site:https://www.arsenalpulp.com
+site:https://www.goose-lane.com
+site:https://www.invisiblepublishing.com
+site:https://www.bookhugpress.ca
+site:https://www.freehand-books.com
+site:https://www.nightwoodeditions.com
+site:https://www.talonbooks.com
+site:https://www.cormorantbooks.com
+site:https://www.dundurn.com
+site:https://www.brickbooks.ca
+site:https://www.gaspereau.com
+site:https://www.nightshadebooks.com
+site:https://www.graywolfpress.org
+site:https://www.coffeehousepress.org
+site:https://www.milkweed.org
+site:https://www.coppercanyonpress.org
+site:https://www.newdirections.com
+site:https://www.archipelagobooks.org
+site:https://www.openletterbooks.org
+site:https://www.deepvellum.org
+site:https://www.twodollarradio.com
+site:https://www.sarabandebooks.org
+site:https://www.featherproof.com
+site:https://www.akashicbooks.com
+site:https://www.sevenstories.com
+site:https://www.tachyonpublications.com
+site:https://www.subterraneanpress.com
+site:https://www.angryrobotbooks.com
+site:https://www.baen.com
+site:https://www.daw.com
+site:https://www.orbitbooks.net
+site:https://www.torpublishinggroup.com
+site:https://www.penguinrandomhouse.com
+site:https://www.harpercollins.com
+site:https://www.simonandschuster.com
+site:https://www.macmillan.com
+site:https://www.hachettebookgroup.com
+site:https://www.bloomsbury.com
+site:https://www.faber.co.uk
+site:https://www.carcanet.co.uk
+site:https://www.bloodaxebooks.com
+site:https://www.salmonpoetry.com
+site:https://www.andotherstories.org
+site:https://www.fitzcarraldoeditions.com
+site:https://www.tiltedaxispress.com
+site:https://www.saltpublishing.com
+site:https://www.influxpress.com
+site:https://www.dalkeyarchive.com
+site:https://www.nyrb.com
+site:https://www.mhpbooks.com
+site:https://www.catapult.co
+site:https://www.softskull.com
+site:https://www.ecco.com
+site:https://www.fsgbooks.com
+## hint: bookstore
+site:https://bookshop.org
+site:https://ca.bookshop.org
+site:https://uk.bookshop.org
+site:https://www.indigo.ca
+site:https://www.barnesandnoble.com
+site:https://www.powells.com
+site:https://www.strandbooks.com
+site:https://www.abebooks.com
+site:https://www.alibris.com
+site:https://www.betterworldbooks.com
+site:https://www.thriftbooks.com
+site:https://www.biblio.com
+site:https://www.waterstones.com
+site:https://www.blackwells.co.uk
+site:https://www.foyles.co.uk
+site:https://www.wordery.com
+site:https://www.booktopia.com.au
+site:https://www.bookdepository.com
+site:https://www.chapters.indigo.ca
+site:https://www.mcnallyrobinson.com
+site:https://www.munrobooks.com
+site:https://www.typebooks.ca
+site:https://www.bookcity.ca
+site:https://www.audreysbooks.com
+site:https://www.bookmanager.com
+site:https://www.indiebound.org
+site:https://www.libro.fm
+site:https://www.amazon.com
+site:https://www.amazon.ca
+site:https://play.google.com/store/books
+site:https://www.apple.com/apple-books
+site:https://www.ebooks.com
+site:https://www.weightlessbooks.com
+site:https://www.wtrmln.com
+site:https://www.lulu.com
+site:https://www.blurb.com
+site:https://www.draft2digital.com
+site:https://www.ingramspark.com
+site:https://www.storybundle.com
+site:https://www.humblebundle.com/books
+## hint: newsletter
+site:https://substack.com
+site:https://www.beehiiv.com
+site:https://buttondown.com
+site:https://ghost.org
+site:https://www.letterlist.com
+site:https://www.findyournewsletter.com
+site:https://www.inboxreads.co
+site:https://www.readsomethingwonderful.com
+site:https://www.theamericanscholar.org
+site:https://www.brainpickings.org
+site:https://www.themarginalian.org
+site:https://www.goodreads.com
+site:https://www.storygraph.com
+site:https://app.thestorygraph.com
+site:https://www.librarything.com
+site:https://www.bookbub.com
+site:https://www.netgalley.com
+site:https://www.edelweiss.plus
+site:https://www.kirkusreviews.com
+site:https://www.publishersweekly.com
+site:https://www.quillandquire.com
+site:https://www.bookriot.com
+site:https://www.thebookseller.com
+site:https://www.lrb.co.uk
+site:https://www.nybooks.com
+site:https://www.latimes.com/books
+site:https://www.thestar.com/entertainment/books
+site:https://www.cbc.ca/books
+site:https://www.49thshelf.com
+site:https://www.allpoetry.com
+site:https://www.chillsubs.com
+site:https://www.submittable.com
+site:https://www.duotrope.com
+site:https://www.ralan.com
+site:https://www.writersdigest.com
+site:https://www.pw.org
+site:https://www.newpages.com
+site:https://www.clmp.org
+site:https://www.literarypresses.ca
+site:https://www.writersunion.ca
+site:https://www.leagueofcanadianpoets.ca
+site:https://www.canadacouncil.ca
