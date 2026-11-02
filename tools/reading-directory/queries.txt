@@ -1,0 +1,234 @@
+# ATL Reading Directory search queries (used by the Search step of crawl.py).
+# Lines starting with # are comments. Sections:
+#   [place_types] x [places]          -> "independent bookstore Halifax", ...
+#   [genre_templates] x [genres]      -> "free online poetry magazine", ...
+#   [extra]                           -> used as written
+#   [ai_categories] x [ai_regions]    -> questions for Gemini (only if GEMINI_API_KEY is set)
+# Add lines any time; queries that already ran are skipped on the next run.
+
+[place_types]
+independent bookstore
+used bookstore
+public library
+literary magazine
+small press publisher
+poetry reading series
+comic book store
+
+[places]
+Halifax
+Dartmouth Nova Scotia
+Sydney Nova Scotia
+Charlottetown
+Moncton
+Fredericton
+Saint John New Brunswick
+St. John's Newfoundland
+Quebec City
+Montreal
+Sherbrooke
+Gatineau
+Ottawa
+Kingston Ontario
+Peterborough Ontario
+Toronto
+Mississauga
+Hamilton Ontario
+Niagara
+Guelph
+Kitchener Waterloo
+London Ontario
+Windsor Ontario
+Sudbury
+Thunder Bay
+Barrie
+Winnipeg
+Brandon Manitoba
+Regina
+Saskatoon
+Calgary
+Edmonton
+Lethbridge
+Red Deer
+Vancouver
+Victoria BC
+Kelowna
+Kamloops
+Nanaimo
+Prince George
+Whitehorse
+Yellowknife
+Iqaluit
+Nova Scotia
+New Brunswick
+Prince Edward Island
+Newfoundland and Labrador
+Quebec
+Ontario
+Manitoba
+Saskatchewan
+Alberta
+British Columbia
+Yukon
+Northwest Territories
+Nunavut
+Alabama
+Alaska
+Arizona
+Arkansas
+California
+Colorado
+Connecticut
+Delaware
+Florida
+Georgia
+Hawaii
+Idaho
+Illinois
+Indiana
+Iowa
+Kansas
+Kentucky
+Louisiana
+Maine
+Maryland
+Massachusetts
+Michigan
+Minnesota
+Mississippi
+Missouri
+Montana
+Nebraska
+Nevada
+New Hampshire
+New Jersey
+New Mexico
+New York
+North Carolina
+North Dakota
+Ohio
+Oklahoma
+Oregon
+Pennsylvania
+Rhode Island
+South Carolina
+South Dakota
+Tennessee
+Texas
+Utah
+Vermont
+Virginia
+Washington State
+West Virginia
+Wisconsin
+Wyoming
+New York City
+Los Angeles
+Chicago
+Boston
+Seattle
+Portland Oregon
+San Francisco
+Minneapolis
+Austin
+Denver
+London
+Manchester
+Edinburgh
+Glasgow
+Dublin
+Belfast
+Cardiff
+Sydney
+Melbourne
+Auckland
+Wellington
+
+[genre_templates]
+free online {genre} magazine
+{genre} literary journal
+free {genre} ebooks
+free {genre} audiobooks
+{genre} web serial
+
+[genres]
+poetry
+short story
+flash fiction
+science fiction
+fantasy
+horror
+mystery
+romance
+historical fiction
+literary fiction
+creative nonfiction
+essay
+memoir
+children's
+young adult
+comics
+graphic novel
+translated literature
+classic literature
+Indigenous literature
+Canadian literature
+francophone Canadian literature
+
+[extra]
+free audiobook library
+public domain ebooks
+free ebook library
+open access literary journal
+online literary magazine Canada
+literary magazine directory
+web fiction directory
+free web novels
+serial fiction platform
+poetry archive online
+digital library of books
+online book club
+book review website
+literary podcast
+book newsletter
+indie bookstore online Canada
+used books online store
+library ebook lending
+small press poetry chapbooks
+literary translation journal
+
+[ai_categories]
+independent bookstores
+used and antiquarian bookstores
+public library systems with free ebook or audiobook lending
+free online literary magazines
+literary magazines and journals
+small presses and independent publishers
+poetry magazines and poetry organizations
+free ebook and public domain libraries
+audiobook stores and free audiobook sites
+web fiction, web serial and webcomic platforms
+book review sites and book newsletters
+comic book stores
+
+[ai_regions]
+Nova Scotia, Canada
+New Brunswick, Canada
+Prince Edward Island, Canada
+Newfoundland and Labrador, Canada
+Quebec, Canada (English and French)
+Ontario, Canada
+Manitoba, Canada
+Saskatchewan, Canada
+Alberta, Canada
+British Columbia, Canada
+Northern Canada (Yukon, Northwest Territories, Nunavut)
+Canada (national or online)
+the Northeastern United States
+the Southern United States
+the Midwestern United States
+the Western United States
+the United States (national or online)
+the United Kingdom and Ireland
+Australia and New Zealand
+the English-speaking world (online)

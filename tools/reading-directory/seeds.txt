@@ -525,3 +525,123 @@ site:https://www.literarypresses.ca
 site:https://www.writersunion.ca
 site:https://www.leagueofcanadianpoets.ca
 site:https://www.canadacouncil.ca
+
+# --- v2 additions (Nov 2026). Each page was checked: robots.txt allows it and the
+# --- links are in the page itself. Store finders that need JavaScript or a login
+# --- (CIBA, IndieBound/ABA, Bookshop.org, UK/AU bookseller finders) are covered by
+# --- OpenStreetMap and Wikidata below instead.
+## hint: literary magazine
+page:https://www.newpages.com/guide-to-magazines/literary-magazines-the-big-list/
+page:https://www.newpages.com/guide-to-magazines/undergrad-lit-mags/
+## hint: magazine
+page:https://www.newpages.com/guide-to-magazines/big-list-alternative-magazines/
+page:https://magazinescanada.ca/member-directory/
+## hint: small press publisher
+page:https://www.newpages.com/publishers/
+page:https://lpg.ca/lpg-members
+
+# OpenStreetMap (ODbL): bookshops that list a website, by province/state/country.
+## hint: bookstore
+osm:books CA-NS
+osm:books CA-NB
+osm:books CA-PE
+osm:books CA-NL
+osm:books CA-QC
+osm:books CA-ON
+osm:books CA-MB
+osm:books CA-SK
+osm:books CA-AB
+osm:books CA-BC
+osm:books CA-YT
+osm:books CA-NT
+osm:books CA-NU
+osm:books US-AL
+osm:books US-AK
+osm:books US-AZ
+osm:books US-AR
+osm:books US-CA
+osm:books US-CO
+osm:books US-CT
+osm:books US-DE
+osm:books US-DC
+osm:books US-FL
+osm:books US-GA
+osm:books US-HI
+osm:books US-ID
+osm:books US-IL
+osm:books US-IN
+osm:books US-IA
+osm:books US-KS
+osm:books US-KY
+osm:books US-LA
+osm:books US-ME
+osm:books US-MD
+osm:books US-MA
+osm:books US-MI
+osm:books US-MN
+osm:books US-MS
+osm:books US-MO
+osm:books US-MT
+osm:books US-NE
+osm:books US-NV
+osm:books US-NH
+osm:books US-NJ
+osm:books US-NM
+osm:books US-NY
+osm:books US-NC
+osm:books US-ND
+osm:books US-OH
+osm:books US-OK
+osm:books US-OR
+osm:books US-PA
+osm:books US-RI
+osm:books US-SC
+osm:books US-SD
+osm:books US-TN
+osm:books US-TX
+osm:books US-UT
+osm:books US-VT
+osm:books US-VA
+osm:books US-WA
+osm:books US-WV
+osm:books US-WI
+osm:books US-WY
+osm:books IE
+osm:books NZ
+osm:books GB-ENG
+osm:books GB-SCT
+osm:books GB-WLS
+osm:books GB-NIR
+osm:books AU-NSW
+osm:books AU-VIC
+osm:books AU-QLD
+osm:books AU-WA
+osm:books AU-SA
+osm:books AU-TAS
+osm:books AU-ACT
+osm:books AU-NT
+## hint: comic book store
+osm:comics CA
+osm:comics US
+## hint: public library
+osm:library CA-NS
+osm:library CA-NB
+osm:library CA-PE
+osm:library CA-NL
+osm:library CA-QC
+osm:library CA-ON
+osm:library CA-MB
+osm:library CA-SK
+osm:library CA-AB
+osm:library CA-BC
+osm:library CA-YT
+osm:library CA-NT
+osm:library CA-NU
+
+# Wikidata: public libraries with an official website (they lend ebooks and audiobooks free).
+## hint: public library
+sparql:Q28564 countries=Q16,Q145,Q408,Q664,Q27
+sparql:Q28564 countries=Q30
+## hint: independent bookstore
+wpcat:Category:Independent bookstores of Canada | depth=2
+wpcat:Category:Bookstores of Canada | depth=2
