@@ -1,10 +1,4 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import { AccountApp } from "./AccountApp";
-import "./styles.css";
+import { boot } from "./boot";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <AccountApp />
-  </StrictMode>,
-);
+boot(AccountApp);

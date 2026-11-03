@@ -1,10 +1,4 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import { ShopApp } from "./ShopApp";
-import "./styles.css";
+import { boot } from "./boot";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ShopApp />
-  </StrictMode>,
-);
+boot(ShopApp);

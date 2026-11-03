@@ -1,10 +1,4 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import { DirectoryApp } from "./DirectoryApp";
-import "./styles.css";
+import { boot } from "./boot";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <DirectoryApp />
-  </StrictMode>,
-);
+boot(DirectoryApp);

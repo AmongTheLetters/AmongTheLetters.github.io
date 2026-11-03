@@ -4,6 +4,7 @@ import { api, type Notice } from "@/lib/backend";
 import { timeAgo } from "@/lib/opportunities";
 import { cn } from "@/lib/utils";
 import { useExclusiveMenu } from "@/lib/menus";
+import { navigate } from "@/lib/router";
 
 /** Opens a deep link. On the database page it is handled in place, elsewhere it navigates. */
 export function openLink(link: string) {
@@ -11,7 +12,7 @@ export function openLink(link: string) {
   if (window.location.pathname === u.pathname) {
     window.history.pushState(null, "", u.pathname + u.search + u.hash);
     window.dispatchEvent(new Event("atl:deeplink"));
-  } else window.location.href = u.pathname + u.search + u.hash;
+  } else void navigate(u.pathname + u.search + u.hash);
 }
 
 export function NotificationBell({ compact = false }: { compact?: boolean }) {

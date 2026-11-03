@@ -1,6 +1,9 @@
-/* Reading music. One shared audio element for the whole page, created only when a reader presses play, so
-   nothing downloads before then. Where the reader was (track, position, volume, shuffle) is kept in
-   localStorage, so the next page picks up at the same spot. It never starts by itself, even on the next page. */
+/* Reading music. One shared audio element for the whole site, created only when a reader presses play, so
+   nothing downloads before then. Pages on the site swap in place (see lib/router.ts), so the same element keeps
+   playing from page to page and stops only when the reader pauses it or leaves the site. Where the reader was
+   (track, position, volume, shuffle) is kept in localStorage. It never starts by itself on a fresh visit.
+   The one exception to a page swap is a full reload inside the site (signing in or out, a refresh). If music
+   was playing at that moment, the new page carries on from the same spot, within a few seconds, in the same tab. */
 import { useSyncExternalStore } from "react";
 import DATA from "@/lib/music-tracks.json";
 
@@ -9,6 +12,7 @@ export const TRACKS: Track[] = DATA.tracks;
 export const MUSIC_CHECKED = DATA.checked;
 const KEY = "atl-music";
 export const OPEN_CREDITS = "atl:music-credits";
+const LIVE = "atl-music-live"; // sessionStorage: this tab was playing when its last page unloaded
 
 type Saved = { i: number; t: number; vol: number; shuffle: boolean };
 type State = Saved & { playing: boolean; loading: boolean; dur: number; error: string };
@@ -42,7 +46,10 @@ function el() {
   audio.addEventListener("pause", () => { set({ playing: false }); save(true); });
   audio.addEventListener("ended", () => next(true));
   audio.addEventListener("error", () => set({ playing: false, loading: false, error: "This track would not load. Try another one." }));
-  window.addEventListener("pagehide", () => save(true));
+  window.addEventListener("pagehide", () => {
+    save(true);
+    try { if (state.playing) sessionStorage.setItem(LIVE, String(Date.now())); else sessionStorage.removeItem(LIVE); } catch { /* private mode */ }
+  });
   if ("mediaSession" in navigator) {
     const ms = navigator.mediaSession;
     ms.setActionHandler("play", () => play()); ms.setActionHandler("pause", () => pause());
@@ -70,6 +77,22 @@ export function play() {
   if (!a.src) loadTrack(state.i, state.t > 5 && state.t < TRACKS[state.i].duration - 5 ? state.t : 0);
   set({ loading: true });
   a.play().catch(() => set({ loading: false, playing: false }));
+}
+/** After a full reload inside the site, pick the music back up if it was playing a moment ago in this tab.
+    Browsers can refuse sound until the reader touches the page, so in that case it resumes on the first tap or key. */
+export function resumeAfterReload() {
+  let at = 0;
+  try { at = Number(sessionStorage.getItem(LIVE)) || 0; sessionStorage.removeItem(LIVE); } catch { return; }
+  if (!at || Date.now() - at > 10000) return;
+  const fromSite = (() => { try { return !document.referrer || new URL(document.referrer).origin === window.location.origin; } catch { return false; } })();
+  if (!fromSite) return;
+  const a = el();
+  loadTrack(state.i, state.t > 1 ? state.t : 0);
+  a.play().catch(() => {
+    const go = (e: Event) => { if ((e.target as Element | null)?.closest?.(".music-btn, #music-panel")) { off(); return; } off(); if (!state.playing) play(); };
+    const off = () => { ["pointerdown", "keydown"].forEach((ev) => window.removeEventListener(ev, go, true)); };
+    ["pointerdown", "keydown"].forEach((ev) => window.addEventListener(ev, go, { capture: true, once: true }));
+  });
 }
 export function pause() { audio?.pause(); }
 export function toggle() { if (state.playing) pause(); else play(); }

@@ -3,6 +3,7 @@
    and locked email attached, the same as the account page does. */
 import { checkoutUrl, type Session } from "@/lib/backend";
 import { ACCOUNTS_ON, MODE, type Plan } from "@/lib/config";
+import { navigate } from "@/lib/router";
 
 export function joinTarget(plan: Plan, session: Session | null): string {
   if (!ACCOUNTS_ON) return "";
@@ -13,5 +14,5 @@ export function joinTarget(plan: Plan, session: Session | null): string {
 
 export function startJoin(plan: Plan, session: Session | null) {
   const to = joinTarget(plan, session);
-  if (to) window.location.href = to;
+  if (to) void navigate(to);
 }

@@ -14,6 +14,7 @@ import {
 } from "@/lib/opportunities";
 import { useAccount } from "@/lib/use-account";
 import { cn } from "@/lib/utils";
+import { navigate } from "@/lib/router";
 
 const LS = { follows: "atl-opp-saved", seen: "atl-opp-last-visit" };
 const read = <T,>(k: string, fallback: T): T => { try { const v = localStorage.getItem(k); return v ? (JSON.parse(v) as T) : fallback; } catch { return fallback; } };
@@ -222,7 +223,7 @@ export function OpportunitiesApp() {
     if (on && member) flash("Following. We will tell you here before it closes.");
     return n;
   });
-  const join = () => { if (!ACCOUNTS_ON) return; window.location.href = session ? "/account/#join" : "/account/?mode=signup&next=join"; };
+  const join = () => { if (!ACCOUNTS_ON) return; void navigate(session ? "/account/#join" : "/account/?mode=signup&next=join"); };
 
   const genres = useMemo(() => Array.from(new Set(items.flatMap((i) => i.genres))).sort(), [items]);
   const typeCounts = useMemo(() => TYPES.map((t) => [t, items.filter((i) => i.type === t).length] as const).filter(([, n]) => n), [items]);
