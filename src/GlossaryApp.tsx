@@ -131,7 +131,7 @@ export function GlossaryApp() {
         <section className="border-b border-rule pb-12 pt-10 md:pb-16 md:pt-16">
           <div className="section-shell">
             <a href={RESOURCES_URL} className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink">
-              <ArrowLeft className="size-4" aria-hidden="true" /> Free Resources
+              <ArrowLeft className="size-4" aria-hidden="true" /> Resources
             </a>
             <div className="mt-6 flex items-center gap-3 text-oxblood">
               <BookA className="size-5" strokeWidth={1.75} aria-hidden="true" />

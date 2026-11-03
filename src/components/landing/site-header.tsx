@@ -89,20 +89,20 @@ export function SiteHeader() {
           />
           <div
             id="mobile-nav"
-            className="absolute right-4 top-[calc(100%+0.5rem)] z-40 w-60 max-w-[calc(100vw-2rem)] rounded-xl border border-rule bg-cream p-2 shadow-lg lg:hidden"
+            className="absolute right-4 top-[calc(100%+0.5rem)] z-40 w-max min-w-[9.5rem] max-w-[calc(100vw-2rem)] rounded-xl border border-rule bg-cream p-2 shadow-lg lg:hidden"
           >
             <nav className="flex flex-col" aria-label="Mobile">
               {NAV.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="flex min-h-11 items-center rounded-lg px-3 text-base font-medium text-ink transition-colors hover:bg-ink/5"
+                  className="flex min-h-11 items-center whitespace-nowrap rounded-lg px-3 text-base font-medium text-ink transition-colors hover:bg-ink/5"
                   onClick={() => setOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <Button asChild size="sm" className="mx-1 mt-2 mb-1">
+              <Button asChild size="sm" className="mx-1 mt-2 mb-1 min-h-11">
                 <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
                   Substack
                 </a>

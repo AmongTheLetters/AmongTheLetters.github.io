@@ -20,7 +20,7 @@ export const NAV = [
   { href: DIRECTORY_URL, label: "Jade Pages" },
   { href: SHOP_URL, label: "Shop" },
   { href: OPPORTUNITIES_URL, label: "Opportunities" },
-  { href: RESOURCES_URL, label: "Free Resources" },
+  { href: RESOURCES_URL, label: "Resources" },
   { href: UPCOMING_URL, label: "Calendar" },
   { href: MEMBERSHIP_URL, label: "Membership" },
 ] as const;

@@ -8,7 +8,7 @@ import { ARCHIVE_URL, RESOURCES_URL, SHOP_URL } from "@/lib/site-content";
 const LINKS = [
   { href: "/", label: "Home", note: "What Among The Letters is and how the week works" },
   { href: ARCHIVE_URL, label: "The Archive", note: "Past Afternoon Discoveries editions, one for every day" },
-  { href: RESOURCES_URL, label: "Free Resources", note: "Printable tools and a glossary for readers who write" },
+  { href: RESOURCES_URL, label: "Resources", note: "Printable tools and a glossary for readers who write" },
   { href: SHOP_URL, label: "Shop", note: "Practical guides for readers who write" },
 ] as const;
 

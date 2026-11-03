@@ -11,7 +11,7 @@ Among The Letters is an independent Substack publication (est. 2026). Its main e
 - [The Jade Pages](https://amongtheletters.com/jade-pages/): A free, searchable directory of reading sites (literary magazines, presses, free libraries and archives, bookstores, web fiction, audiobooks and newsletters), with filters for kind of site, free or paid, format and region, and a Canadian focus
 - [Substack](https://amongtheletters.substack.com/): Read and subscribe free or paid; billing is handled by Substack
 - [RSS feed](https://amongtheletters.substack.com/feed): New posts from the Substack publication
-- [Free Resources](https://amongtheletters.com/resources/): For readers who write: a printable submission tracker, a cover letter template (PDF and Word), and a Before You Hit Submit checklist, no sign-up
+- [Resources](https://amongtheletters.com/resources/): For readers who write: a printable submission tracker, a cover letter template (PDF and Word), and a Before You Hit Submit checklist, no sign-up
 - [Glossary for Writers](https://amongtheletters.com/resources/glossary/): A plain-language glossary of 70 submission, rights, contest, and form terms
 - [Shop](https://amongtheletters.com/shop/): Two practical PDF guides for readers who write, sold through Payhip in Canadian dollars
 - [Full description for LLMs](https://amongtheletters.com/llms-full.txt): A thorough plain-language summary of Among The Letters

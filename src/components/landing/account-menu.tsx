@@ -104,22 +104,22 @@ export function AccountMenu({ compact = false }: { compact?: boolean }) {
           role="menu"
           aria-label="Account"
           onKeyDown={onMenuKey}
-          className="fixed inset-x-4 top-16 z-50 rounded-xl border border-rule bg-cream p-2 shadow-xl sm:absolute sm:inset-x-auto sm:right-0 sm:top-[calc(100%+0.5rem)] sm:w-64"
+          className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-max min-w-[12rem] max-w-[min(18rem,calc(100vw-2rem))] rounded-xl border border-rule bg-cream p-2 shadow-xl"
         >
           {session ? (
             <div className="border-b border-rule px-3 pb-2.5 pt-1.5">
-              <p className="truncate text-sm font-medium text-ink">{session.email}</p>
+              <p className="truncate text-sm font-medium text-ink" title={session.email}>{session.email}</p>
               <p className="mt-0.5 text-xs text-faint">{lifetime ? "Founding member" : member ? (membership?.source === "substack" ? "Member through Substack" : "Member") : "Free account"}</p>
             </div>
           ) : (
-            <p className="border-b border-rule px-3 pb-2.5 pt-1.5 text-xs text-muted">Save searches, follow deadlines and open every listing as a member.</p>
+            <p className="max-w-[13rem] border-b border-rule px-3 pb-2.5 pt-1.5 text-xs text-muted">Save searches, follow deadlines and open every listing as a member.</p>
           )}
           <div className="flex flex-col pt-1.5">
             {items.map((it) => {
               const inner = (
                 <>
                   <it.icon className={cn("size-4 shrink-0", it.tone === "accent" ? "text-oxblood" : "text-muted")} strokeWidth={1.75} />
-                  <span className={cn("flex-1", it.tone === "accent" && "text-oxblood")}>{it.label}</span>
+                  <span className={cn("flex-1 whitespace-nowrap", it.tone === "accent" && "text-oxblood")}>{it.label}</span>
                   {it.badge ? <span className="rounded-full bg-oxblood px-1.5 text-[11px] font-semibold leading-5 text-parchment" aria-label={`${it.badge} unread`}>{it.badge > 9 ? "9+" : it.badge}</span> : null}
                 </>
               );
@@ -131,7 +131,7 @@ export function AccountMenu({ compact = false }: { compact?: boolean }) {
             })}
             {session ? (
               <button role="menuitem" tabIndex={-1} type="button" onClick={signOut} className={cn(rowCls, "mt-1 border-t border-rule pt-1 text-muted")}>
-                <LogOut className="size-4 shrink-0 text-muted" strokeWidth={1.75} /><span className="flex-1">Sign out</span>
+                <LogOut className="size-4 shrink-0 text-muted" strokeWidth={1.75} /><span className="flex-1 whitespace-nowrap">Sign out</span>
               </button>
             ) : null}
           </div>

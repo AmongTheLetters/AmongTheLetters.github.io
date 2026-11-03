@@ -43,7 +43,7 @@ ld = {"@context": "https://schema.org", "@graph": [
                         "url": URL + "#" + t['slug'], "inDefinedTermSet": URL + "#termset", "termCode": t['slug']} for t in D]},
   {"@type": "BreadcrumbList", "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://amongtheletters.com/"},
-    {"@type": "ListItem", "position": 2, "name": "Free Resources", "item": "https://amongtheletters.com/resources/"},
+    {"@type": "ListItem", "position": 2, "name": "Resources", "item": "https://amongtheletters.com/resources/"},
     {"@type": "ListItem", "position": 3, "name": "Glossary", "item": URL}]}]}
 desc = f"A plain-language glossary of {len(D)} terms writers meet when submitting work: simultaneous submissions, reading periods, rejections, FNASR and other rights, contest fees, flash fiction, chapbooks, and more."
 page = f'''<!doctype html>
@@ -62,10 +62,10 @@ page = f'''<!doctype html>
     <meta property="og:description" content="{e(desc)}" />
     <meta property="og:url" content="{URL}" />
     <meta property="og:image" content="https://amongtheletters.com/images/resources/glossary-og.jpg" />
-    <meta name="twitter:image:alt" content="A Plain-Language Glossary for Writers, from the Among The Letters Free Resources library" />
+    <meta name="twitter:image:alt" content="A Plain-Language Glossary for Writers, from the Among The Letters Resources library" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="A Plain-Language Glossary for Writers, from the Among The Letters Free Resources library" />
+    <meta property="og:image:alt" content="A Plain-Language Glossary for Writers, from the Among The Letters Resources library" />
     <meta property="og:locale" content="en_CA" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="A Plain-Language Glossary for Writers | Among The Letters" />
@@ -80,7 +80,7 @@ page = f'''<!doctype html>
   <body>
     <div id="root">
       <header>
-        <p><a href="/">Among The Letters</a> / <a href="/resources/">Free Resources</a></p>
+        <p><a href="/">Among The Letters</a> / <a href="/resources/">Resources</a></p>
         <h1>A Plain-Language Glossary for Writers</h1>
         <p>{len(D)} terms you will meet when sending your work out, explained simply.</p>
       </header>
@@ -95,7 +95,7 @@ page = f'''<!doctype html>
 (ROOT/'resources/glossary/index.html').write_text(page)
 
 if len(sys.argv) > 1:
-    md = [f"# A Plain-Language Glossary for Writers\n\nAmong The Letters · Free Resources · {len(D)} terms\n"]
+    md = [f"# A Plain-Language Glossary for Writers\n\nAmong The Letters · Resources · {len(D)} terms\n"]
     for sec in SECTIONS:
         items = sorted([t for t in D if t['section'] == sec], key=lambda t: t['term'].lower())
         md.append(f"\n## {sec} ({len(items)})\n")

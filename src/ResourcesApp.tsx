@@ -137,7 +137,7 @@ export function ResourcesApp() {
                   <Library className="size-5" strokeWidth={1.75} aria-hidden="true" />
                   <p className="kicker">Among The Letters</p>
                 </div>
-                <h1 className="text-on-open mt-4 font-display text-masthead font-medium text-ink">Free Resources</h1>
+                <h1 className="text-on-open mt-4 font-display text-masthead font-medium text-ink">Resources</h1>
                 <p className="text-on-open mt-4 max-w-2xl text-balance font-display text-deck leading-snug tracking-tight text-ink">
                   A small, growing library for writers.
                 </p>

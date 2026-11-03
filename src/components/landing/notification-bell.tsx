@@ -53,7 +53,7 @@ export function NotificationBell({ compact = false }: { compact?: boolean }) {
         {unread ? <span className="absolute -right-1 -top-1 flex min-w-5 items-center justify-center rounded-full bg-oxblood px-1 text-[11px] font-semibold leading-5 text-parchment ring-2 ring-cream">{unread > 9 ? "9+" : unread}</span> : null}
       </button>
       {open ? (
-        <div role="dialog" aria-label="Notifications" className="fixed inset-x-4 top-16 z-50 overflow-hidden sm:absolute sm:inset-x-auto sm:right-0 sm:top-[calc(100%+0.5rem)] sm:w-[22rem] rounded-xl border border-rule bg-cream shadow-xl">
+        <div role="dialog" aria-label="Notifications" className="fixed right-4 top-16 z-50 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden sm:absolute sm:right-0 sm:top-[calc(100%+0.5rem)] sm:w-[20rem] rounded-xl border border-rule bg-cream shadow-xl">
           <div className="flex items-center justify-between border-b border-rule px-4 py-3">
             <p className="font-display text-lg tracking-tight text-ink">Notifications</p>
             {unread ? <button type="button" onClick={readAll} className="inline-flex items-center gap-1 text-xs font-medium text-oxblood hover:underline"><Check className="size-3.5" /> Mark all read</button> : null}
@@ -76,9 +76,9 @@ export function NotificationBell({ compact = false }: { compact?: boolean }) {
               ))}
             </ul>
           ) : (
-            <div className="px-6 py-10 text-center"><Bell className="mx-auto size-6 text-faint" /><p className="mt-3 text-sm text-muted">Nothing new yet. Save a search or follow a listing and we will let you know here.</p></div>
+            <div className="px-5 py-7 text-center"><Bell className="mx-auto size-6 text-faint" /><p className="mt-3 text-balance text-sm text-muted">Nothing new yet. Save a search or follow a listing and we will let you know here.</p></div>
           )}
-          <a href="/account/#alerts" className="flex items-center justify-center gap-1.5 border-t border-rule px-4 py-2.5 text-xs font-medium text-muted hover:bg-paper hover:text-ink"><Settings className="size-3.5" /> Alert settings</a>
+          <a href="/account/#alerts" className="flex min-h-11 items-center justify-center gap-1.5 border-t border-rule px-4 py-2.5 text-xs font-medium text-muted hover:bg-paper hover:text-ink"><Settings className="size-3.5" /> Alert settings</a>
         </div>
       ) : null}
     </div>

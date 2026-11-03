@@ -193,8 +193,8 @@ export const FOUNDING_LIBRARY: LibraryShelf[] = [
         title: "Submission tracker",
         blurb: "The spreadsheet from The Complete Set, ready for every piece you send out.",
         files: [
-          { id: "tracker-xlsx", label: "Excel", detail: "XLSX", primary: true },
-          { id: "tracker-csv", label: "CSV", detail: "Any app" },
+          { id: "tracker-xlsx", label: "Excel", detail: "XLSX workbook", primary: true },
+          { id: "tracker-csv", label: "CSV", detail: "Opens in any spreadsheet app" },
         ],
       },
     ],

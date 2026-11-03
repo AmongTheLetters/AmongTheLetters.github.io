@@ -87,13 +87,15 @@ function LibraryCard({ item, position, busy, onDownload }: { item: LibraryItem; 
       <div className="flex flex-1 flex-col p-4">
         <h4 className="font-display text-xl tracking-tight text-ink">{item.title}</h4>
         <p className="mt-1 text-sm text-muted">{item.blurb}</p>
-        <div className="mt-auto flex flex-col gap-2 pt-4">
+        <div className="mt-auto flex flex-col gap-3 pt-4">
           {item.files.map((f) => (
-            <Button key={f.id} size="sm" variant={f.primary || item.files.length === 1 ? "default" : "outline"} disabled={busy !== null}
-              onClick={() => onDownload(f.id)} className="w-full justify-between" aria-label={`Download ${item.title} as ${f.label}, ${f.detail}`}>
-              <span className="inline-flex items-center gap-1.5"><Download className="size-4" /> {busy === f.id ? "Preparing…" : `Download ${f.label}`}</span>
-              <span className="text-xs opacity-70">{f.detail}</span>
-            </Button>
+            <div key={f.id}>
+              <Button size="sm" variant={f.primary || item.files.length === 1 ? "default" : "outline"} disabled={busy !== null}
+                onClick={() => onDownload(f.id)} className="min-h-11 w-full" aria-label={`Download ${item.title} as ${f.label}, ${f.detail}`}>
+                <Download className="size-4" aria-hidden="true" /> {busy === f.id ? "Preparing…" : `Download ${f.label}`}
+              </Button>
+              <p className="mt-1 text-center text-xs text-faint" aria-hidden="true">{f.detail}</p>
+            </div>
           ))}
         </div>
       </div>
