@@ -141,7 +141,7 @@ page:https://www.newpages.com/magazines/literary-magazines
 page:https://www.pw.org/literary_magazines
 page:https://www.everywritersresource.com/literarymagazines/
 page:https://www.everywritersresource.com/topliterarymagazines/
-page:https://www.cleanpagesliterary.com/literary-magazines
+# page:https://www.cleanpagesliterary.com/literary-magazines   (site returns errors since 2026-11, no replacement found)
 ## hint: poetry
 page:https://www.poetryfoundation.org/foundation/links
 page:https://www.poets.org/poetry-links
@@ -149,13 +149,13 @@ page:https://www.poets.org/poetry-links
 page:https://www.sfwa.org/sfwa-market-report/
 page:https://www.locusmag.com/links/
 ## hint: web fiction platform
-page:https://www.webfictionguide.com/
+page:https://topwebfiction.com/   # successor of webfictionguide.com, which now returns errors
 ## hint: free library
-page:https://www.onlinebooks.library.upenn.edu/archives.html
+page:https://onlinebooks.library.upenn.edu/archives.html
 page:https://www.gutenberg.org/ebooks/offline_catalogs.html
 ## hint: book publisher
 page:https://www.indiepressrevolution.com/xcart/Small-Press-Directory.html
-page:https://literarypresses.ca/members/
+page:https://lpg.ca/lpg-members   # Literary Press Group of Canada members (literarypresses.ca no longer answers)
 page:https://www.clmp.org/members/
 ## hint: bookstore
 page:https://www.indiebound.org/indie-store-finder
@@ -175,7 +175,7 @@ site:https://www.feedbooks.com
 site:https://www.bartleby.com
 site:https://www.hathitrust.org
 site:https://www.digitalbookindex.org
-site:https://www.onlinebooks.library.upenn.edu
+site:https://onlinebooks.library.upenn.edu
 site:https://www.globalgreyebooks.com
 site:https://www.planetebook.com
 site:https://www.wdl.org
@@ -521,7 +521,7 @@ site:https://www.writersdigest.com
 site:https://www.pw.org
 site:https://www.newpages.com
 site:https://www.clmp.org
-site:https://www.literarypresses.ca
+site:https://lpg.ca
 site:https://www.writersunion.ca
 site:https://www.leagueofcanadianpoets.ca
 site:https://www.canadacouncil.ca

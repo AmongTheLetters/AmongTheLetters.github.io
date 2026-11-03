@@ -491,7 +491,7 @@ def parse_seeds(path):
     hint = ""
     with open(path, encoding="utf-8") as f:
         for raw in f:
-            line = raw.strip()
+            line = re.sub(r"\s+#.*$", "", raw.strip())   # allow a trailing "  # note" after a seed
             if not line or line.startswith("#"):
                 if line.startswith("## hint:"):
                     hint = line.split(":", 1)[1].strip()

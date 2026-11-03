@@ -52,6 +52,8 @@ OFFTOPIC = re.compile(r"\b(fintech|banking|payments?|finance|financial|crypto|bl
     r"tv shows?|television|celebrity|gossip|automotive|cars?|travel|food|recipes?|health|fitness|business news|marketing|"
     r"real estate|adult|porn|gambling|casino|politic\w*|government affairs|news website|news site|railway|radio|economy|"
     r"sustainab\w*|heavy metal|animation studio|journalists|engineer\w*|nurs(e|ing)|medic\w*|biochem\w*|role-playing|tabletop)\b", re.I)
+TRADE = re.compile(r"trade (publication|magazine|journal)|communications company|media conglomerate|\bmanufactur\w*|\bhunting\b|\bfishing\b|\bfarm(ing)?\b|\bagricultur\w*|"
+    r"investment|\binsurance\b|construction industry|\bhvac\b|\bplumbing\b|\btrucking\b|\bmining\b|oil and gas", re.I)
 GOV = re.compile(r"\.(gov|mil)(\.[a-z]{2})?$|\.(gov|gob|gouv|govt)\.[a-z]{2}$|\.gc\.ca$")
 HOSTS_EXACT = {"wordpress.com","blogspot.com","substack.com","medium.com","tumblr.com"}
 SOFT404 = re.compile(r"page not found|not found|\b404\b|página no encontrada|seite nicht gefunden|page introuvable|access denied|"
@@ -73,6 +75,10 @@ def junk(r, text):
     if any(".".join(parts[i:]) in JUNK_DOMAINS for i in range(len(parts) - 1)) or d in HOSTS_EXACT: return "junk domain"
     if SOFT404.search(r["name"] + " " + r["description"][:80]): return "error/parked page"
     if HIJACKED.search(r["name"] + " " + r["description"]): return "hijacked or spam domain"
+    if PERSON.search(r["wikidata_description"]) and not ORG.search(r["wikidata_description"]): return "personal site of a person"
+    if r["source"].startswith("wpsearch:") and "bookstore" in r["seed_hint"] and not SHOP.search(r["name"] + " " + r["wikidata_description"] + " " + r["description"][:300]):
+        return "search hit that is not a bookshop"
+    if PIRACY.search(r["name"] + " " + r["wikidata_description"] + " " + r["domain"]): return "unauthorized copies"
     if DATA.search(text) or re.match(r"^(data|opendata|open-data|geo|gis|maps?|daten|datos|dati)\.", d) or "opendata" in d: return "data portal"
     if GOV.search(d) and not re.search(r"librar|archive|biblio|literat|book|poet", text, re.I): return "government"
     if REPOSITORY.search(r["name"] + " " + r["wikidata_description"]) and not re.search(r"poe|fiction|literar|book", r["name"], re.I):
@@ -81,7 +87,9 @@ def junk(r, text):
     if re.search(r"\b(breaking|latest|local|top) news\b|news, (politics|sports)|\bnewspaper\b", r["description"] + " " + r["wikidata_description"], re.I) \
        and not LIT.search(r["wikidata_description"]):
         return "newspaper/news site"
-    if r["seed_hint"] == "online magazine" and not LIT.search(text): return "non-literary magazine"
+    lit_list = re.search(r"newpages\.com|pw\.org|duotrope|literarymagazines|everywritersresource", r["source"], re.I)  # literary directories
+    if r["seed_hint"] in ("online magazine", "magazine", "zine") and not lit_list and not LIT.search(text): return "non-literary magazine"
+    if TRADE.search(r["wikidata_description"] + " " + r["description"][:200]) and not LIT.search(r["wikidata_description"] + " " + r["name"]): return "non-literary magazine"
     if INSTITUTION.match(r["name"]) and not READING_PART.search(r["name"] + " " + r["url"]) \
        and not re.match(r"^(press|library|lib|books|archives?|digital|collections|journals?|publishing|ebooks?)\.", d):
         return "parent organization homepage"
@@ -103,7 +111,14 @@ SEP = re.compile(r"\s+[|\u2013\u2014\-:·•»]+\s+|\s*\|\s*")
 BAD_DESC = re.compile(r"javascript|enable cookies|cookie|browser (is )?(not supported|outdated)|loading\.\.\.|lorem ipsum|"
     r"\bfollowers\b|log ?in|sign ?in|\bcaptcha\b|^since \d{4}$|^description$|^null$|^undefined$|^none$|^home$|copyright ©|all rights reserved|page d.exemple|sample page|just another wordpress|select options|add to cart|multiple variants|"
     r"shopping cart|your cart|free shipping on", re.I)
-HIJACKED = re.compile(r"体育|娱乐|博彩|彩票|tiyu|\bcasino\b|slot gacor|\bjudi\b|togel|\bbet365\b|sportsbook|replica watches|viagra", re.I)
+HIJACKED = re.compile(r"bóng đá|trực tiếp|nhà cái|cá cược|soi kèo|体育|娱乐|博彩|彩票|tiyu|\bcasino\b|slot gacor|\bjudi\b|togel|\bbet365\b|sportsbook|replica watches|viagra", re.I)
+PERSON = re.compile(r"\b(singer|songwriter|writer|author|novelist|poet|poetess|cartoonist|illustrator|actor|actress|politician|philosopher|"
+    r"spiritual leader|journalist|musician|painter|scientist|historian|professor|screenwriter|playwright|translator|blogger|youtuber)\b|\(born \d{4}\)|\(\d{4}[–-]\d{4}\)", re.I)
+ORG = re.compile(r"press|publish|magazine|journal|librar|book ?(store|shop)|award|prize|society|company|house|imprint|festival|organi[sz]ation|"
+    r"association|website|periodical|review|collective|foundation|centre|center|series|anthology", re.I)
+SHOP = re.compile(r"book ?(store|shop|seller)s?|librairie|\bbooks\b|comics?|bouquin|libreria|used books|rare books", re.I)
+PIRACY = re.compile(r"illegal (book )?downloads?|\bpira(cy|te|ted)\b|shadow librar|unauthori[sz]ed (copies|downloads)|\bwarez\b|"
+    r"libgen|library genesis|z-?lib(rary)?\b|annas-archive|anna's archive|sci-hub|b-ok\.|1lib\.|pdfdrive|oceanofpdf|freebookspot", re.I)
 MOJIBAKE = re.compile(r"Ã.|â€|Â |\ufffd|[čřĺ]s\b|Å\S")
 
 def fix_mojibake(s):
@@ -233,9 +248,9 @@ RULES = [
  ("Book Reviews & Communities", rx(r"book review|reviews of books|social cataloging|book club|reading community|book blog|book community|readers' community"), {"reader community", "book reviews", "book website"}),
  ("Literary Awards & Organizations", rx(r"\b(literary|book|poetry|fiction) (award|prize)s?\b|\bprize\b|\baward\b|literary society|writers' (union|association|guild)|literary festival|book festival|pen (centre|center|international)"), {"literary award", "literary society"}),
  ("Poetry", rx(r"\bpoetry\b|\bpoems?\b|\bpoets?\b|poésie|poesía|lyrik"), {"poetry magazine", "poetry"}),
- ("Bookstores", rx(r"book ?stores?|book ?shops?|booksellers?|librairie|buchhandlung|librería"), {"bookstore", "independent bookstore", "online bookstore"}),
+ ("Bookstores", rx(r"book ?stores?|book ?shops?|booksellers?|librairie|buchhandlung|librería|comics? (shop|store)s?|comic book (shop|store)s?|bande dessinée|\bbd (shop|store)"), {"bookstore", "independent bookstore", "online bookstore", "comic shop", "comics shop"}),
  ("Ebook Stores & Platforms", rx(r"\be-?books?\b|self-publishing|ebook (store|platform|retailer)|digital publishing platform|e-reader"), {"self-publishing platform", "ebook store"}),
- ("Free Reading Libraries & Archives", rx(r"\blibrar(y|ies)\b|\barchives?\b|digital collection|public domain|bibliothè?que|biblioteca|bibliothek|digitised|digitized"), {"digital library", "free library", "online archive"}),
+ ("Free Reading Libraries & Archives", rx(r"\blibrar(y|ies)\b|\barchives?\b|digital collection|public domain|bibliothè?que|biblioteca|bibliothek|digitised|digitized"), {"digital library", "free library", "online archive", "public library"}),
  ("Literary Magazines & Journals", rx(r"magazine|journal|\breview\b|quarterly|\bzine\b|fanzine|anthology|revue|revista|zeitschrift"), {"literary magazine", "science fiction magazine", "online magazine", "zine", "fanzine", "horror magazine", "mystery magazine", "fantasy"}),
  ("Publishers & Presses", rx(r"publish|\bpress\b|\bbooks\b|éditions?|editorial|verlag|imprint|university press"), {"book publisher", "university press publisher", "small press publisher", "comics publisher"}),
 ]
@@ -264,11 +279,18 @@ GENRES = ["fiction", "poetry", "nonfiction & essays", "literary", "comics", "mys
           "science fiction", "fantasy", "drama", "horror", "children & YA", "classics", "romance", "flash fiction"]
 
 # ------------------------------------------------------------------ country and province
-PROV_NAMES = {"ON": r"ontario|toronto|ottawa|hamilton|kitchener|waterloo|guelph|kingston|sudbury|thunder bay|mississauga|london, on",
- "QC": r"qu[ée]bec|montr[ée]al|gatineau|sherbrooke|trois-rivi[èe]res", "BC": r"british columbia|vancouver|victoria, bc|kelowna|nanaimo|surrey, bc",
- "AB": r"alberta|calgary|edmonton|lethbridge|banff", "MB": r"manitoba|winnipeg|brandon, mb", "SK": r"saskatchewan|regina|saskatoon",
- "NS": r"nova scotia|halifax|cape breton|wolfville|antigonish", "NB": r"new brunswick|fredericton|moncton|saint john",
- "NL": r"newfoundland|labrador|st\. john's", "PE": r"prince edward island|charlottetown", "YT": r"yukon|whitehorse",
+PROV_NAMES = {"ON": r"ontario|toronto|ottawa|hamilton|kitchener|waterloo|guelph|kingston|sudbury|thunder bay|mississauga|london, on|"
+        r"barrie|brampton|markham|oakville|burlington|oshawa|whitby|ajax|pickering|vaughan|richmond hill|windsor, on|peterborough|"
+        r"niagara|st\. catharines|sault ste\. marie|north bay|belleville|cambridge, on|brantford|sarnia|timmins|orillia|stratford, on|owen sound",
+ "QC": r"qu[ée]bec|montr[ée]al|gatineau|sherbrooke|trois-rivi[èe]res|laval|longueuil|l[ée]vis|saguenay|rimouski|saint-j[ée]r[ôo]me|"
+        r"terrebonne|saint-eustache|drummondville|granby|blainville|repentigny|rouyn-noranda|val-d'or|chicoutimi|joliette|victoriaville|boucherville",
+ "BC": r"british columbia|vancouver|victoria, bc|kelowna|nanaimo|surrey, bc|burnaby|richmond, bc|abbotsford|kamloops|prince george|"
+        r"coquitlam|langley, bc|chilliwack|vernon, bc|penticton|nelson, bc|salt spring|squamish|whistler|courtenay|comox",
+ "AB": r"alberta|calgary|edmonton|lethbridge|banff|red deer|medicine hat|grande prairie|fort mcmurray|st\. albert|airdrie|canmore",
+ "MB": r"manitoba|winnipeg|brandon, mb|steinbach|thompson, mb", "SK": r"saskatchewan|regina|saskatoon|moose jaw|prince albert",
+ "NS": r"nova scotia|halifax|cape breton|wolfville|antigonish|dartmouth, ns|truro|lunenburg|sydney, ns|annapolis",
+ "NB": r"new brunswick|fredericton|moncton|saint john|nouveau-brunswick|bathurst, nb|edmundston|sackville, nb",
+ "NL": r"newfoundland|labrador|st\. john's|corner brook|gander", "PE": r"prince edward island|[îi]le-du-prince-[ée]douard|charlottetown|summerside", "YT": r"yukon|whitehorse",
  "NT": r"northwest territories|yellowknife", "NU": r"nunavut|iqaluit"}
 PROV_RX = {k: re.compile(r"\b(" + v + r")\b", re.I) for k, v in PROV_NAMES.items()}
 DEMONYM = {"canadian": "CA", "canada": "CA", "american": "US", "united states": "US", "british": "GB", "united kingdom": "GB",
@@ -285,6 +307,11 @@ DEMONYM = {"canadian": "CA", "canada": "CA", "american": "US", "united states": 
  "serbian": "RS", "bulgarian": "BG", "estonian": "EE", "latvian": "LV", "lithuanian": "LT", "icelandic": "IS", "egyptian": "EG",
  "iranian": "IR", "pakistani": "PK", "bangladeshi": "BD", "kenyan": "KE", "ghanaian": "GH", "jamaican": "JM", "peruvian": "PE",
  "venezuelan": "VE", "cuban": "CU", "catalan": "ES", "basque": "ES", "flemish": "BE", "quebec": "CA", "québécois": "CA"}
+for _st in ("alabama alaska arizona arkansas california colorado connecticut delaware florida georgia hawaii idaho illinois indiana iowa kansas "
+            "kentucky louisiana maine maryland massachusetts michigan minnesota mississippi missouri montana nebraska nevada ohio oklahoma oregon "
+            "pennsylvania tennessee texas utah vermont virginia wisconsin wyoming").split() + ["new hampshire", "new jersey", "new mexico", "new york",
+            "north carolina", "north dakota", "rhode island", "south carolina", "south dakota", "west virginia", "usa", "u.s."]:
+    DEMONYM[_st] = "US"
 DEMONYM_RX = re.compile(r"\b(" + "|".join(sorted(map(re.escape, DEMONYM), key=len, reverse=True)) + r")\b", re.I)
 GENERIC_TLD = {"co", "io", "tv", "me", "fm", "ly", "cc", "ai", "to", "ws", "is", "la", "am", "gg", "so", "sh", "nu", "tk", "ml", "ga", "cf", "eu", "asia", "st", "im", "vc", "app"}
 
@@ -300,6 +327,7 @@ def country_of(r):
     elif len(tld) == 2 and tld not in GENERIC_TLD: c = {"uk": "GB"}.get(tld, tld.upper())
     elif tld in ("edu", "gov", "mil"): c = "US"
     text = " ".join([r["name"], r["wikidata_description"], r["description"][:300]])
+    if src.startswith("wpsearch:") and c in ("", "CA"): text += " " + src.split(":", 1)[1]   # e.g. "independent bookstore Halifax"
     if not c and re.search(r"\b(canada|canadian)\b", text, re.I): c = "CA"
     prov = ""
     if c == "CA" or not c:
@@ -313,7 +341,15 @@ def country_of(r):
     return c, prov
 
 # ------------------------------------------------------------------ main
-KEEP_UNREAD = {"robots", "http403", "http429", "http503", "error:robots"}   # the site exists but would not let us read it
+# Sites the crawler could not read are kept only when an outside source (Wikidata, Wikipedia, OpenStreetMap, a curated list)
+# vouches for them, and only when the failure means "would not let us in" or "try later", never "gone".
+KEEP_UNREAD_LABELS = {"site asks bots not to visit (not fetched)", "robots file unavailable, so not fetched yet", "temporarily unreachable"}
+KEEP_UNREAD_STATUS = re.compile(r"^(robots|error:robots\d*|http(401|403|405|406|418|429|444|5\d\d)|error:(ConnectTimeout|ReadTimeout|ConnectionError))$")
+def keep_unread(r):
+    if not (r["status_label"] in KEEP_UNREAD_LABELS or KEEP_UNREAD_STATUS.match(r["status"])): return False
+    if re.match(r"^(dns|http(404|410)|error:(SSLError|dns))", r["status"]): return False
+    return bool(r["wikidata_id"] or r["wikidata_description"] or r["access_evidence"])
+KEEP_UNREAD = KEEP_UNREAD_LABELS  # kept for older CSVs without status_label
 
 def dedupe_key(d):
     return re.sub(r"^(www\d?|m|en|fr|de|es|it|pt|nl|ja|zh|ru|pl|sv)\.(?=[^.]+\.[^.]+)", "", d.lower())
@@ -326,13 +362,14 @@ def main():
     raw = list(csv.DictReader(open(SRC, encoding="utf-8-sig")))
     for r in raw:
         for k in ("name", "url", "domain", "description", "type", "access", "formats", "genres", "submissions_signal",
-                  "language", "wikidata_description", "seed_hint", "source", "status", "checked_at", "access_evidence", "wikidata_id"):
+                  "language", "wikidata_description", "seed_hint", "source", "status", "checked_at", "access_evidence", "wikidata_id",
+                  "status_label", "access_label"):
             r[k] = (r.get(k) or "").strip()
         r["domain"] = r["domain"].lower()
     rows = []
     for r in raw:
         if r["status"] == "ok": rows.append(r)
-        elif r["status"] in KEEP_UNREAD and (r["wikidata_description"] or r["access_evidence"] or r["wikidata_id"]): rows.append(r)
+        elif keep_unread(r): rows.append(r)
     dropped = collections.Counter(); examples = collections.defaultdict(list)
     def drop(why, r):
         dropped[why] += 1
@@ -362,6 +399,8 @@ def main():
         if acc == "unconfirmed" and cat in DEFAULT_ACCESS: acc, inferred = DEFAULT_ACCESS[cat], True
         evidence = r["access_evidence"] or ("homepage wording" if r["status"] == "ok" and not inferred and acc != "unconfirmed" else "")
         if inferred: evidence = "the kind of site it is"
+        if re.search(r"\bpublic library\b|\blibrary system\b|bibliothèque (publique|municipale)", r["seed_hint"] + " " + r["wikidata_description"], re.I) and acc in ("paid", "unconfirmed"):
+            acc, evidence = "free", "public libraries lend for free"
         fmts = {f.strip() for f in r["formats"].split(";") if f.strip()}
         if IMPLIED_FMT.get(cat): fmts.add(IMPLIED_FMT[cat])
         desc = good_desc(r["description"], name) or good_desc(r["wikidata_description"], name)
@@ -377,7 +416,8 @@ def main():
             out.remove(prev)
         item = {"n": name, "u": r["url"], "d": r["domain"], "c": CATS.index(cat), "a": ACCESS.index(acc),
                 "f": sum(1 << i for i, f in enumerate(FORMATS) if f in fmts),
-                "g": sum(1 << i for i, g in enumerate(GENRES) if g in r["genres"].split("; ")),
+                "g": sum(1 << i for i, g in enumerate(GENRES) if g in r["genres"].split("; ")
+                         or (g == "comics" and cat == "Bookstores" and re.search(r"\bcomic|bande dessin|\bmanga\b", r["name"] + " " + r["description"][:200], re.I))),
                 "s": trim(desc), "l": lang, "r": c, "p": prov, "k": r["status"] == "ok",
                 "w": r["submissions_signal"] == "yes", "e": evidence}
         seen_name[nk] = item; out.append(item)
