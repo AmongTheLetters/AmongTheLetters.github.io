@@ -259,7 +259,7 @@
     mask-image: linear-gradient(180deg, black 70%, transparent 100%);
   }
   /* fleur pattern with a faint jade cast, this page only */
-  .jade-fleur { filter: sepia(1) hue-rotate(105deg) saturate(1.9) brightness(0.98); opacity: 0.2; }
+  .jade-fleur { filter: sepia(1) hue-rotate(100deg) saturate(3) brightness(0.95); opacity: 0.24; }
 
   /* Carved jade script headline. Real text, solid jade when background-clip text is unsupported. */
   .jade-script {
@@ -267,6 +267,7 @@
     font-weight: 400;
     letter-spacing: 0;
     color: var(--color-jade);
+    -webkit-text-stroke: 0.6px var(--color-jade);
     padding: 0.06em 0.12em 0.12em 0.02em;
     margin-left: -0.02em;
   }
@@ -282,6 +283,9 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
       color: transparent;
+      /* a touch of faux-bold so the script reads more easily */
+      -webkit-text-stroke: 0.8px color-mix(in oklab, #2a6150 80%, transparent);
+      paint-order: stroke fill;
       filter: drop-shadow(0 1px 0 color-mix(in oklab, white 70%, transparent)) drop-shadow(0 3px 4px color-mix(in oklab, #0c2a22 32%, transparent));
     }
   }
