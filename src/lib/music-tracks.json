@@ -891,29 +891,6 @@
     }
    ],
    "changes": "loudness evened out and encoded as AAC at 96 kbps"
-  },
-  {
-   "id": "beethoven-9-finale",
-   "src": "/music/beethoven-9-finale.m4a",
-   "title": "Symphony No. 9, IV. Finale, Ode to Joy",
-   "composer": "Ludwig van Beethoven",
-   "performer": "Papalin (virtual orchestra)",
-   "detail": "Symphony No. 9 in D minor, Op. 125, fourth movement. A computer-rendered virtual orchestra and choir",
-   "duration": 1350,
-   "bytes": 16482589,
-   "licence": "CC BY-SA 3.0",
-   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-   "sources": [
-    {
-     "title": "PMLP01607-Symphony No.9, Op.125 (Beethoven, Ludwig van), IV Presto.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:PMLP01607-Symphony_No.9,_Op.125_(Beethoven,_Ludwig_van),_IV_Presto.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    }
-   ],
-   "changes": "loudness evened out and encoded as AAC at 96 kbps"
   }
  ]
 }

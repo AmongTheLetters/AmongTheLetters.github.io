@@ -207,10 +207,3 @@ tchaikovsky-1812.m4a
   Changes: loudness evened out and encoded as AAC at 96 kbps
   Source: https://commons.wikimedia.org/wiki/File:1812_Overture_-_United_States_Marine_Band.opus
 
-beethoven-9-finale.m4a
-  Ludwig van Beethoven, Symphony No. 9, IV. Finale, Ode to Joy
-  Performed by Papalin (virtual orchestra)
-  Licence: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
-  Changes: loudness evened out and encoded as AAC at 96 kbps
-  Source: https://commons.wikimedia.org/wiki/File:PMLP01607-Symphony_No.9,_Op.125_(Beethoven,_Ludwig_van),_IV_Presto.ogg
-

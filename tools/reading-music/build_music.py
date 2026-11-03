@@ -82,8 +82,6 @@ TRACKS = [
        performer="Edward Neeman, piano", files=[f"File:Chopin - 12 Études, Op. 25 - No. {x} (Edward Neeman).flac" for x in E25]),
   dict(id="tchaikovsky-1812", composer="Pyotr Ilyich Tchaikovsky", title="1812 Overture", detail="Ouverture solennelle, Op. 49, recorded live at Wolf Trap, Virginia, in 2019",
        performer="\"The President's Own\" United States Marine Band", files=["File:1812 Overture - United States Marine Band.opus"]),
-  dict(id="beethoven-9-finale", composer="Ludwig van Beethoven", title="Symphony No. 9, IV. Finale, Ode to Joy", detail="Symphony No. 9 in D minor, Op. 125, fourth movement. A computer-rendered virtual orchestra and choir",
-       performer="Papalin (virtual orchestra)", files=["File:PMLP01607-Symphony No.9, Op.125 (Beethoven, Ludwig van), IV Presto.ogg"]),
 ]
 
 def api(**p):
