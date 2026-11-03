@@ -39,21 +39,22 @@ export function MusicButton({ compact = false }: { compact?: boolean }) {
   return (
     <div ref={wrap} className="relative">
       <button ref={btn} type="button" aria-label="Reading music" aria-expanded={open} aria-controls="music-panel" aria-haspopup="dialog"
-        title={m.playing ? `Playing ${tr.title}` : "Reading music"}
+        title={m.loading ? `Loading ${tr.title}` : m.playing ? `Playing ${tr.title}` : "Reading music"} aria-busy={m.loading || undefined}
         onClick={() => { setView("player"); setOpen((v) => !v); }}
         className={cn("music-btn relative inline-flex items-center justify-center rounded-full text-jade-deep transition-[box-shadow,background-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-jade",
           compact ? "size-11" : "size-9", m.playing && "is-playing")}>
         <span className="music-btn-ring" aria-hidden="true" />
+        {m.loading ? <span className="music-spin" aria-hidden="true" /> : null}
         <svg viewBox="0 0 24 24" className="relative size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" fillOpacity=".12" />
           {m.playing ? null : <><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5" /><path d="M18.5 7a7 7 0 0 1 0 10" /></>}
         </svg>
         {m.playing ? <span className="music-bars" aria-hidden="true"><i /><i /><i /></span> : null}
-        <span className="sr-only" aria-live="polite">{m.playing ? `, playing ${tr.title}` : ""}</span>
+        <span className="sr-only" aria-live="polite">{m.loading ? `, loading ${tr.title}` : m.playing ? `, playing ${tr.title}` : ""}</span>
       </button>
 
       {open ? (
-        <div ref={panel} id="music-panel" role="dialog" aria-label={view === "player" ? "Reading music player" : "Music credits"}
+        <div ref={panel} id="music-panel" role="dialog" aria-busy={m.loading || undefined} aria-label={view === "player" ? "Reading music player" : "Music credits"}
           className="music-panel fixed right-4 top-16 z-50 w-[min(19rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-jade/30 bg-cream shadow-xl sm:absolute sm:right-0 sm:top-[calc(100%+0.5rem)]">
           {view === "player" ? (
             <div className="p-4">
@@ -61,7 +62,12 @@ export function MusicButton({ compact = false }: { compact?: boolean }) {
                 <p className="kicker kicker-jade">Reading music</p>
                 <p className="text-[11px] tabular-nums text-faint">{m.i + 1} of {TRACKS.length}</p>
               </div>
-              <p className="mt-2 text-xs font-medium uppercase tracking-wide text-jade">{tr.composer}</p>
+              <div className="mt-2 flex min-h-4 items-center justify-between gap-2">
+                <p className="text-xs font-medium uppercase tracking-wide text-jade">{tr.composer}</p>
+                <p className="flex items-center gap-1.5 text-[11px] text-faint" role="status" aria-live="polite">
+                  {m.loading ? <><span className="music-spin-sm" aria-hidden="true" />Loading</> : null}
+                </p>
+              </div>
               <p className="mt-0.5 font-display text-lg leading-snug tracking-tight text-ink [overflow-wrap:anywhere]">{tr.title}</p>
               <p className="mt-0.5 text-xs text-muted [overflow-wrap:anywhere]">{tr.performer}</p>
 

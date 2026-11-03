@@ -15,12 +15,14 @@ export const OPEN_CREDITS = "atl:music-credits";
 const LIVE = "atl-music-live"; // sessionStorage: this tab was playing when its last page unloaded
 
 type Saved = { i: number; t: number; vol: number; shuffle: boolean };
+/* Stored by track id, so reordering the list never lands a reader on the wrong piece. */
 type State = Saved & { playing: boolean; loading: boolean; dur: number; error: string };
 
 function load(): Saved {
   try {
     const s = JSON.parse(localStorage.getItem(KEY) || "{}");
-    return { i: Number.isInteger(s.i) && s.i >= 0 && s.i < TRACKS.length ? s.i : 0, t: Number(s.t) || 0, vol: typeof s.vol === "number" ? Math.min(1, Math.max(0, s.vol)) : 0.6, shuffle: !!s.shuffle };
+    const k = typeof s.id === "string" ? TRACKS.findIndex((x) => x.id === s.id) : -1;
+    return { i: k >= 0 ? k : 0, t: k >= 0 ? Number(s.t) || 0 : 0, vol: typeof s.vol === "number" ? Math.min(1, Math.max(0, s.vol)) : 0.6, shuffle: !!s.shuffle };
   } catch { return { i: 0, t: 0, vol: 0.6, shuffle: false }; }
 }
 
@@ -28,12 +30,13 @@ let state: State = { ...(typeof window === "undefined" ? { i: 0, t: 0, vol: 0.6,
 const subs = new Set<() => void>();
 let audio: HTMLAudioElement | null = null;
 let lastSave = 0;
+let pending = false; // a play() call is waiting for the track to load
 const played: number[] = [];
 
 function set(p: Partial<State>) { state = { ...state, ...p }; subs.forEach((f) => f()); }
 function save(force = false) {
   const now = Date.now(); if (!force && now - lastSave < 3000) return; lastSave = now;
-  try { localStorage.setItem(KEY, JSON.stringify({ i: state.i, t: Math.floor(state.t), vol: state.vol, shuffle: state.shuffle })); } catch { /* private mode */ }
+  try { localStorage.setItem(KEY, JSON.stringify({ id: TRACKS[state.i].id, t: Math.floor(state.t), vol: state.vol, shuffle: state.shuffle })); } catch { /* private mode */ }
 }
 
 function el() {
@@ -41,11 +44,13 @@ function el() {
   audio = new Audio(); audio.preload = "none"; audio.volume = state.vol;
   audio.addEventListener("timeupdate", () => { set({ t: audio!.currentTime }); save(); });
   audio.addEventListener("loadedmetadata", () => set({ dur: audio!.duration || TRACKS[state.i].duration }));
-  audio.addEventListener("playing", () => set({ playing: true, loading: false, error: "" }));
-  audio.addEventListener("waiting", () => set({ loading: true }));
-  audio.addEventListener("pause", () => { set({ playing: false }); save(true); });
+  audio.addEventListener("playing", () => { pending = false; set({ playing: true, loading: false, error: "" }); });
+  audio.addEventListener("waiting", () => { if (!audio!.paused) set({ loading: true }); });
+  audio.addEventListener("loadstart", () => { if (!audio!.paused) set({ loading: true }); });
+  audio.addEventListener("canplay", () => { if (audio!.paused) set({ loading: false }); });
+  audio.addEventListener("pause", () => { set({ playing: false, loading: pending ? state.loading : false }); save(true); });
   audio.addEventListener("ended", () => next(true));
-  audio.addEventListener("error", () => set({ playing: false, loading: false, error: "This track would not load. Try another one." }));
+  audio.addEventListener("error", () => { pending = false; set({ playing: false, loading: false, error: "This track would not load. Try another one." }); });
   window.addEventListener("pagehide", () => {
     save(true);
     try { if (state.playing) sessionStorage.setItem(LIVE, String(Date.now())); else sessionStorage.removeItem(LIVE); } catch { /* private mode */ }
@@ -75,8 +80,12 @@ function loadTrack(i: number, at = 0) {
 export function play() {
   const a = el();
   if (!a.src) loadTrack(state.i, state.t > 5 && state.t < TRACKS[state.i].duration - 5 ? state.t : 0);
-  set({ loading: true });
-  a.play().catch(() => set({ loading: false, playing: false }));
+  pending = true; set({ loading: true, error: "" });
+  a.play().then(() => { pending = false; }, (e: DOMException) => {
+    if (e?.name === "AbortError") return; // a newer track or play call took over
+    pending = false;
+    set({ loading: false, playing: false, error: e?.name === "NotAllowedError" ? "" : "This track would not play. Try another one." });
+  });
 }
 /** After a full reload inside the site, pick the music back up if it was playing a moment ago in this tab.
     Browsers can refuse sound until the reader touches the page, so in that case it resumes on the first tap or key. */
@@ -94,7 +103,7 @@ export function resumeAfterReload() {
     ["pointerdown", "keydown"].forEach((ev) => window.addEventListener(ev, go, { capture: true, once: true }));
   });
 }
-export function pause() { audio?.pause(); }
+export function pause() { pending = false; set({ loading: false }); audio?.pause(); }
 export function toggle() { if (state.playing) pause(); else play(); }
 function pick(dir: 1 | -1) {
   if (!state.shuffle) return (state.i + dir + TRACKS.length) % TRACKS.length;

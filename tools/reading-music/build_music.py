@@ -20,29 +20,34 @@ ALLOWED = re.compile(r"^(public domain|pdm-owner|cc0|cc by(-sa)? [0-9.]+)$", re.
 BITRATE = "96k"
 
 G = "File:Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - {}.mp3"
-JM = "File:JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G {}.ogg"
 E10 = ["1 in C major 'Waterfall'", "2 in A minor 'Chromatique'", "3 in E major 'Tristesse'", "4 in C-Sharp minor 'Torrent'", "5 in G-Flat major 'Black Keys'", "6 in E-Flat minor 'Lament'", "7 in C major 'Toccata'", "8 in F major 'Sunshine'", '9 in F minor', '10 in A-Flat major', "11 in E-Flat major 'Arpeggio'", "12 in C minor 'Revolutionary'"]
 E25 = ["1 in A-Flat major 'Harp Study'", "2 in F minor 'The Bees'", "3 in F major 'The Horseman'", "4 in A minor 'Paganini'", "5 in E minor 'Wrong Note'", "6 in G-Sharp minor 'Thirds'", "7 in C-Sharp minor 'Cello'", "8 in D-Flat major 'Sixths'", "9 in G-Flat major 'Butterfly Wings'", "10 in B minor 'Octave'", "11 in A minor 'Winter Wind'", "12 in C minor 'Ocean'"]
 MB = "File:Mozart's Serenade No. 10 \"Grand Partita\" - {} - United States Marine Band.mp3"
 TRACKS = [
+  dict(id="greensleeves", composer="Traditional English", title="Greensleeves", detail="Sixteenth-century English tune, for solo piano",
+       performer="An unnamed pianist, recorded by Dieter Leckschat", files=["File:Greensleeves for solo piano.wav"]),
   dict(id="vivaldi-spring", composer="Antonio Vivaldi", title="The Four Seasons, Spring", detail="Concerto in E major, RV 269, all three movements",
        performer="The Modena Chamber Orchestra (via Musopen)",
        files=["File:The Modena Chamber Orchestra - Vivaldi's Spring, RV 269 - I. Allegro.ogg",
               "File:The Modena Chamber Orchestra - Vivaldi's Spring, RV 269 - II. Largo.ogg",
               "File:The Modena Chamber Orchestra - Vivaldi's Spring, RV 269 - III. Allegro.ogg"]),
-  dict(id="bach-goldberg", composer="Johann Sebastian Bach", title="Goldberg Variations, Aria and Variations 1 to 7", detail="BWV 988, from the Open Goldberg Variations",
-       performer="Kimiko Ishizaka, piano",
-       files=[G.format(x) for x in ["01 Aria", "02 Variatio 1 a 1 Clav", "03 Variatio 2 a 1 Clav", "04 Variatio 3 a 1 Clav. Canone all Unisuono",
-                                     "05 Variatio 4 a 1 Clav", "06 Variatio 5 a 1 ovvero 2 Clav", "07 Variatio 6 a 1 Clav. Canone alla Seconda", "08 Variatio 7 a 1 ovvero 2 Clav"]]),
+  dict(id="vivaldi-summer", composer="Antonio Vivaldi", title="The Four Seasons, Summer", detail="Concerto in G minor, RV 315, all three movements",
+       performer="The Modena Chamber Orchestra (via Musopen)",
+       files=["File:The Modena Chamber Orchestra - Vivaldi's Summer, RV 315 - I. Allegro non molto.ogg",
+              "File:The Modena Chamber Orchestra - Vivaldi's Summer, RV 315 - II. Adagio.ogg",
+              "File:The Modena Chamber Orchestra - Vivaldi's Summer, RV 315 - III. Presto.ogg"]),
+  dict(id="vivaldi-autumn", composer="Antonio Vivaldi", title="The Four Seasons, Autumn", detail="Concerto in F major, RV 293, all three movements",
+       performer="The Modena Chamber Orchestra (via Musopen)",
+       files=["File:Vivaldi The Four Seasons, Op. 8 - The Modena Chamber Orchestra - Violin Concerto in F major RV 293 Autumn.mp3"]),
+  dict(id="vivaldi-winter", composer="Antonio Vivaldi", title="The Four Seasons, Winter", detail="Concerto in F minor, RV 297, all three movements",
+       performer="The Modena Chamber Orchestra (via Musopen)",
+       files=["File:The Modena Chamber Orchestra - Vivaldi's Winter, RV 297 - I. Allegro non molto.ogg",
+              "File:The Modena Chamber Orchestra - Vivaldi's Winter, RV 297 - II. Largo.ogg",
+              "File:The Modena Chamber Orchestra - Vivaldi's Winter, RV 297 - III. Allegro.ogg"]),
   dict(id="chopin-nocturne-9-2", composer="Frédéric Chopin", title="Nocturne in E-flat major, Op. 9 No. 2", detail="From Musopen's Set Chopin Free project",
        performer="Frank Lévy, piano", files=["File:Chopin - Nocturne No. 2 in E-flat major, Op. 9 No. 2 (Frank Levy).flac"]),
   dict(id="mozart-nachtmusik", composer="Wolfgang Amadeus Mozart", title="Eine kleine Nachtmusik, I. Allegro", detail="Serenade No. 13 in G major, K. 525",
        performer="Advent Chamber Orchestra", files=["File:Mozart - Eine kleine Nachtmusik - 1. Allegro.ogg"]),
-  dict(id="vivaldi-autumn", composer="Antonio Vivaldi", title="The Four Seasons, Autumn", detail="Concerto in F major, RV 293, all three movements",
-       performer="The Modena Chamber Orchestra (via Musopen)",
-       files=["File:Vivaldi The Four Seasons, Op. 8 - The Modena Chamber Orchestra - Violin Concerto in F major RV 293 Autumn.mp3"]),
-  dict(id="bach-cello-1", composer="Johann Sebastian Bach", title="Cello Suite No. 1 in G major", detail="BWV 1007, all six movements",
-       performer="John Michel, cello", files=[JM.format(x) for x in ["Prelude", "Allemande", "Courante", "Sarabande", "Minuets", "Gigue"]]),
   dict(id="chopin-nocturne-48-1", composer="Frédéric Chopin", title="Nocturne in C minor, Op. 48 No. 1", detail="From Musopen's Set Chopin Free project",
        performer="Luke Faulkner, piano", files=["File:Chopin - Nocturne No. 13 in C minor, Op. 48 No. 1 (Luke Faulkner).flac"]),
   dict(id="mozart-gran-partita-adagio", composer="Wolfgang Amadeus Mozart", title="Serenade No. 10, Gran Partita, III. Adagio", detail="K. 361, for thirteen winds",
@@ -64,8 +69,6 @@ TRACKS = [
               "File:Moonlight Sonata Allegretto.ogg", "File:Moonlight Sonata Presto.ogg"]),
   dict(id="mozart-figaro-overture", composer="Wolfgang Amadeus Mozart", title="The Marriage of Figaro, Overture", detail="Le nozze di Figaro, K. 492",
        performer="Musopen Symphony", files=["File:Mozart - Le nozze di Figaro, K492 - Overture (Musopen Symphony).flac"]),
-  dict(id="greensleeves", composer="Traditional English", title="Greensleeves", detail="Sixteenth-century English tune, for solo piano",
-       performer="An unnamed pianist, recorded by Dieter Leckschat", files=["File:Greensleeves for solo piano.wav"]),
   dict(id="chopin-ballade-1", composer="Frédéric Chopin", title="Ballade No. 1 in G minor, Op. 23", detail="From Musopen's Set Chopin Free project",
        performer="Frank Lévy, piano", files=["File:Chopin - Ballade No. 1 in G minor, Op. 23 (Frank Levy).flac"]),
   dict(id="mahler-adagietto", composer="Gustav Mahler", title="Symphony No. 5, IV. Adagietto", detail="Symphony No. 5 in C-sharp minor, fourth movement",
@@ -82,6 +85,10 @@ TRACKS = [
        performer="Edward Neeman, piano", files=[f"File:Chopin - 12 Études, Op. 25 - No. {x} (Edward Neeman).flac" for x in E25]),
   dict(id="tchaikovsky-1812", composer="Pyotr Ilyich Tchaikovsky", title="1812 Overture", detail="Ouverture solennelle, Op. 49, recorded live at Wolf Trap, Virginia, in 2019",
        performer="\"The President's Own\" United States Marine Band", files=["File:1812 Overture - United States Marine Band.opus"]),
+  dict(id="bach-goldberg", composer="Johann Sebastian Bach", title="Goldberg Variations, Aria and Variations 1 to 7", detail="BWV 988, from the Open Goldberg Variations",
+       performer="Kimiko Ishizaka, piano",
+       files=[G.format(x) for x in ["01 Aria", "02 Variatio 1 a 1 Clav", "03 Variatio 2 a 1 Clav", "04 Variatio 3 a 1 Clav. Canone all Unisuono",
+                                     "05 Variatio 4 a 1 Clav", "06 Variatio 5 a 1 ovvero 2 Clav", "07 Variatio 6 a 1 Clav. Canone alla Seconda", "08 Variatio 7 a 1 ovvero 2 Clav"]]),
 ]
 
 def api(**p):

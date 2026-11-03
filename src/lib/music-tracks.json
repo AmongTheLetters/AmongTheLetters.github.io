@@ -2,6 +2,29 @@
  "checked": "2026-11-02",
  "tracks": [
   {
+   "id": "greensleeves",
+   "src": "/music/greensleeves.m4a",
+   "title": "Greensleeves",
+   "composer": "Traditional English",
+   "performer": "An unnamed pianist, recorded by Dieter Leckschat",
+   "detail": "Sixteenth-century English tune, for solo piano",
+   "duration": 130,
+   "bytes": 1589503,
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sources": [
+    {
+     "title": "Greensleeves for solo piano.wav",
+     "page": "https://commons.wikimedia.org/wiki/File:Greensleeves_for_solo_piano.wav",
+     "licence": "CC BY-SA 4.0",
+     "templates": [
+      "cc-by-sa-4.0"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
    "id": "vivaldi-spring",
    "src": "/music/vivaldi-spring.m4a",
    "title": "The Four Seasons, Spring",
@@ -41,79 +64,101 @@
    "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
   },
   {
-   "id": "bach-goldberg",
-   "src": "/music/bach-goldberg.m4a",
-   "title": "Goldberg Variations, Aria and Variations 1 to 7",
-   "composer": "Johann Sebastian Bach",
-   "performer": "Kimiko Ishizaka, piano",
-   "detail": "BWV 988, from the Open Goldberg Variations",
-   "duration": 1049,
-   "bytes": 12814408,
-   "licence": "CC0 public domain dedication",
-   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "id": "vivaldi-summer",
+   "src": "/music/vivaldi-summer.m4a",
+   "title": "The Four Seasons, Summer",
+   "composer": "Antonio Vivaldi",
+   "performer": "The Modena Chamber Orchestra (via Musopen)",
+   "detail": "Concerto in G minor, RV 315, all three movements",
+   "duration": 630,
+   "bytes": 7694214,
+   "licence": "Public Domain Mark",
+   "licenceUrl": "",
    "sources": [
     {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 01 Aria.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_01_Aria.mp3",
-     "licence": "CC0",
+     "title": "The Modena Chamber Orchestra - Vivaldi's Summer, RV 315 - I. Allegro non molto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Summer,_RV_315_-_I._Allegro_non_molto.ogg",
+     "licence": "PDM-owner",
      "templates": [
-      "cc-zero"
+      "PDMark-owner"
      ]
     },
     {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 02 Variatio 1 a 1 Clav.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_02_Variatio_1_a_1_Clav.mp3",
-     "licence": "CC0",
+     "title": "The Modena Chamber Orchestra - Vivaldi's Summer, RV 315 - II. Adagio.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Summer,_RV_315_-_II._Adagio.ogg",
+     "licence": "PDM-owner",
      "templates": [
-      "cc-zero"
+      "PDMark-owner"
      ]
     },
     {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 03 Variatio 2 a 1 Clav.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_03_Variatio_2_a_1_Clav.mp3",
-     "licence": "CC0",
+     "title": "The Modena Chamber Orchestra - Vivaldi's Summer, RV 315 - III. Presto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Summer,_RV_315_-_III._Presto.ogg",
+     "licence": "PDM-owner",
      "templates": [
-      "cc-zero"
+      "PDMark-owner"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "vivaldi-autumn",
+   "src": "/music/vivaldi-autumn.m4a",
+   "title": "The Four Seasons, Autumn",
+   "composer": "Antonio Vivaldi",
+   "performer": "The Modena Chamber Orchestra (via Musopen)",
+   "detail": "Concerto in F major, RV 293, all three movements",
+   "duration": 733,
+   "bytes": 8963509,
+   "licence": "Public Domain Mark",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Vivaldi The Four Seasons, Op. 8 - The Modena Chamber Orchestra - Violin Concerto in F major RV 293 Autumn.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Vivaldi_The_Four_Seasons,_Op._8_-_The_Modena_Chamber_Orchestra_-_Violin_Concerto_in_F_major_RV_293_Autumn.mp3",
+     "licence": "PDM-owner",
+     "templates": [
+      "PDMark-owner"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "vivaldi-winter",
+   "src": "/music/vivaldi-winter.m4a",
+   "title": "The Four Seasons, Winter",
+   "composer": "Antonio Vivaldi",
+   "performer": "The Modena Chamber Orchestra (via Musopen)",
+   "detail": "Concerto in F minor, RV 297, all three movements",
+   "duration": 548,
+   "bytes": 6697637,
+   "licence": "Public Domain Mark",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "The Modena Chamber Orchestra - Vivaldi's Winter, RV 297 - I. Allegro non molto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Winter,_RV_297_-_I._Allegro_non_molto.ogg",
+     "licence": "PDM-owner",
+     "templates": [
+      "PDMark-owner"
      ]
     },
     {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 04 Variatio 3 a 1 Clav. Canone all Unisuono.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_04_Variatio_3_a_1_Clav._Canone_all_Unisuono.mp3",
-     "licence": "CC0",
+     "title": "The Modena Chamber Orchestra - Vivaldi's Winter, RV 297 - II. Largo.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Winter,_RV_297_-_II._Largo.ogg",
+     "licence": "PDM-owner",
      "templates": [
-      "cc-zero"
+      "PDMark-owner"
      ]
     },
     {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 05 Variatio 4 a 1 Clav.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_05_Variatio_4_a_1_Clav.mp3",
-     "licence": "CC0",
+     "title": "The Modena Chamber Orchestra - Vivaldi's Winter, RV 297 - III. Allegro.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Winter,_RV_297_-_III._Allegro.ogg",
+     "licence": "PDM-owner",
      "templates": [
-      "cc-zero"
-     ]
-    },
-    {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 06 Variatio 5 a 1 ovvero 2 Clav.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_06_Variatio_5_a_1_ovvero_2_Clav.mp3",
-     "licence": "CC0",
-     "templates": [
-      "cc-zero"
-     ]
-    },
-    {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 07 Variatio 6 a 1 Clav. Canone alla Seconda.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_07_Variatio_6_a_1_Clav._Canone_alla_Seconda.mp3",
-     "licence": "CC0",
-     "templates": [
-      "cc-zero"
-     ]
-    },
-    {
-     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 08 Variatio 7 a 1 ovvero 2 Clav.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_08_Variatio_7_a_1_ovvero_2_Clav.mp3",
-     "licence": "CC0",
-     "templates": [
-      "cc-zero"
+      "PDMark-owner"
      ]
     }
    ],
@@ -165,92 +210,6 @@
     }
    ],
    "changes": "loudness evened out and encoded as AAC at 96 kbps"
-  },
-  {
-   "id": "vivaldi-autumn",
-   "src": "/music/vivaldi-autumn.m4a",
-   "title": "The Four Seasons, Autumn",
-   "composer": "Antonio Vivaldi",
-   "performer": "The Modena Chamber Orchestra (via Musopen)",
-   "detail": "Concerto in F major, RV 293, all three movements",
-   "duration": 733,
-   "bytes": 8963509,
-   "licence": "Public Domain Mark",
-   "licenceUrl": "",
-   "sources": [
-    {
-     "title": "Vivaldi The Four Seasons, Op. 8 - The Modena Chamber Orchestra - Violin Concerto in F major RV 293 Autumn.mp3",
-     "page": "https://commons.wikimedia.org/wiki/File:Vivaldi_The_Four_Seasons,_Op._8_-_The_Modena_Chamber_Orchestra_-_Violin_Concerto_in_F_major_RV_293_Autumn.mp3",
-     "licence": "PDM-owner",
-     "templates": [
-      "PDMark-owner"
-     ]
-    }
-   ],
-   "changes": "loudness evened out and encoded as AAC at 96 kbps"
-  },
-  {
-   "id": "bach-cello-1",
-   "src": "/music/bach-cello-1.m4a",
-   "title": "Cello Suite No. 1 in G major",
-   "composer": "Johann Sebastian Bach",
-   "performer": "John Michel, cello",
-   "detail": "BWV 1007, all six movements",
-   "duration": 958,
-   "bytes": 11719524,
-   "licence": "CC BY-SA 3.0",
-   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-   "sources": [
-    {
-     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Prelude.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Prelude.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    },
-    {
-     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Allemande.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Allemande.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    },
-    {
-     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Courante.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Courante.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    },
-    {
-     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Sarabande.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Sarabande.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    },
-    {
-     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Minuets.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Minuets.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    },
-    {
-     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Gigue.ogg",
-     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Gigue.ogg",
-     "licence": "CC BY-SA 3.0",
-     "templates": [
-      "cc-by-sa-3.0"
-     ]
-    }
-   ],
-   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
   },
   {
    "id": "chopin-nocturne-48-1",
@@ -478,29 +437,6 @@
      "templates": [
       "PD-author",
       "PD-old-auto-expired"
-     ]
-    }
-   ],
-   "changes": "loudness evened out and encoded as AAC at 96 kbps"
-  },
-  {
-   "id": "greensleeves",
-   "src": "/music/greensleeves.m4a",
-   "title": "Greensleeves",
-   "composer": "Traditional English",
-   "performer": "An unnamed pianist, recorded by Dieter Leckschat",
-   "detail": "Sixteenth-century English tune, for solo piano",
-   "duration": 130,
-   "bytes": 1589503,
-   "licence": "CC BY-SA 4.0",
-   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-   "sources": [
-    {
-     "title": "Greensleeves for solo piano.wav",
-     "page": "https://commons.wikimedia.org/wiki/File:Greensleeves_for_solo_piano.wav",
-     "licence": "CC BY-SA 4.0",
-     "templates": [
-      "cc-by-sa-4.0"
      ]
     }
    ],
@@ -891,6 +827,85 @@
     }
    ],
    "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "bach-goldberg",
+   "src": "/music/bach-goldberg.m4a",
+   "title": "Goldberg Variations, Aria and Variations 1 to 7",
+   "composer": "Johann Sebastian Bach",
+   "performer": "Kimiko Ishizaka, piano",
+   "detail": "BWV 988, from the Open Goldberg Variations",
+   "duration": 1049,
+   "bytes": 12814408,
+   "licence": "CC0 public domain dedication",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sources": [
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 01 Aria.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_01_Aria.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 02 Variatio 1 a 1 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_02_Variatio_1_a_1_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 03 Variatio 2 a 1 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_03_Variatio_2_a_1_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 04 Variatio 3 a 1 Clav. Canone all Unisuono.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_04_Variatio_3_a_1_Clav._Canone_all_Unisuono.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 05 Variatio 4 a 1 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_05_Variatio_4_a_1_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 06 Variatio 5 a 1 ovvero 2 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_06_Variatio_5_a_1_ovvero_2_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 07 Variatio 6 a 1 Clav. Canone alla Seconda.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_07_Variatio_6_a_1_Clav._Canone_alla_Seconda.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 08 Variatio 7 a 1 ovvero 2 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_08_Variatio_7_a_1_ovvero_2_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
   }
  ]
 }

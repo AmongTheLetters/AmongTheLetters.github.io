@@ -1,6 +1,13 @@
 Reading music on amongtheletters.com
 Each file below was checked on its Wikimedia Commons page on 2026-11-02.
 
+greensleeves.m4a
+  Traditional English, Greensleeves
+  Performed by An unnamed pianist, recorded by Dieter Leckschat
+  Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Greensleeves_for_solo_piano.wav
+
 vivaldi-spring.m4a
   Antonio Vivaldi, The Four Seasons, Spring
   Performed by The Modena Chamber Orchestra (via Musopen)
@@ -10,19 +17,30 @@ vivaldi-spring.m4a
   Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_II._Largo.ogg
   Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_III._Allegro.ogg
 
-bach-goldberg.m4a
-  Johann Sebastian Bach, Goldberg Variations, Aria and Variations 1 to 7
-  Performed by Kimiko Ishizaka, piano
-  Licence: CC0 public domain dedication http://creativecommons.org/publicdomain/zero/1.0/deed.en
+vivaldi-summer.m4a
+  Antonio Vivaldi, The Four Seasons, Summer
+  Performed by The Modena Chamber Orchestra (via Musopen)
+  Licence: Public Domain Mark 
   Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_01_Aria.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_02_Variatio_1_a_1_Clav.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_03_Variatio_2_a_1_Clav.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_04_Variatio_3_a_1_Clav._Canone_all_Unisuono.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_05_Variatio_4_a_1_Clav.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_06_Variatio_5_a_1_ovvero_2_Clav.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_07_Variatio_6_a_1_Clav._Canone_alla_Seconda.mp3
-  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_08_Variatio_7_a_1_ovvero_2_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Summer,_RV_315_-_I._Allegro_non_molto.ogg
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Summer,_RV_315_-_II._Adagio.ogg
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Summer,_RV_315_-_III._Presto.ogg
+
+vivaldi-autumn.m4a
+  Antonio Vivaldi, The Four Seasons, Autumn
+  Performed by The Modena Chamber Orchestra (via Musopen)
+  Licence: Public Domain Mark 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Vivaldi_The_Four_Seasons,_Op._8_-_The_Modena_Chamber_Orchestra_-_Violin_Concerto_in_F_major_RV_293_Autumn.mp3
+
+vivaldi-winter.m4a
+  Antonio Vivaldi, The Four Seasons, Winter
+  Performed by The Modena Chamber Orchestra (via Musopen)
+  Licence: Public Domain Mark 
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Winter,_RV_297_-_I._Allegro_non_molto.ogg
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Winter,_RV_297_-_II._Largo.ogg
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Winter,_RV_297_-_III._Allegro.ogg
 
 chopin-nocturne-9-2.m4a
   Frédéric Chopin, Nocturne in E-flat major, Op. 9 No. 2
@@ -37,25 +55,6 @@ mozart-nachtmusik.m4a
   Licence: CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0
   Changes: loudness evened out and encoded as AAC at 96 kbps
   Source: https://commons.wikimedia.org/wiki/File:Mozart_-_Eine_kleine_Nachtmusik_-_1._Allegro.ogg
-
-vivaldi-autumn.m4a
-  Antonio Vivaldi, The Four Seasons, Autumn
-  Performed by The Modena Chamber Orchestra (via Musopen)
-  Licence: Public Domain Mark 
-  Changes: loudness evened out and encoded as AAC at 96 kbps
-  Source: https://commons.wikimedia.org/wiki/File:Vivaldi_The_Four_Seasons,_Op._8_-_The_Modena_Chamber_Orchestra_-_Violin_Concerto_in_F_major_RV_293_Autumn.mp3
-
-bach-cello-1.m4a
-  Johann Sebastian Bach, Cello Suite No. 1 in G major
-  Performed by John Michel, cello
-  Licence: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
-  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
-  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Prelude.ogg
-  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Allemande.ogg
-  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Courante.ogg
-  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Sarabande.ogg
-  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Minuets.ogg
-  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Gigue.ogg
 
 chopin-nocturne-48-1.m4a
   Frédéric Chopin, Nocturne in C minor, Op. 48 No. 1
@@ -121,13 +120,6 @@ mozart-figaro-overture.m4a
   Licence: Public domain, released by Musopen 
   Changes: loudness evened out and encoded as AAC at 96 kbps
   Source: https://commons.wikimedia.org/wiki/File:Mozart_-_Le_nozze_di_Figaro,_K492_-_Overture_(Musopen_Symphony).flac
-
-greensleeves.m4a
-  Traditional English, Greensleeves
-  Performed by An unnamed pianist, recorded by Dieter Leckschat
-  Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
-  Changes: loudness evened out and encoded as AAC at 96 kbps
-  Source: https://commons.wikimedia.org/wiki/File:Greensleeves_for_solo_piano.wav
 
 chopin-ballade-1.m4a
   Frédéric Chopin, Ballade No. 1 in G minor, Op. 23
@@ -206,4 +198,18 @@ tchaikovsky-1812.m4a
   Licence: Public domain, a work of the US Marine Corps 
   Changes: loudness evened out and encoded as AAC at 96 kbps
   Source: https://commons.wikimedia.org/wiki/File:1812_Overture_-_United_States_Marine_Band.opus
+
+bach-goldberg.m4a
+  Johann Sebastian Bach, Goldberg Variations, Aria and Variations 1 to 7
+  Performed by Kimiko Ishizaka, piano
+  Licence: CC0 public domain dedication http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_01_Aria.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_02_Variatio_1_a_1_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_03_Variatio_2_a_1_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_04_Variatio_3_a_1_Clav._Canone_all_Unisuono.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_05_Variatio_4_a_1_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_06_Variatio_5_a_1_ovvero_2_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_07_Variatio_6_a_1_Clav._Canone_alla_Seconda.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_08_Variatio_7_a_1_ovvero_2_Clav.mp3
 
