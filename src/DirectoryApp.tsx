@@ -87,20 +87,9 @@ function SiteCard({ s, meta }: { s: Site; meta: RawData }) {
   );
 }
 
-/* A small faceted jade cabochon, drawn in SVG so it stays crisp at any size. */
-function JadeEmblem({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id="jade-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#9fc7b4" /><stop offset=".45" stopColor="#3e8a70" /><stop offset="1" stopColor="#1d4a3d" /></linearGradient>
-      </defs>
-      <polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="url(#jade-g)" stroke="#1d4a3d" strokeWidth="1" />
-      <polygon points="20,9 29,14.5 29,25.5 20,31 11,25.5 11,14.5" fill="#2f6b58" opacity=".55" />
-      <path d="M20 2v7M36 12l-7 2.5M36 28l-7-2.5M20 38v-7M4 28l7-2.5M4 12l7 2.5" stroke="#d8ebe1" strokeOpacity=".45" strokeWidth=".8" />
-      <polygon points="20,9 29,14.5 20,17 11,14.5" fill="#e6f2ec" opacity=".38" />
-      <path d="M8 12.5 18 5" stroke="white" strokeOpacity=".7" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
+/* The ATL rose from the featured articles, recoloured in polished jade (public/images/jade-rose.svg). */
+function JadeRose({ className }: { className?: string }) {
+  return <img src="/images/jade-rose.svg" alt="" aria-hidden="true" width={48} height={42} className={className} />;
 }
 
 function SkeletonCard() {
@@ -215,7 +204,7 @@ export function DirectoryApp() {
         <section className="jade-band pb-8 pt-12 md:pb-10 md:pt-16">
           <div className="section-shell flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <div className="flex items-center gap-3"><JadeEmblem className="size-9 drop-shadow-sm" /><p className="kicker kicker-jade">{DIRECTORY_NAME}</p></div>
+              <div className="flex items-center gap-3"><JadeRose className="h-14 w-auto drop-shadow-[0_1px_1px_rgba(23,63,51,0.25)]" /><p className="kicker kicker-jade">{DIRECTORY_NAME}</p></div>
               <div className="jade-rule mt-4 w-24" aria-hidden="true" />
               <h1 className="text-on-open mt-4 font-display text-5xl font-medium tracking-tight text-ink md:text-6xl">Every place worth reading, in one free directory.</h1>
               <p className="text-on-open mt-4 max-w-xl text-lead text-muted">Literary magazines, presses, free libraries, bookstores, web fiction, audiobooks and more, from Canada and around the world. Free for everyone, with no sign-up.</p>
