@@ -45,6 +45,11 @@ sorts every site into a category, reads free or paid, formats, language and coun
 `tools\reading-directory\output\site_data_report.json`. It needs nothing beyond Python. To change what counts as junk
 or how sites are sorted, edit the rule lists at the top of `build_site_data.py` and run it again.
 
+When a site gives only its web address as its name (or none at all), the build finds the real name in the
+description when it spells out the domain (purplestallionreview.org becomes "Purple Stallion Review"), else splits
+the domain into words with the optional `wordninja` package, else keeps the bare domain. The report counts these
+under `names_from_web_address`.
+
 Then `python scripts/build-seo.py` refreshes the sitemap date, and committing `public/jade-pages/data/directory.json`
 publishes the new list.
 

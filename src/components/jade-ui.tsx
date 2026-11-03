@@ -29,7 +29,7 @@ export function AccessBadge({ access, evidence }: { access: string; evidence: st
   /* Jade variants. Paid deep solid, Free pale fill, Free and paid outlined, not confirmed grey dashed. */
   const tone = access === "free" ? "bg-jade/15 text-jade-deep ring-1 ring-jade/25" : access === "paid" ? "bg-jade-deep text-parchment" : access === "mixed" ? "border border-jade text-jade-deep bg-cream" : "border border-dashed border-faint/60 text-muted";
   const title = ACCESS_HINT[access] + (evidence ? `. Based on ${evidence}.` : ".");
-  return <span title={title} className={cn("inline-flex shrink-0 items-center rounded-md px-2 py-0.5 text-[11px] font-semibold", tone)}>{ACCESS_LABEL[access]}<span className="sr-only">. {title}</span></span>;
+  return <span title={title} className={cn("inline-flex shrink-0 items-center whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold", tone)}>{ACCESS_LABEL[access]}<span className="sr-only">. {title}</span></span>;
 }
 
 export function Tag({ children, tone = "plain" }: { children: React.ReactNode; tone?: "plain" | "sage" | "gold" }) {
@@ -43,18 +43,18 @@ export function SiteCard({ s, meta, as: El = "li", className }: { s: Site; meta:
   const place = placeLabel(s);
   const CatIcon = CAT_ICON[s.cat] ?? BookOpen;
   return (
-    <El className={cn("jade-card group flex flex-col rounded-xl bg-cream p-5", className)}>
-      <div className="flex items-start justify-between gap-3">
-        <p className="kicker kicker-jade flex items-center gap-1.5"><CatIcon className="size-3.5" strokeWidth={1.75} aria-hidden="true" />{meta.categories[s.cat]}</p>
+    <El className={cn("jade-card group flex min-w-0 flex-col rounded-xl bg-cream p-5", className)}>
+      <div className="flex min-w-0 items-start justify-between gap-3">
+        <p className="kicker kicker-jade flex min-w-0 items-start gap-1.5 [overflow-wrap:anywhere]"><CatIcon className="mt-px size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" /><span className="min-w-0">{meta.categories[s.cat]}</span></p>
         <AccessBadge access={access} evidence={s.evidence} />
       </div>
-      <h3 className="mt-2.5 font-display text-xl leading-snug tracking-tight text-ink">
+      <h3 className="mt-2.5 min-w-0 font-display text-xl leading-snug tracking-tight text-ink [overflow-wrap:anywhere]">
         <a href={s.url} target="_blank" rel="noopener nofollow ugc" className="rounded-sm decoration-oxblood/40 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood">
           {s.name}<span className="sr-only"> (opens in a new tab)</span>
         </a>
       </h3>
       <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-faint">
-        <span className="inline-flex min-w-0 items-center gap-1"><Globe className="size-3.5 shrink-0" aria-hidden="true" /><span className="truncate">{s.domain.replace(/^www\./, "")}</span></span>
+        <span className="inline-flex min-w-0 max-w-full items-center gap-1"><Globe className="size-3.5 shrink-0" aria-hidden="true" /><span className="truncate">{s.domain.replace(/^www\./, "")}</span></span>
         {place ? <span className="inline-flex items-center gap-1"><MapPin className="size-3.5 shrink-0" aria-hidden="true" />{place}</span> : null}
       </p>
       {s.desc ? <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">{s.desc}</p> : <p className="mt-3 text-sm italic text-faint">No description yet.</p>}

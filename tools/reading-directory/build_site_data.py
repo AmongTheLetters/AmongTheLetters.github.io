@@ -143,6 +143,73 @@ def norm_name(r):
     best = best.strip(" \"'“”")
     return best[:80].strip()
 
+
+# ------------------------------------------------------------------ names that are only a web address
+# Some pages give their address as their title. The crawl keeps no separate og:site_name field (the page title
+# or og:site_name is already the "name" column), so a clean name comes from the description when it spells
+# out the same words as the domain (purplestallionreview.org -> "Purple Stallion Review"), else from splitting
+# the domain into English words when the split looks sound, else the bare domain.
+try:
+    import wordninja  # optional, pip install wordninja
+except ImportError:
+    wordninja = None
+URLISH = re.compile(r"^(https?://|www\.)|^[\w-]+(\.[\w-]+)*\.[a-z]{2,6}(/\S*)?$", re.I)
+SMALL = {"a", "an", "and", "at", "by", "for", "in", "of", "on", "or", "the", "to", "de", "la", "le", "du", "my", "we"}
+ACRONYM_MAX = 4
+
+def domain_core(domain):
+    labels = [x for x in domain.lower().split(".") if x not in ("www", "m")]
+    if len(labels) >= 3 and labels[-2] in ("co", "com", "org", "net", "ac", "gov", "edu"): labels = labels[:-2]
+    elif len(labels) >= 2: labels = labels[:-1]
+    return max(labels, key=len) if labels else domain
+
+def title_words(words):
+    out = []
+    for i, w in enumerate(words):
+        out.append(w if i and w in SMALL else w[:1].upper() + w[1:])
+    return " ".join(out)
+
+def name_from_text(core, texts):
+    key = re.sub(r"[^a-z0-9]", "", core)
+    if len(key) < 4: return ""
+    for t in texts:
+        words = re.findall(r"[A-Za-z0-9À-ÖØ-öø-ÿ'’&.-]+", t or "")
+        for i in range(len(words)):
+            acc = ""
+            for j in range(i, min(i + 9, len(words))):
+                acc += re.sub(r"[^a-z0-9]", "", words[j].lower())
+                if acc == key:
+                    phrase = " ".join(words[i:j + 1]).strip(".-")
+                    return phrase if any(c.isupper() for c in phrase) else title_words(phrase.split())
+                if not key.startswith(acc): break
+    return ""
+
+def split_domain(core):
+    parts = [p for p in re.split(r"[-_]+", core) if p]
+    words = []
+    for p in parts:
+        if wordninja and len(p) > 7:
+            w = wordninja.split(p)
+            long_ok = sum(len(x) for x in w) / len(w) >= 3.8 and all(len(x) > 2 or x in SMALL for x in w)
+            words += w if long_ok else [p]
+        else: words.append(p)
+    if len(words) == 1 and len(words[0]) <= ACRONYM_MAX: return words[0].upper()
+    return title_words(words)
+
+def clean_url_name(name, r):
+    """Returns a readable name when the given one is a web address, empty, or the domain run together. Else None."""
+    core = domain_core(r["domain"])
+    flat = re.sub(r"[^a-z0-9]", "", core)
+    n = name.strip()
+    # "Audible.com" or "BookBrowse.com" in mixed case is a brand name, so only bare lowercase addresses and full URLs count
+    urlish = not n or (" " not in n and URLISH.search(n) and (n == n.lower() or re.match(r"(https?://|www\.)", n, re.I)))
+    runon = (" " not in name and len(name) >= 14 and name.lower() == flat and name[1:].islower())
+    if not (urlish or runon): return None
+    better = name_from_text(core, [r["description"], r["wikidata_description"]])
+    if not better: better = split_domain(core)
+    if runon and " " not in better: return None
+    return better[:80] if better and better != name else None
+
 def good_desc(s, name):
     s = fix_mojibake(clean_text(s))
     if len(s) < 20 or BAD_DESC.search(s) or SOFT404.search(s[:80]): return ""
@@ -280,11 +347,15 @@ def main():
             if score_row(r) <= score_row(keep[k]): drop("duplicate domain", r); continue
             drop("duplicate domain", keep[k])
         keep[k] = r
-    out = []; seen_name = {}
+    out = []; seen_name = {}; renamed = 0; renamed_examples = []
     for r in keep.values():
         cat = category(r)
         if not cat: drop("no clear category", r); continue
         name = norm_name(r)
+        fixed = clean_url_name(name, r)
+        if fixed:
+            if len(renamed_examples) < 25: renamed_examples.append(f"{name} -> {fixed}")
+            renamed += 1; name = fixed
         acc = r["access"].lower()
         if acc in ("unknown", "", "unconfirmed"): acc = "unconfirmed"
         inferred = False
@@ -329,11 +400,12 @@ def main():
               "country_top": dict(C(x["r"] or "?" for x in out).most_common(20)),
               "canada_provinces": dict(C(x["p"] or "?" for x in out if x["r"] == "CA").most_common()),
               "no_description": sum(1 for x in out if not x["s"]),
+              "names_from_web_address": renamed, "names_from_web_address_examples": renamed_examples,
               "category_x_access": {CATS[c]: {ACCESS[a]: n for a, n in C(x["a"] for x in out if x["c"] == c).most_common()} for c in range(len(CATS))}}
     os.makedirs(os.path.dirname(OUT_REPORT), exist_ok=True)
     json.dump(report, open(OUT_REPORT, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     print(f"{len(out)} sites written to {os.path.relpath(OUT_JSON, ROOT)} ({os.path.getsize(OUT_JSON) // 1024} KB)")
-    print(json.dumps({k: report[k] for k in ("input_rows", "considered", "kept", "dropped", "category", "access", "country_top", "canada_provinces", "no_description")}, indent=1, ensure_ascii=False))
+    print(json.dumps({k: report[k] for k in ("input_rows", "considered", "kept", "names_from_web_address", "dropped", "category", "access", "country_top", "canada_provinces", "no_description")}, indent=1, ensure_ascii=False))
 
 if __name__ == "__main__":
     main()

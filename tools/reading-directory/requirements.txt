@@ -1,3 +1,4 @@
 requests>=2.28
 beautifulsoup4>=4.11
 lxml>=4.9 ; platform_python_implementation == "CPython"
+wordninja>=2.0  # optional, splits run-together domains into words for site names

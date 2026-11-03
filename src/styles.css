@@ -460,3 +460,6 @@
 @media (prefers-reduced-motion: reduce) {
   .jade-collapse, .jade-dialog[open], .jade-dialog[open]::backdrop, .jade-reveal { transition: none; animation: none; }
 }
+
+/* Long words, like a web address used as a title, wrap instead of pushing past the edge on small screens. */
+h1, h2, h3, h4, h5, h6, .kicker { overflow-wrap: break-word; }
