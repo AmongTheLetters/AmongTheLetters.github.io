@@ -1,5 +1,5 @@
-/* The Reading Directory data model. The data file is built by tools/reading-directory/build_site_data.py and
-   loaded once, after the page has drawn, from /directory/data/directory.json. Rows are compact arrays. */
+/* The Jade Pages (reading directory) data model. The data file is built by tools/reading-directory/build_site_data.py and
+   loaded once, after the page has drawn, from /jade-pages/data/directory.json. Rows are compact arrays. */
 
 export type RawData = {
   v: number; built: string; count: number; fields: string[];
@@ -13,7 +13,11 @@ export type Site = {
   hay: string; rank: number;
 };
 
-export const DATA_URL = "/directory/data/directory.json";
+/* The section's name lives here only. Change these and the page, header link and copy follow.
+   The page title and meta text are in scripts/build-seo.py (PAGES, jade-pages/index.html). */
+export const DIRECTORY_NAME = "The Jade Pages";
+export const DIRECTORY_SHORT = "Jade Pages";
+export const DATA_URL = "/jade-pages/data/directory.json";
 export const SUGGEST_EMAIL = "amongtheletters@gmail.com";
 
 export const ACCESS_LABEL: Record<string, string> = { free: "Free", paid: "Paid", mixed: "Free and paid", unconfirmed: "Access not yet confirmed" };

@@ -31,9 +31,9 @@ saved, and `.\run.bat` carries on later.
 
 **Result:** `tools\reading-directory\output\reading_directory.csv` (opens in Excel). Tell Link when it's done.
 
-## Update the website's Reading Directory
+## Update the Jade Pages on the website
 
-After a run, one command turns the crawl into the data the `/directory/` page loads. From the website folder:
+After a run, one command turns the crawl into the data the `/jade-pages/` page loads. From the website folder:
 
 ```
 python tools\reading-directory\build_site_data.py
@@ -41,11 +41,11 @@ python tools\reading-directory\build_site_data.py
 
 It reads `tools\reading-directory\output\reading_directory.csv` (or a CSV path you give it), drops junk and duplicates,
 sorts every site into a category, reads free or paid, formats, language and country or province, and writes
-`public\directory\data\directory.json`. A report of what was kept and dropped, with examples, goes to
+`public\jade-pages\data\directory.json`. A report of what was kept and dropped, with examples, goes to
 `tools\reading-directory\output\site_data_report.json`. It needs nothing beyond Python. To change what counts as junk
 or how sites are sorted, edit the rule lists at the top of `build_site_data.py` and run it again.
 
-Then `python scripts/build-seo.py` refreshes the sitemap date, and committing `public/directory/data/directory.json`
+Then `python scripts/build-seo.py` refreshes the sitemap date, and committing `public/jade-pages/data/directory.json`
 publishes the new list.
 
 ## What a run does

@@ -5,7 +5,7 @@
     python tools/reading-directory/build_site_data.py path/to/file.csv
 
 Writes
-    public/directory/data/directory.json            compact data the /directory/ page loads
+    public/jade-pages/data/directory.json            compact data the /jade-pages/ page loads
     tools/reading-directory/output/site_data_report.json   counts, what was dropped and why, examples (stays local)
 
 Works with both crawler formats. v1 rows only carry status/access. v2 rows add access_label, access_evidence,
@@ -25,7 +25,7 @@ import csv, json, re, html, collections, sys, os, datetime
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 SRC = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("-") else os.path.join(HERE, "output", "reading_directory.csv")
-OUT_JSON = os.path.join(ROOT, "public", "directory", "data", "directory.json")
+OUT_JSON = os.path.join(ROOT, "public", "jade-pages", "data", "directory.json")
 OUT_REPORT = os.path.join(HERE, "output", "site_data_report.json")
 csv.field_size_limit(10_000_000)
 

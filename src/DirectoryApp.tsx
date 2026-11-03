@@ -11,7 +11,7 @@ import { PreviewBar } from "@/components/landing/preview-bar";
 import { MODE } from "@/lib/config";
 import { MEMBERSHIP_URL, SHOP_URL, SUBSTACK_URL } from "@/lib/site-content";
 import {
-  ACCESS_HINT, ACCESS_LABEL, DATA_URL, EMPTY, FILTER_FORMATS, FORMAT_LABEL, LANGS, PROVINCES, REGIONS, decode, filtersFromUrl,
+  ACCESS_HINT, ACCESS_LABEL, DATA_URL, DIRECTORY_NAME, DIRECTORY_SHORT, EMPTY, FILTER_FORMATS, FORMAT_LABEL, LANGS, PROVINCES, REGIONS, decode, filtersFromUrl,
   filtersToUrl, fold, languageName, matches, placeLabel, regionOf, relevance, suggestHref,
   type Filters, type Lang, type RawData, type Site, type SortKey,
 } from "@/lib/directory";
@@ -31,7 +31,7 @@ function ChipButton({ on, onClick, children, count, disabled }: { on: boolean; o
   return (
     <button type="button" aria-pressed={on} onClick={onClick} disabled={disabled}
       className={cn("inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood disabled:opacity-45",
-        on ? "bg-oxblood text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>
+        on ? "jade-polish text-parchment" : "border border-rule bg-paper text-muted hover:text-ink")}>
       {children}{count !== undefined ? <span className={cn("ml-1.5 text-xs tabular-nums", on ? "text-parchment/75" : "text-faint")}>{count.toLocaleString("en-CA")}</span> : null}
     </button>
   );
@@ -56,7 +56,7 @@ function SiteCard({ s, meta }: { s: Site; meta: RawData }) {
   return (
     <li className="group flex flex-col rounded-xl bg-cream p-5 shadow-[var(--shadow-border)] transition-[box-shadow] duration-300 hover:shadow-[var(--shadow-border-hover)]">
       <div className="flex items-start justify-between gap-3">
-        <p className="kicker flex items-center gap-1.5"><CatIcon className="size-3.5" strokeWidth={1.75} aria-hidden="true" />{meta.categories[s.cat]}</p>
+        <p className="kicker kicker-jade flex items-center gap-1.5"><CatIcon className="size-3.5" strokeWidth={1.75} aria-hidden="true" />{meta.categories[s.cat]}</p>
         <AccessBadge access={access} evidence={s.evidence} />
       </div>
       <h3 className="mt-2.5 font-display text-xl leading-snug tracking-tight text-ink">
@@ -79,11 +79,27 @@ function SiteCard({ s, meta }: { s: Site; meta: RawData }) {
         <Button asChild size="sm" variant="outline">
           <a href={s.url} target="_blank" rel="noopener nofollow ugc" aria-label={`Visit ${s.name} (opens in a new tab)`}>Visit site <ArrowUpRight className="size-4" /></a>
         </Button>
-        <a href={suggestHref(`Reading Directory fix for ${s.domain}`, `Listing ${s.name} (${s.url})\n\nWhat needs fixing\n`)}
+        <a href={suggestHref(`${DIRECTORY_SHORT} fix for ${s.domain}`, `Listing ${s.name} (${s.url})\n\nWhat needs fixing\n`)}
           className="inline-flex size-9 items-center justify-center rounded-md text-faint transition-colors hover:bg-paper hover:text-oxblood focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxblood"
           title="Suggest a correction" aria-label={`Suggest a correction for ${s.name}`}><Flag className="size-4" /></a>
       </div>
     </li>
+  );
+}
+
+/* A small faceted jade cabochon, drawn in SVG so it stays crisp at any size. */
+function JadeEmblem({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="jade-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#9fc7b4" /><stop offset=".45" stopColor="#3e8a70" /><stop offset="1" stopColor="#1d4a3d" /></linearGradient>
+      </defs>
+      <polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="url(#jade-g)" stroke="#1d4a3d" strokeWidth="1" />
+      <polygon points="20,9 29,14.5 29,25.5 20,31 11,25.5 11,14.5" fill="#2f6b58" opacity=".55" />
+      <path d="M20 2v7M36 12l-7 2.5M36 28l-7-2.5M20 38v-7M4 28l7-2.5M4 12l7 2.5" stroke="#d8ebe1" strokeOpacity=".45" strokeWidth=".8" />
+      <polygon points="20,9 29,14.5 20,17 11,14.5" fill="#e6f2ec" opacity=".38" />
+      <path d="M8 12.5 18 5" stroke="white" strokeOpacity=".7" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
   );
 }
 
@@ -190,20 +206,21 @@ export function DirectoryApp() {
   const provList = Object.entries(PROVINCES).filter(([k]) => facets.prov[k]).sort((a, b) => (facets.prov[b[0]] ?? 0) - (facets.prov[a[0]] ?? 0));
 
   return (
-    <div id="top" className="relative isolate min-h-dvh bg-news text-ink">
-      <a href="#results" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">Skip to the directory</a>
+    <div id="top" className="jade-focus relative isolate min-h-dvh bg-news text-ink">
+      <a href="#results" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-oxblood focus:px-4 focus:py-2 focus:text-parchment">Skip to the listings</a>
       {MODE === "preview" ? <PreviewBar states={["visitor", "free", "member", "founding"]} /> : null}
       <SiteHeader />
 
       <main>
-        <section className="pb-8 pt-12 md:pb-10 md:pt-16">
+        <section className="jade-band pb-8 pt-12 md:pb-10 md:pt-16">
           <div className="section-shell flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <div className="flex items-center gap-3 text-oxblood"><BookOpen className="size-5" strokeWidth={1.75} /><p className="kicker">The Reading Directory</p></div>
+              <div className="flex items-center gap-3"><JadeEmblem className="size-9 drop-shadow-sm" /><p className="kicker kicker-jade">{DIRECTORY_NAME}</p></div>
+              <div className="jade-rule mt-4 w-24" aria-hidden="true" />
               <h1 className="text-on-open mt-4 font-display text-5xl font-medium tracking-tight text-ink md:text-6xl">Every place worth reading, in one free directory.</h1>
               <p className="text-on-open mt-4 max-w-xl text-lead text-muted">Literary magazines, presses, free libraries, bookstores, web fiction, audiobooks and more, from Canada and around the world. Free for everyone, with no sign-up.</p>
             </div>
-            <div className="grid min-w-0 grid-cols-3 divide-x divide-rule rounded-xl bg-cream shadow-[var(--shadow-border)] lg:w-[26rem]">
+            <div className="jade-stat grid min-w-0 grid-cols-3 divide-x divide-rule rounded-xl bg-cream shadow-[var(--shadow-border)] lg:w-[26rem]">
               {([[totals.all, "reading sites"], [totals.free, "with free reading"], [totals.canada, "Canadian sites"]] as const).map(([n, l]) => (
                 <div key={l} className="p-4 text-center">
                   <p className="font-display text-3xl tracking-tight text-ink tabular-nums">{data ? fmtNum(n) : <span className="inline-block h-8 w-14 animate-pulse rounded bg-ink/10 align-middle" />}</p>
@@ -219,7 +236,7 @@ export function DirectoryApp() {
             <div className="sticky top-16 z-20 -mx-4 border-b border-rule bg-cream/95 px-4 py-3 shadow-[var(--shadow-border)] backdrop-blur supports-[backdrop-filter]:bg-cream/90 sm:mx-0 sm:rounded-xl sm:border-b-0 sm:p-4">
               <div className="flex gap-2">
                 <label className="relative block min-w-0 flex-1">
-                  <span className="sr-only">Search the directory</span>
+                  <span className="sr-only">Search {DIRECTORY_NAME}</span>
                   <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-faint" aria-hidden="true" />
                   <input ref={searchRef} id="dir-search" type="search" value={f.q} onChange={(e) => set("q", e.target.value)} enterKeyHint="search" autoComplete="off"
                     placeholder="Search names, places, genres"
@@ -287,17 +304,17 @@ export function DirectoryApp() {
 
             <div id="results" className="mt-5 flex scroll-mt-48 flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-faint" aria-live="polite">
-                {data ? <>{fmtNum(results.length)} {results.length === 1 ? (filtersOn ? "site matches your search" : "site in the directory") : (filtersOn ? "sites match your search" : "sites in the directory")}</> : failed ? "" : "Loading the directory"}
+                {data ? <>{fmtNum(results.length)} {results.length === 1 ? (filtersOn ? "site matches your search" : `site in the ${DIRECTORY_SHORT}`) : (filtersOn ? "sites match your search" : `sites in the ${DIRECTORY_SHORT}`)}</> : failed ? "" : `Loading the ${DIRECTORY_SHORT}`}
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 {filtersOn ? <button type="button" onClick={() => setF(EMPTY)} className="inline-flex items-center gap-1 text-sm font-medium text-oxblood hover:underline"><X className="size-4" /> Clear filters</button> : null}
-                <a href={suggestHref("Reading Directory suggestion", SUGGEST_BODY)} className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-oxblood"><Send className="size-4" /> Suggest a site</a>
+                <a href={suggestHref(`${DIRECTORY_SHORT} suggestion`, SUGGEST_BODY)} className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-oxblood"><Send className="size-4" /> Suggest a site</a>
               </div>
             </div>
 
             {failed ? (
               <div className="mt-3 rounded-xl border border-dashed border-rule p-10 text-center">
-                <p className="font-display text-xl text-ink">The directory did not load.</p>
+                <p className="font-display text-xl text-ink">{DIRECTORY_NAME} did not load.</p>
                 <p className="mt-2 text-sm text-muted">Check your connection, then try again.</p>
                 <Button className="mt-4" variant="outline" onClick={load}>Try again</Button>
               </div>
@@ -318,20 +335,20 @@ export function DirectoryApp() {
                 <p className="mt-2 text-sm text-muted">Try fewer filters, or tell us about a site we should add.</p>
                 <div className="mt-4 flex flex-wrap justify-center gap-3">
                   <Button variant="outline" onClick={() => setF(EMPTY)}>Clear filters</Button>
-                  <Button asChild><a href={suggestHref("Reading Directory suggestion", SUGGEST_BODY)}>Suggest a site</a></Button>
+                  <Button asChild><a href={suggestHref(`${DIRECTORY_SHORT} suggestion`, SUGGEST_BODY)}>Suggest a site</a></Button>
                 </div>
               </div>
             )}
 
             <div className="mt-16 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
               <div className="rounded-xl bg-cream p-6 shadow-[var(--shadow-border)]">
-                <p className="kicker">How it works</p>
+                <p className="kicker kicker-jade">How it works</p>
                 <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">Gathered with care, checked at the source.</h2>
                 <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted">
-                  <li className="flex gap-3"><span className="ornament mt-2 shrink-0" aria-hidden="true" />Every site comes from public lists, library records and reading communities, then gets one polite visit from our checker. We respect each site's wishes about automated visits.</li>
-                  <li className="flex gap-3"><span className="ornament mt-2 shrink-0" aria-hidden="true" />Free means you can read there without paying. Paid means the site sells books, issues or subscriptions. Free and paid means a bit of both.</li>
-                  <li className="flex gap-3"><span className="ornament mt-2 shrink-0" aria-hidden="true" />Access not yet confirmed means we could not tell yet. Hover or tap a label to see what it is based on.</li>
-                  <li className="flex gap-3"><span className="ornament mt-2 shrink-0" aria-hidden="true" />The directory grows as we find more. Details change, so check each site before you buy or submit.</li>
+                  <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />Every site comes from public lists, library records and reading communities, then gets one polite visit from our checker. We respect each site's wishes about automated visits.</li>
+                  <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />Free means you can read there without paying. Paid means the site sells books, issues or subscriptions. Free and paid means a bit of both.</li>
+                  <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />Access not yet confirmed means we could not tell yet. Hover or tap a label to see what it is based on.</li>
+                  <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />{DIRECTORY_NAME} grow as we find more sites. Details change, so check each site before you buy or submit.</li>
                 </ul>
               </div>
               <div id="suggest" className="flex flex-col rounded-xl bg-ink p-6 text-parchment shadow-[var(--shadow-border)]">
@@ -339,7 +356,7 @@ export function DirectoryApp() {
                 <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Suggest a site.</h2>
                 <p className="mt-3 text-sm leading-relaxed text-parchment/80">Small presses, local bookshops, little magazines and free archives are exactly what we want to hear about, especially Canadian ones. Send us the name and address, and we will take a look.</p>
                 <div className="mt-auto flex flex-wrap gap-2 pt-6">
-                  <Button asChild className="bg-gold text-ink hover:bg-gold-soft"><a href={suggestHref("Reading Directory suggestion", SUGGEST_BODY)}><Send className="size-4" /> Email a suggestion</a></Button>
+                  <Button asChild className="bg-gold text-ink hover:bg-gold-soft"><a href={suggestHref(`${DIRECTORY_SHORT} suggestion`, SUGGEST_BODY)}><Send className="size-4" /> Email a suggestion</a></Button>
                 </div>
                 <p className="mt-3 text-xs text-parchment/60">Spotted a mistake? Use the flag on any listing.</p>
               </div>
