@@ -1,0 +1,328 @@
+{
+ "checked": "2026-11-02",
+ "tracks": [
+  {
+   "id": "vivaldi-spring",
+   "src": "/music/vivaldi-spring.m4a",
+   "title": "The Four Seasons, Spring",
+   "composer": "Antonio Vivaldi",
+   "performer": "The Modena Chamber Orchestra (via Musopen)",
+   "detail": "Concerto in E major, RV 269, all three movements",
+   "duration": 651,
+   "bytes": 7959347,
+   "licence": "Public Domain Mark",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "The Modena Chamber Orchestra - Vivaldi's Spring, RV 269 - I. Allegro.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_I._Allegro.ogg",
+     "licence": "PDM-owner",
+     "templates": [
+      "PDMark-owner"
+     ]
+    },
+    {
+     "title": "The Modena Chamber Orchestra - Vivaldi's Spring, RV 269 - II. Largo.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_II._Largo.ogg",
+     "licence": "PDM-owner",
+     "templates": [
+      "PDMark-owner"
+     ]
+    },
+    {
+     "title": "The Modena Chamber Orchestra - Vivaldi's Spring, RV 269 - III. Allegro.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_III._Allegro.ogg",
+     "licence": "PDM-owner",
+     "templates": [
+      "PDMark-owner"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "bach-goldberg",
+   "src": "/music/bach-goldberg.m4a",
+   "title": "Goldberg Variations, Aria and Variations 1 to 7",
+   "composer": "Johann Sebastian Bach",
+   "performer": "Kimiko Ishizaka, piano",
+   "detail": "BWV 988, from the Open Goldberg Variations",
+   "duration": 1049,
+   "bytes": 12814408,
+   "licence": "CC0 public domain dedication",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sources": [
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 01 Aria.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_01_Aria.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 02 Variatio 1 a 1 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_02_Variatio_1_a_1_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 03 Variatio 2 a 1 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_03_Variatio_2_a_1_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 04 Variatio 3 a 1 Clav. Canone all Unisuono.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_04_Variatio_3_a_1_Clav._Canone_all_Unisuono.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 05 Variatio 4 a 1 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_05_Variatio_4_a_1_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 06 Variatio 5 a 1 ovvero 2 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_06_Variatio_5_a_1_ovvero_2_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 07 Variatio 6 a 1 Clav. Canone alla Seconda.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_07_Variatio_6_a_1_Clav._Canone_alla_Seconda.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    },
+    {
+     "title": "Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - 08 Variatio 7 a 1 ovvero 2 Clav.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_08_Variatio_7_a_1_ovvero_2_Clav.mp3",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-nocturne-9-2",
+   "src": "/music/chopin-nocturne-9-2.m4a",
+   "title": "Nocturne in E-flat major, Op. 9 No. 2",
+   "composer": "Frédéric Chopin",
+   "performer": "Frank Lévy, piano",
+   "detail": "From Musopen's Set Chopin Free project",
+   "duration": 272,
+   "bytes": 3320037,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - Nocturne No. 2 in E-flat major, Op. 9 No. 2 (Frank Levy).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._2_in_E-flat_major,_Op._9_No._2_(Frank_Levy).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "mozart-nachtmusik",
+   "src": "/music/mozart-nachtmusik.m4a",
+   "title": "Eine kleine Nachtmusik, I. Allegro",
+   "composer": "Wolfgang Amadeus Mozart",
+   "performer": "Advent Chamber Orchestra",
+   "detail": "Serenade No. 13 in G major, K. 525",
+   "duration": 356,
+   "bytes": 4319538,
+   "licence": "CC BY-SA 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sources": [
+    {
+     "title": "Mozart - Eine kleine Nachtmusik - 1. Allegro.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Mozart_-_Eine_kleine_Nachtmusik_-_1._Allegro.ogg",
+     "licence": "CC BY-SA 2.0",
+     "templates": [
+      "cc-by-sa-2.0"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "vivaldi-autumn",
+   "src": "/music/vivaldi-autumn.m4a",
+   "title": "The Four Seasons, Autumn",
+   "composer": "Antonio Vivaldi",
+   "performer": "The Modena Chamber Orchestra (via Musopen)",
+   "detail": "Concerto in F major, RV 293, all three movements",
+   "duration": 733,
+   "bytes": 8963509,
+   "licence": "Public Domain Mark",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Vivaldi The Four Seasons, Op. 8 - The Modena Chamber Orchestra - Violin Concerto in F major RV 293 Autumn.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Vivaldi_The_Four_Seasons,_Op._8_-_The_Modena_Chamber_Orchestra_-_Violin_Concerto_in_F_major_RV_293_Autumn.mp3",
+     "licence": "PDM-owner",
+     "templates": [
+      "PDMark-owner"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "bach-cello-1",
+   "src": "/music/bach-cello-1.m4a",
+   "title": "Cello Suite No. 1 in G major",
+   "composer": "Johann Sebastian Bach",
+   "performer": "John Michel, cello",
+   "detail": "BWV 1007, all six movements",
+   "duration": 958,
+   "bytes": 11719524,
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sources": [
+    {
+     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Prelude.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Prelude.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    },
+    {
+     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Allemande.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Allemande.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    },
+    {
+     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Courante.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Courante.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    },
+    {
+     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Sarabande.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Sarabande.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    },
+    {
+     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Minuets.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Minuets.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    },
+    {
+     "title": "JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G Gigue.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Gigue.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-nocturne-48-1",
+   "src": "/music/chopin-nocturne-48-1.m4a",
+   "title": "Nocturne in C minor, Op. 48 No. 1",
+   "composer": "Frédéric Chopin",
+   "performer": "Luke Faulkner, piano",
+   "detail": "From Musopen's Set Chopin Free project",
+   "duration": 379,
+   "bytes": 4638405,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - Nocturne No. 13 in C minor, Op. 48 No. 1 (Luke Faulkner).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._13_in_C_minor,_Op._48_No._1_(Luke_Faulkner).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "mozart-gran-partita-adagio",
+   "src": "/music/mozart-gran-partita-adagio.m4a",
+   "title": "Serenade No. 10, Gran Partita, III. Adagio",
+   "composer": "Wolfgang Amadeus Mozart",
+   "performer": "\"The President's Own\" United States Marine Band",
+   "detail": "K. 361, for thirteen winds",
+   "duration": 333,
+   "bytes": 4045708,
+   "licence": "Public domain, a work of the US Marine Corps",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Mozart's Serenade No. 10 \"Grand Partita\" - III. Adagio. Andante - United States Marine Band.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Mozart's_Serenade_No._10_%22Grand_Partita%22_-_III._Adagio._Andante_-_United_States_Marine_Band.mp3",
+     "licence": "Public domain",
+     "templates": [
+      "PD-USGov-Military-Marines",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-nocturne-27-2",
+   "src": "/music/chopin-nocturne-27-2.m4a",
+   "title": "Nocturne in D-flat major, Op. 27 No. 2",
+   "composer": "Frédéric Chopin",
+   "performer": "Frank Lévy, piano",
+   "detail": "From Musopen's Set Chopin Free project",
+   "duration": 378,
+   "bytes": 4618377,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - Nocturne No. 8 in D-flat major, Op. 27 No. 2 (Frank Levy).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._8_in_D-flat_major,_Op._27_No._2_(Frank_Levy).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  }
+ ]
+}

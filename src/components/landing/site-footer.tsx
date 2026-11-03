@@ -1,5 +1,6 @@
 import { Wordmark } from "@/components/landing/wordmark";
 import { NAV, SITE, SUBSTACK_URL } from "@/lib/site-content";
+import { OPEN_CREDITS } from "@/lib/music";
 
 export function SiteFooter() {
   return (
@@ -43,6 +44,9 @@ export function SiteFooter() {
           <a href="/membership/#privacy" className="text-sm text-muted hover:text-ink">
             Privacy
           </a>
+          <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_CREDITS))} className="text-left text-sm text-muted hover:text-ink">
+            Music credits
+          </button>
         </nav>
       </div>
       <div className="section-shell mt-10 flex flex-col gap-2 border-t border-rule pt-6 text-sm text-faint md:flex-row md:justify-between">

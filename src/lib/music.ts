@@ -1,0 +1,99 @@
+/* Reading music. One shared audio element for the whole page, created only when a reader presses play, so
+   nothing downloads before then. Where the reader was (track, position, volume, shuffle) is kept in
+   localStorage, so the next page picks up at the same spot. It never starts by itself, even on the next page. */
+import { useSyncExternalStore } from "react";
+import DATA from "@/lib/music-tracks.json";
+
+export type Track = (typeof DATA.tracks)[number];
+export const TRACKS: Track[] = DATA.tracks;
+export const MUSIC_CHECKED = DATA.checked;
+const KEY = "atl-music";
+export const OPEN_CREDITS = "atl:music-credits";
+
+type Saved = { i: number; t: number; vol: number; shuffle: boolean };
+type State = Saved & { playing: boolean; loading: boolean; dur: number; error: string };
+
+function load(): Saved {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || "{}");
+    return { i: Number.isInteger(s.i) && s.i >= 0 && s.i < TRACKS.length ? s.i : 0, t: Number(s.t) || 0, vol: typeof s.vol === "number" ? Math.min(1, Math.max(0, s.vol)) : 0.6, shuffle: !!s.shuffle };
+  } catch { return { i: 0, t: 0, vol: 0.6, shuffle: false }; }
+}
+
+let state: State = { ...(typeof window === "undefined" ? { i: 0, t: 0, vol: 0.6, shuffle: false } : load()), playing: false, loading: false, dur: 0, error: "" };
+const subs = new Set<() => void>();
+let audio: HTMLAudioElement | null = null;
+let lastSave = 0;
+const played: number[] = [];
+
+function set(p: Partial<State>) { state = { ...state, ...p }; subs.forEach((f) => f()); }
+function save(force = false) {
+  const now = Date.now(); if (!force && now - lastSave < 3000) return; lastSave = now;
+  try { localStorage.setItem(KEY, JSON.stringify({ i: state.i, t: Math.floor(state.t), vol: state.vol, shuffle: state.shuffle })); } catch { /* private mode */ }
+}
+
+function el() {
+  if (audio) return audio;
+  audio = new Audio(); audio.preload = "none"; audio.volume = state.vol;
+  audio.addEventListener("timeupdate", () => { set({ t: audio!.currentTime }); save(); });
+  audio.addEventListener("loadedmetadata", () => set({ dur: audio!.duration || TRACKS[state.i].duration }));
+  audio.addEventListener("playing", () => set({ playing: true, loading: false, error: "" }));
+  audio.addEventListener("waiting", () => set({ loading: true }));
+  audio.addEventListener("pause", () => { set({ playing: false }); save(true); });
+  audio.addEventListener("ended", () => next(true));
+  audio.addEventListener("error", () => set({ playing: false, loading: false, error: "This track would not load. Try another one." }));
+  window.addEventListener("pagehide", () => save(true));
+  if ("mediaSession" in navigator) {
+    const ms = navigator.mediaSession;
+    ms.setActionHandler("play", () => play()); ms.setActionHandler("pause", () => pause());
+    ms.setActionHandler("previoustrack", () => prev()); ms.setActionHandler("nexttrack", () => next());
+  }
+  return audio;
+}
+
+function meta() {
+  if (!("mediaSession" in navigator) || typeof MediaMetadata === "undefined") return;
+  const tr = TRACKS[state.i];
+  navigator.mediaSession.metadata = new MediaMetadata({ title: tr.title, artist: `${tr.composer}, ${tr.performer}`, album: "Reading music, Among The Letters" });
+}
+
+function loadTrack(i: number, at = 0) {
+  const a = el(); const tr = TRACKS[i];
+  set({ i, t: at, dur: tr.duration, error: "" });
+  if (!a.src.endsWith(tr.src)) a.src = tr.src;
+  if (at) { const seek = () => { a.currentTime = at; a.removeEventListener("loadedmetadata", seek); }; a.addEventListener("loadedmetadata", seek); }
+  meta(); save(true);
+}
+
+export function play() {
+  const a = el();
+  if (!a.src) loadTrack(state.i, state.t > 5 && state.t < TRACKS[state.i].duration - 5 ? state.t : 0);
+  set({ loading: true });
+  a.play().catch(() => set({ loading: false, playing: false }));
+}
+export function pause() { audio?.pause(); }
+export function toggle() { if (state.playing) pause(); else play(); }
+function pick(dir: 1 | -1) {
+  if (!state.shuffle) return (state.i + dir + TRACKS.length) % TRACKS.length;
+  const left = TRACKS.map((_, k) => k).filter((k) => k !== state.i && !played.slice(-(TRACKS.length - 2)).includes(k));
+  return left[Math.floor(Math.random() * left.length)] ?? (state.i + 1) % TRACKS.length;
+}
+export function next(auto = false) {
+  const was = state.playing || auto; played.push(state.i);
+  loadTrack(pick(1)); if (was) play();
+}
+export function prev() {
+  if (audio && audio.currentTime > 5) { audio.currentTime = 0; return; }
+  const was = state.playing;
+  const back = state.shuffle && played.length ? played.pop()! : pick(-1);
+  loadTrack(back); if (was) play();
+}
+export function choose(i: number) { played.push(state.i); loadTrack(i); play(); }
+export function seek(t: number) { if (audio && audio.src) audio.currentTime = t; set({ t }); save(true); }
+export function setVolume(v: number) { if (audio) audio.volume = v; set({ vol: v }); save(true); }
+export function setShuffle(on: boolean) { set({ shuffle: on }); save(true); }
+
+const subscribe = (f: () => void) => { subs.add(f); return () => { subs.delete(f); }; };
+const snap = () => state;
+export function useMusic() { return useSyncExternalStore(subscribe, snap, snap); }
+export const fmtTime = (s: number) => { s = Math.max(0, Math.floor(s)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), r = s % 60; return (h ? `${h}:${String(m).padStart(2, "0")}` : `${m}`) + `:${String(r).padStart(2, "0")}`; };

@@ -7,6 +7,7 @@ import { ACCOUNTS_ON } from "@/lib/config";
 import { useAccount } from "@/lib/use-account";
 import { NotificationBell } from "@/components/landing/notification-bell";
 import { AccountMenu } from "@/components/landing/account-menu";
+import { MusicButton } from "@/components/landing/music-button";
 import { cn } from "@/lib/utils";
 import { useExclusiveMenu } from "@/lib/menus";
 
@@ -39,7 +40,7 @@ export function SiteHeader() {
           : "border-transparent bg-cream",
       )}
     >
-      <div className="section-shell flex h-16 items-center justify-between gap-4">
+      <div className="section-shell flex h-16 items-center justify-between gap-2 sm:gap-4">
         <Wordmark />
         <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Primary">
           {NAV.map((item) => (
@@ -53,6 +54,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
+          <MusicButton />
           {member ? <NotificationBell /> : null}
           <Button asChild size="sm">
             <a href={SUBSTACK_URL} target="_blank" rel="noreferrer">
@@ -61,7 +63,8 @@ export function SiteHeader() {
           </Button>
           {ACCOUNTS_ON ? <AccountMenu /> : null}
         </div>
-        <div className="flex items-center gap-1 lg:hidden">
+        <div className="flex items-center gap-0.5 lg:hidden">
+        <MusicButton compact />
         {member ? <NotificationBell compact /> : null}
         {ACCOUNTS_ON ? <AccountMenu compact /> : null}
         <Button

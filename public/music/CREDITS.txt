@@ -1,0 +1,80 @@
+Reading music on amongtheletters.com
+Each file below was checked on its Wikimedia Commons page on 2026-11-02.
+
+vivaldi-spring.m4a
+  Antonio Vivaldi, The Four Seasons, Spring
+  Performed by The Modena Chamber Orchestra (via Musopen)
+  Licence: Public Domain Mark 
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_I._Allegro.ogg
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_II._Largo.ogg
+  Source: https://commons.wikimedia.org/wiki/File:The_Modena_Chamber_Orchestra_-_Vivaldi's_Spring,_RV_269_-_III._Allegro.ogg
+
+bach-goldberg.m4a
+  Johann Sebastian Bach, Goldberg Variations, Aria and Variations 1 to 7
+  Performed by Kimiko Ishizaka, piano
+  Licence: CC0 public domain dedication http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_01_Aria.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_02_Variatio_1_a_1_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_03_Variatio_2_a_1_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_04_Variatio_3_a_1_Clav._Canone_all_Unisuono.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_05_Variatio_4_a_1_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_06_Variatio_5_a_1_ovvero_2_Clav.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_07_Variatio_6_a_1_Clav._Canone_alla_Seconda.mp3
+  Source: https://commons.wikimedia.org/wiki/File:Kimiko_Ishizaka_-_J.S._Bach-_-Open-_Goldberg_Variations,_BWV_988_(Piano)_-_08_Variatio_7_a_1_ovvero_2_Clav.mp3
+
+chopin-nocturne-9-2.m4a
+  Frédéric Chopin, Nocturne in E-flat major, Op. 9 No. 2
+  Performed by Frank Lévy, piano
+  Licence: Public domain, released by Musopen 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._2_in_E-flat_major,_Op._9_No._2_(Frank_Levy).flac
+
+mozart-nachtmusik.m4a
+  Wolfgang Amadeus Mozart, Eine kleine Nachtmusik, I. Allegro
+  Performed by Advent Chamber Orchestra
+  Licence: CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Mozart_-_Eine_kleine_Nachtmusik_-_1._Allegro.ogg
+
+vivaldi-autumn.m4a
+  Antonio Vivaldi, The Four Seasons, Autumn
+  Performed by The Modena Chamber Orchestra (via Musopen)
+  Licence: Public Domain Mark 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Vivaldi_The_Four_Seasons,_Op._8_-_The_Modena_Chamber_Orchestra_-_Violin_Concerto_in_F_major_RV_293_Autumn.mp3
+
+bach-cello-1.m4a
+  Johann Sebastian Bach, Cello Suite No. 1 in G major
+  Performed by John Michel, cello
+  Licence: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Prelude.ogg
+  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Allemande.ogg
+  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Courante.ogg
+  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Sarabande.ogg
+  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Minuets.ogg
+  Source: https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-J_S_BACH_CELLO_SUITE_1_in_G_Gigue.ogg
+
+chopin-nocturne-48-1.m4a
+  Frédéric Chopin, Nocturne in C minor, Op. 48 No. 1
+  Performed by Luke Faulkner, piano
+  Licence: Public domain, released by Musopen 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._13_in_C_minor,_Op._48_No._1_(Luke_Faulkner).flac
+
+mozart-gran-partita-adagio.m4a
+  Wolfgang Amadeus Mozart, Serenade No. 10, Gran Partita, III. Adagio
+  Performed by "The President's Own" United States Marine Band
+  Licence: Public domain, a work of the US Marine Corps 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Mozart's_Serenade_No._10_%22Grand_Partita%22_-_III._Adagio._Andante_-_United_States_Marine_Band.mp3
+
+chopin-nocturne-27-2.m4a
+  Frédéric Chopin, Nocturne in D-flat major, Op. 27 No. 2
+  Performed by Frank Lévy, piano
+  Licence: Public domain, released by Musopen 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._8_in_D-flat_major,_Op._27_No._2_(Frank_Levy).flac
+

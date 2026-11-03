@@ -15,3 +15,4 @@ supabase/.temp/
 # Reading Directory crawler output (stays on the local machine)
 tools/reading-directory/output/
 __pycache__/
+tools/reading-music/cache/
