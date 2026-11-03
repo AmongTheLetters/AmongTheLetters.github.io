@@ -433,3 +433,30 @@
 .stagger-in > *:nth-child(6) {
   animation-delay: 440ms;
 }
+
+/* Jade Pages v2. Folding filter panel, the Find me a site dialog and its reveal. */
+.jade-collapse { transition: grid-template-rows 260ms cubic-bezier(.2,.7,.2,1); }
+.jade-collapse.transition-none { transition: none; }
+.jade-dialog {
+  border: 1px solid color-mix(in oklab, var(--color-jade) 45%, transparent);
+  box-shadow: 0 30px 80px -20px rgb(15 40 32 / .55), 0 0 0 1px rgb(255 255 255 / .4) inset;
+}
+.jade-dialog::backdrop { background: rgb(12 34 27 / .55); backdrop-filter: blur(3px); }
+.jade-dialog[open] { animation: jade-dialog-in 220ms cubic-bezier(.2,.7,.2,1); }
+.jade-dialog[open]::backdrop { animation: jade-fade 220ms ease-out; }
+.jade-dialog-head {
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgb(255 255 255 / .16), transparent 55%),
+    linear-gradient(135deg, var(--color-jade) 0%, var(--color-jade-deep) 70%);
+}
+.jade-reveal { animation: jade-reveal 420ms cubic-bezier(.2,.7,.2,1); }
+.jade-pick-card { box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-jade) 40%, transparent), 0 12px 30px -16px rgb(29 74 61 / .5); }
+@keyframes jade-dialog-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes jade-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes jade-reveal {
+  from { opacity: 0; transform: translateY(10px) scale(.97); filter: saturate(.4) blur(2px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jade-collapse, .jade-dialog[open], .jade-dialog[open]::backdrop, .jade-reveal { transition: none; animation: none; }
+}

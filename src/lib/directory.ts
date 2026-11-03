@@ -78,14 +78,42 @@ export function decode(d: RawData): { sites: Site[]; meta: RawData } {
     s.rank = (s.country === "CA" ? 8 : 0) + (s.desc ? 4 : 0) + (s.checked ? 2 : 0) + (s.lang === "en" || s.lang === "fr" ? 1 : 0) + (d.access[s.acc] !== "unconfirmed" ? 1 : 0);
     return s;
   });
+  setGenreMasks(d.genres);
   return { sites, meta: d };
 }
 
+/* Genre groups shown as filters. Near-duplicate labels from the data merge into one group (flash fiction counts as fiction).
+   Groups below MAIN_GENRE_MIN sites sit under "More genres". */
+export const GENRE_GROUPS: { key: string; label: string; members: string[] }[] = [
+  { key: "fiction", label: "Fiction", members: ["fiction", "flash fiction"] },
+  { key: "poetry", label: "Poetry", members: ["poetry"] },
+  { key: "nonfiction", label: "Nonfiction & Essays", members: ["nonfiction & essays"] },
+  { key: "literary", label: "Literary", members: ["literary"] },
+  { key: "comics", label: "Comics", members: ["comics"] },
+  { key: "mystery", label: "Mystery & Crime", members: ["mystery & crime"] },
+  { key: "translation", label: "Translation", members: ["translation"] },
+  { key: "scifi", label: "Science Fiction", members: ["science fiction"] },
+  { key: "fantasy", label: "Fantasy", members: ["fantasy"] },
+  { key: "horror", label: "Horror", members: ["horror"] },
+  { key: "kids", label: "Children & YA", members: ["children & YA"] },
+  { key: "drama", label: "Drama", members: ["drama"] },
+  { key: "classics", label: "Classics", members: ["classics"] },
+  { key: "romance", label: "Romance", members: ["romance"] },
+];
+export const MAIN_GENRE_MIN = 200;
+/** Bitmask of the data genres in each group, worked out once the data has loaded. */
+export function genreMasks(genres: string[]) {
+  return Object.fromEntries(GENRE_GROUPS.map((g) => [g.key, g.members.reduce((m, name) => { const b = genres.indexOf(name); return b >= 0 ? m | (1 << b) : m; }, 0)]));
+}
+let MASKS: Record<string, number> = {};
+export const setGenreMasks = (genres: string[]) => { MASKS = genreMasks(genres); };
+export const inGenre = (s: Pick<Site, "gen">, key: string) => (s.gen & (MASKS[key] ?? 0)) !== 0;
+
 export type SortKey = "suggested" | "az" | "za";
 export type Filters = {
-  q: string; cat: number; acc: number[]; fmt: string[]; region: Region; prov: string; lang: Lang; subs: boolean; sort: SortKey;
+  q: string; cat: number; acc: number[]; gen: string[]; fmt: string[]; region: Region; prov: string; lang: Lang; subs: boolean; sort: SortKey;
 };
-export const EMPTY: Filters = { q: "", cat: -1, acc: [], fmt: [], region: "all", prov: "", lang: "all", subs: false, sort: "suggested" };
+export const EMPTY: Filters = { q: "", cat: -1, acc: [], gen: [], fmt: [], region: "all", prov: "", lang: "all", subs: false, sort: "suggested" };
 
 /** Filters live in the address bar, so any view can be bookmarked or shared. */
 export function filtersFromUrl(): Filters {
@@ -96,7 +124,8 @@ export function filtersFromUrl(): Filters {
   const lang = (p.get("lang") || "all") as Lang;
   const sort = (p.get("sort") || "suggested") as SortKey;
   return {
-    q: p.get("q") || "", cat: num("cat", -1), acc: list("access").map(Number).filter((n) => n >= 0 && n < 4), fmt: list("format"),
+    q: p.get("q") || "", cat: num("cat", -1), acc: list("access").map(Number).filter((n) => n >= 0 && n < 4),
+    gen: list("genre").filter((g) => GENRE_GROUPS.some((x) => x.key === g)), fmt: list("format"),
     region: REGIONS.some(([r]) => r === region) ? region : "all", prov: p.get("prov") || "",
     lang: LANGS.some(([l]) => l === lang) ? lang : "all", subs: p.get("subs") === "1", sort: ["suggested", "az", "za"].includes(sort) ? sort : "suggested",
   };
@@ -106,6 +135,7 @@ export function filtersToUrl(f: Filters) {
   if (f.q) p.set("q", f.q);
   if (f.cat >= 0) p.set("cat", String(f.cat));
   if (f.acc.length) p.set("access", f.acc.join(","));
+  if (f.gen.length) p.set("genre", f.gen.join(","));
   if (f.fmt.length) p.set("format", f.fmt.join(","));
   if (f.region !== "all") p.set("region", f.region);
   if (f.prov) p.set("prov", f.prov);
@@ -117,7 +147,7 @@ export function filtersToUrl(f: Filters) {
   if (next !== window.location.pathname + window.location.search + window.location.hash) window.history.replaceState(null, "", next);
 }
 
-type Skip = "cat" | "acc" | "region" | "none";
+type Skip = "cat" | "acc" | "region" | "gen" | "none";
 /** True when a site passes every filter, optionally ignoring one group (used for the counts beside each chip). */
 export function matches(s: Site, f: Filters, tokens: string[], formats: string[], skip: Skip = "none") {
   if (skip !== "cat" && f.cat >= 0 && s.cat !== f.cat) return false;
@@ -126,6 +156,7 @@ export function matches(s: Site, f: Filters, tokens: string[], formats: string[]
     if (f.region !== "all" && regionOf(s.country) !== f.region) return false;
     if (f.region === "CA" && f.prov && s.prov !== f.prov) return false;
   }
+  if (skip !== "gen" && f.gen.length && !f.gen.some((g) => inGenre(s, g))) return false;
   if (f.fmt.length && !f.fmt.every((x) => (s.fmt >> formats.indexOf(x)) & 1)) return false;
   if (f.lang === "en" && s.lang !== "en") return false;
   if (f.lang === "fr" && s.lang !== "fr") return false;
