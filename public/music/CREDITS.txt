@@ -78,3 +78,139 @@ chopin-nocturne-27-2.m4a
   Changes: loudness evened out and encoded as AAC at 96 kbps
   Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne_No._8_in_D-flat_major,_Op._27_No._2_(Frank_Levy).flac
 
+pachelbel-canon.m4a
+  Johann Pachelbel, Canon in D
+  Performed by The Strolling Strings of the United States Air Force Band
+  Licence: Public domain, a work of the US Air Force 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Canon_(2004)_-_Strolling_Strings_-_United_States_Air_Force_Band.mp3
+
+chopin-waltz-a-minor.m4a
+  Frédéric Chopin, Waltz in A minor, B. 150
+  Performed by Aya Higuchi, piano
+  Licence: Public domain, released by Musopen 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Waltz_No._19_in_A_minor,_B._150_(Aya_Higuchi).flac
+
+bach-air.m4a
+  Johann Sebastian Bach, Air on the G String
+  Performed by The Air Force Strings of the United States Air Force Band
+  Licence: Public domain, a work of the US Air Force 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Air_-_Air_Force_Strings_-_United_States_Air_Force_Band.mp3
+
+beethoven-fur-elise.m4a
+  Ludwig van Beethoven, Für Elise
+  Performed by Sebion7125, piano (a Wikimedia Commons contributor)
+  Licence: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Fur_Elise.ogg
+
+beethoven-moonlight.m4a
+  Ludwig van Beethoven, Moonlight Sonata
+  Performed by Paul Pitman, piano (via Musopen)
+  Licence: Public domain, released by Musopen 
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Ludwig_van_Beethoven_-_sonata_no._14_in_c_sharp_minor_'moonlight',_op._27_no._2_-_i._adagio_sostenuto.ogg
+  Source: https://commons.wikimedia.org/wiki/File:Moonlight_Sonata_Allegretto.ogg
+  Source: https://commons.wikimedia.org/wiki/File:Moonlight_Sonata_Presto.ogg
+
+mozart-figaro-overture.m4a
+  Wolfgang Amadeus Mozart, The Marriage of Figaro, Overture
+  Performed by Musopen Symphony
+  Licence: Public domain, released by Musopen 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Mozart_-_Le_nozze_di_Figaro,_K492_-_Overture_(Musopen_Symphony).flac
+
+greensleeves.m4a
+  Traditional English, Greensleeves
+  Performed by An unnamed pianist, recorded by Dieter Leckschat
+  Licence: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Greensleeves_for_solo_piano.wav
+
+chopin-ballade-1.m4a
+  Frédéric Chopin, Ballade No. 1 in G minor, Op. 23
+  Performed by Frank Lévy, piano
+  Licence: Public domain, released by Musopen 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Ballade_No._1_in_G_minor,_Op._23_(Frank_Levy).flac
+
+mahler-adagietto.m4a
+  Gustav Mahler, Symphony No. 5, IV. Adagietto
+  Performed by Peabody Symphony Orchestra
+  Licence: CC0 public domain dedication http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Mahler_Symphony_No._5,_IV._Adagietto.ogg
+
+bach-toccata-fugue.m4a
+  Johann Sebastian Bach, Toccata and Fugue in D minor
+  Performed by Norbert Schenk, organ
+  Licence: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Bach,_Toccata_und_Fuge_d-moll_BWV_565,_Norbert_Schenk.mp3
+
+tchaikovsky-waltz-flowers.m4a
+  Pyotr Ilyich Tchaikovsky, The Nutcracker, Waltz of the Flowers
+  Performed by The Concert Band of the United States Air Force Band
+  Licence: Public domain, a work of the US Air Force 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Waltz_of_the_Flowers_-_Concert_Band_-_United_States_Air_Force_Band.mp3
+
+chopin-etudes-op10.m4a
+  Frédéric Chopin, 12 Études, Op. 10
+  Performed by Edward Neeman, piano
+  Licence: Public domain, released by Musopen 
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._1_in_C_major_'Waterfall'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._2_in_A_minor_'Chromatique'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._3_in_E_major_'Tristesse'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._4_in_C-Sharp_minor_'Torrent'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._5_in_G-Flat_major_'Black_Keys'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._6_in_E-Flat_minor_'Lament'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._7_in_C_major_'Toccata'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._8_in_F_major_'Sunshine'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._9_in_F_minor_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._10_in_A-Flat_major_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._11_in_E-Flat_major_'Arpeggio'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._12_in_C_minor_'Revolutionary'_(Edward_Neeman).flac
+
+rossini-william-tell.m4a
+  Gioachino Rossini, William Tell Overture
+  Performed by "The President's Own" United States Marine Band
+  Licence: Public domain, a work of the US Marine Corps 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Gioachino_Rossini,_William_Tell_Overture_(military_band_version,_2000).ogg
+
+chopin-etudes-op25.m4a
+  Frédéric Chopin, 12 Études, Op. 25
+  Performed by Edward Neeman, piano
+  Licence: Public domain, released by Musopen 
+  Changes: Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._1_in_A-Flat_major_'Harp_Study'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._2_in_F_minor_'The_Bees'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._3_in_F_major_'The_Horseman'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._4_in_A_minor_'Paganini'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._5_in_E_minor_'Wrong_Note'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._6_in_G-Sharp_minor_'Thirds'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._7_in_C-Sharp_minor_'Cello'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._8_in_D-Flat_major_'Sixths'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._9_in_G-Flat_major_'Butterfly_Wings'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._10_in_B_minor_'Octave'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._11_in_A_minor_'Winter_Wind'_(Edward_Neeman).flac
+  Source: https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._12_in_C_minor_'Ocean'_(Edward_Neeman).flac
+
+tchaikovsky-1812.m4a
+  Pyotr Ilyich Tchaikovsky, 1812 Overture
+  Performed by "The President's Own" United States Marine Band
+  Licence: Public domain, a work of the US Marine Corps 
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:1812_Overture_-_United_States_Marine_Band.opus
+
+beethoven-9-finale.m4a
+  Ludwig van Beethoven, Symphony No. 9, IV. Finale, Ode to Joy
+  Performed by Papalin (virtual orchestra)
+  Licence: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+  Changes: loudness evened out and encoded as AAC at 96 kbps
+  Source: https://commons.wikimedia.org/wiki/File:PMLP01607-Symphony_No.9,_Op.125_(Beethoven,_Ludwig_van),_IV_Presto.ogg
+

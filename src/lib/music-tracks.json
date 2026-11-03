@@ -323,6 +323,597 @@
     }
    ],
    "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "pachelbel-canon",
+   "src": "/music/pachelbel-canon.m4a",
+   "title": "Canon in D",
+   "composer": "Johann Pachelbel",
+   "performer": "The Strolling Strings of the United States Air Force Band",
+   "detail": "Arranged for strings by Frank Hudson",
+   "duration": 229,
+   "bytes": 2796304,
+   "licence": "Public domain, a work of the US Air Force",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Canon (2004) - Strolling Strings - United States Air Force Band.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Canon_(2004)_-_Strolling_Strings_-_United_States_Air_Force_Band.mp3",
+     "licence": "Public domain",
+     "templates": [
+      "PD-USGov-Military-Air Force",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-waltz-a-minor",
+   "src": "/music/chopin-waltz-a-minor.m4a",
+   "title": "Waltz in A minor, B. 150",
+   "composer": "Frédéric Chopin",
+   "performer": "Aya Higuchi, piano",
+   "detail": "Known as Waltz No. 19, published after his death. From Musopen's Set Chopin Free project",
+   "duration": 131,
+   "bytes": 1602334,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - Waltz No. 19 in A minor, B. 150 (Aya Higuchi).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_Waltz_No._19_in_A_minor,_B._150_(Aya_Higuchi).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "bach-air",
+   "src": "/music/bach-air.m4a",
+   "title": "Air on the G String",
+   "composer": "Johann Sebastian Bach",
+   "performer": "The Air Force Strings of the United States Air Force Band",
+   "detail": "Orchestral Suite No. 3 in D major, BWV 1068, II. Air",
+   "duration": 183,
+   "bytes": 2239206,
+   "licence": "Public domain, a work of the US Air Force",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Air - Air Force Strings - United States Air Force Band.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Air_-_Air_Force_Strings_-_United_States_Air_Force_Band.mp3",
+     "licence": "Public domain",
+     "templates": [
+      "PD-USGov-Military-Air Force",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "beethoven-fur-elise",
+   "src": "/music/beethoven-fur-elise.m4a",
+   "title": "Für Elise",
+   "composer": "Ludwig van Beethoven",
+   "performer": "Sebion7125, piano (a Wikimedia Commons contributor)",
+   "detail": "Bagatelle No. 25 in A minor, WoO 59",
+   "duration": 176,
+   "bytes": 2162905,
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sources": [
+    {
+     "title": "Fur Elise.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Fur_Elise.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": []
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "beethoven-moonlight",
+   "src": "/music/beethoven-moonlight.m4a",
+   "title": "Moonlight Sonata",
+   "composer": "Ludwig van Beethoven",
+   "performer": "Paul Pitman, piano (via Musopen)",
+   "detail": "Piano Sonata No. 14 in C-sharp minor, Op. 27 No. 2, all three movements",
+   "duration": 961,
+   "bytes": 11683408,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Ludwig van Beethoven - sonata no. 14 in c sharp minor 'moonlight', op. 27 no. 2 - i. adagio sostenuto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Ludwig_van_Beethoven_-_sonata_no._14_in_c_sharp_minor_'moonlight',_op._27_no._2_-_i._adagio_sostenuto.ogg",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-100"
+     ]
+    },
+    {
+     "title": "Moonlight Sonata Allegretto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Moonlight_Sonata_Allegretto.ogg",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-100"
+     ]
+    },
+    {
+     "title": "Moonlight Sonata Presto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Moonlight_Sonata_Presto.ogg",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-100"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "mozart-figaro-overture",
+   "src": "/music/mozart-figaro-overture.m4a",
+   "title": "The Marriage of Figaro, Overture",
+   "composer": "Wolfgang Amadeus Mozart",
+   "performer": "Musopen Symphony",
+   "detail": "Le nozze di Figaro, K. 492",
+   "duration": 241,
+   "bytes": 2945626,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Mozart - Le nozze di Figaro, K492 - Overture (Musopen Symphony).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Mozart_-_Le_nozze_di_Figaro,_K492_-_Overture_(Musopen_Symphony).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "greensleeves",
+   "src": "/music/greensleeves.m4a",
+   "title": "Greensleeves",
+   "composer": "Traditional English",
+   "performer": "An unnamed pianist, recorded by Dieter Leckschat",
+   "detail": "Sixteenth-century English tune, for solo piano",
+   "duration": 130,
+   "bytes": 1589503,
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sources": [
+    {
+     "title": "Greensleeves for solo piano.wav",
+     "page": "https://commons.wikimedia.org/wiki/File:Greensleeves_for_solo_piano.wav",
+     "licence": "CC BY-SA 4.0",
+     "templates": [
+      "cc-by-sa-4.0"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-ballade-1",
+   "src": "/music/chopin-ballade-1.m4a",
+   "title": "Ballade No. 1 in G minor, Op. 23",
+   "composer": "Frédéric Chopin",
+   "performer": "Frank Lévy, piano",
+   "detail": "From Musopen's Set Chopin Free project",
+   "duration": 614,
+   "bytes": 7503439,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - Ballade No. 1 in G minor, Op. 23 (Frank Levy).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_Ballade_No._1_in_G_minor,_Op._23_(Frank_Levy).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "mahler-adagietto",
+   "src": "/music/mahler-adagietto.m4a",
+   "title": "Symphony No. 5, IV. Adagietto",
+   "composer": "Gustav Mahler",
+   "performer": "Peabody Symphony Orchestra",
+   "detail": "Symphony No. 5 in C-sharp minor, fourth movement",
+   "duration": 621,
+   "bytes": 7589291,
+   "licence": "CC0 public domain dedication",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sources": [
+    {
+     "title": "Mahler Symphony No. 5, IV. Adagietto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Mahler_Symphony_No._5,_IV._Adagietto.ogg",
+     "licence": "CC0",
+     "templates": [
+      "cc-zero"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "bach-toccata-fugue",
+   "src": "/music/bach-toccata-fugue.m4a",
+   "title": "Toccata and Fugue in D minor",
+   "composer": "Johann Sebastian Bach",
+   "performer": "Norbert Schenk, organ",
+   "detail": "BWV 565, on the organ of the Protestant church in Solms-Albshausen, Germany",
+   "duration": 464,
+   "bytes": 5681263,
+   "licence": "CC BY 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+   "sources": [
+    {
+     "title": "Bach, Toccata und Fuge d-moll BWV 565, Norbert Schenk.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Bach,_Toccata_und_Fuge_d-moll_BWV_565,_Norbert_Schenk.mp3",
+     "licence": "CC BY 4.0",
+     "templates": []
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "tchaikovsky-waltz-flowers",
+   "src": "/music/tchaikovsky-waltz-flowers.m4a",
+   "title": "The Nutcracker, Waltz of the Flowers",
+   "composer": "Pyotr Ilyich Tchaikovsky",
+   "performer": "The Concert Band of the United States Air Force Band",
+   "detail": "Nutcracker Suite, Op. 71a, arranged for concert band by Lawrence Odom",
+   "duration": 450,
+   "bytes": 5501988,
+   "licence": "Public domain, a work of the US Air Force",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Waltz of the Flowers - Concert Band - United States Air Force Band.mp3",
+     "page": "https://commons.wikimedia.org/wiki/File:Waltz_of_the_Flowers_-_Concert_Band_-_United_States_Air_Force_Band.mp3",
+     "licence": "Public domain",
+     "templates": [
+      "PD-USGov-Military-Air Force",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-etudes-op10",
+   "src": "/music/chopin-etudes-op10.m4a",
+   "title": "12 Études, Op. 10",
+   "composer": "Frédéric Chopin",
+   "performer": "Edward Neeman, piano",
+   "detail": "All twelve, from Musopen's Set Chopin Free project",
+   "duration": 1790,
+   "bytes": 21866074,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 1 in C major 'Waterfall' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._1_in_C_major_'Waterfall'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 2 in A minor 'Chromatique' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._2_in_A_minor_'Chromatique'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 3 in E major 'Tristesse' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._3_in_E_major_'Tristesse'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 4 in C-Sharp minor 'Torrent' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._4_in_C-Sharp_minor_'Torrent'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 5 in G-Flat major 'Black Keys' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._5_in_G-Flat_major_'Black_Keys'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 6 in E-Flat minor 'Lament' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._6_in_E-Flat_minor_'Lament'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 7 in C major 'Toccata' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._7_in_C_major_'Toccata'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 8 in F major 'Sunshine' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._8_in_F_major_'Sunshine'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 9 in F minor (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._9_in_F_minor_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 10 in A-Flat major (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._10_in_A-Flat_major_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 11 in E-Flat major 'Arpeggio' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._11_in_E-Flat_major_'Arpeggio'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 10 - No. 12 in C minor 'Revolutionary' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._10_-_No._12_in_C_minor_'Revolutionary'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "rossini-william-tell",
+   "src": "/music/rossini-william-tell.m4a",
+   "title": "William Tell Overture",
+   "composer": "Gioachino Rossini",
+   "performer": "\"The President's Own\" United States Marine Band",
+   "detail": "Arranged for military band",
+   "duration": 662,
+   "bytes": 8089777,
+   "licence": "Public domain, a work of the US Marine Corps",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Gioachino Rossini, William Tell Overture (military band version, 2000).ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:Gioachino_Rossini,_William_Tell_Overture_(military_band_version,_2000).ogg",
+     "licence": "Public domain",
+     "templates": [
+      "PD-USGov-Military-Marines",
+      "PD-old-100"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "chopin-etudes-op25",
+   "src": "/music/chopin-etudes-op25.m4a",
+   "title": "12 Études, Op. 25",
+   "composer": "Frédéric Chopin",
+   "performer": "Edward Neeman, piano",
+   "detail": "All twelve, from Musopen's Set Chopin Free project",
+   "duration": 2014,
+   "bytes": 24596040,
+   "licence": "Public domain, released by Musopen",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 1 in A-Flat major 'Harp Study' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._1_in_A-Flat_major_'Harp_Study'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 2 in F minor 'The Bees' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._2_in_F_minor_'The_Bees'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 3 in F major 'The Horseman' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._3_in_F_major_'The_Horseman'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 4 in A minor 'Paganini' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._4_in_A_minor_'Paganini'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 5 in E minor 'Wrong Note' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._5_in_E_minor_'Wrong_Note'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 6 in G-Sharp minor 'Thirds' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._6_in_G-Sharp_minor_'Thirds'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 7 in C-Sharp minor 'Cello' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._7_in_C-Sharp_minor_'Cello'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 8 in D-Flat major 'Sixths' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._8_in_D-Flat_major_'Sixths'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 9 in G-Flat major 'Butterfly Wings' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._9_in_G-Flat_major_'Butterfly_Wings'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 10 in B minor 'Octave' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._10_in_B_minor_'Octave'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 11 in A minor 'Winter Wind' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._11_in_A_minor_'Winter_Wind'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    },
+    {
+     "title": "Chopin - 12 Études, Op. 25 - No. 12 in C minor 'Ocean' (Edward Neeman).flac",
+     "page": "https://commons.wikimedia.org/wiki/File:Chopin_-_12_%C3%89tudes,_Op._25_-_No._12_in_C_minor_'Ocean'_(Edward_Neeman).flac",
+     "licence": "Public domain",
+     "templates": [
+      "PD-author",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "Movements joined into one track, loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "tchaikovsky-1812",
+   "src": "/music/tchaikovsky-1812.m4a",
+   "title": "1812 Overture",
+   "composer": "Pyotr Ilyich Tchaikovsky",
+   "performer": "\"The President's Own\" United States Marine Band",
+   "detail": "Ouverture solennelle, Op. 49, recorded live at Wolf Trap, Virginia, in 2019",
+   "duration": 755,
+   "bytes": 9227045,
+   "licence": "Public domain, a work of the US Marine Corps",
+   "licenceUrl": "",
+   "sources": [
+    {
+     "title": "1812 Overture - United States Marine Band.opus",
+     "page": "https://commons.wikimedia.org/wiki/File:1812_Overture_-_United_States_Marine_Band.opus",
+     "licence": "Public domain",
+     "templates": [
+      "PD-USGov-Military-Marines",
+      "PD-old-auto-expired"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
+  },
+  {
+   "id": "beethoven-9-finale",
+   "src": "/music/beethoven-9-finale.m4a",
+   "title": "Symphony No. 9, IV. Finale, Ode to Joy",
+   "composer": "Ludwig van Beethoven",
+   "performer": "Papalin (virtual orchestra)",
+   "detail": "Symphony No. 9 in D minor, Op. 125, fourth movement. A computer-rendered virtual orchestra and choir",
+   "duration": 1350,
+   "bytes": 16482589,
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sources": [
+    {
+     "title": "PMLP01607-Symphony No.9, Op.125 (Beethoven, Ludwig van), IV Presto.ogg",
+     "page": "https://commons.wikimedia.org/wiki/File:PMLP01607-Symphony_No.9,_Op.125_(Beethoven,_Ludwig_van),_IV_Presto.ogg",
+     "licence": "CC BY-SA 3.0",
+     "templates": [
+      "cc-by-sa-3.0"
+     ]
+    }
+   ],
+   "changes": "loudness evened out and encoded as AAC at 96 kbps"
   }
  ]
 }

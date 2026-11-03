@@ -21,6 +21,8 @@ BITRATE = "96k"
 
 G = "File:Kimiko Ishizaka - J.S. Bach- -Open- Goldberg Variations, BWV 988 (Piano) - {}.mp3"
 JM = "File:JOHN MICHEL CELLO-J S BACH CELLO SUITE 1 in G {}.ogg"
+E10 = ["1 in C major 'Waterfall'", "2 in A minor 'Chromatique'", "3 in E major 'Tristesse'", "4 in C-Sharp minor 'Torrent'", "5 in G-Flat major 'Black Keys'", "6 in E-Flat minor 'Lament'", "7 in C major 'Toccata'", "8 in F major 'Sunshine'", '9 in F minor', '10 in A-Flat major', "11 in E-Flat major 'Arpeggio'", "12 in C minor 'Revolutionary'"]
+E25 = ["1 in A-Flat major 'Harp Study'", "2 in F minor 'The Bees'", "3 in F major 'The Horseman'", "4 in A minor 'Paganini'", "5 in E minor 'Wrong Note'", "6 in G-Sharp minor 'Thirds'", "7 in C-Sharp minor 'Cello'", "8 in D-Flat major 'Sixths'", "9 in G-Flat major 'Butterfly Wings'", "10 in B minor 'Octave'", "11 in A minor 'Winter Wind'", "12 in C minor 'Ocean'"]
 MB = "File:Mozart's Serenade No. 10 \"Grand Partita\" - {} - United States Marine Band.mp3"
 TRACKS = [
   dict(id="vivaldi-spring", composer="Antonio Vivaldi", title="The Four Seasons, Spring", detail="Concerto in E major, RV 269, all three movements",
@@ -47,6 +49,41 @@ TRACKS = [
        performer="\"The President's Own\" United States Marine Band", files=[MB.format("III. Adagio. Andante")]),
   dict(id="chopin-nocturne-27-2", composer="Frédéric Chopin", title="Nocturne in D-flat major, Op. 27 No. 2", detail="From Musopen's Set Chopin Free project",
        performer="Frank Lévy, piano", files=["File:Chopin - Nocturne No. 8 in D-flat major, Op. 27 No. 2 (Frank Levy).flac"]),
+  # Added November 2026. Same rule: the recording itself must be public domain, CC0, CC BY or CC BY-SA on its Commons page.
+  dict(id="pachelbel-canon", composer="Johann Pachelbel", title="Canon in D", detail="Arranged for strings by Frank Hudson",
+       performer="The Strolling Strings of the United States Air Force Band", files=["File:Canon (2004) - Strolling Strings - United States Air Force Band.mp3"]),
+  dict(id="chopin-waltz-a-minor", composer="Frédéric Chopin", title="Waltz in A minor, B. 150", detail="Known as Waltz No. 19, published after his death. From Musopen's Set Chopin Free project",
+       performer="Aya Higuchi, piano", files=["File:Chopin - Waltz No. 19 in A minor, B. 150 (Aya Higuchi).flac"]),
+  dict(id="bach-air", composer="Johann Sebastian Bach", title="Air on the G String", detail="Orchestral Suite No. 3 in D major, BWV 1068, II. Air",
+       performer="The Air Force Strings of the United States Air Force Band", files=["File:Air - Air Force Strings - United States Air Force Band.mp3"]),
+  dict(id="beethoven-fur-elise", composer="Ludwig van Beethoven", title="Für Elise", detail="Bagatelle No. 25 in A minor, WoO 59",
+       performer="Sebion7125, piano (a Wikimedia Commons contributor)", files=["File:Fur Elise.ogg"]),
+  dict(id="beethoven-moonlight", composer="Ludwig van Beethoven", title="Moonlight Sonata", detail="Piano Sonata No. 14 in C-sharp minor, Op. 27 No. 2, all three movements",
+       performer="Paul Pitman, piano (via Musopen)",
+       files=["File:Ludwig van Beethoven - sonata no. 14 in c sharp minor 'moonlight', op. 27 no. 2 - i. adagio sostenuto.ogg",
+              "File:Moonlight Sonata Allegretto.ogg", "File:Moonlight Sonata Presto.ogg"]),
+  dict(id="mozart-figaro-overture", composer="Wolfgang Amadeus Mozart", title="The Marriage of Figaro, Overture", detail="Le nozze di Figaro, K. 492",
+       performer="Musopen Symphony", files=["File:Mozart - Le nozze di Figaro, K492 - Overture (Musopen Symphony).flac"]),
+  dict(id="greensleeves", composer="Traditional English", title="Greensleeves", detail="Sixteenth-century English tune, for solo piano",
+       performer="An unnamed pianist, recorded by Dieter Leckschat", files=["File:Greensleeves for solo piano.wav"]),
+  dict(id="chopin-ballade-1", composer="Frédéric Chopin", title="Ballade No. 1 in G minor, Op. 23", detail="From Musopen's Set Chopin Free project",
+       performer="Frank Lévy, piano", files=["File:Chopin - Ballade No. 1 in G minor, Op. 23 (Frank Levy).flac"]),
+  dict(id="mahler-adagietto", composer="Gustav Mahler", title="Symphony No. 5, IV. Adagietto", detail="Symphony No. 5 in C-sharp minor, fourth movement",
+       performer="Peabody Symphony Orchestra", files=["File:Mahler Symphony No. 5, IV. Adagietto.ogg"]),
+  dict(id="bach-toccata-fugue", composer="Johann Sebastian Bach", title="Toccata and Fugue in D minor", detail="BWV 565, on the organ of the Protestant church in Solms-Albshausen, Germany",
+       performer="Norbert Schenk, organ", files=["File:Bach, Toccata und Fuge d-moll BWV 565, Norbert Schenk.mp3"]),
+  dict(id="tchaikovsky-waltz-flowers", composer="Pyotr Ilyich Tchaikovsky", title="The Nutcracker, Waltz of the Flowers", detail="Nutcracker Suite, Op. 71a, arranged for concert band by Lawrence Odom",
+       performer="The Concert Band of the United States Air Force Band", files=["File:Waltz of the Flowers - Concert Band - United States Air Force Band.mp3"]),
+  dict(id="chopin-etudes-op10", composer="Frédéric Chopin", title="12 Études, Op. 10", detail="All twelve, from Musopen's Set Chopin Free project",
+       performer="Edward Neeman, piano", files=[f"File:Chopin - 12 Études, Op. 10 - No. {x} (Edward Neeman).flac" for x in E10]),
+  dict(id="rossini-william-tell", composer="Gioachino Rossini", title="William Tell Overture", detail="Arranged for military band",
+       performer="\"The President's Own\" United States Marine Band", files=["File:Gioachino Rossini, William Tell Overture (military band version, 2000).ogg"]),
+  dict(id="chopin-etudes-op25", composer="Frédéric Chopin", title="12 Études, Op. 25", detail="All twelve, from Musopen's Set Chopin Free project",
+       performer="Edward Neeman, piano", files=[f"File:Chopin - 12 Études, Op. 25 - No. {x} (Edward Neeman).flac" for x in E25]),
+  dict(id="tchaikovsky-1812", composer="Pyotr Ilyich Tchaikovsky", title="1812 Overture", detail="Ouverture solennelle, Op. 49, recorded live at Wolf Trap, Virginia, in 2019",
+       performer="\"The President's Own\" United States Marine Band", files=["File:1812 Overture - United States Marine Band.opus"]),
+  dict(id="beethoven-9-finale", composer="Ludwig van Beethoven", title="Symphony No. 9, IV. Finale, Ode to Joy", detail="Symphony No. 9 in D minor, Op. 125, fourth movement. A computer-rendered virtual orchestra and choir",
+       performer="Papalin (virtual orchestra)", files=["File:PMLP01607-Symphony No.9, Op.125 (Beethoven, Ludwig van), IV Presto.ogg"]),
 ]
 
 def api(**p):
@@ -68,7 +105,14 @@ def info(title):
     return dict(title=title, page="https://commons.wikimedia.org/wiki/" + urllib.parse.quote(title.replace(" ", "_"), safe=":/(),'"),
                 url=ii["url"], licence=lic, licence_url=m.get("LicenseUrl", {}).get("value", ""), templates=templates)
 
-def fetch(u, path):
+def fetch(u, path, tries=4):
+    for k in range(tries):
+        try: return _fetch(u, path)
+        except (OSError, TimeoutError) as e:
+            if k == tries - 1: raise
+            print(f"  retrying download ({e})"); import time; time.sleep(10 * (k + 1))
+
+def _fetch(u, path):
     if os.path.exists(path): return
     with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=300) as r, open(path + ".part", "wb") as f:
         while True:
