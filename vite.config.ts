@@ -8,7 +8,7 @@ import type { Plugin } from "vite";
    dash.cloudflare.com > Web Analytics > amongtheletters.com > Manage site. The token is public by design.
    While it is empty no beacon is added. Every page built by Vite gets the beacon once, so new pages are covered.
    "spa" counts in-place page changes (the router uses history.pushState) as page views. */
-const CF_BEACON_TOKEN = "";
+const CF_BEACON_TOKEN = "99b2abd3f2384b09b2d2cf5257cb2c4c";
 
 function cfWebAnalytics(): Plugin {
   return {
