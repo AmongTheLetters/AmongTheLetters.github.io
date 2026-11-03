@@ -60,6 +60,10 @@ PAGES = {
      desc="Writing contests, calls for submissions, grants, residencies, fellowships and paid markets across North America, checked against official pages and sorted by deadline. A free list for everyone, the full database and alerts for members.",
      og="Contests, residencies, grants and paid markets for writers, checked against official pages and sorted by deadline.",
      ogtitle="Opportunities for Writers | Among The Letters"),
+  "directory/index.html": dict(url="/directory/", title="The Reading Directory | Among The Letters",
+     desc="A free directory of reading sites. Literary magazines, presses, free libraries and archives, bookstores, web fiction, audiobooks and more, from Canada and around the world, with search and filters. No sign-up.",
+     og="Literary magazines, presses, free libraries, bookstores, web fiction and audiobooks, searchable and free for everyone.",
+     ogtitle="The Reading Directory | Among The Letters"),
   "account/index.html": dict(url="/account/", title="Your Account | Among The Letters",
      desc="Sign in to your Among The Letters account to manage your membership, saved searches, notifications and deadline calendar.",
      og="Manage your Among The Letters membership, saved searches and notifications.",
@@ -165,6 +169,7 @@ def sitemap():
              ("/shop/", ["shop/index.html", "src/ShopApp.tsx", "src/lib/shop-content.ts"], "0.6"),
              ("/calendar/", ["calendar/index.html", "src/CalendarApp.tsx", "src/lib/featured-schedule.ts", "src/lib/events.ts"], "0.6"),
              ("/opportunities/", ["opportunities/index.html", "src/OpportunitiesApp.tsx", "public/opportunities/data/free.json"], "0.7"),
+             ("/directory/", ["directory/index.html", "src/DirectoryApp.tsx", "public/directory/data/directory.json"], "0.8"),
              ("/membership/", ["membership/index.html", "src/MembershipApp.tsx"], "0.6")]
     urls = [(SITE + u, lm(*r), pr) for u, r, pr in pages]
     for f in sorted((ROOT / "public/resources").glob("*")):

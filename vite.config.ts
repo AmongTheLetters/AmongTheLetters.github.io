@@ -20,6 +20,7 @@ export default defineConfig({
         resources: fileURLToPath(new URL("./resources/index.html", import.meta.url)),
         calendar: fileURLToPath(new URL("./calendar/index.html", import.meta.url)),
         opportunities: fileURLToPath(new URL("./opportunities/index.html", import.meta.url)),
+        directory: fileURLToPath(new URL("./directory/index.html", import.meta.url)),
         account: fileURLToPath(new URL("./account/index.html", import.meta.url)),
         membership: fileURLToPath(new URL("./membership/index.html", import.meta.url)),
         notfound: fileURLToPath(new URL("./404.html", import.meta.url)),
