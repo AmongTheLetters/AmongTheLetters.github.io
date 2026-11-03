@@ -1,8 +1,9 @@
 /* Shared pieces for The Jade Pages: filter chips and the listing card. */
 import {
   ArrowUpRight, Award, BookMarked, BookOpen, Feather, Flag, Globe, Headphones, LibraryBig, Mail, MapPin, MessagesSquare,
-  Newspaper, PenLine, Store, TabletSmartphone,
+  Newspaper, PenLine, Store, TabletSmartphone, X,
 } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ACCESS_HINT, ACCESS_LABEL, DIRECTORY_SHORT, FORMAT_LABEL, languageName, placeLabel, suggestHref, type RawData, type Site } from "@/lib/directory";
 import { cn } from "@/lib/utils";
@@ -25,7 +26,39 @@ export function ChipButton({ on, onClick, children, count, disabled }: { on: boo
   );
 }
 
+/* Unconfirmed access is a small grey dot, so it never squeezes the category name. Tapping it opens a little info bubble. */
+function AccessDot() {
+  const [open, setOpen] = useState(false);
+  const wrap = useRef<HTMLSpanElement>(null);
+  const btn = useRef<HTMLButtonElement>(null);
+  const id = useId();
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: Event) => { if (!wrap.current?.contains(e.target as Node)) setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); setOpen(false); btn.current?.focus(); } };
+    document.addEventListener("pointerdown", onDown); document.addEventListener("keydown", onKey, true);
+    return () => { document.removeEventListener("pointerdown", onDown); document.removeEventListener("keydown", onKey, true); };
+  }, [open]);
+  return (
+    <span ref={wrap} className="relative inline-flex shrink-0">
+      <button ref={btn} type="button" aria-label="Access not yet confirmed" aria-expanded={open} aria-controls={open ? id : undefined}
+        onClick={() => setOpen((v) => !v)}
+        className="access-dot inline-flex size-6 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-oxblood">
+        <span className="block size-2.5 rounded-full bg-faint/55 ring-2 ring-faint/15" aria-hidden="true" />
+      </button>
+      {open ? (
+        <span id={id} role="status" className="absolute right-0 top-[calc(100%+4px)] z-30 flex w-max max-w-[13rem] items-start gap-1.5 rounded-lg border border-jade/25 bg-cream py-1.5 pl-3 pr-1 text-xs font-medium normal-case tracking-normal text-ink shadow-lg">
+          <span className="py-0.5">Access not yet confirmed</span>
+          <button type="button" aria-label="Close" onClick={() => { setOpen(false); btn.current?.focus(); }}
+            className="inline-flex size-6 shrink-0 items-center justify-center rounded-full text-faint hover:bg-jade/10 hover:text-jade-deep focus-visible:outline-2 focus-visible:outline-oxblood"><X className="size-3.5" aria-hidden="true" /></button>
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
 export function AccessBadge({ access, evidence }: { access: string; evidence: string }) {
+  if (access === "unconfirmed") return <AccessDot />;
   /* Jade variants. Paid deep solid, Free pale fill, Free and paid outlined, not confirmed grey dashed. */
   const tone = access === "free" ? "bg-jade/15 text-jade-deep ring-1 ring-jade/25" : access === "paid" ? "bg-jade-deep text-parchment" : access === "mixed" ? "border border-jade text-jade-deep bg-cream" : "border border-dashed border-faint/60 text-muted";
   const title = ACCESS_HINT[access] + (evidence ? `. Based on ${evidence}.` : ".");
@@ -45,7 +78,7 @@ export function SiteCard({ s, meta, as: El = "li", className }: { s: Site; meta:
   return (
     <El className={cn("jade-card group flex min-w-0 flex-col rounded-xl bg-cream p-5", className)}>
       <div className="flex min-w-0 items-start justify-between gap-3">
-        <p className="kicker kicker-jade flex min-w-0 items-start gap-1.5 [overflow-wrap:anywhere]"><CatIcon className="mt-px size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" /><span className="min-w-0">{meta.categories[s.cat]}</span></p>
+        <p className="kicker kicker-jade flex min-w-0 items-start gap-1.5 [overflow-wrap:break-word]"><CatIcon className="mt-px size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" /><span className="min-w-0">{meta.categories[s.cat]}</span></p>
         <AccessBadge access={access} evidence={s.evidence} />
       </div>
       <h3 className="mt-2.5 min-w-0 font-display text-xl leading-snug tracking-tight text-ink [overflow-wrap:anywhere]">

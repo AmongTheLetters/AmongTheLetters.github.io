@@ -366,7 +366,7 @@ export function DirectoryApp() {
                 <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted">
                   <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />Every site comes from public lists, library records and reading communities, then gets one polite visit from our checker. We respect each site's wishes about automated visits.</li>
                   <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />Free means you can read there without paying. Paid means the site sells books, issues or subscriptions. Free and paid means a bit of both.</li>
-                  <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />Access not yet confirmed means we could not tell yet. Hover or tap a label to see what it is based on.</li>
+                  <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />A small grey dot means access is not yet confirmed, so we could not tell yet. Tap the dot to see this, or hover or tap any other label to see what it is based on.</li>
                   <li className="flex gap-3"><span className="ornament mt-2 bg-jade shrink-0" aria-hidden="true" />{DIRECTORY_NAME} grow as we find more sites. Details change, so check each site before you buy or submit.</li>
                 </ul>
                 <p className="mt-5 border-t border-jade/20 pt-4 text-sm text-muted">Know a site we are missing? <a href={suggestHref(`${DIRECTORY_SHORT} suggestion`, SUGGEST_BODY)} className="font-medium text-jade underline-offset-4 hover:underline">Email us</a>, especially about Canadian presses, bookshops and little magazines.</p>
