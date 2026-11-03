@@ -1,8 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { api } from "@/lib/backend";
+import { SHOW_WELCOME_POPUP, WELCOME_POPUP } from "@/lib/welcome-popup";
 
-const STORAGE_KEY = "atl-flier-dismissed";
+// On/off switch and content live in src/lib/welcome-popup.ts.
+const STORAGE_KEY = WELCOME_POPUP.storageKey;
 
 function alreadyDismissed() {
   try {
@@ -26,7 +28,7 @@ export function FlierPopup() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (alreadyDismissed()) return;
+    if (!SHOW_WELCOME_POPUP || alreadyDismissed()) return;
     // Signed-in readers already have an account, so the newsletter promo stays out of their way.
     let cancelled = false;
     api.getSession().then((s) => { if (!cancelled && !s) setOpen(true); }, () => { if (!cancelled) setOpen(true); });
@@ -75,7 +77,7 @@ export function FlierPopup() {
         onClick={(event) => event.stopPropagation()}
       >
         <h2 id={labelId} className="sr-only">
-          Among The Letters flier
+          {WELCOME_POPUP.title}
         </h2>
 
         <button
@@ -89,13 +91,14 @@ export function FlierPopup() {
         </button>
 
         <img
-          src="/images/atl-flier.webp"
-          alt="Among The Letters flier: an Afternoon issue every day with new books, authors, short stories, essays, and poems, a Monday Morning issue of writing opportunities, and a QR code to subscribe free on Substack."
+          src={WELCOME_POPUP.image}
+          alt={WELCOME_POPUP.alt}
           fetchPriority="high"
           decoding="async"
-          width={1025}
-          height={1535}
-          className="aspect-[1025/1535] h-[min(78dvh,40rem)] w-auto max-w-full rounded-lg bg-cream object-contain"
+          width={WELCOME_POPUP.width}
+          height={WELCOME_POPUP.height}
+          style={{ aspectRatio: `${WELCOME_POPUP.width} / ${WELCOME_POPUP.height}` }}
+          className="h-[min(78dvh,40rem)] w-auto max-w-full rounded-lg bg-cream object-contain"
         />
       </div>
     </div>
