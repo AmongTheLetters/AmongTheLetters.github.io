@@ -18,17 +18,26 @@ export type FeaturedPiece = {
 };
 
 export const FEATURED: FeaturedPiece = {
-  title: "Lantern Light and Low Voices",
-  deck: "On the old pleasure of a story told to frighten, and why we still gather for it every October",
-  pdf: "/featured/lantern-light-and-low-voices.pdf",
-  cover: "/featured/lantern-light-and-low-voices-cover.webp",
+  title: "What the Poppies Keep",
+  deck: "How literature carries remembrance, from the fields and the letters to the quiet rooms where people waited",
+  pdf: "/featured/what-the-poppies-keep.pdf",
+  cover: "/featured/what-the-poppies-keep-cover.webp",
   coverWidth: 680,
   coverHeight: 880,
-  date: "Halloween 2026",
+  date: "Remembrance Day 2026",
 };
 
 /* Earlier featured pieces, newest first. */
 export const PAST_FEATURED: FeaturedPiece[] = [
+  {
+    title: "Lantern Light and Low Voices",
+    deck: "On the old pleasure of a story told to frighten, and why we still gather for it every October",
+    pdf: "/featured/lantern-light-and-low-voices.pdf",
+    cover: "/featured/lantern-light-and-low-voices-cover.webp",
+    coverWidth: 680,
+    coverHeight: 880,
+    date: "Halloween 2026",
+  },
   {
     title: "When the Evenings Lengthen",
     deck: "Why stories feel different as the autumn dark comes early",

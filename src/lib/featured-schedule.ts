@@ -11,7 +11,7 @@ export type ScheduledFeature = {
 };
 
 export const FEATURED_SCHEDULE: ScheduledFeature[] = [
-  { live: "2026-11-04", occasion: "Remembrance Day", title: "What the Poppies Keep", confirmed: false },
+  { live: "2026-11-04", occasion: "Remembrance Day", title: "What the Poppies Keep", confirmed: true },
   { live: "2026-11-19", occasion: "American Thanksgiving", title: "A Table Set for Stories", confirmed: false },
   { live: "2026-12-04", occasion: "Early December feature", title: "The Gift of a Book", confirmed: false },
   { live: "2026-12-18", occasion: "Christmas", title: "Snowlight and Story", confirmed: false },
