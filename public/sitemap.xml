@@ -7,7 +7,7 @@
   </url>
   <url>
     <loc>https://amongtheletters.com/archive/</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://amongtheletters.com/calendar/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -64,6 +64,11 @@
     <loc>https://amongtheletters.com/resources/atl-submission-tracker.pdf</loc>
     <lastmod>2026-10-13</lastmod>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://amongtheletters.com/newsletters/afternoon-discoveries-2026-11-04.pdf</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://amongtheletters.com/newsletters/afternoon-discoveries-2026-11-03.pdf</loc>
@@ -301,13 +306,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://amongtheletters.com/featured/what-the-poppies-keep.pdf</loc>
-    <lastmod>2026-11-04</lastmod>
+    <loc>https://amongtheletters.com/featured/lantern-light-and-low-voices.pdf</loc>
+    <lastmod>2026-10-24</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://amongtheletters.com/featured/lantern-light-and-low-voices.pdf</loc>
-    <lastmod>2026-10-24</lastmod>
+    <loc>https://amongtheletters.com/featured/what-the-poppies-keep.pdf</loc>
+    <lastmod>2026-11-04</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
