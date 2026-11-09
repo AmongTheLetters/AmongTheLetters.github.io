@@ -499,14 +499,31 @@ h1, h2, h3, h4, h5, h6, .kicker { overflow-wrap: break-word; }
 }
 
 /* Corner carvings. A small sculpture in one corner of a card or panel, never behind the text. */
-.corner-carving {
-  z-index: 0;
-  width: auto;
-  opacity: .92;
+.carving-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
 }
-.corner-carving-jade { filter: saturate(.92) drop-shadow(0 4px 6px rgb(29 74 61 / .22)); }
-.corner-carving-topaz { filter: drop-shadow(0 4px 6px rgb(110 70 10 / .25)); }
-@media (forced-colors: active) { .corner-carving { display: none; } }
+:where(*):has(> .carving-bg) { isolation: isolate; }
+.corner-carving {
+  position: absolute;
+  right: -4%;
+  bottom: -6%;
+  height: 88%;
+  max-height: 240px;
+  width: auto;
+  max-width: 62%;
+  object-fit: contain;
+  opacity: .13;
+}
+.corner-carving-dark { opacity: .2; mix-blend-mode: screen; }
+.corner-carving-jade { filter: saturate(.9); }
+.corner-carving-topaz { filter: saturate(1.05); }
+@media (forced-colors: active) { .carving-bg { display: none; } }
 
 /* Topaz Pages: warm golden topaz over the ATL newsprint, the same build as the Jade Pages. */
 .kicker-topaz { color: var(--color-topaz); }

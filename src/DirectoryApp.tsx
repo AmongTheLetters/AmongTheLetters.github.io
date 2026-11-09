@@ -228,6 +228,7 @@ export function DirectoryApp() {
         <section className="pb-20 md:pb-28">
           <div className="section-shell">
             <div ref={panelRef} className="jade-card sticky top-16 z-20 -mx-4 border-b border-jade/25 bg-cream/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-cream/90 sm:mx-0 sm:rounded-xl sm:border-b-0 sm:p-4">
+                <CornerCarving set="jade" index={3} />
               <div className="flex gap-2">
                 <label className="relative block min-w-0 flex-1">
                   <span className="sr-only">Search {DIRECTORY_NAME}</span>
@@ -245,7 +246,6 @@ export function DirectoryApp() {
                   <ChevronDown className={cn("size-4 transition-transform duration-200 motion-reduce:transition-none", panelOpen && "rotate-180")} aria-hidden="true" />
                   {activeCount ? <span className="sr-only sm:hidden">, {activeCount} active</span> : null}
                 </button>
-                <span className="relative hidden h-11 w-10 shrink-0 md:block" aria-hidden="true"><CornerCarving set="jade" index={3} className="inset-0 m-auto h-11 max-w-10" /></span>
               </div>
               <div id="dir-panel" className={cn("jade-collapse grid", instant && "transition-none", panelOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")} inert={!panelOpen}>
                 <div className="min-h-0 overflow-hidden">
@@ -362,8 +362,8 @@ export function DirectoryApp() {
             )}
 
             <div className="mt-16 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
-              <div className="jade-card jade-top relative rounded-xl bg-cream p-6 pr-20 sm:pr-24">
-                <CornerCarving set="jade" index={2} className="right-3 top-4 h-[72px] max-w-[56px] sm:h-[88px] sm:max-w-[64px]" />
+              <div className="jade-card jade-top relative rounded-xl bg-cream p-6">
+                <CornerCarving set="jade" index={2} />
                 <p className="kicker kicker-jade">How it works</p>
                 <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">Gathered with care, checked at the source.</h2>
                 <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted">
@@ -375,7 +375,7 @@ export function DirectoryApp() {
                 <p className="mt-5 border-t border-jade/20 pt-4 text-sm text-muted">Know a site we are missing? <a href={suggestHref(`${DIRECTORY_SHORT} suggestion`, SUGGEST_BODY)} className="font-medium text-jade underline-offset-4 hover:underline">Email us</a>, especially about Canadian presses, bookshops and little magazines.</p>
               </div>
               <div id="find" className="jade-deep-panel relative flex flex-col rounded-xl p-6 text-parchment shadow-[var(--shadow-border)]">
-                <CornerCarving set="jade" index={1} className="bottom-3 right-3 h-[72px] max-w-[56px] sm:h-[88px] sm:max-w-[64px]" />
+                <CornerCarving set="jade" index={1} dark />
                 <p className="kicker kicker-inverse">Not sure where to start?</p>
                 <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Let us pick one for you.</h2>
                 <p className="mt-3 text-sm leading-relaxed text-parchment/80">Tell us what you are in the mood for, or let chance decide. Every pick is a real site from the list, ready to visit.</p>
@@ -398,9 +398,9 @@ export function DirectoryApp() {
                   [BookMarked, "Membership", "The full opportunities database, alerts and the paid newsletter, in one membership.", MEMBERSHIP_URL, "Compare plans", false],
                 ] as const).map(([Icon, t, b, href, cta, ext], n) => (
                   <div key={t} className="jade-card jade-top relative flex flex-col rounded-xl bg-cream p-5">
-                    <CornerCarving set="jade" index={n + 1} className="right-3 top-3 h-[60px] max-w-[48px]" />
+                    <CornerCarving set="jade" index={n + 1} />
                     <span className="flex size-10 items-center justify-center rounded-full bg-jade/12 text-jade"><Icon className="size-5" strokeWidth={1.75} /></span>
-                    <h3 className="mt-4 pr-12 font-display text-xl tracking-tight text-ink">{t}</h3>
+                    <h3 className="mt-4 font-display text-xl tracking-tight text-ink">{t}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted">{b}</p>
                     <div className="mt-auto pt-4">
                       <a href={href} {...(ext ? { target: "_blank", rel: "noreferrer" } : {})} className="text-sm font-medium text-jade hover:underline">{cta} <ArrowUpRight className="inline size-3.5" /></a>

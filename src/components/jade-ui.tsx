@@ -78,7 +78,7 @@ export function SiteCard({ s, meta, as: El = "li", className }: { s: Site; meta:
   const CatIcon = CAT_ICON[s.cat] ?? BookOpen;
   return (
     <El className={cn("jade-card group relative flex min-w-0 flex-col rounded-xl bg-cream p-5", className)}>
-      <CornerCarving set="jade" seed={s.i} className="bottom-2 right-2 h-[64px] max-w-[52px] sm:h-[78px] sm:max-w-[60px]" />
+      <CornerCarving set="jade" seed={s.i} />
       <div className="flex min-w-0 items-start justify-between gap-3">
         <p className="kicker kicker-jade flex min-w-0 items-start gap-1.5 [overflow-wrap:break-word]"><CatIcon className="mt-px size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" /><span className="min-w-0">{meta.categories[s.cat]}</span></p>
         <AccessBadge access={access} evidence={s.evidence} />
@@ -93,7 +93,7 @@ export function SiteCard({ s, meta, as: El = "li", className }: { s: Site; meta:
         {place ? <span className="inline-flex items-center gap-1"><MapPin className="size-3.5 shrink-0" aria-hidden="true" />{place}</span> : null}
       </p>
       {s.desc ? <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">{s.desc}</p> : <p className="mt-3 text-sm italic text-faint">No description yet.</p>}
-      <div className="mt-3 flex flex-wrap gap-1.5 pr-12 sm:pr-14">
+      <div className="mt-3 flex flex-wrap gap-1.5">
         {formats.map((f) => <Tag key={f}>{FORMAT_LABEL[f]}</Tag>)}
         {genres.map((g) => <Tag key={g} tone="sage">{g[0].toUpperCase() + g.slice(1)}</Tag>)}
         {s.subs ? <Tag tone="gold">Mentions submissions</Tag> : null}

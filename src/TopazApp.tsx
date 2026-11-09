@@ -71,8 +71,8 @@ function PickDialog({ open, onClose, pool, meta }: { open: boolean; onClose: () 
       className="topaz-dialog topaz-focus m-auto w-[min(40rem,calc(100vw-1.5rem))] max-h-[min(46rem,calc(100dvh-1.5rem))] overflow-hidden rounded-2xl bg-cream p-0 text-ink">
       <div className="flex max-h-[inherit] flex-col">
         <div className="topaz-deep-panel relative flex items-start justify-between gap-4 px-5 pb-4 pt-5 text-parchment sm:px-6">
-          <CornerCarving set="topaz" seed={spin + 2} className="bottom-1 right-16 h-[60px] max-w-[46px] sm:h-[70px] sm:max-w-[54px]" />
-          <div className="pr-14">
+          <CornerCarving set="topaz" seed={spin + 2} dark />
+          <div>
             <p className="kicker kicker-inverse">{TOPAZ_SHORT}</p>
             <h2 id="tz-pick-title" className="mt-1 font-display text-2xl font-medium tracking-tight">Here is one to look at</h2>
             <p className="mt-1 text-sm text-parchment/75">Picked at random from what your filters match.</p>
@@ -192,6 +192,7 @@ export function TopazApp() {
           <div className="section-shell">
             {ready ? (
               <div className="topaz-card sticky top-16 z-20 -mx-4 border-b border-topaz/25 bg-cream/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-cream/90 sm:mx-0 sm:rounded-xl sm:border-b-0 sm:p-4">
+                <CornerCarving set="topaz" index={0} />
                 <div className="flex gap-2">
                   <label className="relative block min-w-0 flex-1">
                     <span className="sr-only">Search {TOPAZ_NAME}</span>
@@ -207,7 +208,6 @@ export function TopazApp() {
                     <span>Filters{activeCount ? ` (${activeCount})` : ""}</span>
                     <ChevronDown className={cn("size-4 transition-transform duration-200 motion-reduce:transition-none", panelOpen && "rotate-180")} aria-hidden="true" />
                   </button>
-                  <span className="relative hidden h-11 w-10 shrink-0 md:block" aria-hidden="true"><CornerCarving set="topaz" index={0} className="inset-0 m-auto h-11 max-w-10" /></span>
                 </div>
                 {panelOpen ? (
                   <div id="tz-panel" className="max-h-[62vh] overflow-y-auto overscroll-contain pt-3 md:max-h-none md:overflow-visible">
@@ -261,8 +261,8 @@ export function TopazApp() {
             </div>
 
             {state === "building" ? (
-              <div className="topaz-card relative mt-3 rounded-xl bg-cream p-8 pr-24 sm:p-10 sm:pr-32">
-                <CornerCarving set="topaz" index={2} className="bottom-4 right-4 h-[90px] max-w-[70px] sm:h-[120px] sm:max-w-[90px]" />
+              <div className="topaz-card relative mt-3 rounded-xl bg-cream p-8 sm:p-10">
+                <CornerCarving set="topaz" index={2} />
                 <p className="kicker kicker-topaz">Being gathered now</p>
                 <p className="mt-2 font-display text-2xl text-ink">{TOPAZ_NAME} are still being built.</p>
                 <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">We are checking each listing at the source and looking for public reviews before anything goes up. Know a service authors should hear about, good or bad? <a href={topazMail(`${TOPAZ_SHORT} suggestion`, SUGGEST_BODY)} className="font-medium text-topaz-deep underline-offset-4 hover:underline">Email us</a>.</p>
@@ -295,8 +295,8 @@ export function TopazApp() {
             )}
 
             <div className="mt-16 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
-              <div className="topaz-card relative rounded-xl bg-cream p-6 pr-20 sm:pr-24">
-                <CornerCarving set="topaz" index={1} className="right-3 top-4 h-[72px] max-w-[56px] sm:h-[88px] sm:max-w-[64px]" />
+              <div className="topaz-card relative rounded-xl bg-cream p-6">
+                <CornerCarving set="topaz" index={1} />
                 <p className="kicker kicker-topaz">How it works</p>
                 <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">Checked at the source, with reviews one tap away.</h2>
                 <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted">
@@ -308,10 +308,10 @@ export function TopazApp() {
                 <p className="mt-5 border-t border-topaz/20 pt-4 text-sm text-muted">Know a service we are missing, or one authors should avoid? <a href={topazMail(`${TOPAZ_SHORT} suggestion`, SUGGEST_BODY)} className="font-medium text-topaz-deep underline-offset-4 hover:underline">Email us</a>.</p>
               </div>
               <div className="topaz-deep-panel relative flex flex-col rounded-xl p-6 text-parchment">
-                <CornerCarving set="topaz" index={3} className="bottom-3 right-3 h-[72px] max-w-[56px] sm:h-[88px] sm:max-w-[64px]" />
+                <CornerCarving set="topaz" index={3} dark />
                 <p className="kicker kicker-inverse">Looking for readers instead?</p>
                 <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">Visit the Jade Pages.</h2>
-                <p className="mt-3 pr-16 text-sm leading-relaxed text-parchment/80">Our free reading directory of magazines, presses, libraries and bookshops, many of them open to submissions.</p>
+                <p className="mt-3 text-sm leading-relaxed text-parchment/80">Our free reading directory of magazines, presses, libraries and bookshops, many of them open to submissions.</p>
                 <div className="mt-auto flex flex-wrap gap-2 pt-6">
                   <Button asChild className="bg-gold text-ink hover:bg-gold-soft"><a href="/jade-pages/">Open the Jade Pages <ArrowUpRight className="size-4" /></a></Button>
                 </div>
@@ -329,9 +329,9 @@ export function TopazApp() {
                   [BookMarked, "Membership", "The full opportunities database, alerts and the paid newsletter, in one membership.", MEMBERSHIP_URL, "Compare plans", false],
                 ] as const).map(([Icon, t, b, href, cta, ext], n) => (
                   <div key={t} className="topaz-card relative flex flex-col rounded-xl bg-cream p-5">
-                    <CornerCarving set="topaz" index={n + 1} className="right-3 top-3 h-[60px] max-w-[48px]" />
+                    <CornerCarving set="topaz" index={n + 1} />
                     <span className="flex size-10 items-center justify-center rounded-full bg-topaz/12 text-topaz"><Icon className="size-5" strokeWidth={1.75} /></span>
-                    <h3 className="mt-4 pr-12 font-display text-xl tracking-tight text-ink">{t}</h3>
+                    <h3 className="mt-4 font-display text-xl tracking-tight text-ink">{t}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted">{b}</p>
                     <div className="mt-auto pt-4">
                       <a href={href} {...(ext ? { target: "_blank", rel: "noreferrer" } : {})} className="text-sm font-medium text-topaz-deep hover:underline">{cta} <ArrowUpRight className="inline size-3.5" /></a>

@@ -1,6 +1,7 @@
-/* A small carved figure tucked into one corner of a card, panel or popup. Purely decorative.
+/* A carved figure set faintly into the background of a card, panel or popup. Purely decorative.
+   It sits behind the text inside the card's own box, so it never changes the card's size or covers anything.
    Which figure appears is picked from the seed, so each card keeps its own carving while the page is open,
-   and different cards get different ones. The space it sits in is reserved by the card itself, so text never runs under it. */
+   and different cards get different ones. */
 import { cn } from "@/lib/utils";
 
 export const CARVINGS = {
@@ -19,10 +20,13 @@ export function carvingFor(set: CarvingSet, seed: number, index?: number) {
   return list[h % list.length];
 }
 
-export function CornerCarving({ set, seed = 0, index, className, flip }: { set: CarvingSet; seed?: number; index?: number; className?: string; flip?: boolean }) {
+/* The parent needs `relative`. dark=true for the deep coloured panels. */
+export function CornerCarving({ set, seed = 0, index, className, flip, dark }: { set: CarvingSet; seed?: number; index?: number; className?: string; flip?: boolean; dark?: boolean }) {
   return (
-    <img src={carvingFor(set, seed, index)} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable={false}
-      className={cn("corner-carving pointer-events-none absolute select-none object-contain", `corner-carving-${set}`, className)}
-      style={flip ? { transform: "scaleX(-1)" } : undefined} />
+    <span className="carving-bg" aria-hidden="true">
+      <img src={carvingFor(set, seed, index)} alt="" loading="lazy" decoding="async" draggable={false}
+        className={cn("corner-carving", `corner-carving-${set}`, dark && "corner-carving-dark", className)}
+        style={flip ? { transform: "scaleX(-1)" } : undefined} />
+    </span>
   );
 }

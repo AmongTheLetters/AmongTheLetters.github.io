@@ -61,7 +61,7 @@ export function ServiceCard({ s, meta, as: El = "li", className }: { s: Service;
   const reviews = s.reviews || `https://www.google.com/search?q=${encodeURIComponent(`"${s.name}" reviews`)}`;
   return (
     <El className={cn("topaz-card group relative flex min-w-0 flex-col rounded-xl bg-cream p-5", className)}>
-      <CornerCarving set="topaz" seed={s.i} className="bottom-2 right-2 h-[64px] max-w-[52px] sm:h-[78px] sm:max-w-[60px]" />
+      <CornerCarving set="topaz" seed={s.i} />
       <div className="flex min-w-0 items-start justify-between gap-3">
         <p className="kicker kicker-topaz flex min-w-0 items-start gap-1.5 [overflow-wrap:break-word]"><CatIcon className="mt-px size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" /><span className="min-w-0">{meta.categories[s.cat]}</span></p>
         <TrustBadge s={s} />
@@ -78,7 +78,7 @@ export function ServiceCard({ s, meta, as: El = "li", className }: { s: Service;
       </p>
       {s.caution ? <p className="mt-3 rounded-md border border-oxblood/30 bg-oxblood/[0.06] px-3 py-2 text-sm text-oxblood">Industry watchdogs have raised concerns about this service. Read the advisory before you share money or a manuscript.</p> : null}
       {s.desc ? <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">{s.desc}</p> : <p className="mt-3 text-sm italic text-faint">No description yet.</p>}
-      <div className="mt-3 flex flex-wrap gap-1.5 pr-12 sm:pr-14">
+      <div className="mt-3 flex flex-wrap gap-1.5">
         {services.map((x) => <TopazTag key={x}>{x}</TopazTag>)}
         {ww ? <TopazTag tone="warm">For {ww}</TopazTag> : null}
         {sb ? <TopazTag tone={s.sb === 1 ? "sage" : "plain"}>{sb}{s.rp ? ", reading periods" : ""}</TopazTag> : null}
@@ -87,7 +87,7 @@ export function ServiceCard({ s, meta, as: El = "li", className }: { s: Service;
         {formats.map((x) => <TopazTag key={x}>{x}</TopazTag>)}
         {s.kid ? <TopazTag tone="sage">Children's books</TopazTag> : null}
       </div>
-      <div className="mt-3 pr-12 sm:pr-14">
+      <div className="mt-3">
         <button type="button" aria-expanded={why} aria-controls={whyId} onClick={() => setWhy((v) => !v)} className="text-xs font-medium text-topaz-deep underline-offset-4 hover:underline">
           {why ? "Hide the signals" : "Why this rating?"}
         </button>
