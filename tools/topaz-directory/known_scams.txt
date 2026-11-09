@@ -1,0 +1,40 @@
+# Known scam and predatory vanity operations that are always left out of the Topaz Pages.
+# One per line:  Name | domain (optional) | public source
+# Each crawl also downloads Writer Beware's current scam list (see README). That list is used on your
+# computer only, as a filter, and is never copied into this repository or onto the website.
+# Add a line here to block something, or put a legitimate business that shares a name in scam_safelist.txt.
+
+# Author Solutions and its imprints. Listed on Writer Beware's former Thumbs Down Publishers list,
+# with multiple Writer Beware alerts and ALLi Watchdog Advisories.
+Author Solutions | authorsolutions.com | https://writerbeware.blog/tag/author-solutions/
+AuthorHouse | authorhouse.com | https://en.wikipedia.org/wiki/Author_Solutions
+AuthorHouse UK | authorhouse.co.uk | https://en.wikipedia.org/wiki/Author_Solutions
+iUniverse | iuniverse.com | https://en.wikipedia.org/wiki/Author_Solutions
+Xlibris | xlibris.com | https://en.wikipedia.org/wiki/Author_Solutions
+Trafford Publishing | trafford.com | https://en.wikipedia.org/wiki/Author_Solutions
+Palibrio | palibrio.com | https://en.wikipedia.org/wiki/Author_Solutions
+Booktango | booktango.com | https://en.wikipedia.org/wiki/Author_Solutions
+Archway Publishing | archwaypublishing.com | https://en.wikipedia.org/wiki/Author_Solutions
+WestBow Press | westbowpress.com | https://en.wikipedia.org/wiki/Author_Solutions
+Balboa Press | balboapress.com | https://en.wikipedia.org/wiki/Author_Solutions
+Balboa Press UK | balboapress.co.uk | https://en.wikipedia.org/wiki/Author_Solutions
+LifeRich Publishing | liferichpublishing.com | https://en.wikipedia.org/wiki/Author_Solutions
+Partridge Publishing | partridgepublishing.com | https://en.wikipedia.org/wiki/Author_Solutions
+Inspiring Voices | inspiringvoices.com | https://en.wikipedia.org/wiki/Author_Solutions
+Abbott Press | abbottpress.com | https://en.wikipedia.org/wiki/Author_Solutions
+AuthorHive | authorhive.com | https://en.wikipedia.org/wiki/Author_Solutions
+Wordclay | wordclay.com | https://en.wikipedia.org/wiki/Author_Solutions
+
+# PublishAmerica, later America Star Books. Writer Beware Thumbs Down Publishers list.
+PublishAmerica | publishamerica.com | https://writerbeware.blog/tag/publishamerica/
+America Star Books | americastarbooks.com | https://writerbeware.blog/tag/publishamerica/
+
+# Strategic Book Publishing and Rights Agency and its other names. Writer Beware alert.
+Strategic Book Publishing and Rights Agency | sbpra.com | https://web.archive.org/web/20130302155941/http://www.sfwa.org/for-authors/writer-beware/
+SBPRA | sbpra.net | https://web.archive.org/web/20130302155941/http://www.sfwa.org/for-authors/writer-beware/
+Strategic Book Publishing | | https://web.archive.org/web/20130302155941/http://www.sfwa.org/for-authors/writer-beware/
+Publish on Demand Global | | https://web.archive.org/web/20130302155941/http://www.sfwa.org/for-authors/writer-beware/
+Best Quality Editing Services | | https://web.archive.org/web/20130302155941/http://www.sfwa.org/for-authors/writer-beware/
+
+# Tate Publishing (closed after its owners were charged with fraud). Writer Beware Thumbs Down Publishers list.
+Tate Publishing | tatepublishing.com | https://writerbeware.blog/2007/03/27/victoria-strauss-stealth-vanity-publishers/

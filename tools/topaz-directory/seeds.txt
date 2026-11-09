@@ -1,0 +1,269 @@
+# ATL Topaz Pages seeds. One seed per line. Lines starting with # are comments.
+# '## cat: editors' sets the category for the seeds below it. The categories are
+#   publishers, agents, editors, design, illustration, production
+# Seed kinds
+#   wp:Title                         Wikipedia list page -> official sites via Wikidata, plus its outside links
+#   wpcat:Category:Name | depth=1    Wikipedia category (and subcategories to that depth)
+#   sparql:Q123 [sub] [countries=Q16,Q30]   Wikidata items of a class that have an official website
+#   page:https://...                 a public directory page; its outside links are collected (robots.txt obeyed)
+#        | pages=N                   follow the page's own Next link, up to N pages
+#        | follow=REGEX              open the directory's own profile pages matching REGEX and take the website each one links to
+#        | max=M                     open at most M profile pages
+#   alli:https://...                 the Alliance of Independent Authors' public service ratings table
+#   site:https://...                 add one site directly
+# Any seed can also carry | member=NAME (a membership the listing proves) and | country=CA (where the listing is).
+# Every URL here was checked and opened when this file was written. A rerun only does new lines.
+# Countries in Wikidata: Q16 Canada, Q30 United States, Q145 United Kingdom, Q27 Ireland, Q408 Australia, Q664 New Zealand
+
+## cat: publishers
+# Canada first
+page:https://lpg.ca/lpg-members | member=LPG | country=CA
+page:https://alllitup.ca/book-publishers/ | country=CA
+page:https://bookcentre.ca/pages/publishers | country=CA
+page:https://atlanticpublishers.ca/membership/ | country=CA
+page:https://bookpublishers.ab.ca/publishers/ | follow=^/publishers/[^/]+/?$ | country=CA
+page:https://litdistco.ca/ | country=CA
+wpcat:Category:Book publishing companies of Canada | depth=2 | country=CA
+wpcat:Category:University presses of Canada | depth=1 | country=CA
+wpcat:Category:Comic book publishing companies of Canada | depth=1 | country=CA
+wpcat:Category:Publishing companies of Canada | depth=1 | country=CA
+sparql:Q2085381 countries=Q16 | country=CA
+sparql:Q1661080 countries=Q16 | country=CA
+sparql:Q479716 countries=Q16 | country=CA
+# United States
+page:https://www.pw.org/small_presses | pages=40 | follow=^/small_presses/[^/?]+$
+page:https://www.newpages.com/publishers/
+page:https://www.clmp.org/readers/directory-of-publishers/ | follow=^/readers/directory-of-publishers/(?!add-your)[^/]+/?$ | member=CLMP | country=US
+page:https://www.ipgbook.com/publishers-pages-32.php | follow=-publisher-[A-Za-z0-9]+\.php$ | country=US
+wp:List of English-language small presses
+wp:List of English-language book publishing companies
+wp:List of university presses
+wp:List of publishers of children's books
+wp:List of comics publishing companies
+wp:List of self-publishing companies
+wpcat:Category:Small press publishing companies | depth=1
+wpcat:Category:Book publishing companies of the United States | depth=1 | country=US
+wpcat:Category:University presses of the United States | depth=1 | country=US
+wpcat:Category:Comic book publishing companies of the United States | depth=1 | country=US
+wpcat:Category:Children's book publishers | depth=1
+wpcat:Category:Poetry publishers | depth=1
+wpcat:Category:Science fiction publishers | depth=1
+wpcat:Category:Self-publishing companies | depth=1
+sparql:Q2085381 countries=Q30 | country=US
+sparql:Q1661080 countries=Q30 | country=US
+sparql:Q479716 countries=Q30 | country=US
+sparql:Q1114515 countries=Q16,Q30
+# United Kingdom, Ireland, Australia, New Zealand
+page:https://www.publishingireland.com/publishers/ | follow=^/publisher/[^/]+/?$ | member=Publishing Ireland | country=IE
+page:https://publishers.org.nz/members/ | follow=^/members/[^/]+/?$ | member=PANZ | country=NZ
+wp:List of largest book publishers of the United Kingdom
+wpcat:Category:Book publishing companies of the United Kingdom | depth=1 | country=GB
+wpcat:Category:Book publishing companies of Ireland | depth=1 | country=IE
+wpcat:Category:Book publishing companies of Australia | depth=1 | country=AU
+wpcat:Category:Book publishing companies of New Zealand | depth=1 | country=NZ
+sparql:Q2085381 countries=Q145 | country=GB
+sparql:Q2085381 countries=Q27 | country=IE
+sparql:Q2085381 countries=Q408 | country=AU
+sparql:Q2085381 countries=Q664 | country=NZ
+sparql:Q1661080 countries=Q145,Q27,Q408,Q664
+sparql:Q479716 countries=Q145,Q27,Q408,Q664
+# Associations and directories writers use to find publishers
+site:https://lpg.ca/ | country=CA
+site:https://publishers.ca/ | country=CA
+site:https://obpo.ca/ | country=CA
+site:https://www.books.bc.ca/ | country=CA
+site:https://bookpublishers.ab.ca/ | country=CA
+site:https://atlanticpublishers.ca/ | country=CA
+site:https://bookcentre.ca/ | country=CA
+site:https://alllitup.ca/ | country=CA
+site:https://writersunion.ca/ | country=CA
+site:https://www.publishingireland.com/ | country=IE
+site:https://publishers.org.nz/ | country=NZ
+site:https://www.publishers.asn.au/ | country=AU
+site:https://aupresses.org/
+site:https://www.clmp.org/ | country=US
+site:https://spannet.org/ | country=US
+site:https://www.newpages.com/ | country=US
+site:https://www.pw.org/ | country=US
+
+## cat: agents
+page:https://www.pacla.ca/pacla-members | member=PACLA (Canada) | country=CA
+page:https://www.pw.org/literary_agents | pages=60 | follow=^/literary_agents/[^/?]+$
+wpcat:Category:Literary agencies | depth=1
+wpcat:Category:Literary agents | depth=1
+sparql:Q54989598
+site:https://www.pacla.ca/ | country=CA
+site:https://transatlanticagency.com/ | country=CA
+site:https://wcaltd.com/ | country=CA
+site:https://www.therightsfactory.com/ | country=CA
+site:https://cookemcdermid.com/ | country=CA
+site:https://www.bukowskiagency.com/ | country=CA
+site:https://www.writershouse.com/ | country=US
+site:https://www.janklowandnesbit.com/ | country=US
+site:https://www.foliolit.com/ | country=US
+site:https://www.dystel.com/ | country=US
+site:https://www.inkwellmanagement.com/ | country=US
+site:https://tridentmediagroup.com/ | country=US
+site:https://www.defliterary.com/ | country=US
+site:https://www.andreabrownlit.com/ | country=US
+site:https://curtisbrown.com/ | country=US
+site:https://www.newleafliterary.com/ | country=US
+site:https://bradfordlit.com/ | country=US
+site:https://www.jdlit.com/ | country=US
+site:https://kimberleycameron.com/ | country=US
+site:https://www.hgliterary.com/ | country=US
+site:https://www.thebentagency.com/ | country=US
+site:https://marsallyonliteraryagency.com/ | country=US
+site:https://www.ldlainc.com/ | country=US
+site:https://www.mariannegunnoconnor.com/ | country=US
+site:https://www.thegernertco.com/ | country=US
+site:https://www.curtisbrown.com.au/ | country=AU
+site:https://www.amheath.com/ | country=GB
+site:https://blakefriedmann.co.uk/ | country=GB
+site:https://www.darleyanderson.com/ | country=GB
+site:https://madeleinemilburn.co.uk/ | country=GB
+site:https://www.greeneheaton.co.uk/ | country=GB
+site:https://www.johnsonandalcock.co.uk/ | country=GB
+site:https://petersfraserdunlop.com/ | country=GB
+site:https://www.rcwlitagency.com/ | country=GB
+site:https://www.unitedagents.co.uk/ | country=GB
+site:https://agentsassoc.co.uk/ | country=GB
+site:https://aalitagents.org/ | country=US
+site:https://querytracker.net/
+site:https://manuscriptwishlist.com/
+site:https://www.publishersmarketplace.com/
+
+## cat: editors
+page:https://www.ciep.uk/directory.html | pages=250 | follow=^/directory/[^/]+/?$ | member=CIEP | country=GB
+site:https://editors.ca/ | country=CA
+site:https://reviseurs.ca/ | country=CA
+site:https://www.the-efa.org/ | country=US
+site:https://aceseditors.org/ | country=US
+site:https://www.ciep.uk/ | country=GB
+site:https://www.iped-editors.org/ | country=AU
+site:https://www.editorsweekly.com/ | country=CA
+site:https://reedsy.com/
+
+## cat: design
+wpcat:Category:Book designers | depth=1
+site:https://www.thebookdesigner.com/
+site:https://damonza.com/
+site:https://www.100covers.com/
+site:https://www.1106design.com/
+site:https://thebookcoverdesigner.com/
+site:https://bookcovers.com/
+site:https://www.bookcoverzone.com/
+site:https://ebooklaunch.com/
+site:https://www.polgarusstudio.com/
+site:https://www.bookdesigntemplates.com/
+site:https://vellum.pub/
+site:https://www.atticus.io/
+
+## cat: illustration
+page:https://www.illustratorsireland.com/ | follow=^/illustrator/[^/]+/?$ | country=IE
+page:https://childrensillustrators.com/portfolio-directory | pages=120 | follow=^/[A-Za-z0-9_-]+/portfolio/?$
+page:https://childrensillustrators.com/reps | follow=^/agency/\d+/illustrators$
+wpcat:Category:Canadian children's book illustrators | depth=1 | country=CA
+wpcat:Category:American children's book illustrators | depth=1 | country=US
+wpcat:Category:Children's book illustrators | depth=1
+site:https://www.scbwi.org/
+site:https://canscaip.org/ | country=CA
+site:https://theaoi.com/ | country=GB
+site:https://www.illustratorsireland.com/ | country=IE
+site:https://childrensillustrators.com/
+site:https://www.picturebookmakers.com/
+site:https://capic.org/ | country=CA
+site:https://www.illustrationx.com/
+site:https://www.theispot.com/
+site:https://www.directoryofillustration.com/
+site:https://astound.us/
+site:https://www.bright-agency.com/
+site:https://www.lemonadeillustration.com/
+site:https://mbartists.com/ | country=US
+site:https://www.painted-words.com/ | country=US
+site:https://www.shannonassociates.com/ | country=US
+site:https://www.advocate-art.com/ | country=GB
+site:https://www.redfoxliterary.com/ | country=US
+
+## cat: production
+wpcat:Category:Audiobook companies and organizations | depth=1
+wpcat:Category:Book distributors | depth=1
+wpcat:Category:Printing companies of Canada | depth=1 | country=CA
+wpcat:Category:Printing companies of the United States | depth=1 | country=US
+wp:List of book distributors
+sparql:Q1644277
+sparql:Q3030771 countries=Q16,Q30,Q145,Q27,Q408,Q664
+sparql:Q6500733 countries=Q16
+# ISBN agencies (Canada's is free from Library and Archives Canada)
+site:https://www.banq.qc.ca/ | country=CA
+site:https://www.myidentifiers.com/ | name=Bowker ISBN (United States) | country=US
+site:https://www.nielsenisbnstore.com/ | name=Nielsen ISBN Store (UK and Ireland) | country=GB
+site:https://www.myidentifiers.com.au/ | name=Thorpe-Bowker ISBN (Australia) | country=AU
+site:https://natlib.govt.nz/publishers-and-authors/isbns-and-issns | name=National Library of New Zealand ISBN service | country=NZ
+# Ebook and audiobook distribution, self-publishing platforms
+site:https://www.ingramspark.com/
+site:https://draft2digital.com/
+site:https://www.smashwords.com/
+site:https://publishdrive.com/
+site:https://www.streetlib.com/
+site:https://kdp.amazon.com/
+site:https://authors.apple.com/
+site:https://play.google.com/books/publish/ | name=Google Play Books Partner Center
+site:https://press.barnesandnoble.com/
+site:https://www.bookbaby.com/
+site:https://www.lulu.com/
+site:https://www.blurb.com/
+site:https://bookvault.app/
+site:https://www.acx.com/
+site:https://www.findawayvoices.com/
+site:https://www.authorsrepublic.com/
+site:https://www.audible.com/ep/creator
+site:https://www.overdrive.com/
+site:https://www.hoopladigital.com/
+site:https://www.bookfunnel.com/
+site:https://www.ingramcontent.com/
+site:https://www.raincoastgroup.com/ | country=CA
+site:https://litdistco.ca/ | country=CA
+site:https://www.fernwoodpublishing.ca/ | country=CA
+site:https://booknetcanada.ca/ | country=CA
+site:https://www.gazellebookservices.co.uk/ | country=GB
+site:https://www.audiopub.org/ | country=US
+# Book printers
+site:https://www.friesens.com/ | country=CA
+site:https://marquisbook.com/ | country=CA
+site:https://www.hignell.mb.ca/ | country=CA
+site:https://www.versapress.com/ | country=US
+site:https://www.bookmobile.com/ | country=US
+site:https://www.sheridan.com/ | country=US
+site:https://www.mixam.com/
+site:https://mixam.ca/ | country=CA
+site:https://mixam.co.uk/ | country=GB
+site:https://printninja.com/ | country=US
+site:https://gorhamprinting.com/ | country=US
+site:https://www.48hrbooks.com/ | country=US
+site:https://www.diggypod.com/ | country=US
+site:https://www.4edge.co.uk/ | country=GB
+site:https://www.clays.co.uk/ | country=GB
+site:https://www.cpi-print.com/
+# Audiobook production and narration
+site:https://www.deyan.com/ | country=US
+site:https://proaudiovoices.com/ | country=US
+site:https://www.spokenrealms.com/ | country=CA
+site:https://bunnystudio.com/
+
+## cat: editors
+# ALLi's public ratings table covers editors, designers, printers and audio services. Each company is sorted
+# by its first ALLi category, and its ALLi rating page becomes the entry's reviews link.
+alli:https://www.allianceindependentauthors.org/service-ratings | pages=80
+
+# Checked but left out on purpose (from the build computer): the Editors Canada, EFA and IPEd member directories,
+# SCBWI's illustrator gallery, CANSCAIP's member list and the AALA (AAR) agent finder load their listings by script or
+# behind a login or a bot check. Directory of Illustration profiles do not link to the artists' own sites.
+# IBPA and Libro.fm refuse bots. Reedsy's freelancers have no websites of their own on their profiles.
+# Not reachable from the build computer, so not verified (uncomment to try on your PC):
+# site:https://library-archives.canada.ca/eng/services/services-publishers/isbn-canada/Pages/isbn-canada.aspx | country=CA
+# site:https://www.emliterary.com/ | cat=agents
+# site:https://www.sjga.com/ | cat=agents
+# site:https://www.plumpuddingillustration.com/ | cat=illustration
+# site:https://www.printorium.ca/ | cat=production
+# site:https://imprimeriegauvin.com/ | cat=production

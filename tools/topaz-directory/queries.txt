@@ -1,0 +1,269 @@
+# ATL Topaz Pages search queries (used by the Search step of crawl.py).
+# Lines starting with # are comments. Lines are "category | words". Sections
+#   [place_queries] x [places]      -> "literary agency Toronto", "book printer Winnipeg", ...
+#   [extra]                         -> used as written
+#   [ai_categories] x [ai_regions]  -> questions for Gemini (only if GEMINI_API_KEY is set in .env)
+# Categories: publishers, agents, editors, design, illustration, production
+# Add lines any time. Searches that already ran are skipped on the next run.
+
+[place_queries]
+publishers | book publisher
+publishers | small press
+publishers | independent publisher
+publishers | children's book publisher
+publishers | poetry press
+publishers | university press
+agents | literary agency
+agents | literary agent
+editors | freelance book editor
+editors | manuscript editing services
+design | book cover designer
+design | book design studio
+illustration | children's book illustrator
+production | book printer
+production | book printing company
+production | audiobook production company
+production | book distributor
+
+[places]
+Canada
+Toronto
+Ottawa
+Hamilton Ontario
+Kingston Ontario
+London Ontario
+Kitchener-Waterloo
+Guelph
+Windsor Ontario
+Sudbury
+Thunder Bay
+Peterborough Ontario
+Montreal
+Quebec City
+Sherbrooke
+Gatineau
+Halifax
+Wolfville
+Fredericton
+Moncton
+Saint John New Brunswick
+Charlottetown
+St. John's Newfoundland
+Winnipeg
+Brandon Manitoba
+Regina
+Saskatoon
+Calgary
+Edmonton
+Banff
+Vancouver
+Victoria British Columbia
+Kelowna
+Nanaimo
+Salt Spring Island
+Whitehorse
+Yellowknife
+Iqaluit
+Ontario
+Quebec
+Nova Scotia
+New Brunswick
+Prince Edward Island
+Newfoundland and Labrador
+Manitoba
+Saskatchewan
+Alberta
+British Columbia
+Yukon
+Northwest Territories
+Nunavut
+New York City
+Boston
+Chicago
+San Francisco
+Los Angeles
+Seattle
+Portland Oregon
+Minneapolis
+Austin Texas
+Denver
+Atlanta
+Washington DC
+Philadelphia
+Nashville
+New Orleans
+Detroit
+Ann Arbor
+Madison Wisconsin
+Iowa City
+Asheville
+Alabama
+Alaska
+Arizona
+Arkansas
+California
+Colorado
+Connecticut
+Delaware
+Florida
+Georgia
+Hawaii
+Idaho
+Illinois
+Indiana
+Iowa
+Kansas
+Kentucky
+Louisiana
+Maine
+Maryland
+Massachusetts
+Michigan
+Minnesota
+Mississippi
+Missouri
+Montana
+Nebraska
+Nevada
+New Hampshire
+New Jersey
+New Mexico
+New York
+North Carolina
+North Dakota
+Ohio
+Oklahoma
+Oregon
+Pennsylvania
+Rhode Island
+South Carolina
+South Dakota
+Tennessee
+Texas
+Utah
+Vermont
+Virginia
+Washington state
+West Virginia
+Wisconsin
+Wyoming
+London
+Edinburgh
+Glasgow
+Manchester
+Bristol
+Cardiff
+Belfast
+Dublin
+Cork
+Galway
+Sydney
+Melbourne
+Brisbane
+Perth
+Adelaide
+Hobart
+Auckland
+Wellington
+Christchurch
+
+[extra]
+publishers | Canadian literary press
+publishers | Quebec publishing house
+publishers | maison d'édition québécoise
+publishers | Indigenous publisher Canada
+publishers | feminist press
+publishers | LGBTQ publisher
+publishers | graphic novel publisher
+publishers | science fiction publisher
+publishers | fantasy book publisher
+publishers | romance publisher
+publishers | horror small press
+publishers | mystery publisher
+publishers | young adult publisher
+publishers | middle grade publisher
+publishers | picture book publisher
+publishers | poetry chapbook press
+publishers | translation press
+publishers | hybrid publisher
+publishers | academic publisher
+publishers | Christian book publisher
+agents | literary agency Canada
+agents | children's literary agency
+agents | picture book agent
+agents | young adult literary agent
+agents | science fiction literary agent
+agents | romance literary agent
+agents | illustration agency
+agents | foreign rights agency
+editors | developmental editor
+editors | copy editor books
+editors | proofreader books
+editors | sensitivity reader
+editors | manuscript assessment service
+editors | book indexer
+editors | literary translator
+editors | book coach
+editors | réviseur linguistique
+design | book interior designer
+design | typesetting services
+design | ebook formatting service
+design | premade book covers
+design | fantasy map illustrator
+illustration | picture book illustrator
+illustration | children's illustration agency
+illustration | illustrateur jeunesse
+illustration | graphic novel artist
+production | print on demand
+production | offset book printing
+production | short run book printing
+production | audiobook narrator
+production | audiobook narration studio
+production | ISBN agency
+production | ebook distribution service
+production | ebook aggregator
+production | library ebook distribution
+production | book fulfilment services
+production | imprimerie de livres
+
+[ai_categories]
+publishers | independent book publishers and small presses that accept submissions
+publishers | children's and picture book publishers
+publishers | poetry presses
+publishers | literary agencies' favourite small presses for debut novels
+agents | literary agencies and literary agents
+agents | literary agents who represent picture books, middle grade or young adult
+agents | illustration agencies that represent children's book illustrators
+editors | freelance book editors (developmental, line or copy editing)
+editors | professional proofreaders for books
+editors | sensitivity readers and authenticity readers for fiction
+editors | book indexers
+design | book cover designers
+design | book interior designers, typesetters and ebook formatters
+illustration | children's picture book illustrators who take commissions
+production | book printing companies (offset, short-run or print on demand)
+production | audiobook production studios and narrators
+production | ebook and audiobook distribution services for authors
+production | book distributors and wholesalers for small publishers
+
+[ai_regions]
+Canada
+Ontario, Canada
+Quebec, Canada
+British Columbia, Canada
+Alberta, Canada
+the Prairie provinces of Canada (Manitoba and Saskatchewan)
+Atlantic Canada (Nova Scotia, New Brunswick, Prince Edward Island, Newfoundland and Labrador)
+Northern Canada (Yukon, Northwest Territories, Nunavut)
+the Northeastern United States
+the Southern United States
+the Midwestern United States
+the Western United States
+the Pacific Northwest
+New York City
+California
+Texas
+the United Kingdom
+Ireland
+Australia
+New Zealand

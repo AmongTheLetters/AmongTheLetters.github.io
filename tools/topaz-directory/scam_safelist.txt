@@ -1,0 +1,9 @@
+# Legitimate businesses whose name or web address happens to match a name on a scam list.
+# One domain per line. These are never dropped by a name match (a match on the exact scam domain still drops).
+lithub.com            # Literary Hub. "LitHub" is also a name used by a scam, which is a different business
+bookmasters.com       # BookMasters, a long-running book printer and distributor
+wolfliterary.com      # Wolf Literary Services, the real agency. A scam copied its name
+authorsguild.org      # The Authors Guild, the real US writers' organization
+tridentmediagroup.com # Trident Media Group, a real literary agency
+bradfordlit.com       # Bradford Literary Agency, a real agency
+unitedtalent.com      # United Talent Agency, the real agency. Scammers have used its name
