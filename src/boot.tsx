@@ -18,6 +18,7 @@ setLoaders({
   calendar: lazy("calendar", () => import("./CalendarApp").then((m) => m.CalendarApp)),
   opportunities: lazy("opportunities", () => import("./OpportunitiesApp").then((m) => m.OpportunitiesApp)),
   jadePages: lazy("jadePages", () => import("./DirectoryApp").then((m) => m.DirectoryApp)),
+  topazPages: lazy("topazPages", () => import("./TopazApp").then((m) => m.TopazApp)),
   account: lazy("account", () => import("./AccountApp").then((m) => m.AccountApp)),
   membership: lazy("membership", () => import("./MembershipApp").then((m) => m.MembershipApp)),
 });

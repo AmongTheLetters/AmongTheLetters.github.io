@@ -6,12 +6,12 @@
    the same page, modified clicks) is left to the browser. If anything goes wrong, it falls back to a normal load. */
 import { useSyncExternalStore } from "react";
 
-export type PageKey = "home" | "archive" | "shop" | "resources" | "glossary" | "calendar" | "opportunities" | "jadePages" | "account" | "membership";
+export type PageKey = "home" | "archive" | "shop" | "resources" | "glossary" | "calendar" | "opportunities" | "jadePages" | "topazPages" | "account" | "membership";
 
 const PATHS: Record<string, PageKey> = {
   "/": "home", "/index.html": "home",
   "/archive/": "archive", "/shop/": "shop", "/resources/": "resources", "/resources/glossary/": "glossary",
-  "/calendar/": "calendar", "/opportunities/": "opportunities", "/jade-pages/": "jadePages",
+  "/calendar/": "calendar", "/opportunities/": "opportunities", "/jade-pages/": "jadePages", "/topaz-pages/": "topazPages",
   "/account/": "account", "/membership/": "membership",
 };
 

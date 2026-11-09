@@ -42,6 +42,7 @@ export default defineConfig({
         calendar: fileURLToPath(new URL("./calendar/index.html", import.meta.url)),
         opportunities: fileURLToPath(new URL("./opportunities/index.html", import.meta.url)),
         jadePages: fileURLToPath(new URL("./jade-pages/index.html", import.meta.url)),
+        topazPages: fileURLToPath(new URL("./topaz-pages/index.html", import.meta.url)),
         account: fileURLToPath(new URL("./account/index.html", import.meta.url)),
         membership: fileURLToPath(new URL("./membership/index.html", import.meta.url)),
         notfound: fileURLToPath(new URL("./404.html", import.meta.url)),

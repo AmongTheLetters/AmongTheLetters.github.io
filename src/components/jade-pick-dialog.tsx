@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, Dices, RefreshCw, Shuffle, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChipButton, CHIP_LABEL, SiteCard } from "@/components/jade-ui";
+import { CornerCarving } from "@/components/corner-carving";
 import {
   ACCESS_LABEL, DIRECTORY_SHORT, EMPTY, FILTER_FORMATS, FORMAT_LABEL, GENRE_GROUPS, LANGS, REGIONS, matches,
   type Filters, type Lang, type RawData, type Region, type Site,
@@ -54,8 +55,9 @@ export function PickDialog({ open, onClose, sites, meta, initial }: { open: bool
       onClick={(e) => { if (e.target === ref.current) onClose(); }}
       className="jade-dialog jade-focus m-auto w-[min(40rem,calc(100vw-1.5rem))] max-h-[min(46rem,calc(100dvh-1.5rem))] overflow-hidden rounded-2xl bg-cream p-0 text-ink">
       <div className="flex max-h-[inherit] flex-col">
-        <div className="jade-dialog-head flex items-start justify-between gap-4 px-5 pb-4 pt-5 sm:px-6">
-          <div>
+        <div className="jade-dialog-head relative flex items-start justify-between gap-4 px-5 pb-4 pt-5 sm:px-6">
+          <CornerCarving set="jade" seed={spin + 1} className="bottom-1 right-16 h-[60px] max-w-[46px] sm:h-[70px] sm:max-w-[54px]" />
+          <div className="pr-14">
             <p className="kicker kicker-inverse flex items-center gap-1.5"><Sparkles className="size-3.5" aria-hidden="true" /> Find me a site</p>
             <h2 id="pick-title" className="mt-1.5 font-display text-2xl font-medium tracking-tight text-parchment">{mode === "options" ? `Let the ${DIRECTORY_SHORT} choose.` : kind === "surprise" ? "A surprise, just for you." : "Picked for you."}</h2>
           </div>

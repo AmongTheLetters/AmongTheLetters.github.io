@@ -23,6 +23,9 @@
   --color-jade: #2f6b58;
   --color-jade-soft: #8fb8a6;
   --color-jade-deep: #1d4a3d;
+  --color-topaz: #9a6212;
+  --color-topaz-soft: #e8c27a;
+  --color-topaz-deep: #6b4208;
   --font-script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive;
   --color-rule: color-mix(in oklab, var(--color-ink) 14%, transparent);
   --color-rule-strong: color-mix(in oklab, var(--color-ink) 28%, transparent);
@@ -494,3 +497,72 @@ h1, h2, h3, h4, h5, h6, .kicker { overflow-wrap: break-word; }
   .music-bars i:nth-child(2) { transform: scaleY(1); }
   .music-panel { animation: none; }
 }
+
+/* Corner carvings. A small sculpture in one corner of a card or panel, never behind the text. */
+.corner-carving {
+  z-index: 0;
+  width: auto;
+  opacity: .92;
+}
+.corner-carving-jade { filter: saturate(.92) drop-shadow(0 4px 6px rgb(29 74 61 / .22)); }
+.corner-carving-topaz { filter: drop-shadow(0 4px 6px rgb(110 70 10 / .25)); }
+@media (forced-colors: active) { .corner-carving { display: none; } }
+
+/* Topaz Pages: warm golden topaz over the ATL newsprint, the same build as the Jade Pages. */
+.kicker-topaz { color: var(--color-topaz); }
+.topaz-polish {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / .22), transparent 45%),
+    linear-gradient(135deg, #6b4208 0%, var(--color-topaz) 46%, #c98a26 72%, #7d4f0c 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .3), 0 4px 12px -6px rgb(107 66 8 / .55);
+}
+.topaz-band {
+  background:
+    radial-gradient(64rem 20rem at 80% 0%, color-mix(in oklab, var(--color-topaz-soft) 34%, transparent), transparent 72%),
+    radial-gradient(36rem 14rem at 8% 0%, color-mix(in oklab, var(--color-topaz-soft) 18%, transparent), transparent 72%);
+}
+.topaz-rule { height: 3px; border-radius: 999px; background: linear-gradient(90deg, #6b4208, var(--color-topaz) 40%, var(--color-topaz-soft) 75%, transparent); }
+.topaz-focus :focus-visible { outline-color: var(--color-topaz) !important; }
+.topaz-card {
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--color-cream), var(--color-cream)), linear-gradient(90deg, #6b4208, var(--color-topaz) 45%, var(--color-topaz-soft));
+  background-origin: border-box; background-clip: padding-box, border-box;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-topaz) 26%, transparent),
+    0 1px 2px -1px color-mix(in oklab, var(--color-topaz-deep) 12%, transparent),
+    0 10px 28px -16px color-mix(in oklab, var(--color-topaz-deep) 28%, transparent);
+}
+li.topaz-card:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-topaz) 50%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--color-topaz-soft) 26%, transparent),
+    0 16px 34px -16px color-mix(in oklab, var(--color-topaz-deep) 40%, transparent);
+}
+.topaz-stat.topaz-card { background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-topaz-soft) 16%, var(--color-cream)), var(--color-cream)), linear-gradient(90deg, #6b4208, var(--color-topaz) 45%, var(--color-topaz-soft)); }
+.topaz-outline-btn { color: var(--color-topaz-deep) !important; background: var(--color-cream) !important; box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-topaz) 60%, transparent) !important; }
+.topaz-outline-btn:hover { color: var(--color-parchment, #fbf8f1) !important; background: linear-gradient(135deg, #6b4208 0%, var(--color-topaz) 48%, #c98a26 72%, #7d4f0c 100%) !important; }
+.topaz-deep-panel {
+  background:
+    radial-gradient(30rem 14rem at 90% 0%, color-mix(in oklab, var(--color-topaz-soft) 26%, transparent), transparent 70%),
+    linear-gradient(140deg, #4a2d05, var(--color-topaz-deep) 55%, #84540f);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .14), 0 14px 32px -18px rgb(107 66 8 / .7);
+}
+.topaz-fleur { filter: sepia(1) hue-rotate(-8deg) saturate(4) brightness(1.02); opacity: 0.22; }
+.topaz-script {
+  font-family: var(--font-script); font-weight: 400; letter-spacing: 0;
+  color: var(--color-topaz); -webkit-text-stroke: 0.6px var(--color-topaz);
+  padding: 0.06em 0.12em 0.12em 0.02em; margin-left: -0.02em;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .topaz-script {
+    background-image:
+      linear-gradient(176deg, rgb(255 255 255 / .55) 0%, rgb(255 255 255 / .08) 30%, transparent 42%, transparent 78%, rgb(60 34 2 / .22) 100%),
+      linear-gradient(120deg, #6b4208 0%, #9a6212 26%, #d39a32 48%, #a8701a 68%, #e0ad4c 86%, #7d4f0c 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+    -webkit-text-stroke: 0.8px rgb(140 88 16 / .8); paint-order: stroke fill;
+    filter: drop-shadow(0 1px 0 rgb(255 255 255 / .7)) drop-shadow(0 3px 4px rgb(60 34 2 / .3));
+  }
+}
+@media (forced-colors: active) { .topaz-script { -webkit-text-fill-color: CanvasText; color: CanvasText; background: none; filter: none; } }
+.topaz-dialog { border: 1px solid color-mix(in oklab, var(--color-topaz) 45%, transparent); }
+.topaz-dialog::backdrop { background: rgb(40 24 2 / .55); backdrop-filter: blur(3px); }
