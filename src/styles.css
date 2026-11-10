@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Script headline font, served from our own site and preloaded so the title draws in it from the first paint.
+   Some browsers (Safari especially) do not redraw gradient-clipped text after a late font swap, so we block briefly instead. */
+@font-face {
+  font-family: "Pinyon Script";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("/fonts/pinyon-script-latin.woff2") format("woff2");
+}
+.script-ready .jade-script, .script-ready .topaz-script { transform: translateZ(0); }
+
 @theme {
   /* Ink on newsprint core */
   --color-paper: #f4f1ea;
