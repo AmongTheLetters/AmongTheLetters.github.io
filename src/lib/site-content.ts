@@ -6,6 +6,7 @@ export const UPCOMING_URL = "/calendar/";
 export const OPPORTUNITIES_URL = "/opportunities/";
 export const MEMBERSHIP_URL = "/membership/";
 export const DIRECTORY_URL = "/jade-pages/";
+export const TOPAZ_URL = "/topaz-pages/";
 
 export const SITE = {
   name: "Among The Letters",
@@ -18,6 +19,7 @@ export const SITE = {
 export const NAV = [
   { href: ARCHIVE_URL, label: "Archive" },
   { href: DIRECTORY_URL, label: "Jade Pages" },
+  { href: TOPAZ_URL, label: "Topaz Pages" },
   { href: SHOP_URL, label: "Shop" },
   { href: OPPORTUNITIES_URL, label: "Opportunities" },
   { href: RESOURCES_URL, label: "Resources" },

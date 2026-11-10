@@ -64,6 +64,10 @@ PAGES = {
      desc="The Jade Pages, a free directory of reading sites. Literary magazines, presses, free libraries and archives, bookstores, web fiction, audiobooks and more, from Canada and around the world, with search and filters. No sign-up.",
      og="Literary magazines, presses, free libraries, bookstores, web fiction and audiobooks, searchable and free for everyone.",
      ogtitle="The Jade Pages | Among The Letters"),
+  "topaz-pages/index.html": dict(url="/topaz-pages/", title="The Topaz Pages, a Free Directory of Publishing Services | Among The Letters",
+     desc="The Topaz Pages, a free directory of publishing services for authors. Publishers and presses, literary agents, editors, cover designers, illustrators, printers and distributors, with public trust signals and review links. No sign-up.",
+     og="Publishers, agents, editors, designers, illustrators and printers for authors, with trust signals and review links, free for everyone.",
+     ogtitle="The Topaz Pages | Among The Letters"),
   "account/index.html": dict(url="/account/", title="Your Account | Among The Letters",
      desc="Sign in to your Among The Letters account to manage your membership, saved searches, notifications and deadline calendar.",
      og="Manage your Among The Letters membership, saved searches and notifications.",
@@ -170,6 +174,7 @@ def sitemap():
              ("/calendar/", ["calendar/index.html", "src/CalendarApp.tsx", "src/lib/featured-schedule.ts", "src/lib/events.ts"], "0.6"),
              ("/opportunities/", ["opportunities/index.html", "src/OpportunitiesApp.tsx", "public/opportunities/data/free.json"], "0.7"),
              ("/jade-pages/", ["jade-pages/index.html", "src/DirectoryApp.tsx", "public/jade-pages/data/directory.json"], "0.8"),
+             ("/topaz-pages/", ["topaz-pages/index.html", "src/TopazApp.tsx", "public/topaz-pages/data/directory.json"], "0.8"),
              ("/membership/", ["membership/index.html", "src/MembershipApp.tsx"], "0.6")]
     urls = [(SITE + u, lm(*r), pr) for u, r, pr in pages]
     for f in sorted((ROOT / "public/resources").glob("*")):
