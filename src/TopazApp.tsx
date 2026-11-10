@@ -20,8 +20,9 @@ import { cn } from "@/lib/utils";
 const PAGE = 24;
 const SUGGEST_BODY = "Business name\n\nWeb address\n\nWhat they offer authors\n\nWhere they are based\n\nHow you know them\n";
 
-function Marigold({ className }: { className?: string }) {
-  return <img src="/images/topaz/topaz-marigold.webp" alt="" aria-hidden="true" width={45} height={60} className={className} />;
+/* The ATL rose from the featured articles, recoloured in polished topaz (public/images/topaz-rose.svg). */
+function TopazRose({ className }: { className?: string }) {
+  return <img src="/images/topaz-rose.svg" alt="" aria-hidden="true" width={48} height={42} className={className} />;
 }
 
 function relevance(s: Service, tokens: string[]) {
@@ -169,7 +170,7 @@ export function TopazApp() {
             <div className="max-w-2xl">
               <p className="kicker kicker-topaz">A free publishing services directory</p>
               <div className="mt-2 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-4">
-                <Marigold className="h-16 w-auto shrink-0 drop-shadow-[0_2px_3px_rgba(107,66,8,0.3)] sm:h-24" />
+                <TopazRose className="h-14 w-auto shrink-0 drop-shadow-[0_1px_1px_rgba(107,66,8,0.3)] sm:h-20" />
                 <h1 className="topaz-script whitespace-nowrap text-[2.9rem] leading-[1.15] min-[400px]:text-[3.3rem] sm:text-[5.2rem] md:text-[6rem]">{TOPAZ_NAME}</h1>
               </div>
               <div className="topaz-rule mt-1 w-28" aria-hidden="true" />
