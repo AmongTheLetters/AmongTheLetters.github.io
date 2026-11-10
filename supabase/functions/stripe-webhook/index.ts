@@ -23,6 +23,22 @@ const LIFETIME_LINK = Deno.env.get("ATL_LIFETIME_LINK") || "plink_1UVBxURrwe7mDX
 const LIFETIME_LINK_TEST = Deno.env.get("ATL_LIFETIME_LINK_TEST") || "";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const ACTIVE = ["active", "past_due", "canceling"];
+const MEMBERSHIP_LINKS_LIVE = new Set([
+  "plink_1UVBYSRrwe7mDXayjinKpdaZ",
+  "plink_1UVBZbRrwe7mDXaytwpYEDCr",
+  LIFETIME_LINK,
+]);
+const MEMBERSHIP_LINKS_TEST = new Set([
+  ...(Deno.env.get("ATL_MEMBERSHIP_LINK_IDS_TEST") || "").split(",").filter(Boolean),
+  LIFETIME_LINK_TEST,
+].filter(Boolean));
+const MEMBERSHIP_PRICES_LIVE = new Set([
+  "price_1UVBWLRrwe7mDXayn7Sgk9cm",
+  "price_1UVBWLRrwe7mDXayXZwQBde2",
+]);
+const MEMBERSHIP_PRICES_TEST = new Set(
+  (Deno.env.get("ATL_MEMBERSHIP_PRICE_IDS_TEST") || "").split(",").filter(Boolean),
+);
 
 // Cancel a subscription right away (no proration). If the Stripe key cannot (a read-only restricted key),
 // fall back to a "Cancel old plan" item on the admin to-do list. Never throws.
@@ -71,10 +87,15 @@ Deno.serve(async (req) => {
   const stripe = event.livemode ? stripeLive : stripeTest;
   if (!stripe) return new Response("test mode not configured");
   const lifetimeLink = event.livemode ? LIFETIME_LINK : LIFETIME_LINK_TEST;
+  const metadata = (event.data.object as { metadata?: Record<string, string> }).metadata;
+  if (metadata?.atl_api === "1") return new Response("API purchase, ignored");
 
   try {
     if (event.type === "checkout.session.completed") {
       const s = event.data.object as Stripe.Checkout.Session;
+      const membershipLinks = event.livemode ? MEMBERSHIP_LINKS_LIVE : MEMBERSHIP_LINKS_TEST;
+      const paymentLink = typeof s.payment_link === "string" ? s.payment_link : s.payment_link?.id;
+      if (!paymentLink || !membershipLinks.has(paymentLink)) return new Response("Non-membership checkout, ignored");
       const userId = s.client_reference_id; // added to the Payment Link URL by the account page
       const lifetime = s.mode === "payment" && ((!!lifetimeLink && s.payment_link === lifetimeLink) || s.metadata?.atl_plan === "lifetime");
       // Other Minocy sales share this Stripe account, so skip anything that is not an ATL member checkout.
@@ -130,6 +151,10 @@ Deno.serve(async (req) => {
 
     if (event.type === "customer.subscription.updated" || event.type === "customer.subscription.deleted") {
       const sub = event.data.object as Stripe.Subscription;
+      const membershipPrices = event.livemode ? MEMBERSHIP_PRICES_LIVE : MEMBERSHIP_PRICES_TEST;
+      if (sub.items.data.length !== 1 || !membershipPrices.has(sub.items.data[0].price.id)) {
+        return new Response("Non-membership subscription, ignored");
+      }
       const end = periodEnd(sub);
       const status = event.type === "customer.subscription.deleted" ? "expired"
         : sub.status === "past_due" || sub.status === "unpaid" ? "past_due"
