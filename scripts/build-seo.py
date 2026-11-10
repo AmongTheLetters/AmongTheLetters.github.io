@@ -173,8 +173,8 @@ def sitemap():
              ("/shop/", ["shop/index.html", "src/ShopApp.tsx", "src/lib/shop-content.ts"], "0.6"),
              ("/calendar/", ["calendar/index.html", "src/CalendarApp.tsx", "src/lib/featured-schedule.ts", "src/lib/events.ts"], "0.6"),
              ("/opportunities/", ["opportunities/index.html", "src/OpportunitiesApp.tsx", "public/opportunities/data/free.json"], "0.7"),
-             ("/jade-pages/", ["jade-pages/index.html", "src/DirectoryApp.tsx", "public/jade-pages/data/directory.json"], "0.8"),
-             ("/topaz-pages/", ["topaz-pages/index.html", "src/TopazApp.tsx", "public/topaz-pages/data/directory.json"], "0.8"),
+             ("/jade-pages/", ["jade-pages/index.html", "src/DirectoryApp.tsx"], "0.8"),
+             ("/topaz-pages/", ["topaz-pages/index.html", "src/TopazApp.tsx"], "0.8"),
              ("/membership/", ["membership/index.html", "src/MembershipApp.tsx"], "0.6")]
     urls = [(SITE + u, lm(*r), pr) for u, r, pr in pages]
     for f in sorted((ROOT / "public/resources").glob("*")):

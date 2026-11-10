@@ -16,3 +16,8 @@ supabase/.temp/
 tools/reading-directory/output/
 __pycache__/
 tools/reading-music/cache/
+
+# Directory data lives in the private API, not in this public repo
+public/jade-pages/data/
+public/topaz-pages/data/
+tools/descriptions/

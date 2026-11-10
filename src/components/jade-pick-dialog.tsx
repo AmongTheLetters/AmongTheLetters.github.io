@@ -1,12 +1,13 @@
 /* "Find me a site". A dialog that picks one listing at random, from everything (Surprise me) or from the
    reader's choices (Pick for me). Native <dialog> gives the focus trap, Esc to close and focus return. */
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Dices, RefreshCw, Shuffle, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChipButton, CHIP_LABEL, SiteCard } from "@/components/jade-ui";
+import { siteRequest } from "@/lib/site-api";
 import { CornerCarving } from "@/components/corner-carving";
 import {
-  ACCESS_LABEL, DIRECTORY_SHORT, EMPTY, FILTER_FORMATS, FORMAT_LABEL, GENRE_GROUPS, LANGS, REGIONS, matches,
+  ACCESS_LABEL, DIRECTORY_SHORT, EMPTY, FILTER_FORMATS, FORMAT_LABEL, GENRE_GROUPS, LANGS, REGIONS,
   type Filters, type Lang, type RawData, type Region, type Site,
 } from "@/lib/directory";
 
@@ -14,7 +15,7 @@ type Choice = Pick<Filters, "cat" | "acc" | "gen" | "fmt" | "region" | "lang">;
 const NONE: Choice = { cat: -1, acc: [], gen: [], fmt: [], region: "all", lang: "all" };
 const toggleIn = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
 
-export function PickDialog({ open, onClose, sites, meta, initial }: { open: boolean; onClose: () => void; sites: Site[]; meta: RawData | undefined; initial: Choice }) {
+export function PickDialog({ open, onClose, total, meta, initial }: { open: boolean; onClose: () => void; total: number; meta: RawData | undefined; initial: Choice }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [c, setC] = useState<Choice>(NONE);
   const [mode, setMode] = useState<"options" | "result">("options");
@@ -24,30 +25,51 @@ export function PickDialog({ open, onClose, sites, meta, initial }: { open: bool
   const [spin, setSpin] = useState(0);
   const seen = useRef<Set<number>>(new Set());
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const drawAbort = useRef<AbortController | null>(null);
 
   useEffect(() => {
     const d = ref.current; if (!d) return;
-    if (open && !d.open) { setC({ ...initial }); setMode("options"); setPick(null); setNote(""); d.showModal(); requestAnimationFrame(() => d.querySelector<HTMLElement>("[data-autofocus]")?.focus()); }
-    if (!open && d.open) d.close();
+    if (open && !d.open) { setC({ ...initial }); setBusy(false); setMode("options"); setPick(null); setNote(""); d.showModal(); requestAnimationFrame(() => d.querySelector<HTMLElement>("[data-autofocus]")?.focus()); }
+    if (!open) { drawAbort.current?.abort(); if (d.open) d.close(); }
     // initial is read when the dialog opens
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  const formats = meta?.formats ?? [];
-  const pool = useMemo(() => sites.filter((s) => matches(s, { ...EMPTY, ...c }, [], formats)), [sites, c, formats]);
+  const [poolCount, setPoolCount] = useState(0);
+  const [counting, setCounting] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    if (!open || mode !== "options") return;
+    const controller = new AbortController(); setCounting(true); setError("");
+    const timer = window.setTimeout(() => {
+      siteRequest<Site, RawData>("jade", "counts", { ...EMPTY, ...c }, { signal: controller.signal })
+        .then((response) => { if (!controller.signal.aborted) setPoolCount(response.total); })
+        .catch((reason: unknown) => { if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : "The choices could not load."); })
+        .finally(() => { if (!controller.signal.aborted) setCounting(false); });
+    }, 200);
+    return () => { window.clearTimeout(timer); controller.abort(); };
+  }, [open, mode, c]);
   const choicesOn = c.cat >= 0 || c.acc.length + c.gen.length + c.fmt.length > 0 || c.region !== "all" || c.lang !== "all";
 
-  function draw(from: Site[], k: "surprise" | "pick") {
-    setKind(k); setMode("result"); setNote("");
-    if (!from.length) { setPick(null); return; }
-    let fresh = from.filter((s) => !seen.current.has(s.i));
-    if (!fresh.length) { from.forEach((s) => seen.current.delete(s.i)); fresh = from; setNote("You have seen every match, so we are starting the list again."); }
-    const s = fresh[Math.floor(Math.random() * fresh.length)];
-    seen.current.add(s.i); setPick(s); setSpin((n) => n + 1);
-    requestAnimationFrame(() => headingRef.current?.focus());
+  async function draw(k: "surprise" | "pick") {
+    drawAbort.current?.abort(); const controller = new AbortController(); drawAbort.current = controller;
+    setKind(k); setMode("result"); setNote(""); setError(""); setBusy(true); setPick(null);
+    try {
+      const response = await siteRequest<Site, RawData>("jade", "pick", k === "surprise" ? EMPTY : { ...EMPTY, ...c }, { exclude: [...seen.current], signal: controller.signal });
+      if (controller.signal.aborted) return;
+      const item = response.items[0];
+      if (k === "pick") setPoolCount(response.total);
+      if (item) {
+        if (seen.current.has(item.i)) { seen.current.clear(); setNote("You have seen every match, so we are starting the list again."); }
+        seen.current.add(item.i); setPick(item); setSpin((n) => n + 1);
+      }
+      requestAnimationFrame(() => headingRef.current?.focus());
+    } catch (reason) { if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : "A site could not be picked."); }
+    finally { if (!controller.signal.aborted) setBusy(false); }
   }
-  const again = () => draw(kind === "surprise" ? sites : pool, kind);
-  const back = () => { setMode("options"); requestAnimationFrame(() => ref.current?.querySelector<HTMLElement>("[data-autofocus]")?.focus()); };
+  const again = () => draw(kind);
+  const back = () => { drawAbort.current?.abort(); setBusy(false); setMode("options"); requestAnimationFrame(() => ref.current?.querySelector<HTMLElement>("[data-autofocus]")?.focus()); };
 
   const sel = "mt-1 h-11 w-full rounded-md border border-jade/40 bg-cream px-3 text-base text-ink sm:h-10 sm:text-sm";
   return (
@@ -96,18 +118,18 @@ export function PickDialog({ open, onClose, sites, meta, initial }: { open: bool
               <div className="mt-1.5 flex flex-wrap gap-2">{FILTER_FORMATS.map((x) => <ChipButton key={x} on={c.fmt.includes(x)} onClick={() => setC({ ...c, fmt: toggleIn(c.fmt, x) })}>{FORMAT_LABEL[x]}</ChipButton>)}</div>
             </fieldset>
             <div className="mt-4 flex flex-wrap items-baseline justify-between gap-2">
-              <p className="text-sm text-jade" aria-live="polite">{pool.length.toLocaleString("en-CA")} {pool.length === 1 ? "site matches" : "sites match"} your choices{choicesOn ? "" : ", which is everything"}.</p>
+              <p className="text-sm text-jade" aria-live="polite">{counting ? "Counting matches" : error || `${poolCount.toLocaleString("en-CA")} ${poolCount === 1 ? "site matches" : "sites match"} your choices${choicesOn ? "" : ", which is everything"}.`}</p>
               {choicesOn ? <button type="button" onClick={() => setC(NONE)} className="text-sm font-medium text-jade underline-offset-4 hover:underline">Clear choices</button> : null}
             </div>
           </div>
         ) : (
           <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
             <h3 ref={headingRef} tabIndex={-1} className="sr-only">Your recommendation</h3>
-            {pick && meta ? (
+            {busy ? <p className="text-sm text-muted" aria-live="polite">Finding a site</p> : error ? <p role="alert" className="text-sm text-muted">{error}</p> : pick && meta ? (
               <div key={spin} className="jade-reveal">
                 <SiteCard s={pick} meta={meta} as="div" className="jade-pick-card" />
                 {note ? <p className="mt-3 text-xs text-muted">{note}</p> : null}
-                <p className="mt-3 text-xs text-faint">{kind === "surprise" ? `Chosen at random from all ${sites.length.toLocaleString("en-CA")} sites.` : `Chosen at random from ${pool.length.toLocaleString("en-CA")} ${pool.length === 1 ? "match" : "matches"}.`}</p>
+                <p className="mt-3 text-xs text-faint">{kind === "surprise" ? `Chosen at random from all ${total.toLocaleString("en-CA")} sites.` : `Chosen at random from ${poolCount.toLocaleString("en-CA")} ${poolCount === 1 ? "match" : "matches"}.`}</p>
               </div>
             ) : (
               <div className="rounded-xl border border-dashed border-jade/40 p-6 text-center">
@@ -121,14 +143,14 @@ export function PickDialog({ open, onClose, sites, meta, initial }: { open: bool
         <div className="flex flex-nowrap items-center justify-end gap-2 border-t border-jade/20 bg-jade/[0.04] px-5 py-4 sm:px-6">
           {mode === "options" ? (
             <>
-              <Button variant="outline" className="jade-outline-btn flex-1 sm:flex-none" onClick={() => draw(sites, "surprise")} disabled={!sites.length}><Shuffle className="size-4" /> Surprise me</Button>
-              <Button className="jade-polish flex-1 text-parchment hover:brightness-110 sm:flex-none" onClick={() => draw(pool, "pick")} disabled={!sites.length}><Dices className="size-4" /> Pick for me</Button>
+              <Button variant="outline" className="jade-outline-btn flex-1 sm:flex-none" onClick={() => draw("surprise")} disabled={!total || busy}><Shuffle className="size-4" /> Surprise me</Button>
+              <Button className="jade-polish flex-1 text-parchment hover:brightness-110 sm:flex-none" onClick={() => draw("pick")} disabled={!total || busy}><Dices className="size-4" /> Pick for me</Button>
             </>
           ) : (
             <>
               <Button variant="outline" className="jade-outline-btn flex-1 sm:mr-auto sm:flex-none" onClick={back}><ArrowLeft className="size-4" /> <span>Back<span className="max-[379px]:sr-only"> to options</span></span></Button>
-              {pick ? <Button className="jade-polish flex-1 sm:flex-none text-parchment hover:brightness-110" onClick={again}><RefreshCw className="size-4" /> Another one</Button>
-                : <Button className="jade-polish flex-1 sm:flex-none text-parchment hover:brightness-110" onClick={() => draw(sites, "surprise")}><Shuffle className="size-4" /> Surprise me</Button>}
+              {pick ? <Button className="jade-polish flex-1 sm:flex-none text-parchment hover:brightness-110" onClick={again} disabled={busy}><RefreshCw className="size-4" /> Another one</Button>
+                : <Button className="jade-polish flex-1 sm:flex-none text-parchment hover:brightness-110" onClick={() => draw("surprise")} disabled={busy}><Shuffle className="size-4" /> Surprise me</Button>}
             </>
           )}
         </div>

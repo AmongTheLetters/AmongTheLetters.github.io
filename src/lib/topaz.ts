@@ -6,7 +6,7 @@ import { fold, placeLabel } from "@/lib/directory";
 
 export const TOPAZ_NAME = "The Topaz Pages";
 export const TOPAZ_SHORT = "Topaz Pages";
-export const TOPAZ_DATA_URL = "/topaz-pages/data/directory.json";
+export const TOPAZ_API_URL = "https://api.amongtheletters.com/site/v1/topaz";
 export const TOPAZ_EMAIL = "amongtheletters@gmail.com";
 
 export type TopazRaw = {

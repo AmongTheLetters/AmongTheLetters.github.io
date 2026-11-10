@@ -17,7 +17,7 @@ export type Site = {
    The page title and meta text are in scripts/build-seo.py (PAGES, jade-pages/index.html). */
 export const DIRECTORY_NAME = "The Jade Pages";
 export const DIRECTORY_SHORT = "Jade Pages";
-export const DATA_URL = "/jade-pages/data/directory.json";
+export const DIRECTORY_API_URL = "https://api.amongtheletters.com/site/v1/jade";
 export const SUGGEST_EMAIL = "amongtheletters@gmail.com";
 
 export const ACCESS_LABEL: Record<string, string> = { free: "Free", paid: "Paid", mixed: "Free and paid", unconfirmed: "Access not yet confirmed" };

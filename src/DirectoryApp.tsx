@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   ArrowUp, ArrowUpRight, BookMarked, ChevronDown, Dices, Search, ShoppingBag, SlidersHorizontal, Sparkles, X,
 } from "lucide-react";
@@ -13,10 +13,11 @@ import { PreviewBar } from "@/components/landing/preview-bar";
 import { MODE } from "@/lib/config";
 import { MEMBERSHIP_URL, SHOP_URL, SUBSTACK_URL } from "@/lib/site-content";
 import {
-  ACCESS_LABEL, DATA_URL, DIRECTORY_NAME, DIRECTORY_SHORT, EMPTY, FILTER_FORMATS, FORMAT_LABEL, GENRE_GROUPS, LANGS, MAIN_GENRE_MIN, PROVINCES, REGIONS,
-  decode, filtersFromUrl, filtersToUrl, fold, inGenre, matches, regionOf, relevance, suggestHref,
+  ACCESS_LABEL, DIRECTORY_NAME, DIRECTORY_SHORT, EMPTY, FILTER_FORMATS, FORMAT_LABEL, GENRE_GROUPS, LANGS, MAIN_GENRE_MIN, PROVINCES, REGIONS,
+  filtersFromUrl, filtersToUrl, suggestHref,
   type Filters, type Lang, type RawData, type Site, type SortKey,
 } from "@/lib/directory";
+import { useDirectoryPages } from "@/lib/site-api";
 import { cn } from "@/lib/utils";
 
 const PAGE = 24;
@@ -81,10 +82,7 @@ function BackToTop() {
 }
 
 export function DirectoryApp() {
-  const [data, setData] = useState<{ sites: Site[]; meta: RawData } | null>(null);
-  const [failed, setFailed] = useState(false);
   const [f, setF] = useState<Filters>(() => (typeof window === "undefined" ? EMPTY : filtersFromUrl()));
-  const [limit, setLimit] = useState(PAGE);
   const [moreOpen, setMoreOpen] = useState(false);
   /* The filter panel starts open on wide screens and folded on phones. It folds itself once, the first time a
      reader scrolls past it, so it never sits over the listings. Opening it again by hand keeps it open. */
@@ -97,16 +95,9 @@ export function DirectoryApp() {
   const [pickOpen, setPickOpen] = useState(false);
   const pickBtn = useRef<HTMLButtonElement | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
-  const q = useDeferredValue(f.q);
-
-  const load = () => {
-    setFailed(false);
-    fetch(DATA_URL).then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<RawData>; })
-      .then((d) => setData(decode(d))).catch(() => setFailed(true));
-  };
-  useEffect(load, []);
+  const { data, busy, error, failure, loadMore, reload: load } = useDirectoryPages<Site, RawData>("jade", f);
+  const failed = !!error && failure !== "more";
   useEffect(() => { filtersToUrl(f); }, [f]);
-  useEffect(() => { setLimit(PAGE); }, [f.cat, f.acc, f.gen, f.fmt, f.region, f.prov, f.lang, f.subs, f.sort, q]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement;
@@ -119,52 +110,18 @@ export function DirectoryApp() {
   const set = <K extends keyof Filters>(k: K, v: Filters[K]) => setF((p) => ({ ...p, [k]: v }));
   const toggleIn = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
 
-  const sites = data?.sites ?? [];
   const meta = data?.meta;
-  const tokens = useMemo(() => fold(q).split(/\s+/).filter(Boolean), [q]);
-  const ff = useMemo(() => ({ ...f, q }), [f, q]);
-  const formats = meta?.formats ?? [];
-
-  const results = useMemo(() => {
-    const list = sites.filter((s) => matches(s, ff, tokens, formats));
-    if (ff.sort === "az") return list.sort((a, b) => a.name.localeCompare(b.name, "en-CA"));
-    if (ff.sort === "za") return list.sort((a, b) => b.name.localeCompare(a.name, "en-CA"));
-    if (tokens.length) return list.sort((a, b) => relevance(b, tokens) - relevance(a, tokens) || b.rank - a.rank || a.name.localeCompare(b.name, "en-CA"));
-    return list.sort((a, b) => b.rank - a.rank || a.name.localeCompare(b.name, "en-CA"));
-  }, [sites, ff, tokens, formats]);
-
-  /* Counts beside each chip show what you would get by picking it, with your other choices kept. */
-  const facets = useMemo(() => {
-    const cat = new Array(meta?.categories.length ?? 0).fill(0), acc = [0, 0, 0, 0];
-    const region: Record<string, number> = {}, prov: Record<string, number> = {}, gen: Record<string, number> = {};
-    let catAll = 0, regionAll = 0;
-    for (const s of sites) {
-      if (matches(s, ff, tokens, formats, "cat")) { cat[s.cat]++; catAll++; }
-      if (matches(s, ff, tokens, formats, "acc")) acc[s.acc]++;
-      if (s.gen && matches(s, ff, tokens, formats, "gen")) for (const g of GENRE_GROUPS) if (inGenre(s, g.key)) gen[g.key] = (gen[g.key] ?? 0) + 1;
-      if (matches(s, ff, tokens, formats, "region")) {
-        regionAll++; const r = regionOf(s.country); region[r] = (region[r] ?? 0) + 1;
-        if (s.country === "CA" && s.prov) prov[s.prov] = (prov[s.prov] ?? 0) + 1;
-      }
-    }
-    return { cat, catAll, acc, region, regionAll, prov, gen };
-  }, [sites, ff, tokens, formats, meta]);
-
-  const totals = useMemo(() => ({
-    all: sites.length,
-    free: sites.filter((s) => meta?.access[s.acc] === "free" || meta?.access[s.acc] === "mixed").length,
-    canada: sites.filter((s) => s.country === "CA").length,
-  }), [sites, meta]);
-
-  const visible = results.slice(0, limit);
+  const visible = data?.items ?? [];
+  const total = data?.total ?? 0;
+  const facets = {
+    cat: data?.facets.cat ?? [], catAll: data?.facets.catAll ?? 0, acc: data?.facets.acc ?? [],
+    region: data?.facets.region ?? {}, prov: data?.facets.prov ?? {}, gen: data?.facets.gen ?? {},
+  };
+  const totals = data?.totals ?? { all: 0, free: 0, canada: 0 };
   const moreCount = f.fmt.length + (f.lang !== "all" ? 1 : 0) + (f.subs ? 1 : 0) + (f.sort !== "suggested" ? 1 : 0) + (f.prov ? 1 : 0);
   const filtersOn = !!f.q || f.cat >= 0 || f.acc.length > 0 || f.gen.length > 0 || f.region !== "all" || moreCount > 0;
   const activeCount = (f.cat >= 0 ? 1 : 0) + f.acc.length + f.gen.length + (f.region !== "all" ? 1 : 0) + moreCount;
-  const genreTotals = useMemo(() => {
-    const t: Record<string, number> = {};
-    for (const s of sites) if (s.gen) for (const g of GENRE_GROUPS) if (inGenre(s, g.key)) t[g.key] = (t[g.key] ?? 0) + 1;
-    return t;
-  }, [sites]);
+  const genreTotals = data?.genreTotals ?? {};
   const mainGenres = GENRE_GROUPS.filter((g) => (genreTotals[g.key] ?? 0) >= MAIN_GENRE_MIN || f.gen.includes(g.key));
   const moreGenres = GENRE_GROUPS.filter((g) => !mainGenres.includes(g));
   useEffect(() => {
@@ -325,7 +282,7 @@ export function DirectoryApp() {
 
             <div id="results" className="mt-5 flex scroll-mt-48 flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-faint" aria-live="polite">
-                {data ? <>{fmtNum(results.length)} {results.length === 1 ? (filtersOn ? "site matches your search" : `site in the ${DIRECTORY_SHORT}`) : (filtersOn ? "sites match your search" : `sites in the ${DIRECTORY_SHORT}`)}</> : failed ? "" : `Loading the ${DIRECTORY_SHORT}`}
+                {data ? <>{fmtNum(total)} {total === 1 ? (filtersOn ? "site matches your search" : `site in the ${DIRECTORY_SHORT}`) : (filtersOn ? "sites match your search" : `sites in the ${DIRECTORY_SHORT}`)}</> : failed ? "" : `Loading the ${DIRECTORY_SHORT}`}
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 {filtersOn ? <button type="button" onClick={() => setF(EMPTY)} className="inline-flex items-center gap-1 text-sm font-medium text-jade hover:underline"><X className="size-4" /> Clear filters</button> : null}
@@ -333,21 +290,22 @@ export function DirectoryApp() {
               </div>
             </div>
 
+            {error && !failed ? <div role="alert" className="mt-3 rounded-xl border border-jade/30 bg-cream p-4 text-sm text-muted"><p>{error}</p><Button variant="outline" className="jade-outline-btn mt-3" onClick={load} disabled={busy}>Try again</Button></div> : null}
             {failed ? (
               <div className="mt-3 rounded-xl border border-dashed border-rule p-10 text-center">
                 <p className="font-display text-xl text-ink">{DIRECTORY_NAME} did not load.</p>
-                <p className="mt-2 text-sm text-muted">Check your connection, then try again.</p>
+                <p className="mt-2 text-sm text-muted">{error || "Check your connection, then try again."}</p>
                 <Button className="jade-outline-btn mt-4" variant="outline" onClick={load}>Try again</Button>
               </div>
             ) : !data ? (
               <ul className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3" aria-busy="true">{Array.from({ length: 6 }, (_, i) => <SkeletonCard key={i} />)}</ul>
-            ) : results.length ? (
+            ) : total ? (
               <>
                 <h2 className="sr-only">Reading sites</h2>
-                <ul className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">{visible.map((s) => <SiteCard key={s.i} s={s} meta={meta!} />)}</ul>
+                <ul aria-busy={busy} className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">{visible.map((s) => <SiteCard key={s.i} s={s} meta={meta!} />)}</ul>
                 <div className="mt-6 flex flex-col items-center gap-2">
-                  <p className="text-sm text-jade">Showing {fmtNum(visible.length)} of {fmtNum(results.length)}</p>
-                  {results.length > visible.length ? <Button variant="outline" className="jade-outline-btn" onClick={() => setLimit((n) => n + PAGE)}>Show {Math.min(PAGE, results.length - visible.length)} more</Button> : null}
+                  <p className="text-sm text-jade">Showing {fmtNum(visible.length)} of {fmtNum(total)}</p>
+                  {total > visible.length ? <Button variant="outline" className="jade-outline-btn" onClick={loadMore} disabled={busy}>{busy ? "Loading listings" : `Show ${Math.min(PAGE, total - visible.length)} more`}</Button> : null}
                 </div>
               </>
             ) : (
@@ -413,7 +371,7 @@ export function DirectoryApp() {
         </section>
       </main>
 
-      <PickDialog open={pickOpen} onClose={() => setPickOpen(false)} sites={sites} meta={meta}
+      <PickDialog open={pickOpen} onClose={() => setPickOpen(false)} total={totals.all} meta={meta}
         initial={{ cat: f.cat, acc: f.acc, gen: f.gen, fmt: f.fmt, region: f.region, lang: f.lang }} />
       <SiteFooter />
       <div className="page-newsprint" aria-hidden="true" />
