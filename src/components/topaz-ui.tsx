@@ -1,8 +1,8 @@
 /* Shared pieces for The Topaz Pages: filter chips, the trust badge and the listing card. */
 import {
-  ArrowUpRight, BookMarked, Brush, Flag, Globe, Laptop, MapPin, Palette, PenLine, Printer, ShieldAlert, ShieldCheck, Star, UserRound,
+  ArrowUpRight, BookMarked, Brush, Flag, Globe, Laptop, MapPin, Palette, PenLine, Printer, Check, CircleMinus, ShieldAlert, ShieldCheck, UserRound, X,
 } from "lucide-react";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CornerCarving } from "@/components/corner-carving";
 import { placeLabel } from "@/lib/directory";
@@ -32,20 +32,55 @@ export function TopazTag({ children, tone = "plain" }: { children: React.ReactNo
 }
 
 const TRUST_LABEL = { strong: "Strong signals", some: "Some signals", few: "Few signals", caution: "Caution" } as const;
+const TRUST_HINT = {
+  strong: "We confirmed four or more public facts about this service, such as a professional membership or a review page.",
+  some: "We confirmed two or three public facts about this service. Check the details before you sign anything.",
+  few: "We confirmed little about this service in public yet. That is not a bad sign on its own, so ask questions and read reviews.",
+  caution: "An industry watchdog has raised concerns about this service. Read their advisory before you share money or a manuscript.",
+} as const;
+
+/* The badge opens a small info bubble, like the access badges on the Jade Pages. */
 export function TrustBadge({ s }: { s: Service }) {
   const t = trustLevel(s);
-  const tone = t === "caution" ? "bg-oxblood text-parchment" : t === "strong" ? "topaz-polish text-parchment" : t === "some" ? "border border-topaz text-topaz-deep bg-cream" : "border border-dashed border-faint/60 text-muted";
+  const [open, setOpen] = useState(false);
+  const wrap = useRef<HTMLSpanElement>(null);
+  const btn = useRef<HTMLButtonElement>(null);
+  const id = useId();
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: Event) => { if (!wrap.current?.contains(e.target as Node)) setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); setOpen(false); btn.current?.focus(); } };
+    document.addEventListener("pointerdown", onDown); document.addEventListener("keydown", onKey, true);
+    return () => { document.removeEventListener("pointerdown", onDown); document.removeEventListener("keydown", onKey, true); };
+  }, [open]);
+  const tone = t === "caution" ? "bg-oxblood text-parchment" : t === "strong" ? "topaz-polish text-parchment" : t === "some" ? "border border-topaz text-topaz-deep bg-cream" : "border border-dashed border-faint/60 text-muted bg-cream";
   const Icon = t === "caution" ? ShieldAlert : ShieldCheck;
-  return <span className={cn("inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold", tone)}><Icon className="size-3" aria-hidden="true" />{TRUST_LABEL[t]}</span>;
+  return (
+    <span ref={wrap} className="relative inline-flex shrink-0">
+      <button ref={btn} type="button" aria-expanded={open} aria-controls={open ? id : undefined} onClick={() => setOpen((v) => !v)}
+        className={cn("inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-oxblood", tone)}>
+        <Icon className="size-3" aria-hidden="true" />{TRUST_LABEL[t]}<span className="sr-only">, what this means</span>
+      </button>
+      {open ? (
+        <span id={id} role="status" className="absolute right-0 top-[calc(100%+4px)] z-30 flex w-max max-w-[15rem] items-start gap-1.5 rounded-lg border border-topaz/30 bg-cream py-1.5 pl-3 pr-1 text-xs font-medium normal-case leading-relaxed tracking-normal text-ink shadow-lg">
+          <span className="py-0.5"><span className="font-semibold">{TRUST_LABEL[t]}.</span> {TRUST_HINT[t]}{t !== "caution" ? " It is not a rating of their work." : ""}</span>
+          <button type="button" aria-label="Close" onClick={() => { setOpen(false); btn.current?.focus(); }}
+            className="inline-flex size-6 shrink-0 items-center justify-center rounded-full text-faint hover:bg-topaz/10 hover:text-topaz-deep focus-visible:outline-2 focus-visible:outline-oxblood"><X className="size-3.5" aria-hidden="true" /></button>
+        </span>
+      ) : null}
+    </span>
+  );
 }
 
-/* The reviews link always goes somewhere useful. A real review page when we found one, otherwise a ready-made search. */
+/* The reviews link always goes somewhere useful. A real review page when we found one, otherwise a web search for "[name] reviews". */
 export function reviewsLabel(s: Service, meta: TopazRaw) {
   const src = meta.review_sources[s.rs] ?? "search";
-  if (src.startsWith("search")) return src.includes("Absolute Write") ? "Search Absolute Write" : "Search for reviews";
+  if (src.startsWith("search")) return "Search for reviews";
   if (src === "ALLi service rating") return "ALLi rating";
   return `Reviews on ${src.replace(/ (profile|listing)$/, "")}`;
 }
+const reviewsHref = (s: Service, meta: TopazRaw) =>
+  s.reviews && !(meta.review_sources[s.rs] ?? "search").startsWith("search") ? s.reviews : `https://www.google.com/search?q=${encodeURIComponent(`"${s.name}" reviews`)}`;
 
 export function ServiceCard({ s, meta, as: El = "li", className }: { s: Service; meta: TopazRaw; as?: "li" | "div"; className?: string }) {
   const [why, setWhy] = useState(false);
@@ -58,7 +93,7 @@ export function ServiceCard({ s, meta, as: El = "li", className }: { s: Service;
   const sb = meta.submissions[s.sb];
   const bm = meta.business_models[s.bm];
   const mem = s.m.map((x) => meta.memberships[x]).filter(Boolean).slice(0, 2);
-  const reviews = s.reviews || `https://www.google.com/search?q=${encodeURIComponent(`"${s.name}" reviews`)}`;
+  const reviews = reviewsHref(s, meta);
   return (
     <El className={cn("topaz-card group relative flex min-w-0 flex-col rounded-xl bg-cream p-5", className)}>
       <CornerCarving set="topaz" seed={s.i} />
@@ -89,23 +124,30 @@ export function ServiceCard({ s, meta, as: El = "li", className }: { s: Service;
       </div>
       <div className="mt-3">
         <button type="button" aria-expanded={why} aria-controls={whyId} onClick={() => setWhy((v) => !v)} className="text-xs font-medium text-topaz-deep underline-offset-4 hover:underline">
-          {why ? "Hide the signals" : "Why this rating?"}
+          {why ? "Hide what we found" : "What we found"}
         </button>
         {why ? (
           <ul id={whyId} className="mt-1.5 space-y-1 text-xs leading-relaxed text-muted">
-            {trustSignals(s, meta).map((x) => <li key={x} className="flex gap-2"><Star className="mt-0.5 size-3 shrink-0 text-topaz" aria-hidden="true" />{x}</li>)}
+            {trustSignals(s, meta).map((x) => (
+              <li key={x.text} className={cn("flex gap-2", !x.found && "text-faint")}>
+                {x.found ? <Check className="mt-0.5 size-3.5 shrink-0 text-topaz" aria-hidden="true" /> : <CircleMinus className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />}
+                <span><span className="sr-only">{x.found ? "Found: " : "Not found: "}</span>{x.text}</span>
+              </li>
+            ))}
           </ul>
         ) : null}
       </div>
-      <div className="mt-auto flex flex-wrap items-center gap-2 pr-12 pt-4 sm:pr-14">
-        <Button asChild size="sm" variant="outline" className="topaz-outline-btn">
-          <a href={s.url} target="_blank" rel="noopener nofollow ugc" aria-label={`Visit ${s.name} (opens in a new tab)`}>Visit site <ArrowUpRight className="size-4" /></a>
-        </Button>
-        <a href={reviews} target="_blank" rel="noopener nofollow" className="text-sm font-medium text-topaz-deep underline-offset-4 hover:underline">
-          {reviewsLabel(s, meta)}<span className="sr-only"> for {s.name} (opens in a new tab)</span>
-        </a>
+      <div className="mt-auto flex items-end gap-2 pt-4">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
+          <Button asChild size="sm" variant="outline" className="topaz-outline-btn">
+            <a href={s.url} target="_blank" rel="noopener nofollow ugc" aria-label={`Visit ${s.name} (opens in a new tab)`}>Visit site <ArrowUpRight className="size-4" /></a>
+          </Button>
+          <a href={reviews} target="_blank" rel="noopener nofollow" className="text-sm font-medium text-topaz-deep underline-offset-4 hover:underline">
+            {reviewsLabel(s, meta)}<span className="sr-only"> for {s.name} (opens in a new tab)</span>
+          </a>
+        </div>
         <a href={topazMail(`${TOPAZ_SHORT} fix for ${s.domain}`, `Listing ${s.name} (${s.url})\n\nWhat needs fixing\n`)}
-          className="ml-auto inline-flex size-9 items-center justify-center rounded-md text-faint transition-colors hover:bg-topaz/10 hover:text-topaz-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-topaz"
+          className="inline-flex size-9 shrink-0 items-center justify-center rounded-md text-faint transition-colors hover:bg-topaz/10 hover:text-topaz-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-topaz"
           title="Suggest a correction" aria-label={`Suggest a correction for ${s.name}`}><Flag className="size-4" /></a>
       </div>
     </El>

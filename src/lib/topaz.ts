@@ -20,7 +20,7 @@ export type Service = {
   i: number; name: string; url: string; domain: string; cat: number; sv: number[]; st: number[]; au: number[];
   ww: number; sb: number; rp: boolean; bm: number; m: number[]; pr: number; fmt: number; country: string; prov: string;
   remote: boolean; langs: string[]; kid: boolean; desc: string; reviews: string; rs: number; alli: string; checked: boolean;
-  trust: number; caution: boolean; hay: string; rank: number;
+  trust: number; caution: boolean; facts: number; checkedOn: string; hay: string; rank: number;
 };
 
 const arr = (v: unknown) => (Array.isArray(v) ? v.map(Number) : []);
@@ -34,7 +34,7 @@ export function decodeTopaz(d: TopazRaw): { items: Service[]; meta: TopazRaw } {
       bm: Number(g("bm") ?? 0), m: arr(g("m")), pr: Number(g("pr") ?? 0), fmt: Number(g("f") ?? 0), country: String(g("r") || ""),
       prov: String(g("p") || ""), remote: !!g("rm"), langs: Array.isArray(g("l")) ? (g("l") as string[]) : [], kid: !!g("kid"),
       desc: String(g("s") || ""), reviews: String(g("rv") || ""), rs: Number(g("rs") ?? 0), alli: String(g("al") || ""),
-      checked: !!g("k"), trust: Number(g("t") ?? 0), caution: !!g("w"), hay: "", rank: 0,
+      checked: !!g("k"), trust: Number(g("t") ?? 0), caution: !!g("w"), facts: Number(g("y") ?? (g("k") ? 1 : 0)), checkedOn: String(g("ck") || ""), hay: "", rank: 0,
     };
     const svc = s.sv.map((x) => d.services[s.cat]?.[x]).filter(Boolean).join(" ");
     const aud = s.au.map((x) => d.audiences[x]).join(" ");
@@ -56,14 +56,30 @@ export const trustLevel = (s: Pick<Service, "trust" | "caution">): TrustKey | "c
   s.caution ? "caution" : s.trust >= 4 ? "strong" : s.trust >= 2 ? "some" : "few";
 
 /** The public signals behind a trust score, in plain words. Mirrors trust() in build_site_data.py. */
-export function trustSignals(s: Service, meta: TopazRaw): string[] {
-  if (s.caution) return ["Listed with an ALLi Watchdog advisory or caution. Read the advisory before you go further."];
-  const out: string[] = [];
-  if (s.checked) out.push("We could read the site itself");
-  if (s.m.length) out.push(`Member of ${s.m.map((x) => meta.memberships[x]).filter(Boolean).slice(0, 2).join(" and ")}`);
-  if (s.rs >= 2) out.push(`Has a public review page (${meta.review_sources[s.rs]})`);
-  if (/excellent|recommended/i.test(s.alli)) out.push(`ALLi rating of ${s.alli}`);
-  if (!out.length) out.push("We found few public signals yet, so check carefully");
+/* Plain facts behind the signals badge. Each "found" fact is one point of the score (0 to 5, see trust() in
+   tools/topaz-directory/build_site_data.py). "missing" lists what we looked for and did not find, so readers know what to check. */
+export type Signal = { text: string; found: boolean };
+const fmtDay = (d: string) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d);
+  return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" }) : "";
+};
+export function trustSignals(s: Service, meta: TopazRaw): Signal[] {
+  if (s.caution) return [{ text: `The Alliance of Independent Authors (ALLi) lists this service${s.alli ? ` as "${s.alli}"` : " with a watchdog advisory"}. Read their advisory before you share money or a manuscript.`, found: false }];
+  const out: Signal[] = [];
+  const day = fmtDay(s.checkedOn);
+  const mem = s.m.map((x) => meta.memberships[x]).filter(Boolean);
+  const rsName = meta.review_sources[s.rs] ?? "";
+  out.push(s.checked ? { text: `Its website is online and we read it directly${day ? ` on ${day}` : ""}.`, found: true }
+    : { text: "We could not read its website directly, so check that it is still running.", found: false });
+  out.push(mem.length ? { text: `It says it belongs to ${mem.slice(0, 3).join(", ")}, a professional group with its own standards.`, found: true }
+    : { text: "We found no membership in a professional group such as Editors Canada, the AAR or the IBPA.", found: false });
+  if (s.facts & 2) out.push({ text: "It appears in a list kept by a writers' association or a curated directory.", found: true });
+  if (s.facts & 4) out.push({ text: "It has a Wikidata entry, a public record that other sources can check against.", found: true });
+  if (s.rs >= 2) out.push({ text: `It has a public review page on ${rsName.replace(/ (profile|listing|service rating)$/, "")}, where authors can leave feedback.`, found: true });
+  else out.push({ text: "We found no dedicated review page yet, so search for reviews from other authors.", found: false });
+  if (/excellent|recommended/i.test(s.alli)) out.push({ text: `The Alliance of Independent Authors rates it "${s.alli}".`, found: true });
+  if (s.facts & 8) out.push({ text: "It is named in a Wikipedia list.", found: true });
+  if (s.pr === 1) out.push({ text: "It publishes its rates on its site.", found: true });
   return out;
 }
 

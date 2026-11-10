@@ -195,7 +195,9 @@ FIELDS = {"n": "name", "u": "website", "d": "domain", "c": "category (index into
           "rv": "public reviews link", "rs": "reviews source (index into review_sources)", "al": "ALLi rating, if rated",
           "k": "read directly by the crawler (1/0)",
           "t": "trust score 0 to 5 from public signals (see trust() in build_site_data.py)",
-          "w": "caution flag: ALLi Watchdog Advisory or Caution (1/0)"}
+          "w": "caution flag: ALLi Watchdog Advisory or Caution (1/0)",
+          "y": "public facts bitmask: 1 site read directly, 2 listed by an association or curated directory, 4 has a Wikidata entry, 8 named in a Wikipedia list",
+          "ck": "date the crawler last read the site (YYYY-MM-DD)"}
 
 
 def trust(r, item):
@@ -288,9 +290,10 @@ def main():
                 continue
             out.remove(prev)
         rv, rs = r["reviews_url"], r["reviews_source"]
-        if not rv:   # older CSVs: every entry still gets a reviews link
-            q = f'"{name}" site:absolutewrite.com' if cat in ("publishers", "agents") else f'"{name}" reviews'
-            rv, rs = "https://duckduckgo.com/?q=" + quote_plus(q), "search (Absolute Write forums)" if cat in ("publishers", "agents") else "search"
+        if not rv or rs.startswith("search"):
+            # No real review page found: a plain web search for "[name] reviews". A site-limited forum search
+            # came back empty for most names, so it is not used.
+            rv, rs = "https://www.google.com/search?q=" + quote_plus(f'"{name}" reviews'), "search"
         item = {"n": name, "u": r["url"], "d": r["domain"], "c": ci,
                 "sv": idx_list(r["services"], SERVICES[cat]), "st": idx_list(r["illustration_styles"], STYLES),
                 "au": idx_list(r["audiences"], AUDIENCES), "ww": pick(r["works_with"], WORKS_WITH),
@@ -300,7 +303,10 @@ def main():
                 "f": sum(1 << i for i, f in enumerate(FORMATS) if f in r["formats"].split("; ")),
                 "r": c, "p": p, "rm": int(r["remote"] == "yes"),
                 "l": [x for x in r["languages"].split("; ") if x][:3], "kid": int(r["children_focus"] == "yes" or cat == "illustration"),
-                "s": trim(desc), "rv": rv, "rs": pick(rs, REVIEW_SOURCES), "al": r["alli_rating"], "k": int(r["status"] == "ok")}
+                "s": trim(desc), "rv": rv, "rs": pick(rs, REVIEW_SOURCES), "al": r["alli_rating"], "k": int(r["status"] == "ok"),
+                "y": (int(r["status"] == "ok") | (r["source"].startswith(("page:", "curated", "alli:")) << 1)
+                      | (bool(r["wikidata_id"]) << 2) | (r["source"].startswith(("wp:", "wpcat:")) << 3)),
+                "ck": r["checked_at"][:10]}
         item["t"], item["w"] = trust(r, item)
         seen_name[nk] = item
         out.append(item)
